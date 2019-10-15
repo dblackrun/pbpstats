@@ -1,0 +1,4596 @@
+{
+    "mscd": {
+      "mon": "June",
+      "g": [
+        {
+          "gid": "1021800028",
+          "gcode": "20180601/PHOMIN",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-01",
+          "htm": "2018-06-01T19:00:00",
+          "vtm": "2018-06-01T17:00:00",
+          "etm": "2018-06-01T20:00:00",
+          "an": "Target Center",
+          "ac": "Minneapolis",
+          "as": "MN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN2",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "3-3",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "95"
+          },
+          "h": {
+            "tid": 1611661324,
+            "re": "2-4",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "85"
+          },
+          "gdtutc": "2018-06-02",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "100940",
+                "fn": "Diana",
+                "ln": "Taurasi",
+                "val": "29",
+                "tid": 1611661317,
+                "ta": "PHO",
+                "tn": "Mercury",
+                "tc": "Phoenix"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800029",
+          "gcode": "20180601/CONCHI",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-01",
+          "htm": "2018-06-01T20:00:00",
+          "vtm": "2018-06-01T21:00:00",
+          "etm": "2018-06-01T21:00:00",
+          "an": "Wintrust Arena",
+          "ac": "Chicago",
+          "as": "IL",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN3",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "The U Too",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "NBCSB",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "4-0",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "110"
+          },
+          "h": {
+            "tid": 1611661329,
+            "re": "2-3",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "72"
+          },
+          "gdtutc": "2018-06-02",
+          "utctm": "01:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203410",
+                "fn": "Alex",
+                "ln": "Bentley",
+                "val": "20",
+                "tid": 1611661323,
+                "ta": "CON",
+                "tn": "Sun",
+                "tc": "Connecticut"
+              },
+              {
+                "pid": "1627673",
+                "fn": "Jonquel",
+                "ln": "Jones",
+                "val": "20",
+                "tid": 1611661323,
+                "ta": "CON",
+                "tn": "Sun",
+                "tc": "Connecticut"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800030",
+          "gcode": "20180601/WASLVA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-01",
+          "htm": "2018-06-01T19:30:00",
+          "vtm": "2018-06-01T22:30:00",
+          "etm": "2018-06-01T22:30:00",
+          "an": "Mandalay Bay Events Center",
+          "ac": "Las Vegas",
+          "as": "NV",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "AT&T Sportsnet - Rocky Mountain",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "Monumental",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661322,
+            "re": "5-2",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "73"
+          },
+          "h": {
+            "tid": 1611661319,
+            "re": "1-4",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "85"
+          },
+          "gdtutc": "2018-06-02",
+          "utctm": "02:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628932",
+                "fn": "A'ja",
+                "ln": "Wilson",
+                "val": "26",
+                "tid": 1611661319,
+                "ta": "LVA",
+                "tn": "Aces",
+                "tc": "Las Vegas"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800031",
+          "gcode": "20180602/NYLIND",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-02",
+          "htm": "2018-06-02T19:00:00",
+          "vtm": "2018-06-02T19:00:00",
+          "etm": "2018-06-02T19:00:00",
+          "an": "Bankers Life Fieldhouse",
+          "ac": "Indianapolis",
+          "as": "IN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Indiana",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "MSG+",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661313,
+            "re": "2-2",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "87"
+          },
+          "h": {
+            "tid": 1611661325,
+            "re": "0-6",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "81"
+          },
+          "gdtutc": "2018-06-02",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628915",
+                "fn": "Kia",
+                "ln": "Nurse",
+                "val": "34",
+                "tid": 1611661313,
+                "ta": "NYL",
+                "tn": "Liberty",
+                "tc": "New York"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800032",
+          "gcode": "20180602/SEADAL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-02",
+          "htm": "2018-06-02T19:00:00",
+          "vtm": "2018-06-02T17:00:00",
+          "etm": "2018-06-02T20:00:00",
+          "an": "College Park Center",
+          "ac": "Arlington",
+          "as": "TX",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Southwest - Dallas Plus",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661328,
+            "re": "5-2",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "90"
+          },
+          "h": {
+            "tid": 1611661321,
+            "re": "3-3",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "94"
+          },
+          "gdtutc": "2018-06-03",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1627668",
+                "fn": "Breanna",
+                "ln": "Stewart",
+                "val": "28",
+                "tid": 1611661328,
+                "ta": "SEA",
+                "tn": "Storm",
+                "tc": "Seattle"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800033",
+          "gcode": "20180603/PHOATL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-03",
+          "htm": "2018-06-03T15:00:00",
+          "vtm": "2018-06-03T12:00:00",
+          "etm": "2018-06-03T15:00:00",
+          "an": "McCamish Pavilion",
+          "ac": "Atlanta",
+          "as": "GA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Southeast - Atlanta",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "4-3",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "78"
+          },
+          "h": {
+            "tid": 1611661330,
+            "re": "2-3",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "71"
+          },
+          "gdtutc": "2018-06-03",
+          "utctm": "19:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201881",
+                "fn": "Angel",
+                "ln": "McCoughtry",
+                "val": "21",
+                "tid": 1611661330,
+                "ta": "ATL",
+                "tn": "Dream",
+                "tc": "Atlanta"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800034",
+          "gcode": "20180603/CONWAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-03",
+          "htm": "2018-06-03T15:00:00",
+          "vtm": "2018-06-03T15:00:00",
+          "etm": "2018-06-03T15:00:00",
+          "an": "Capital One Arena",
+          "ac": "Washington",
+          "as": "DC",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "NBCSWA",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "NBCSB",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "5-0",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "88"
+          },
+          "h": {
+            "tid": 1611661322,
+            "re": "5-3",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "64"
+          },
+          "gdtutc": "2018-06-03",
+          "utctm": "19:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202662",
+                "fn": "Jasmine",
+                "ln": "Thomas",
+                "val": "25",
+                "tid": 1611661323,
+                "ta": "CON",
+                "tn": "Sun",
+                "tc": "Connecticut"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800035",
+          "gcode": "20180603/MINLAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-03",
+          "htm": "2018-06-03T14:00:00",
+          "vtm": "2018-06-03T16:00:00",
+          "etm": "2018-06-03T17:00:00",
+          "an": "Staples Center",
+          "ac": "Los Angeles",
+          "as": "CA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Spectrum SportsNet",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661324,
+            "re": "2-5",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "69"
+          },
+          "h": {
+            "tid": 1611661320,
+            "re": "4-1",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "77"
+          },
+          "gdtutc": "2018-06-03",
+          "utctm": "21:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201496",
+                "fn": "Candace",
+                "ln": "Parker",
+                "val": "19",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800036",
+          "gcode": "20180603/LVACHI",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-03",
+          "htm": "2018-06-03T17:00:00",
+          "vtm": "2018-06-03T15:00:00",
+          "etm": "2018-06-03T18:00:00",
+          "an": "Wintrust Arena",
+          "ac": "Chicago",
+          "as": "IL",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "The U Too",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661319,
+            "re": "1-5",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "90"
+          },
+          "h": {
+            "tid": 1611661329,
+            "re": "3-3",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "95"
+          },
+          "gdtutc": "2018-06-03",
+          "utctm": "22:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628890",
+                "fn": "Diamond",
+                "ln": "DeShields",
+                "val": "25",
+                "tid": 1611661329,
+                "ta": "CHI",
+                "tn": "Sky",
+                "tc": "Chicago"
+              }
+            ]
+          },
+          "seq": 4
+        },
+        {
+          "gid": "1021800037",
+          "gcode": "20180605/PHONYL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-05",
+          "htm": "2018-06-05T11:00:00",
+          "vtm": "2018-06-05T08:00:00",
+          "etm": "2018-06-05T11:00:00",
+          "an": "Madison Square Garden",
+          "ac": "New York",
+          "as": "NY",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "Twitter",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "MSG+",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "5-3",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "80"
+          },
+          "h": {
+            "tid": 1611661313,
+            "re": "2-3",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "74"
+          },
+          "gdtutc": "2018-06-05",
+          "utctm": "15:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203398",
+                "fn": "Brittney",
+                "ln": "Griner",
+                "val": "26",
+                "tid": 1611661317,
+                "ta": "PHO",
+                "tn": "Mercury",
+                "tc": "Phoenix"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800038",
+          "gcode": "20180605/CONATL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-05",
+          "htm": "2018-06-05T20:00:00",
+          "vtm": "2018-06-05T20:00:00",
+          "etm": "2018-06-05T20:00:00",
+          "an": "McCamish Pavilion",
+          "ac": "Atlanta",
+          "as": "GA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports South",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "NBCSB",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "5-1",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "77"
+          },
+          "h": {
+            "tid": 1611661330,
+            "re": "3-3",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "82"
+          },
+          "gdtutc": "2018-06-06",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203026",
+                "fn": "Tiffany",
+                "ln": "Hayes",
+                "val": "22",
+                "tid": 1611661330,
+                "ta": "ATL",
+                "tn": "Dream",
+                "tc": "Atlanta"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800040",
+          "gcode": "20180607/MINWAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-07",
+          "htm": "2018-06-07T16:00:00",
+          "vtm": "2018-06-07T15:00:00",
+          "etm": "2018-06-07T16:00:00",
+          "an": "Capital One Arena",
+          "ac": "Washington",
+          "as": "DC",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "NBCSWA",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661324,
+            "re": "3-5",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "88"
+          },
+          "h": {
+            "tid": 1611661322,
+            "re": "5-4",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "80"
+          },
+          "gdtutc": "2018-06-07",
+          "utctm": "20:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201480",
+                "fn": "Sylvia",
+                "ln": "Fowles",
+                "val": "21",
+                "tid": 1611661324,
+                "ta": "MIN",
+                "tn": "Lynx",
+                "tc": "Minnesota"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800039",
+          "gcode": "20180607/CONNYL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-07",
+          "htm": "2018-06-07T19:00:00",
+          "vtm": "2018-06-07T19:00:00",
+          "etm": "2018-06-07T19:00:00",
+          "an": "Westchester County Center",
+          "ac": "White Plains",
+          "as": "NY",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "MSG+",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "NBCSB",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "6-1",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "88"
+          },
+          "h": {
+            "tid": 1611661313,
+            "re": "2-4",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "86"
+          },
+          "gdtutc": "2018-06-07",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202250",
+                "fn": "Tina",
+                "ln": "Charles",
+                "val": "24",
+                "tid": 1611661313,
+                "ta": "NYL",
+                "tn": "Liberty",
+                "tc": "New York"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800041",
+          "gcode": "20180607/SEALAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-07",
+          "htm": "2018-06-07T19:30:00",
+          "vtm": "2018-06-07T19:30:00",
+          "etm": "2018-06-07T22:30:00",
+          "an": "Staples Center",
+          "ac": "Los Angeles",
+          "as": "CA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN2",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661328,
+            "re": "6-2",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "88"
+          },
+          "h": {
+            "tid": 1611661320,
+            "re": "4-2",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "63"
+          },
+          "gdtutc": "2018-06-08",
+          "utctm": "02:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203014",
+                "fn": "Nneka",
+                "ln": "Ogwumike",
+                "val": "19",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800044",
+          "gcode": "20180608/ATLLVA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-08",
+          "htm": "2018-06-08T12:00:00",
+          "vtm": "2018-06-08T15:00:00",
+          "etm": "2018-06-08T15:00:00",
+          "an": "Mandalay Bay Events Center",
+          "ac": "Las Vegas",
+          "as": "NV",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "AT&T Sportsnet - Rocky Mountain",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661330,
+            "re": "4-3",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "87"
+          },
+          "h": {
+            "tid": 1611661319,
+            "re": "1-6",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "83"
+          },
+          "gdtutc": "2018-06-08",
+          "utctm": "19:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203026",
+                "fn": "Tiffany",
+                "ln": "Hayes",
+                "val": "24",
+                "tid": 1611661330,
+                "ta": "ATL",
+                "tn": "Dream",
+                "tc": "Atlanta"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800042",
+          "gcode": "20180608/DALIND",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-08",
+          "htm": "2018-06-08T19:00:00",
+          "vtm": "2018-06-08T18:00:00",
+          "etm": "2018-06-08T19:00:00",
+          "an": "Bankers Life Fieldhouse",
+          "ac": "Indianapolis",
+          "as": "IN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661321,
+            "re": "4-3",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "89"
+          },
+          "h": {
+            "tid": 1611661325,
+            "re": "0-7",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "83"
+          },
+          "gdtutc": "2018-06-08",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203400",
+                "fn": "Skylar",
+                "ln": "Diggins-Smith",
+                "val": "35",
+                "tid": 1611661321,
+                "ta": "DAL",
+                "tn": "Wings",
+                "tc": "Dallas"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800043",
+          "gcode": "20180608/CHIPHO",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-08",
+          "htm": "2018-06-08T19:00:00",
+          "vtm": "2018-06-08T21:00:00",
+          "etm": "2018-06-08T22:00:00",
+          "an": "Talking Stick Resort Arena",
+          "ac": "Phoenix",
+          "as": "AZ",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "The U Too",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661329,
+            "re": "3-4",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "79"
+          },
+          "h": {
+            "tid": 1611661317,
+            "re": "6-3",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "96"
+          },
+          "gdtutc": "2018-06-09",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628931",
+                "fn": "Gabby",
+                "ln": "Williams",
+                "val": "26",
+                "tid": 1611661329,
+                "ta": "CHI",
+                "tn": "Sky",
+                "tc": "Chicago"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800045",
+          "gcode": "20180609/MINCON",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-09",
+          "htm": "2018-06-09T14:00:00",
+          "vtm": "2018-06-09T13:00:00",
+          "etm": "2018-06-09T14:00:00",
+          "an": "Mohegan Sun Arena",
+          "ac": "Uncasville",
+          "as": "CT",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "NBCSB",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661324,
+            "re": "3-6",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "75"
+          },
+          "h": {
+            "tid": 1611661323,
+            "re": "7-1",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "89"
+          },
+          "gdtutc": "2018-06-09",
+          "utctm": "18:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1627675",
+                "fn": "Courtney",
+                "ln": "Williams",
+                "val": "22",
+                "tid": 1611661323,
+                "ta": "CON",
+                "tn": "Sun",
+                "tc": "Connecticut"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800046",
+          "gcode": "20180610/INDNYL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-10",
+          "htm": "2018-06-10T15:00:00",
+          "vtm": "2018-06-10T15:00:00",
+          "etm": "2018-06-10T15:00:00",
+          "an": "Westchester County Center",
+          "ac": "White Plains",
+          "as": "NY",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "MSG",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661325,
+            "re": "0-8",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "75"
+          },
+          "h": {
+            "tid": 1611661313,
+            "re": "3-4",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "78"
+          },
+          "gdtutc": "2018-06-10",
+          "utctm": "19:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628909",
+                "fn": "Kelsey",
+                "ln": "Mitchell",
+                "val": "19",
+                "tid": 1611661325,
+                "ta": "IND",
+                "tn": "Fever",
+                "tc": "Indiana"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800047",
+          "gcode": "20180610/CHILAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-10",
+          "htm": "2018-06-10T14:00:00",
+          "vtm": "2018-06-10T16:00:00",
+          "etm": "2018-06-10T17:00:00",
+          "an": "Staples Center",
+          "ac": "Los Angeles",
+          "as": "CA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Spectrum SportsNet",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661329,
+            "re": "3-5",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "59"
+          },
+          "h": {
+            "tid": 1611661320,
+            "re": "5-2",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "77"
+          },
+          "gdtutc": "2018-06-10",
+          "utctm": "21:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201496",
+                "fn": "Candace",
+                "ln": "Parker",
+                "val": "24",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800048",
+          "gcode": "20180610/LVAPHO",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-10",
+          "htm": "2018-06-10T15:00:00",
+          "vtm": "2018-06-10T15:00:00",
+          "etm": "2018-06-10T18:00:00",
+          "an": "Talking Stick Resort Arena",
+          "ac": "Phoenix",
+          "as": "AZ",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "FSAZ+",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661319,
+            "re": "1-7",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "66"
+          },
+          "h": {
+            "tid": 1611661317,
+            "re": "7-3",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "72"
+          },
+          "gdtutc": "2018-06-10",
+          "utctm": "22:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "100940",
+                "fn": "Diana",
+                "ln": "Taurasi",
+                "val": "25",
+                "tid": 1611661317,
+                "ta": "PHO",
+                "tn": "Mercury",
+                "tc": "Phoenix"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800049",
+          "gcode": "20180610/ATLSEA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-10",
+          "htm": "2018-06-10T16:00:00",
+          "vtm": "2018-06-10T19:00:00",
+          "etm": "2018-06-10T19:00:00",
+          "an": "KeyArena",
+          "ac": "Seattle",
+          "as": "WA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "JoeTV",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661330,
+            "re": "5-3",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "67"
+          },
+          "h": {
+            "tid": 1611661328,
+            "re": "6-3",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "64"
+          },
+          "gdtutc": "2018-06-10",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203026",
+                "fn": "Tiffany",
+                "ln": "Hayes",
+                "val": "23",
+                "tid": 1611661330,
+                "ta": "ATL",
+                "tn": "Dream",
+                "tc": "Atlanta"
+              }
+            ]
+          },
+          "seq": 4
+        },
+        {
+          "gid": "1021800050",
+          "gcode": "20180612/LVAIND",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-12",
+          "htm": "2018-06-12T19:00:00",
+          "vtm": "2018-06-12T16:00:00",
+          "etm": "2018-06-12T19:00:00",
+          "an": "Bankers Life Fieldhouse",
+          "ac": "Indianapolis",
+          "as": "IN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661319,
+            "re": "2-7",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "101"
+          },
+          "h": {
+            "tid": 1611661325,
+            "re": "0-9",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "92"
+          },
+          "gdtutc": "2018-06-12",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628932",
+                "fn": "A'ja",
+                "ln": "Wilson",
+                "val": "35",
+                "tid": 1611661319,
+                "ta": "LVA",
+                "tn": "Aces",
+                "tc": "Las Vegas"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800051",
+          "gcode": "20180612/PHODAL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-12",
+          "htm": "2018-06-12T19:00:00",
+          "vtm": "2018-06-12T17:00:00",
+          "etm": "2018-06-12T20:00:00",
+          "an": "College Park Center",
+          "ac": "Arlington",
+          "as": "TX",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "Twitter",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Southwest - Dallas Plus",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "8-3",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "75"
+          },
+          "h": {
+            "tid": 1611661321,
+            "re": "4-4",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "72"
+          },
+          "gdtutc": "2018-06-13",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "100940",
+                "fn": "Diana",
+                "ln": "Taurasi",
+                "val": "21",
+                "tid": 1611661317,
+                "ta": "PHO",
+                "tn": "Mercury",
+                "tc": "Phoenix"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800052",
+          "gcode": "20180612/CHISEA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-12",
+          "htm": "2018-06-12T19:00:00",
+          "vtm": "2018-06-12T21:00:00",
+          "etm": "2018-06-12T22:00:00",
+          "an": "KeyArena",
+          "ac": "Seattle",
+          "as": "WA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "The U Too",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661329,
+            "re": "3-6",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "85"
+          },
+          "h": {
+            "tid": 1611661328,
+            "re": "7-3",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "96"
+          },
+          "gdtutc": "2018-06-13",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1627668",
+                "fn": "Breanna",
+                "ln": "Stewart",
+                "val": "30",
+                "tid": 1611661328,
+                "ta": "SEA",
+                "tn": "Storm",
+                "tc": "Seattle"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800053",
+          "gcode": "20180612/ATLLAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-12",
+          "htm": "2018-06-12T19:30:00",
+          "vtm": "2018-06-12T22:30:00",
+          "etm": "2018-06-12T22:30:00",
+          "an": "Staples Center",
+          "ac": "Los Angeles",
+          "as": "CA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Spectrum SportsNet",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661330,
+            "re": "5-4",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "64"
+          },
+          "h": {
+            "tid": 1611661320,
+            "re": "6-2",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "72"
+          },
+          "gdtutc": "2018-06-13",
+          "utctm": "02:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201496",
+                "fn": "Candace",
+                "ln": "Parker",
+                "val": "18",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 4
+        },
+        {
+          "gid": "1021800054",
+          "gcode": "20180613/WASCON",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-13",
+          "htm": "2018-06-13T19:00:00",
+          "vtm": "2018-06-13T19:00:00",
+          "etm": "2018-06-13T19:00:00",
+          "an": "Mohegan Sun Arena",
+          "ac": "Uncasville",
+          "as": "CT",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN2",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661322,
+            "re": "6-4",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "95"
+          },
+          "h": {
+            "tid": 1611661323,
+            "re": "7-2",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "91"
+          },
+          "gdtutc": "2018-06-13",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203399",
+                "fn": "Elena",
+                "ln": "Delle Donne",
+                "val": "36",
+                "tid": 1611661322,
+                "ta": "WAS",
+                "tn": "Mystics",
+                "tc": "Washington"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800055",
+          "gcode": "20180613/LVANYL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-13",
+          "htm": "2018-06-13T19:00:00",
+          "vtm": "2018-06-13T16:00:00",
+          "etm": "2018-06-13T19:00:00",
+          "an": "Westchester County Center",
+          "ac": "White Plains",
+          "as": "NY",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN3",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "MSG+",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661319,
+            "re": "3-7",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "78"
+          },
+          "h": {
+            "tid": 1611661313,
+            "re": "3-5",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "63"
+          },
+          "gdtutc": "2018-06-13",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202250",
+                "fn": "Tina",
+                "ln": "Charles",
+                "val": "19",
+                "tid": 1611661313,
+                "ta": "NYL",
+                "tn": "Liberty",
+                "tc": "New York"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800056",
+          "gcode": "20180614/INDATL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-14",
+          "htm": "2018-06-14T11:30:00",
+          "vtm": "2018-06-14T11:30:00",
+          "etm": "2018-06-14T11:30:00",
+          "an": "McCamish Pavilion",
+          "ac": "Atlanta",
+          "as": "GA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports South",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661325,
+            "re": "0-10",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "67"
+          },
+          "h": {
+            "tid": 1611661330,
+            "re": "6-4",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "72"
+          },
+          "gdtutc": "2018-06-14",
+          "utctm": "15:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203026",
+                "fn": "Tiffany",
+                "ln": "Hayes",
+                "val": "23",
+                "tid": 1611661330,
+                "ta": "ATL",
+                "tn": "Dream",
+                "tc": "Atlanta"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800057",
+          "gcode": "20180615/LASWAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-15",
+          "htm": "2018-06-15T19:00:00",
+          "vtm": "2018-06-15T16:00:00",
+          "etm": "2018-06-15T19:00:00",
+          "an": "Capital One Arena",
+          "ac": "Washington",
+          "as": "DC",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "NBCSWA",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "Spectrum SportsNet",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661320,
+            "re": "7-2",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "97"
+          },
+          "h": {
+            "tid": 1611661322,
+            "re": "6-5",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "86"
+          },
+          "gdtutc": "2018-06-15",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201496",
+                "fn": "Candace",
+                "ln": "Parker",
+                "val": "23",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800058",
+          "gcode": "20180615/LVADAL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-15",
+          "htm": "2018-06-15T19:00:00",
+          "vtm": "2018-06-15T17:00:00",
+          "etm": "2018-06-15T20:00:00",
+          "an": "College Park Center",
+          "ac": "Arlington",
+          "as": "TX",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Southwest - Dallas Plus",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661319,
+            "re": "3-8",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "67"
+          },
+          "h": {
+            "tid": 1611661321,
+            "re": "5-4",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "77"
+          },
+          "gdtutc": "2018-06-16",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202633",
+                "fn": "Liz",
+                "ln": "Cambage",
+                "val": "28",
+                "tid": 1611661321,
+                "ta": "DAL",
+                "tn": "Wings",
+                "tc": "Dallas"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800059",
+          "gcode": "20180615/CONSEA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-15",
+          "htm": "2018-06-15T19:00:00",
+          "vtm": "2018-06-15T22:00:00",
+          "etm": "2018-06-15T22:00:00",
+          "an": "KeyArena",
+          "ac": "Seattle",
+          "as": "WA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "JoeTV",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "WCCT",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "7-3",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "92"
+          },
+          "h": {
+            "tid": 1611661328,
+            "re": "8-3",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "103"
+          },
+          "gdtutc": "2018-06-16",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203823",
+                "fn": "Chiney",
+                "ln": "Ogwumike",
+                "val": "30",
+                "tid": 1611661323,
+                "ta": "CON",
+                "tn": "Sun",
+                "tc": "Connecticut"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800060",
+          "gcode": "20180616/ATLIND",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-16",
+          "htm": "2018-06-16T19:00:00",
+          "vtm": "2018-06-16T19:00:00",
+          "etm": "2018-06-16T19:00:00",
+          "an": "Bankers Life Fieldhouse",
+          "ac": "Indianapolis",
+          "as": "IN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "WNDY",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661330,
+            "re": "6-5",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "64"
+          },
+          "h": {
+            "tid": 1611661325,
+            "re": "1-10",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "96"
+          },
+          "gdtutc": "2018-06-16",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628927",
+                "fn": "Victoria",
+                "ln": "Vivians",
+                "val": "21",
+                "tid": 1611661325,
+                "ta": "IND",
+                "tn": "Fever",
+                "tc": "Indiana"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800061",
+          "gcode": "20180616/NYLMIN",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-16",
+          "htm": "2018-06-16T19:00:00",
+          "vtm": "2018-06-16T20:00:00",
+          "etm": "2018-06-16T20:00:00",
+          "an": "Target Center",
+          "ac": "Minneapolis",
+          "as": "MN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports North",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "MSG+",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661313,
+            "re": "3-6",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "71"
+          },
+          "h": {
+            "tid": 1611661324,
+            "re": "4-6",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "85"
+          },
+          "gdtutc": "2018-06-17",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201480",
+                "fn": "Sylvia",
+                "ln": "Fowles",
+                "val": "25",
+                "tid": 1611661324,
+                "ta": "MIN",
+                "tn": "Lynx",
+                "tc": "Minnesota"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800062",
+          "gcode": "20180616/CONPHO",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-16",
+          "htm": "2018-06-16T19:00:00",
+          "vtm": "2018-06-16T22:00:00",
+          "etm": "2018-06-16T22:00:00",
+          "an": "Talking Stick Resort Arena",
+          "ac": "Phoenix",
+          "as": "AZ",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "7-4",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "72"
+          },
+          "h": {
+            "tid": 1611661317,
+            "re": "9-3",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "89"
+          },
+          "gdtutc": "2018-06-17",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1627670",
+                "fn": "Morgan",
+                "ln": "Tuck",
+                "val": "20",
+                "tid": 1611661323,
+                "ta": "CON",
+                "tn": "Sun",
+                "tc": "Connecticut"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800063",
+          "gcode": "20180617/LASCHI",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-17",
+          "htm": "2018-06-17T17:00:00",
+          "vtm": "2018-06-17T15:00:00",
+          "etm": "2018-06-17T18:00:00",
+          "an": "Wintrust Arena",
+          "ac": "Chicago",
+          "as": "IL",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "The U Too",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "Spectrum SportsNet",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661320,
+            "re": "8-2",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "81"
+          },
+          "h": {
+            "tid": 1611661329,
+            "re": "3-7",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "72"
+          },
+          "gdtutc": "2018-06-17",
+          "utctm": "22:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203833",
+                "fn": "Chelsea",
+                "ln": "Gray",
+                "val": "21",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800064",
+          "gcode": "20180617/PHOLVA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-17",
+          "htm": "2018-06-17T17:00:00",
+          "vtm": "2018-06-17T17:00:00",
+          "etm": "2018-06-17T20:00:00",
+          "an": "Mandalay Bay Events Center",
+          "ac": "Las Vegas",
+          "as": "NV",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "AT&T Sportsnet - Rocky Mountain",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "10-3",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "92"
+          },
+          "h": {
+            "tid": 1611661319,
+            "re": "3-9",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "80"
+          },
+          "gdtutc": "2018-06-18",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "100940",
+                "fn": "Diana",
+                "ln": "Taurasi",
+                "val": "28",
+                "tid": 1611661317,
+                "ta": "PHO",
+                "tn": "Mercury",
+                "tc": "Phoenix"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800065",
+          "gcode": "20180619/ATLNYL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-19",
+          "htm": "2018-06-19T19:00:00",
+          "vtm": "2018-06-19T19:00:00",
+          "etm": "2018-06-19T19:00:00",
+          "an": "Westchester County Center",
+          "ac": "White Plains",
+          "as": "NY",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "MSG+",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661330,
+            "re": "6-6",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "72"
+          },
+          "h": {
+            "tid": 1611661313,
+            "re": "4-6",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "79"
+          },
+          "gdtutc": "2018-06-19",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201881",
+                "fn": "Angel",
+                "ln": "McCoughtry",
+                "val": "39",
+                "tid": 1611661330,
+                "ta": "ATL",
+                "tn": "Dream",
+                "tc": "Atlanta"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800066",
+          "gcode": "20180619/CHIWAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-19",
+          "htm": "2018-06-19T19:00:00",
+          "vtm": "2018-06-19T18:00:00",
+          "etm": "2018-06-19T19:00:00",
+          "an": "Capital One Arena",
+          "ac": "Washington",
+          "as": "DC",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "NBCSWA",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "The U Too",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661329,
+            "re": "3-8",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "60"
+          },
+          "h": {
+            "tid": 1611661322,
+            "re": "7-5",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "88"
+          },
+          "gdtutc": "2018-06-19",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201911",
+                "fn": "Kristi",
+                "ln": "Toliver",
+                "val": "19",
+                "tid": 1611661322,
+                "ta": "WAS",
+                "tn": "Mystics",
+                "tc": "Washington"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800067",
+          "gcode": "20180619/DALMIN",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-19",
+          "htm": "2018-06-19T19:00:00",
+          "vtm": "2018-06-19T19:00:00",
+          "etm": "2018-06-19T20:00:00",
+          "an": "Target Center",
+          "ac": "Minneapolis",
+          "as": "MN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports GO",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661321,
+            "re": "5-5",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "83"
+          },
+          "h": {
+            "tid": 1611661324,
+            "re": "5-6",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "91"
+          },
+          "gdtutc": "2018-06-20",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202632",
+                "fn": "Maya",
+                "ln": "Moore",
+                "val": "21",
+                "tid": 1611661324,
+                "ta": "MIN",
+                "tn": "Lynx",
+                "tc": "Minnesota"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800068",
+          "gcode": "20180619/LVASEA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-19",
+          "htm": "2018-06-19T19:00:00",
+          "vtm": "2018-06-19T19:00:00",
+          "etm": "2018-06-19T22:00:00",
+          "an": "KeyArena",
+          "ac": "Seattle",
+          "as": "WA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "Twitter",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "JoeTV",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661319,
+            "re": "4-9",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "89"
+          },
+          "h": {
+            "tid": 1611661328,
+            "re": "8-4",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "77"
+          },
+          "gdtutc": "2018-06-20",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1627668",
+                "fn": "Breanna",
+                "ln": "Stewart",
+                "val": "27",
+                "tid": 1611661328,
+                "ta": "SEA",
+                "tn": "Storm",
+                "tc": "Seattle"
+              }
+            ]
+          },
+          "seq": 4
+        },
+        {
+          "gid": "1021800069",
+          "gcode": "20180619/INDLAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-19",
+          "htm": "2018-06-19T19:30:00",
+          "vtm": "2018-06-19T22:30:00",
+          "etm": "2018-06-19T22:30:00",
+          "an": "Staples Center",
+          "ac": "Los Angeles",
+          "as": "CA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Spectrum SportsNet",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661325,
+            "re": "1-11",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "55"
+          },
+          "h": {
+            "tid": 1611661320,
+            "re": "9-2",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "74"
+          },
+          "gdtutc": "2018-06-20",
+          "utctm": "02:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201496",
+                "fn": "Candace",
+                "ln": "Parker",
+                "val": "15",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 5
+        },
+        {
+          "gid": "1021800070",
+          "gcode": "20180622/CONATL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-22",
+          "htm": "2018-06-22T19:00:00",
+          "vtm": "2018-06-22T19:00:00",
+          "etm": "2018-06-22T19:00:00",
+          "an": "McCamish Pavilion",
+          "ac": "Atlanta",
+          "as": "GA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Southeast - Atlanta",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "NBCSB",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "7-5",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "70"
+          },
+          "h": {
+            "tid": 1611661330,
+            "re": "7-6",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "75"
+          },
+          "gdtutc": "2018-06-22",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201881",
+                "fn": "Angel",
+                "ln": "McCoughtry",
+                "val": "25",
+                "tid": 1611661330,
+                "ta": "ATL",
+                "tn": "Dream",
+                "tc": "Atlanta"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800071",
+          "gcode": "20180622/LASDAL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-22",
+          "htm": "2018-06-22T19:00:00",
+          "vtm": "2018-06-22T17:00:00",
+          "etm": "2018-06-22T20:00:00",
+          "an": "College Park Center",
+          "ac": "Arlington",
+          "as": "TX",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Southwest - Dallas Plus",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661320,
+            "re": "9-3",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "72"
+          },
+          "h": {
+            "tid": 1611661321,
+            "re": "6-5",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "101"
+          },
+          "gdtutc": "2018-06-23",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202633",
+                "fn": "Liz",
+                "ln": "Cambage",
+                "val": "20",
+                "tid": 1611661321,
+                "ta": "DAL",
+                "tn": "Wings",
+                "tc": "Dallas"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800072",
+          "gcode": "20180622/WASCHI",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-22",
+          "htm": "2018-06-22T20:00:00",
+          "vtm": "2018-06-22T21:00:00",
+          "etm": "2018-06-22T21:00:00",
+          "an": "Wintrust Arena",
+          "ac": "Chicago",
+          "as": "IL",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN3",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "The U Too",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "Monumental",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661322,
+            "re": "8-5",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "93"
+          },
+          "h": {
+            "tid": 1611661329,
+            "re": "3-9",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "77"
+          },
+          "gdtutc": "2018-06-23",
+          "utctm": "01:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203399",
+                "fn": "Elena",
+                "ln": "Delle Donne",
+                "val": "30",
+                "tid": 1611661322,
+                "ta": "WAS",
+                "tn": "Mystics",
+                "tc": "Washington"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800073",
+          "gcode": "20180622/NYLLVA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-22",
+          "htm": "2018-06-22T19:00:00",
+          "vtm": "2018-06-22T22:00:00",
+          "etm": "2018-06-22T22:00:00",
+          "an": "Mandalay Bay Events Center",
+          "ac": "Las Vegas",
+          "as": "NV",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN2",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661313,
+            "re": "4-7",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "78"
+          },
+          "h": {
+            "tid": 1611661319,
+            "re": "5-9",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "88"
+          },
+          "gdtutc": "2018-06-23",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203825",
+                "fn": "Kayla",
+                "ln": "McBride",
+                "val": "27",
+                "tid": 1611661319,
+                "ta": "LVA",
+                "tn": "Aces",
+                "tc": "Las Vegas"
+              }
+            ]
+          },
+          "seq": 4
+        },
+        {
+          "gid": "1021800074",
+          "gcode": "20180622/MINPHO",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-22",
+          "htm": "2018-06-22T19:00:00",
+          "vtm": "2018-06-22T21:00:00",
+          "etm": "2018-06-22T22:00:00",
+          "an": "Talking Stick Resort Arena",
+          "ac": "Phoenix",
+          "as": "AZ",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN3",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "FSAZ+",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "Fox Sports North Plus",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661324,
+            "re": "6-6",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "83"
+          },
+          "h": {
+            "tid": 1611661317,
+            "re": "10-4",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "72"
+          },
+          "gdtutc": "2018-06-23",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "100940",
+                "fn": "Diana",
+                "ln": "Taurasi",
+                "val": "23",
+                "tid": 1611661317,
+                "ta": "PHO",
+                "tn": "Mercury",
+                "tc": "Phoenix"
+              },
+              {
+                "pid": "202632",
+                "fn": "Maya",
+                "ln": "Moore",
+                "val": "23",
+                "tid": 1611661324,
+                "ta": "MIN",
+                "tn": "Lynx",
+                "tc": "Minnesota"
+              }
+            ]
+          },
+          "seq": 5
+        },
+        {
+          "gid": "1021800075",
+          "gcode": "20180622/INDSEA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-22",
+          "htm": "2018-06-22T19:00:00",
+          "vtm": "2018-06-22T22:00:00",
+          "etm": "2018-06-22T22:00:00",
+          "an": "KeyArena",
+          "ac": "Seattle",
+          "as": "WA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN3",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "JoeTV",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661325,
+            "re": "1-12",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "63"
+          },
+          "h": {
+            "tid": 1611661328,
+            "re": "9-4",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "72"
+          },
+          "gdtutc": "2018-06-23",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "204319",
+                "fn": "Jewell",
+                "ln": "Loyd",
+                "val": "25",
+                "tid": 1611661328,
+                "ta": "SEA",
+                "tn": "Storm",
+                "tc": "Seattle"
+              }
+            ]
+          },
+          "seq": 6
+        },
+        {
+          "gid": "1021800076",
+          "gcode": "20180624/SEADAL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-24",
+          "htm": "2018-06-24T15:00:00",
+          "vtm": "2018-06-24T13:00:00",
+          "etm": "2018-06-24T16:00:00",
+          "an": "College Park Center",
+          "ac": "Arlington",
+          "as": "TX",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Southwest - Dallas Plus",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661328,
+            "re": "10-4",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "97"
+          },
+          "h": {
+            "tid": 1611661321,
+            "re": "6-6",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "76"
+          },
+          "gdtutc": "2018-06-24",
+          "utctm": "20:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1627668",
+                "fn": "Breanna",
+                "ln": "Stewart",
+                "val": "28",
+                "tid": 1611661328,
+                "ta": "SEA",
+                "tn": "Storm",
+                "tc": "Seattle"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800077",
+          "gcode": "20180624/NYLLAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-24",
+          "htm": "2018-06-24T14:00:00",
+          "vtm": "2018-06-24T17:00:00",
+          "etm": "2018-06-24T17:00:00",
+          "an": "Staples Center",
+          "ac": "Los Angeles",
+          "as": "CA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Spectrum SportsNet",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "MSG+",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661313,
+            "re": "4-8",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "54"
+          },
+          "h": {
+            "tid": 1611661320,
+            "re": "10-3",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "80"
+          },
+          "gdtutc": "2018-06-24",
+          "utctm": "21:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203029",
+                "fn": "Riquna",
+                "ln": "Williams",
+                "val": "25",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800078",
+          "gcode": "20180624/CONIND",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-24",
+          "htm": "2018-06-24T18:00:00",
+          "vtm": "2018-06-24T18:00:00",
+          "etm": "2018-06-24T18:00:00",
+          "an": "Bankers Life Fieldhouse",
+          "ac": "Indianapolis",
+          "as": "IN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports Indiana",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "NBCSB",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "8-5",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "87"
+          },
+          "h": {
+            "tid": 1611661325,
+            "re": "1-13",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "78"
+          },
+          "gdtutc": "2018-06-24",
+          "utctm": "22:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1627671",
+                "fn": "Rachel",
+                "ln": "Banham",
+                "val": "20",
+                "tid": 1611661323,
+                "ta": "CON",
+                "tn": "Sun",
+                "tc": "Connecticut"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800079",
+          "gcode": "20180624/MINLVA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-24",
+          "htm": "2018-06-24T15:00:00",
+          "vtm": "2018-06-24T17:00:00",
+          "etm": "2018-06-24T18:00:00",
+          "an": "Mandalay Bay Events Center",
+          "ac": "Las Vegas",
+          "as": "NV",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "AT&T Sportsnet - Rocky Mountain",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661324,
+            "re": "7-6",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "88"
+          },
+          "h": {
+            "tid": 1611661319,
+            "re": "5-10",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "73"
+          },
+          "gdtutc": "2018-06-24",
+          "utctm": "22:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202632",
+                "fn": "Maya",
+                "ln": "Moore",
+                "val": "23",
+                "tid": 1611661324,
+                "ta": "MIN",
+                "tn": "Lynx",
+                "tc": "Minnesota"
+              }
+            ]
+          },
+          "seq": 4
+        },
+        {
+          "gid": "1021800080",
+          "gcode": "20180624/PHOCHI",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-24",
+          "htm": "2018-06-24T17:00:00",
+          "vtm": "2018-06-24T15:00:00",
+          "etm": "2018-06-24T18:00:00",
+          "an": "Wintrust Arena",
+          "ac": "Chicago",
+          "as": "IL",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "The U Too",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "10-5",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "88"
+          },
+          "h": {
+            "tid": 1611661329,
+            "re": "4-9",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "97"
+          },
+          "gdtutc": "2018-06-24",
+          "utctm": "22:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201516",
+                "fn": "Allie",
+                "ln": "Quigley",
+                "val": "20",
+                "tid": 1611661329,
+                "ta": "CHI",
+                "tn": "Sky",
+                "tc": "Chicago"
+              }
+            ]
+          },
+          "seq": 5
+        },
+        {
+          "gid": "1021800081",
+          "gcode": "20180626/PHONYL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-26",
+          "htm": "2018-06-26T19:00:00",
+          "vtm": "2018-06-26T16:00:00",
+          "etm": "2018-06-26T19:00:00",
+          "an": "Westchester County Center",
+          "ac": "White Plains",
+          "as": "NY",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "MSG+",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "11-5",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "83"
+          },
+          "h": {
+            "tid": 1611661313,
+            "re": "4-9",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "69"
+          },
+          "gdtutc": "2018-06-26",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "100940",
+                "fn": "Diana",
+                "ln": "Taurasi",
+                "val": "27",
+                "tid": 1611661317,
+                "ta": "PHO",
+                "tn": "Mercury",
+                "tc": "Phoenix"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800082",
+          "gcode": "20180626/CONWAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-26",
+          "htm": "2018-06-26T19:00:00",
+          "vtm": "2018-06-26T19:00:00",
+          "etm": "2018-06-26T19:00:00",
+          "an": "Capital One Arena",
+          "ac": "Washington",
+          "as": "DC",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "NBCSWA",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "NBCSB",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661323,
+            "re": "8-6",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "80"
+          },
+          "h": {
+            "tid": 1611661322,
+            "re": "9-5",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "92"
+          },
+          "gdtutc": "2018-06-26",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203399",
+                "fn": "Elena",
+                "ln": "Delle Donne",
+                "val": "25",
+                "tid": 1611661322,
+                "ta": "WAS",
+                "tn": "Mystics",
+                "tc": "Washington"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800083",
+          "gcode": "20180626/SEAMIN",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-26",
+          "htm": "2018-06-26T19:00:00",
+          "vtm": "2018-06-26T17:00:00",
+          "etm": "2018-06-26T20:00:00",
+          "an": "Target Center",
+          "ac": "Minneapolis",
+          "as": "MN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports GO",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661328,
+            "re": "10-5",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "79"
+          },
+          "h": {
+            "tid": 1611661324,
+            "re": "8-6",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "91"
+          },
+          "gdtutc": "2018-06-27",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202632",
+                "fn": "Maya",
+                "ln": "Moore",
+                "val": "32",
+                "tid": 1611661324,
+                "ta": "MIN",
+                "tn": "Lynx",
+                "tc": "Minnesota"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800084",
+          "gcode": "20180626/DALLAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-26",
+          "htm": "2018-06-26T19:30:00",
+          "vtm": "2018-06-26T21:30:00",
+          "etm": "2018-06-26T22:30:00",
+          "an": "Staples Center",
+          "ac": "Los Angeles",
+          "as": "CA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "Twitter",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Spectrum SportsNet",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661321,
+            "re": "6-7",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "83"
+          },
+          "h": {
+            "tid": 1611661320,
+            "re": "11-3",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "87"
+          },
+          "gdtutc": "2018-06-27",
+          "utctm": "02:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201496",
+                "fn": "Candace",
+                "ln": "Parker",
+                "val": "29",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              }
+            ]
+          },
+          "seq": 4
+        },
+        {
+          "gid": "1021800085",
+          "gcode": "20180627/ATLCHI",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-27",
+          "htm": "2018-06-27T11:00:00",
+          "vtm": "2018-06-27T12:00:00",
+          "etm": "2018-06-27T12:00:00",
+          "an": "Wintrust Arena",
+          "ac": "Chicago",
+          "as": "IL",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661330,
+            "re": "7-7",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "80"
+          },
+          "h": {
+            "tid": 1611661329,
+            "re": "5-9",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "93"
+          },
+          "gdtutc": "2018-06-27",
+          "utctm": "16:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628890",
+                "fn": "Diamond",
+                "ln": "DeShields",
+                "val": "23",
+                "tid": 1611661329,
+                "ta": "CHI",
+                "tn": "Sky",
+                "tc": "Chicago"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800086",
+          "gcode": "20180627/INDCON",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-27",
+          "htm": "2018-06-27T19:00:00",
+          "vtm": "2018-06-27T19:00:00",
+          "etm": "2018-06-27T19:00:00",
+          "an": "Mohegan Sun Arena",
+          "ac": "Uncasville",
+          "as": "CT",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "NBCSB",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661325,
+            "re": "1-14",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "89"
+          },
+          "h": {
+            "tid": 1611661323,
+            "re": "9-6",
+            "ta": "CON",
+            "tn": "Sun",
+            "tc": "Connecticut",
+            "s": "101"
+          },
+          "gdtutc": "2018-06-27",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628927",
+                "fn": "Victoria",
+                "ln": "Vivians",
+                "val": "25",
+                "tid": 1611661325,
+                "ta": "IND",
+                "tn": "Fever",
+                "tc": "Indiana"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800087",
+          "gcode": "20180627/DALLVA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-27",
+          "htm": "2018-06-27T19:00:00",
+          "vtm": "2018-06-27T21:00:00",
+          "etm": "2018-06-27T22:00:00",
+          "an": "Mandalay Bay Events Center",
+          "ac": "Las Vegas",
+          "as": "NV",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "AT&T Sportsnet - Rocky Mountain",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661321,
+            "re": "7-7",
+            "ta": "DAL",
+            "tn": "Wings",
+            "tc": "Dallas",
+            "s": "97"
+          },
+          "h": {
+            "tid": 1611661319,
+            "re": "5-11",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "91"
+          },
+          "gdtutc": "2018-06-28",
+          "utctm": "02:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203825",
+                "fn": "Kayla",
+                "ln": "McBride",
+                "val": "38",
+                "tid": 1611661319,
+                "ta": "LVA",
+                "tn": "Aces",
+                "tc": "Las Vegas"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800088",
+          "gcode": "20180628/NYLWAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-28",
+          "htm": "2018-06-28T19:00:00",
+          "vtm": "2018-06-28T19:00:00",
+          "etm": "2018-06-28T19:00:00",
+          "an": "Capital One Arena",
+          "ac": "Washington",
+          "as": "DC",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "NBCSWA",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "MSG+",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661313,
+            "re": "4-10",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "77"
+          },
+          "h": {
+            "tid": 1611661322,
+            "re": "10-5",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "80"
+          },
+          "gdtutc": "2018-06-28",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203399",
+                "fn": "Elena",
+                "ln": "Delle Donne",
+                "val": "22",
+                "tid": 1611661322,
+                "ta": "WAS",
+                "tn": "Mystics",
+                "tc": "Washington"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800089",
+          "gcode": "20180628/LASSEA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-28",
+          "htm": "2018-06-28T18:30:00",
+          "vtm": "2018-06-28T18:30:00",
+          "etm": "2018-06-28T21:30:00",
+          "an": "KeyArena",
+          "ac": "Seattle",
+          "as": "WA",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "ESPN2",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661320,
+            "re": "11-4",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "72"
+          },
+          "h": {
+            "tid": 1611661328,
+            "re": "11-5",
+            "ta": "SEA",
+            "tn": "Storm",
+            "tc": "Seattle",
+            "s": "81"
+          },
+          "gdtutc": "2018-06-29",
+          "utctm": "01:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "201496",
+                "fn": "Candace",
+                "ln": "Parker",
+                "val": "27",
+                "tid": 1611661320,
+                "ta": "LAS",
+                "tn": "Sparks",
+                "tc": "Los Angeles"
+              },
+              {
+                "pid": "1627668",
+                "fn": "Breanna",
+                "ln": "Stewart",
+                "val": "27",
+                "tid": 1611661328,
+                "ta": "SEA",
+                "tn": "Storm",
+                "tc": "Seattle"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800090",
+          "gcode": "20180629/PHOIND",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-29",
+          "htm": "2018-06-29T19:00:00",
+          "vtm": "2018-06-29T16:00:00",
+          "etm": "2018-06-29T19:00:00",
+          "an": "Bankers Life Fieldhouse",
+          "ac": "Indianapolis",
+          "as": "IN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "12-5",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "95"
+          },
+          "h": {
+            "tid": 1611661325,
+            "re": "1-15",
+            "ta": "IND",
+            "tn": "Fever",
+            "tc": "Indiana",
+            "s": "77"
+          },
+          "gdtutc": "2018-06-29",
+          "utctm": "23:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "100940",
+                "fn": "Diana",
+                "ln": "Taurasi",
+                "val": "25",
+                "tid": 1611661317,
+                "ta": "PHO",
+                "tn": "Mercury",
+                "tc": "Phoenix"
+              }
+            ]
+          },
+          "seq": 1
+        },
+        {
+          "gid": "1021800091",
+          "gcode": "20180629/CHINYL",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-29",
+          "htm": "2018-06-29T19:30:00",
+          "vtm": "2018-06-29T18:30:00",
+          "etm": "2018-06-29T19:30:00",
+          "an": "Westchester County Center",
+          "ac": "White Plains",
+          "as": "NY",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "MSG+",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "The U Too",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661329,
+            "re": "6-9",
+            "ta": "CHI",
+            "tn": "Sky",
+            "tc": "Chicago",
+            "s": "103"
+          },
+          "h": {
+            "tid": 1611661313,
+            "re": "4-11",
+            "ta": "NYL",
+            "tn": "Liberty",
+            "tc": "New York",
+            "s": "99"
+          },
+          "gdtutc": "2018-06-29",
+          "utctm": "23:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202250",
+                "fn": "Tina",
+                "ln": "Charles",
+                "val": "24",
+                "tid": 1611661313,
+                "ta": "NYL",
+                "tn": "Liberty",
+                "tc": "New York"
+              }
+            ]
+          },
+          "seq": 2
+        },
+        {
+          "gid": "1021800092",
+          "gcode": "20180629/ATLMIN",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-29",
+          "htm": "2018-06-29T19:00:00",
+          "vtm": "2018-06-29T20:00:00",
+          "etm": "2018-06-29T20:00:00",
+          "an": "Target Center",
+          "ac": "Minneapolis",
+          "as": "MN",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "NBA TV",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Fox Sports GO",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661330,
+            "re": "7-8",
+            "ta": "ATL",
+            "tn": "Dream",
+            "tc": "Atlanta",
+            "s": "74"
+          },
+          "h": {
+            "tid": 1611661324,
+            "re": "9-6",
+            "ta": "MIN",
+            "tn": "Lynx",
+            "tc": "Minnesota",
+            "s": "85"
+          },
+          "gdtutc": "2018-06-30",
+          "utctm": "00:00",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "202632",
+                "fn": "Maya",
+                "ln": "Moore",
+                "val": "24",
+                "tid": 1611661324,
+                "ta": "MIN",
+                "tn": "Lynx",
+                "tc": "Minnesota"
+              }
+            ]
+          },
+          "seq": 3
+        },
+        {
+          "gid": "1021800093",
+          "gcode": "20180629/LASLVA",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-29",
+          "htm": "2018-06-29T19:30:00",
+          "vtm": "2018-06-29T19:30:00",
+          "etm": "2018-06-29T22:30:00",
+          "an": "Mandalay Bay Events Center",
+          "ac": "Las Vegas",
+          "as": "NV",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "AT&T Sportsnet - Rocky Mountain",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 3,
+                "disp": "Spectrum SportsNet",
+                "scope": "away",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661320,
+            "re": "11-5",
+            "ta": "LAS",
+            "tn": "Sparks",
+            "tc": "Los Angeles",
+            "s": "78"
+          },
+          "h": {
+            "tid": 1611661319,
+            "re": "6-11",
+            "ta": "LVA",
+            "tn": "Aces",
+            "tc": "Las Vegas",
+            "s": "94"
+          },
+          "gdtutc": "2018-06-30",
+          "utctm": "02:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "1628932",
+                "fn": "A'ja",
+                "ln": "Wilson",
+                "val": "29",
+                "tid": 1611661319,
+                "ta": "LVA",
+                "tn": "Aces",
+                "tc": "Las Vegas"
+              }
+            ]
+          },
+          "seq": 4
+        },
+        {
+          "gid": "1021800094",
+          "gcode": "20180630/PHOWAS",
+          "seri": "",
+          "is": 1,
+          "gdte": "2018-06-30",
+          "htm": "2018-06-30T19:30:00",
+          "vtm": "2018-06-30T16:30:00",
+          "etm": "2018-06-30T19:30:00",
+          "an": "Capital One Arena",
+          "ac": "Washington",
+          "as": "DC",
+          "st": "3",
+          "stt": "Final",
+          "bd": {
+            "b": [
+              {
+                "seq": 1,
+                "disp": "League Pass",
+                "scope": "natl",
+                "type": "tv",
+                "lan": "English"
+              },
+              {
+                "seq": 2,
+                "disp": "Monumental",
+                "scope": "home",
+                "type": "tv",
+                "lan": "English"
+              }
+            ]
+          },
+          "v": {
+            "tid": 1611661317,
+            "re": "13-5",
+            "ta": "PHO",
+            "tn": "Mercury",
+            "tc": "Phoenix",
+            "s": "84"
+          },
+          "h": {
+            "tid": 1611661322,
+            "re": "10-6",
+            "ta": "WAS",
+            "tn": "Mystics",
+            "tc": "Washington",
+            "s": "74"
+          },
+          "gdtutc": "2018-06-30",
+          "utctm": "23:30",
+          "ppdst": "I",
+          "ptsls": {
+            "pl": [
+              {
+                "pid": "203399",
+                "fn": "Elena",
+                "ln": "Delle Donne",
+                "val": "27",
+                "tid": 1611661322,
+                "ta": "WAS",
+                "tn": "Mystics",
+                "tc": "Washington"
+              }
+            ]
+          },
+          "seq": 1
+        }
+      ]
+    }
+  }

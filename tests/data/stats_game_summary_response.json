@@ -1,0 +1,358 @@
+{
+    "resource": "boxscoresummary",
+    "parameters": {
+      "GameID": "0021600270"
+    },
+    "resultSets": [
+      {
+        "name": "GameSummary",
+        "headers": [
+          "GAME_DATE_EST",
+          "GAME_SEQUENCE",
+          "GAME_ID",
+          "GAME_STATUS_ID",
+          "GAME_STATUS_TEXT",
+          "GAMECODE",
+          "HOME_TEAM_ID",
+          "VISITOR_TEAM_ID",
+          "SEASON",
+          "LIVE_PERIOD",
+          "LIVE_PC_TIME",
+          "NATL_TV_BROADCASTER_ABBREVIATION",
+          "LIVE_PERIOD_TIME_BCAST",
+          "WH_STATUS"
+        ],
+        "rowSet": [
+          [
+            "2016-11-30T00:00:00",
+            4,
+            "0021600270",
+            3,
+            "Final",
+            "20161130/WASOKC",
+            1610612760,
+            1610612764,
+            "2016",
+            5,
+            "     ",
+            null,
+            "Q5       - ",
+            1
+          ]
+        ]
+      },
+      {
+        "name": "OtherStats",
+        "headers": [
+          "LEAGUE_ID",
+          "TEAM_ID",
+          "TEAM_ABBREVIATION",
+          "TEAM_CITY",
+          "PTS_PAINT",
+          "PTS_2ND_CHANCE",
+          "PTS_FB",
+          "LARGEST_LEAD",
+          "LEAD_CHANGES",
+          "TIMES_TIED",
+          "TEAM_TURNOVERS",
+          "TOTAL_TURNOVERS",
+          "TEAM_REBOUNDS",
+          "PTS_OFF_TO"
+        ],
+        "rowSet": [
+          [
+            "00",
+            1610612764,
+            "WAS",
+            "Washington",
+            56,
+            26,
+            5,
+            7,
+            5,
+            8,
+            1,
+            12,
+            12,
+            19
+          ],
+          [
+            "00",
+            1610612760,
+            "OKC",
+            "Oklahoma City",
+            52,
+            10,
+            25,
+            16,
+            5,
+            8,
+            1,
+            14,
+            14,
+            9
+          ]
+        ]
+      },
+      {
+        "name": "Officials",
+        "headers": [
+          "OFFICIAL_ID",
+          "FIRST_NAME",
+          "LAST_NAME",
+          "JERSEY_NUM"
+        ],
+        "rowSet": [
+          [
+            2529,
+            "Tony",
+            "Brown",
+            "6   "
+          ],
+          [
+            101283,
+            "Brian",
+            "Forte",
+            "45  "
+          ],
+          [
+            200832,
+            "Curtis",
+            "Blair",
+            "74  "
+          ]
+        ]
+      },
+      {
+        "name": "InactivePlayers",
+        "headers": [
+          "PLAYER_ID",
+          "FIRST_NAME",
+          "LAST_NAME",
+          "JERSEY_NUM",
+          "TEAM_ID",
+          "TEAM_CITY",
+          "TEAM_NAME",
+          "TEAM_ABBREVIATION"
+        ],
+        "rowSet": [
+          [
+            1626166,
+            "Cameron",
+            "Payne",
+            "22  ",
+            1610612760,
+            "Oklahoma City",
+            "Thunder",
+            "OKC"
+          ],
+          [
+            203962,
+            "Josh",
+            "Huestis",
+            "34  ",
+            1610612760,
+            "Oklahoma City",
+            "Thunder",
+            "OKC"
+          ],
+          [
+            1627863,
+            "Danuel",
+            "House Jr.",
+            " 4  ",
+            1610612764,
+            "Washington",
+            "Wizards",
+            "WAS"
+          ],
+          [
+            101133,
+            "Ian",
+            "Mahinmi",
+            "28  ",
+            1610612764,
+            "Washington",
+            "Wizards",
+            "WAS"
+          ]
+        ]
+      },
+      {
+        "name": "GameInfo",
+        "headers": [
+          "GAME_DATE",
+          "ATTENDANCE",
+          "GAME_TIME"
+        ],
+        "rowSet": [
+          [
+            "WEDNESDAY, NOVEMBER 30, 2016",
+            18203,
+            "2:38"
+          ]
+        ]
+      },
+      {
+        "name": "LineScore",
+        "headers": [
+          "GAME_DATE_EST",
+          "GAME_SEQUENCE",
+          "GAME_ID",
+          "TEAM_ID",
+          "TEAM_ABBREVIATION",
+          "TEAM_CITY_NAME",
+          "TEAM_NICKNAME",
+          "TEAM_WINS_LOSSES",
+          "PTS_QTR1",
+          "PTS_QTR2",
+          "PTS_QTR3",
+          "PTS_QTR4",
+          "PTS_OT1",
+          "PTS_OT2",
+          "PTS_OT3",
+          "PTS_OT4",
+          "PTS_OT5",
+          "PTS_OT6",
+          "PTS_OT7",
+          "PTS_OT8",
+          "PTS_OT9",
+          "PTS_OT10",
+          "PTS"
+        ],
+        "rowSet": [
+          [
+            "2016-11-30T00:00:00",
+            4,
+            "0021600270",
+            1610612760,
+            "OKC",
+            "Oklahoma City",
+            "Thunder",
+            "12-8",
+            32,
+            28,
+            24,
+            21,
+            21,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            126
+          ],
+          [
+            "2016-11-30T00:00:00",
+            4,
+            "0021600270",
+            1610612764,
+            "WAS",
+            "Washington",
+            "Wizards",
+            "6-11",
+            19,
+            34,
+            31,
+            21,
+            10,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            115
+          ]
+        ]
+      },
+      {
+        "name": "LastMeeting",
+        "headers": [
+          "GAME_ID",
+          "LAST_GAME_ID",
+          "LAST_GAME_DATE_EST",
+          "LAST_GAME_HOME_TEAM_ID",
+          "LAST_GAME_HOME_TEAM_CITY",
+          "LAST_GAME_HOME_TEAM_NAME",
+          "LAST_GAME_HOME_TEAM_ABBREVIATION",
+          "LAST_GAME_HOME_TEAM_POINTS",
+          "LAST_GAME_VISITOR_TEAM_ID",
+          "LAST_GAME_VISITOR_TEAM_CITY",
+          "LAST_GAME_VISITOR_TEAM_NAME",
+          "LAST_GAME_VISITOR_TEAM_CITY1",
+          "LAST_GAME_VISITOR_TEAM_POINTS"
+        ],
+        "rowSet": [
+          [
+            "0021600270",
+            "0021500725",
+            "2016-02-01T00:00:00",
+            1610612760,
+            "Oklahoma City",
+            "Thunder",
+            "OKC",
+            114,
+            1610612764,
+            "Washington",
+            "Wizards",
+            "WAS",
+            98
+          ]
+        ]
+      },
+      {
+        "name": "SeasonSeries",
+        "headers": [
+          "GAME_ID",
+          "HOME_TEAM_ID",
+          "VISITOR_TEAM_ID",
+          "GAME_DATE_EST",
+          "HOME_TEAM_WINS",
+          "HOME_TEAM_LOSSES",
+          "SERIES_LEADER"
+        ],
+        "rowSet": [
+          [
+            "0021600270",
+            1610612760,
+            1610612764,
+            "2016-11-30T00:00:00",
+            1,
+            1,
+            "Tied"
+          ]
+        ]
+      },
+      {
+        "name": "AvailableVideo",
+        "headers": [
+          "GAME_ID",
+          "VIDEO_AVAILABLE_FLAG",
+          "PT_AVAILABLE",
+          "PT_XYZ_AVAILABLE",
+          "WH_STATUS",
+          "HUSTLE_STATUS",
+          "HISTORICAL_STATUS"
+        ],
+        "rowSet": [
+          [
+            "0021600270",
+            1,
+            1,
+            1,
+            1,
+            1,
+            0
+          ]
+        ]
+      }
+    ]
+  }
