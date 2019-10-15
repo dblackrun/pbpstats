@@ -1,0 +1,9 @@
+__pycache__/
+.vscode/
+.coverage
+env/
+pbpstats.egg-info/
+dist/
+build/
+notes.txt
+debug.py
