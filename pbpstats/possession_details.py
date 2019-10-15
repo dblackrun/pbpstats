@@ -123,7 +123,14 @@ class PossessionDetails(object):
         for i, event in enumerate(self.Events):
             if event.is_timeout() and event.seconds_remaining != self.EndTime:
                 # timeout is not at possession end time
-                return True
+                if not (
+                    event.next_event is not None and
+                    (event.next_event.is_made_ft() or event.next_event.is_missed_ft()) and
+                    event.seconds_remaining == event.next_event.seconds_remaining and
+                    not event.next_event.is_technical_ft()
+                ):
+                    # check to make sure timeout is not between/before FTs
+                    return True
             elif event.is_timeout() and event.seconds_remaining == self.EndTime:
                 timeout_time = event.seconds_remaining
                 after_timeout_index = i + 1
