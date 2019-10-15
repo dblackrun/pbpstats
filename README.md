@@ -14,7 +14,7 @@ pip install pbpstats
 ```
 
 # Setup data directory
-There will be cases where events may be out of order or incorrect due to human error. If you want to be able to manually edit events you can set up the enivronment variable `PBP_STATS_DATA_DIRECTORY` and all request responses will be saved locally so edits can be made. If a file for a game exists locally it will be used instead of making the request to the NBA API. This directory is also where override files to fix periods starters and handle issues with parsing pbp that can't be fixed by editing pbb file are placed.
+There will be cases where events may be out of order or incorrect due to human error. If you want to be able to manually edit events you can set up the enivronment variable `PBP_STATS_DATA_DIRECTORY` and all request responses will be saved locally so edits can be made. If a file for a game exists locally it will be used instead of making the request to the NBA API. This directory is also where [override files](https://github.com/dblackrun/pbpstats/wiki/Overrides-to-fix-issues-parsing-pbp) to fix periods starters and handle issues with parsing pbp that can't be fixed by editing pbb file are placed.
 
 # Usage
 ```
