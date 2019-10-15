@@ -9,6 +9,7 @@ A package to scrape and parse NBA, WNBA and G-League play-by-play data.
 * All stats on pbpstats.com are derived from these stats
 
 # Installation
+requires Python >=3.6
 ```
 pip install pbpstats
 ```
