@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dblackrun/pbpstats.svg?branch=master)](https://travis-ci.org/pbpstats/pbpstats)
+
 A package to scrape and parse NBA, WNBA and G-League play-by-play data.
 
 # Features
