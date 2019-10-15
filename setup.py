@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='pbpstats',
-    version='0.0.1',
+    version='0.0.2',
     author='Darryl Blackport',
     author_email='darryl.blackport@gmail.com',
     description='A package to scrape and parse NBA, WNBA and G-League play-by-play data',
