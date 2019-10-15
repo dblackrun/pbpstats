@@ -21,8 +21,11 @@ class TestDataGameData:
         responses.add(responses.GET, pbp_url, json=game_pbp_response, status=200)
         responses.add(responses.GET, game_summary_url, json=game_summary_response, status=200)
 
+        with open('tests/data/missing_period_starters.json') as f:
+            period_starters_override = json.loads(f.read())
+
         cls.GameData = DataGameData(cls.GameId, response_data_directory=None)
-        cls.GameData.get_game_data()
+        cls.GameData.get_game_data(period_starters_override=period_starters_override)
 
     def test_season_is_set(self):
         assert self.GameData.Season == '2016-17'

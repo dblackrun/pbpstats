@@ -59,13 +59,15 @@ class StatsGameData(GameData):
     def __repr__(self):
         return f'<StatsGameData: {self.__dict__}>'
 
-    def get_game_data(self, ignore_rebound_and_shot_order=False, ignore_back_to_back_possessions=False):
+    def get_game_data(self, **kwargs):
         """
         gets and cleans game data from stats.nba.com
-        set ignore_rebound_and_shot_order to True to avoid raising possession_details.PbpEventOrderErrorException
+        kwargs:
+        ignore_rebound_and_shot_order, default False, set to True to avoid raising possession_details.PbpEventOrderErrorException
             - do this if you don't want to fix issues with pbp and don't care about rebound stats
-        set ignore_back_to_back_possessions to True to avoid raising possession_details.TeamHasBackToBackPossessionsException
+        ignore_back_to_back_possessions set to True to avoid raising possession_details.TeamHasBackToBackPossessionsException
             - do this if you don't want to fix issues with pbp and don't care about possession stats
+        period_starters_override - dict with missing period starters
         """
         pbp_response = self.get_pbp_response()
         pbp_events_list = self.get_array_of_dicts_from_response(pbp_response, 0, dedupe=True)
@@ -87,9 +89,12 @@ class StatsGameData(GameData):
         visitor_shots_list = self.get_array_of_dicts_from_response(visitor_shots_response, 0)
         shots = home_shots_list + visitor_shots_list
         self.add_shot_locations_to_pbp(shots)
-        self.set_period_starters()
+        if 'period_starters_override' in kwargs:
+            self.set_period_starters(missing_period_starters=kwargs.get('period_starters_override'))
+        else:
+            self.set_period_starters()
         self.add_players_on_floor()
-        self.add_possession_details(ignore_rebound_and_shot_order=ignore_rebound_and_shot_order, ignore_back_to_back_possessions=ignore_back_to_back_possessions)
+        self.add_possession_details(ignore_rebound_and_shot_order=kwargs.get('ignore_rebound_and_shot_order', False), ignore_back_to_back_possessions=kwargs.get('ignore_back_to_back_possessions', False))
 
     def get_pbp_response(self, start_period=0, end_period=10, range_type=2, start_range=0, end_range=55800):
         """

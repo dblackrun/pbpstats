@@ -38,7 +38,7 @@ class GameData(object):
                 for player_id in PLAYERS_MISSING_FROM_BOXSCORE[self.GameId][team_id].keys():
                     self.Players[team_id][player_id] = PLAYERS_MISSING_FROM_BOXSCORE[self.GameId][team_id][player_id]
 
-    def set_period_starters(self):
+    def set_period_starters(self, missing_period_starters=MISSING_PERIOD_STARTERS):
         """
         gets starters for each period by seeing which players appear in events before being subbed out
         """
@@ -104,9 +104,9 @@ class GameData(object):
                                 if player3_id not in period.Starters[player3_team_id] and player3_id not in subbed_in_players[player3_team_id]:
                                     period.Starters[player3_team_id].append(player3_id)
 
-            if self.GameId in MISSING_PERIOD_STARTERS.keys() and str(period.Number) in MISSING_PERIOD_STARTERS[self.GameId].keys():
-                for team_id in MISSING_PERIOD_STARTERS[self.GameId][str(period.Number)].keys():
-                    period.Starters[team_id] = MISSING_PERIOD_STARTERS[self.GameId][str(period.Number)][team_id]
+            if self.GameId in missing_period_starters.keys() and str(period.Number) in missing_period_starters[self.GameId].keys():
+                for team_id in missing_period_starters[self.GameId][str(period.Number)].keys():
+                    period.Starters[team_id] = missing_period_starters[self.GameId][str(period.Number)][team_id]
 
             for team_id in period.Starters.keys():
                 if len(period.Starters[team_id]) != 5:

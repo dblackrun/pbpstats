@@ -59,17 +59,23 @@ class DataGameData(GameData):
     def __repr__(self):
         return f'<DataGameData: {self.__dict__}>'
 
-    def get_game_data(self, ignore_rebound_and_shot_order=False):
+    def get_game_data(self, **kwargs):
         """
         gets and cleans game data from data.nba.com
-        set ignore_rebound_and_shot_order to True to avoid raising possession_details.PbpEventOrderErrorException if rebound is out of order
+        kwargs:
+        ignore_rebound_and_shot_order, default False, set to True to avoid raising possession_details.PbpEventOrderErrorException
+            - do this if you don't want to fix issues with pbp and don't care about rebound stats
+        period_starters_override - dict with missing period starters
         """
         game_summary_json = self.get_game_summary_response_json()
         self.get_pbp_events()
         self.instantiate_team_and_player_data(game_summary_json)
-        self.set_period_starters()
+        if 'period_starters_override' in kwargs:
+            self.set_period_starters(missing_period_starters=kwargs.get('period_starters_override'))
+        else:
+            self.set_period_starters()
         self.add_players_on_floor()
-        self.add_possession_details(ignore_rebound_and_shot_order=ignore_rebound_and_shot_order)
+        self.add_possession_details(ignore_rebound_and_shot_order=kwargs.get('ignore_rebound_and_shot_order', False))
 
     def get_pbp_events(self):
         """
