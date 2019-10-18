@@ -19,11 +19,12 @@ TODAYS_NBA_SCORES_URL = 'http://data.nba.com/data/5s/v2015/json/mobile_teams/nba
 TODAYS_WNBA_SCORES_URL = 'http://data.wnba.com/data/5s/v2015/json/mobile_teams/wnba/2019/scores/10_todays_scores.json'
 TODAYS_G_LEAGUE_SCORES_URL = 'https://data.nba.com/data/10s/v2015/json/mobile_teams/dleague/2019/scores/20_todays_scores.json'
 REQUEST_TIMEOUT = 10
-USER_AGENT = 'Mozilla/5.0'
+USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A'
 REFERER = "http://stats.nba.com/"
 HEADERS = {
     'User-Agent': USER_AGENT,
     'referer': REFERER,
+    'Accept-Language': 'en'
 }
 
 NBA_STRING = 'nba'
