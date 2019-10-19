@@ -543,6 +543,8 @@ class PbpEvent(object):
             return True
         if self.is_goaltend_violation():
             return True
+        if self.is_replay_challenge_overturn_ruling() or self.is_replay_challenge_ruling_stands() or self.is_replay_challenge_support_ruling():
+            return True
 
         return False
 

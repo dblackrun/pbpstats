@@ -236,6 +236,8 @@ class PossessionDetails(object):
                     self.increment_rebound_counts(pbp_event, in_penalty, rebounded_shots, ignore_rebound_and_shot_order=ignore_rebound_and_shot_order)
                 if pbp_event.is_goaltend_violation():
                     self.increment_goaltend_counts(pbp_event)
+                if pbp_event.is_replay_challenge_overturn_ruling() or pbp_event.is_replay_challenge_ruling_stands() or pbp_event.is_replay_challenge_support_ruling():
+                    self.increment_challenge_counts(pbp_event)
 
     def increment_turnover_stats(self, pbp_event, in_penalty):
         """
@@ -843,6 +845,28 @@ class PossessionDetails(object):
         self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.DEFENSIVE_GOALTENDING_STRING] += 1
         if second_chance:
             self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.SECOND_CHANCE_STRING + pbpstats.DEFENSIVE_GOALTENDING_STRING] += 1
+
+    def increment_challenge_counts(self, pbp_event):
+        """
+        increments PlayerStats for appropriate coaches challenge
+        """
+        player_id = pbp_event.player_id
+        team_id = pbp_event.team_id
+        opponent_team_id = utils.swap_team_id_for_game(team_id, [self.OffenseTeamId, self.DefenseTeamId])
+
+        lineup_ids = utils.generate_lineup_ids(pbp_event.current_players)
+
+        lineup_id = lineup_ids[team_id]
+        opponent_lineup_id = lineup_ids[opponent_team_id]
+
+        if pbp_event.is_replay_challenge_overturn_ruling():
+            stat_key = pbpstats.CHALLENGE_OVERTURN_RULING_STRING
+        elif pbp_event.is_replay_challenge_ruling_stands():
+            stat_key = pbpstats.CHALLENGE_RULING_STANDS_STRING
+        elif pbp_event.is_replay_challenge_support_ruling():
+            stat_key = pbpstats.CHALLENGE_SUPPORT_RULING_STRING
+
+        self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][stat_key] += 1
 
     def add_possessions(self, penalty_start_events, previous_possession_details=None, ignore_back_to_back_possessions=False):
         """
