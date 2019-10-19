@@ -310,3 +310,8 @@ class TestDataGameData:
         assert self.GameData.Periods[-1].Possessions[-2].PlayerStats['1610612760']['201566-203460-203506-203902-203924']['101162-202322-202693-203078-203490']['201566'][pbpstats.PENALTY_STRING + pbpstats.FTS_MADE_STRING] == 2
         assert self.GameData.Periods[-1].Possessions[-2].PlayerStats['1610612760']['201566-203460-203506-203902-203924']['101162-202322-202693-203078-203490']['201566'][pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING + pbpstats.OFFENSIVE_POSSESSION_STRING] == 1
         assert self.GameData.Periods[-1].Possessions[-2].PlayerStats['1610612760']['201566-203460-203506-203902-203924']['101162-202322-202693-203078-203490']['201566'][pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING + pbpstats.FTS_MADE_STRING] == 2
+
+    def test_aggregate_team_stats_has_challenge_stat(self):
+        stats = self.GameData.get_aggregated_possession_stats_for_entity_type('team')
+        assert stats['1610612760'][pbpstats.CHALLENGE_SUPPORT_RULING_STRING] == 1
+        assert pbpstats.CHALLENGE_SUPPORT_RULING_STRING not in stats['1610612764']
