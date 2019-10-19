@@ -100,6 +100,15 @@ class PbpEvent(object):
     def is_replay_event(self):
         return self.etype == 18
 
+    def is_replay_challenge_support_ruling(self):
+        return self.etype == 18 and self.mtype == 4
+
+    def is_replay_challenge_overturn_ruling(self):
+        return self.etype == 18 and self.mtype == 5
+
+    def is_replay_challenge_ruling_stands(self):
+        return self.etype == 18 and self.mtype == 6
+
     def is_rebound(self):
         """
         checks if event is a rebound - etype == 4 and mtype == 0

@@ -155,6 +155,30 @@ class TestDataPbpEvent:
         event = DataPbpEvent({'evt': 162, 'cl': '09:07', 'de': '[BKN] Ferrell Turnover : Bad Pass (2 TO) Steal:Ndour (1 ST)', 'locX': 0, 'locY': -80, 'mtype': 1, 'etype': 5, 'opid': '1626254', 'tid': 1610612751, 'pid': 1627812, 'hs': 25, 'vs': 37, 'epid': '', 'oftid': 1610612751})
         assert event.is_shot_clock_violation() is False
 
+    def test_support_ruling_is_replay_challenge_support_ruling(self):
+        event = DataPbpEvent({'etype': 18, 'mtype': 4})
+        assert event.is_replay_challenge_support_ruling() is True
+
+    def test_overturn_ruling_is_replay_challenge_support_ruling(self):
+        event = DataPbpEvent({'etype': 18, 'mtype': 5})
+        assert event.is_replay_challenge_support_ruling() is False
+
+    def test_overturn_ruling_is_replay_challenge_overturn_ruling(self):
+        event = DataPbpEvent({'etype': 18, 'mtype': 5})
+        assert event.is_replay_challenge_overturn_ruling() is True
+
+    def test_support_ruling_is_replay_challenge_overturn_ruling(self):
+        event = DataPbpEvent({'etype': 18, 'mtype': 4})
+        assert event.is_replay_challenge_overturn_ruling() is False
+
+    def test_ruling_stands_is_replay_challenge_ruling_stands(self):
+        event = DataPbpEvent({'etype': 18, 'mtype': 6})
+        assert event.is_replay_challenge_ruling_stands() is True
+
+    def test_overturn_ruling_is_replay_challenge_ruling_stands(self):
+        event = DataPbpEvent({'etype': 18, 'mtype': 5})
+        assert event.is_replay_challenge_ruling_stands() is False
+
     def test_rebound_is_rebound(self):
         event = DataPbpEvent({'evt': 172, 'cl': '08:18', 'de': '[NYK] Ndour Rebound (Off:0 Def:2)', 'locX': 0, 'locY': -80, 'mtype': 0, 'etype': 4, 'opid': '', 'tid': 1610612752, 'pid': 1626254, 'hs': 27, 'vs': 38, 'epid': '', 'oftid': 1610612751})
         assert event.is_rebound() is True
