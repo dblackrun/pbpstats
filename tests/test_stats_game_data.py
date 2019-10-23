@@ -468,6 +468,10 @@ class TestStatsGameData:
         assert stats['1610612764']['BlockedAtRimRecovered'] == 2
         assert stats['1610612764']['DeadBallTurnovers'] == 2
         assert stats['1610612764']['LiveBallTurnovers'] == 10
+        assert stats['1610612764']['LostBallTurnovers'] == 2
+        assert stats['1610612764']['LostBallOutOfBoundsTurnovers'] == 1
+        assert stats['1610612764']['BadPassTurnovers'] == 8
+        assert stats['1610612764']['BadPassOutOfBoundsTurnovers'] == 0
         assert stats['1610612764']['Steals'] == 8
         assert stats['1610612764']['FinalMinutePenaltyTakeFoulDefPoss'] == 2
         assert stats['1610612764']['Loose Ball Fouls Drawn'] == 2

@@ -378,6 +378,18 @@ class PbpEvent(object):
     def is_step_out_of_bounds_turnover(self):
         return self.etype == 5 and self.mtype == 39
 
+    def is_lost_ball_turnover(self):
+        return self.etype == 5 and self.mtype == 2
+
+    def is_lost_ball_out_of_bounds_turnover(self):
+        return self.etype == 5 and self.mtype == 40
+
+    def is_bad_pass_turnover(self):
+        return self.etype == 5 and self.mtype == 1
+
+    def is_bad_pass_out_of_bounds_turnover(self):
+        return self.etype == 5 and self.mtype == 45
+
     def is_jumpball_violation(self):
         return self.etype == 7 and self.mtype == 4
 

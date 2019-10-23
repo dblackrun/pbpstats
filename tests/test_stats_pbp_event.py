@@ -165,6 +165,38 @@ class TestStatsPbpEvent:
         event = StatsPbpEvent({'EVENTNUM': 166, 'PCTIMESTRING': '08:31', 'HOMEDESCRIPTION': 'Jennings Out of Bounds - Bad Pass Turnover Turnover (P2.T4)', 'EVENTMSGACTIONTYPE': 45, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 201943, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
         assert event.is_steal() is False
 
+    def test_out_of_bounds_is_lost_ball_turnover(self):
+        event = StatsPbpEvent({'EVENTNUM': 166, 'PCTIMESTRING': '08:31', 'HOMEDESCRIPTION': 'Jennings Out of Bounds - Bad Pass Turnover Turnover (P2.T4)', 'EVENTMSGACTIONTYPE': 45, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 201943, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
+        assert event.is_lost_ball_turnover() is False
+
+    def test_lost_ball_is_lost_ball_turnover(self):
+        event = StatsPbpEvent({'EVENTNUM': 523, 'PCTIMESTRING': '08:09', 'HOMEDESCRIPTION': 'Washburn STEAL (2 STL)', 'VISITORDESCRIPTION': 'McKinnie Lost Ball Turnover (P1.T11)', 'EVENTMSGACTIONTYPE': 2, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 1628035, 'PLAYER1_TEAM_ID': 1610612744, 'PLAYER2_ID': 1627395, 'PLAYER2_TEAM_ID': 1610612763, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
+        assert event.is_lost_ball_turnover() is True
+
+    def test_lost_ball_out_of_bounds_is_lost_ball_out_of_bounds_turnover(self):
+        event = StatsPbpEvent({'EVENTNUM': 67, 'PCTIMESTRING': '06:53', 'HOMEDESCRIPTION': 'Holiday Out of Bounds Lost Ball Turnover (P2.T2)', 'EVENTMSGACTIONTYPE': 40, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 203200, 'PLAYER1_TEAM_ID': 1610612763, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
+        assert event.is_lost_ball_out_of_bounds_turnover() is True
+
+    def test_lost_ball_steal_is_lost_ball_out_of_bounds_turnover(self):
+        event = StatsPbpEvent({'EVENTNUM': 523, 'PCTIMESTRING': '08:09', 'HOMEDESCRIPTION': 'Washburn STEAL (2 STL)', 'VISITORDESCRIPTION': 'McKinnie Lost Ball Turnover (P1.T11)', 'EVENTMSGACTIONTYPE': 2, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 1628035, 'PLAYER1_TEAM_ID': 1610612744, 'PLAYER2_ID': 1627395, 'PLAYER2_TEAM_ID': 1610612763, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
+        assert event.is_lost_ball_out_of_bounds_turnover() is False
+
+    def test_steal_is_bad_pass_turnover(self):
+        event = StatsPbpEvent({'EVENTNUM': 162, 'PCTIMESTRING': '09:07', 'HOMEDESCRIPTION': 'Ndour STEAL (1 STL)', 'VISITORDESCRIPTION': 'Ferrell Bad Pass Turnover (P2.T7)', 'EVENTMSGACTIONTYPE': 1, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 1627812, 'PLAYER1_TEAM_ID': 1610612751, 'PLAYER2_ID': 1626254, 'PLAYER2_TEAM_ID': 1610612752, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
+        assert event.is_bad_pass_turnover() is True
+
+    def test_out_of_bounds_is_bad_pass_turnover(self):
+        event = StatsPbpEvent({'EVENTNUM': 166, 'PCTIMESTRING': '08:31', 'HOMEDESCRIPTION': 'Jennings Out of Bounds - Bad Pass Turnover Turnover (P2.T4)', 'EVENTMSGACTIONTYPE': 45, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 201943, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
+        assert event.is_bad_pass_turnover() is False
+
+    def test_out_of_bounds_is_bad_pass_out_of_bounds_turnover(self):
+        event = StatsPbpEvent({'EVENTNUM': 166, 'PCTIMESTRING': '08:31', 'HOMEDESCRIPTION': 'Jennings Out of Bounds - Bad Pass Turnover Turnover (P2.T4)', 'EVENTMSGACTIONTYPE': 45, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 201943, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
+        assert event.is_bad_pass_out_of_bounds_turnover() is True
+
+    def test_steal_is_bad_pass_out_of_bounds_turnover(self):
+        event = StatsPbpEvent({'EVENTNUM': 162, 'PCTIMESTRING': '09:07', 'HOMEDESCRIPTION': 'Ndour STEAL (1 STL)', 'VISITORDESCRIPTION': 'Ferrell Bad Pass Turnover (P2.T7)', 'EVENTMSGACTIONTYPE': 1, 'EVENTMSGTYPE': 5, 'PLAYER1_ID': 1627812, 'PLAYER1_TEAM_ID': 1610612751, 'PLAYER2_ID': 1626254, 'PLAYER2_TEAM_ID': 1610612752, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None})
+        assert event.is_bad_pass_out_of_bounds_turnover() is False
+
     def test_shot_clock_violation_is_shot_clock_violation(self):
         event = StatsPbpEvent({'EVENTMSGTYPE': 5, 'EVENTMSGACTIONTYPE': 11})
         assert event.is_shot_clock_violation() is True

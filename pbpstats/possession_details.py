@@ -257,6 +257,11 @@ class PossessionDetails(object):
             # live ball turnover
             stat_keys.append(pbpstats.LIVEBALL_TURNOVERS_STRING)
 
+            if pbp_event.is_lost_ball_turnover():
+                stat_keys.append(pbpstats.LOST_BALL_TURNOVER_STRING)
+            elif pbp_event.is_bad_pass_turnover():
+                stat_keys.append(pbpstats.BAD_PASS_TURNOVER_STRING)
+
             steal_player_id = pbp_event.player3_id
             steal_team_id = utils.swap_team_id_for_game(team_id, [self.OffenseTeamId, self.DefenseTeamId])
 
@@ -284,6 +289,10 @@ class PossessionDetails(object):
                 stat_keys.append(pbpstats.STEP_OUT_OF_BOUNDS_TURNOVER_STRING)
             elif pbp_event.is_offensive_goaltending():
                 stat_keys.append(pbpstats.OFFENSIVE_GOALTENDING_STRING)
+            elif pbp_event.is_lost_ball_out_of_bounds_turnover():
+                stat_keys.append(pbpstats.LOST_BALL_OUT_OF_BOUNDS_TURNOVER_STRING)
+            elif pbp_event.is_bad_pass_out_of_bounds_turnover():
+                stat_keys.append(pbpstats.BAD_PASS_OUT_OF_BOUNDS_TURNOVER_STRING)
 
             events_to_check = self.Events + self.PreviousPossessionEvents
             if player_id != '0' and player_id not in lineup_id.split('-'):
