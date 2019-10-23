@@ -850,23 +850,27 @@ class PossessionDetails(object):
         """
         increments PlayerStats for appropriate coaches challenge
         """
-        player_id = pbp_event.player_id
-        team_id = pbp_event.team_id
-        opponent_team_id = utils.swap_team_id_for_game(team_id, [self.OffenseTeamId, self.DefenseTeamId])
+        event = pbp_event
+        while event is not None and pbp_event.seconds_remaining == event.seconds_remaining and not event.is_timeout():
+            event = event.previous_event
+        if event is not None and event.is_timeout():
+            # use timeout event because team isn't in the replay event
+            player_id = pbpstats.TEAM_STAT_PLAYER_ID
+            team_id = event.team_id
+            opponent_team_id = utils.swap_team_id_for_game(team_id, [self.OffenseTeamId, self.DefenseTeamId])
 
-        lineup_ids = utils.generate_lineup_ids(pbp_event.current_players)
+            lineup_ids = utils.generate_lineup_ids(event.current_players)
+            lineup_id = lineup_ids[team_id]
+            opponent_lineup_id = lineup_ids[opponent_team_id]
 
-        lineup_id = lineup_ids[team_id]
-        opponent_lineup_id = lineup_ids[opponent_team_id]
+            if pbp_event.is_replay_challenge_overturn_ruling():
+                stat_key = pbpstats.CHALLENGE_OVERTURN_RULING_STRING
+            elif pbp_event.is_replay_challenge_ruling_stands():
+                stat_key = pbpstats.CHALLENGE_RULING_STANDS_STRING
+            elif pbp_event.is_replay_challenge_support_ruling():
+                stat_key = pbpstats.CHALLENGE_SUPPORT_RULING_STRING
 
-        if pbp_event.is_replay_challenge_overturn_ruling():
-            stat_key = pbpstats.CHALLENGE_OVERTURN_RULING_STRING
-        elif pbp_event.is_replay_challenge_ruling_stands():
-            stat_key = pbpstats.CHALLENGE_RULING_STANDS_STRING
-        elif pbp_event.is_replay_challenge_support_ruling():
-            stat_key = pbpstats.CHALLENGE_SUPPORT_RULING_STRING
-
-        self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][stat_key] += 1
+            self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][stat_key] += 1
 
     def add_possessions(self, penalty_start_events, previous_possession_details=None, ignore_back_to_back_possessions=False):
         """
