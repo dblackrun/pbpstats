@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dblackrun/pbpstats.svg?branch=master)](https://travis-ci.org/pbpstats/pbpstats)
+[![Build Status](https://travis-ci.org/dblackrun/pbpstats.svg?branch=master)](https://travis-ci.org/dblackrun/pbpstats)
 [![PyPI version](https://badge.fury.io/py/pbpstats.svg)](https://badge.fury.io/py/pbpstats)
 [![Downloads](https://pepy.tech/badge/pbpstats)](https://pepy.tech/project/pbpstats)
 
