@@ -1,6 +1,10 @@
+import json
+
+import responses
 import pbpstats
 from pbpstats.stats_pbp_event import StatsPbpEvent
 from pbpstats.stats_period import StatsPeriod
+from furl import furl
 
 
 class TestStatsPbpEvent:
@@ -1269,3 +1273,33 @@ class TestStatsPbpEvent:
         assert filtered_events[-1].number == 511
 
         assert len(events.Events[0].get_all_events_at_event_time()) == 1
+
+    @responses.activate
+    def test_get_video_url(self):
+        with open('tests/data/video_events_asset_response.json') as f:
+            response = json.loads(f.read())
+        params = {
+            'GameEventID': 7,
+            'GameID': '0021900001'
+        }
+        url = furl(pbpstats.VIDEO_EVENT_ASSET_BASE_URL).add(params).url
+        responses.add(responses.GET, url, json=response, status=200)
+
+        event = StatsPbpEvent({'EVENTNUM': 7, 'GAME_ID': '0021900001'})
+        event_video_url = event.get_video_url()
+        assert event_video_url == 'https://videos.nba.com/nba/pbp/media/2019/10/22/0021900001/7/c04616a9-ce51-dc22-f129-c34f854f30d8_960x540.mp4'
+
+    @responses.activate
+    def test_get_video_url_with_no_video(self):
+        with open('tests/data/video_events_asset_with_no_url_response.json') as f:
+            response = json.loads(f.read())
+        params = {
+            'GameEventID': 139,
+            'GameID': '0021900001'
+        }
+        url = furl(pbpstats.VIDEO_EVENT_ASSET_BASE_URL).add(params).url
+        responses.add(responses.GET, url, json=response, status=200)
+
+        event = StatsPbpEvent({'EVENTNUM': 139, 'GAME_ID': '0021900001'})
+        event_video_url = event.get_video_url()
+        assert event_video_url == ''

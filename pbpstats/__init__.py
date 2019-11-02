@@ -15,6 +15,7 @@ if DATA_DIRECTORY is not None and os.path.isdir(DATA_DIRECTORY):
 else:
     DATA_DIRECTORY = None
 
+VIDEO_EVENT_ASSET_BASE_URL = 'https://stats.nba.com/stats/videoeventsasset'
 TODAYS_NBA_SCORES_URL = 'http://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
 TODAYS_WNBA_SCORES_URL = 'http://data.wnba.com/data/5s/v2015/json/mobile_teams/wnba/2019/scores/10_todays_scores.json'
 TODAYS_G_LEAGUE_SCORES_URL = 'https://data.nba.com/data/10s/v2015/json/mobile_teams/dleague/2019/scores/20_todays_scores.json'

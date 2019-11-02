@@ -1,3 +1,5 @@
+import pbpstats
+
 from pbpstats.pbp_event import PbpEvent
 
 
@@ -29,6 +31,7 @@ class StatsPbpEvent(PbpEvent):
         self.visitor_score = event.get('visitor_score', 0)
         self.player2_id = str(event.get('PLAYER2_ID', ''))
         self.player3_id = str(event.get('PLAYER3_ID', ''))
+        self.game_id = event.get('GAME_ID')
         self.loc_x = None
         self.loc_y = None
 
@@ -115,3 +118,18 @@ class StatsPbpEvent(PbpEvent):
 
     def is_steal(self):
         return self.is_turnover() and 'STEAL ' in self.description
+
+    def get_video_url(self):
+        """
+        gets url for mp4 video of play
+        returns url string
+        """
+        params = {
+            'GameEventID': self.number,
+            'GameID': self.game_id
+        }
+        response = pbpstats.utils.get_json_response(pbpstats.VIDEO_EVENT_ASSET_BASE_URL, params, None)
+        video_urls = response['resultSets']['Meta']['videoUrls']
+        if len(video_urls) == 1:
+            return video_urls[0]['murl']
+        return ''
