@@ -438,7 +438,8 @@ class PossessionDetails(object):
             pbpstats.MADE_STRING: True,
             'X': pbp_event.loc_x,
             'Y': pbp_event.loc_y,
-            pbpstats.TIME_STRING: pbp_event.seconds_remaining
+            pbpstats.TIME_STRING: pbp_event.seconds_remaining,
+            'EventNum': pbp_event.number
         }
         shot_type = pbp_event.get_shot_type()
         if shot_type in [pbpstats.CORNER_3_STRING, pbpstats.ARC_3_STRING]:
@@ -571,7 +572,8 @@ class PossessionDetails(object):
             pbpstats.MADE_STRING: False,
             'X': loc_x_int,
             'Y': loc_y_int,
-            pbpstats.TIME_STRING: pbp_event.seconds_remaining
+            pbpstats.TIME_STRING: pbp_event.seconds_remaining,
+            'EventNum': pbp_event.number
         }
 
         shot_type = pbp_event.get_shot_type()

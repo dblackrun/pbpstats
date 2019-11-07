@@ -187,7 +187,8 @@ class TestStatsGameData:
                 'Assisted': False,
                 'Putback': False,
                 'ShotType': 'ShortMidRange',
-                'ScoreMargin': 0
+                'ScoreMargin': 0,
+                'EventNum': 2
             }
         ]
         assert self.GameData.Periods[0].Possessions[0].ShotData == expected_shot_data
@@ -241,7 +242,8 @@ class TestStatsGameData:
                 'Putback': False,
                 'AssistPlayerId': '203506',
                 'ShotType': 'ShortMidRange',
-                'ScoreMargin': -2
+                'ScoreMargin': -2,
+                'EventNum': 3
             }
         ]
         assert self.GameData.Periods[0].Possessions[1].ShotData == expected_shot_data
@@ -281,7 +283,8 @@ class TestStatsGameData:
                 'Blocked': False,
                 'Putback': False,
                 'ShotType': 'AtRim',
-                'ScoreMargin': 0
+                'ScoreMargin': 0,
+                'EventNum': 6
             },
             {
                 'PlayerId': '203500',
@@ -301,7 +304,8 @@ class TestStatsGameData:
                 'Blocked': False,
                 'Putback': False,
                 'ShotType': 'ShortMidRange',
-                'ScoreMargin': 0
+                'ScoreMargin': 0,
+                'EventNum': 10
             }
         ]
         assert self.GameData.Periods[0].Possessions[3].ShotData == expected_shot_data
