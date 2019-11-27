@@ -305,13 +305,13 @@ class PbpEvent(object):
         """
         only used in g-league, starting in 2019-20 season
         """
-        return self.etype == 3 and self.mtype == 30
+        return self.etype == 3 and (self.mtype == 30 or self.mtype == 35)
 
     def is_2pt_ft(self):
         """
         only used in g-league, starting in 2019-20 season
         """
-        return self.etype == 3 and self.mtype == 31
+        return self.etype == 3 and (self.mtype == 31 or self.mtype == 36)
 
     def is_3pt_ft(self):
         """
