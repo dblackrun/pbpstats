@@ -93,7 +93,7 @@ class StatsPeriod(Period):
                     team_starting_possession_with_ball = event.team_id
 
             # made final FTA
-            if event.is_made_ft() and (event.is_ft_1_of_1() or event.is_ft_2_of_2() or event.is_ft_3_of_3()):
+            if event.is_made_ft() and (event.is_ft_1_of_1() or event.is_1pt_ft() or event.is_ft_2_of_2() or event.is_2pt_ft() or event.is_ft_3_of_3() or event.is_3pt_ft()):
                 # Ignore FT 1 of 1 on away from play fouls with no made shot - away from play is msgtype 6, actiontype 6
                 if (
                     not event.is_away_from_play_ft() and

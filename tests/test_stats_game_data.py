@@ -696,3 +696,128 @@ class TestStatsGameData:
     def test_aggregate_invalid_entity_stats(self):
         stats = self.GameData.get_aggregated_possession_stats_for_entity_type('invalid')
         assert stats is None
+
+
+class TestGleagueStatsGameData:
+    @responses.activate
+    def setup_class(cls):
+        cls.GameId = '2021900002'
+        with open('tests/data/gleague_stats_game_pbp_response.json') as f:
+            game_pbp_response = json.loads(f.read())
+
+        with open('tests/data/gleague_stats_game_summary_response.json') as f:
+            game_summary_response = json.loads(f.read())
+
+        with open('tests/data/gleague_stats_game_boxscore_response.json') as f:
+            boxscore_response = json.loads(f.read())
+
+        with open('tests/data/gleague_stats_game_home_shots_response.json') as f:
+            home_shots_response = json.loads(f.read())
+
+        with open('tests/data/gleague_stats_game_away_shots_response.json') as f:
+            away_shots_response = json.loads(f.read())
+
+        pbp_base_url = 'https://stats.gleague.nba.com/stats/playbyplayv2'
+        pbp_query_params = {
+            'EndPeriod': 10,
+            'EndRange': 55800,
+            'GameId': '2021900002',
+            'RangeType': 2,
+            'StartPeriod': 0,
+            'StartRange': 0,
+        }
+        pbp_url = furl(pbp_base_url).add(pbp_query_params).url
+
+        game_summary_url = 'https://stats.gleague.nba.com/stats/boxscoresummaryv2?GameId=2021900002'
+
+        boxscore_base_url = 'https://stats.gleague.nba.com/stats/boxscoretraditionalv2'
+        boxscore_query_params = {
+            'EndPeriod': 10,
+            'EndRange': 55800,
+            'GameId': '2021900002',
+            'RangeType': 2,
+            'StartPeriod': 0,
+            'StartRange': 0,
+        }
+        boxscore_url = furl(boxscore_base_url).add(boxscore_query_params).url
+
+        shots_base_url = 'https://stats.gleague.nba.com/stats/shotchartdetail'
+        home_shots_query_params = {
+            'GameID': '2021900002',
+            'Season': '2019-20',
+            'SeasonType': 'Regular Season',
+            'TeamID': 1612709910,
+            'PlayerID': 0,
+            'Outcome': '',
+            'Location': '',
+            'Month': 0,
+            'SeasonSegment': '',
+            'DateFrom': '',
+            'DateTo': '',
+            'OpponentTeamID': 0,
+            'VsConference': '',
+            'VsDivision': '',
+            'Position': '',
+            'RookieYear': '',
+            'GameSegment': '',
+            'Period': 0,
+            'LastNGames': 0,
+            'ContextMeasure': 'FG_PCT',
+            'PlayerPosition': '',
+            'LeagueID': '20',
+        }
+        home_shots_url = furl(shots_base_url).add(home_shots_query_params).url
+        away_shots_query_params = {
+            'GameID': '2021900002',
+            'Season': '2019-20',
+            'SeasonType': 'Regular Season',
+            'TeamID': 1612709925,
+            'PlayerID': 0,
+            'Outcome': '',
+            'Location': '',
+            'Month': 0,
+            'SeasonSegment': '',
+            'DateFrom': '',
+            'DateTo': '',
+            'OpponentTeamID': 0,
+            'VsConference': '',
+            'VsDivision': '',
+            'Position': '',
+            'RookieYear': '',
+            'GameSegment': '',
+            'Period': 0,
+            'LastNGames': 0,
+            'ContextMeasure': 'FG_PCT',
+            'PlayerPosition': '',
+            'LeagueID': '20',
+        }
+        away_shots_url = furl(shots_base_url).add(away_shots_query_params).url
+
+        responses.add(responses.GET, pbp_url, json=game_pbp_response, status=200)
+        responses.add(responses.GET, game_summary_url, json=game_summary_response, status=200)
+        responses.add(responses.GET, boxscore_url, json=boxscore_response, status=200)
+        responses.add(responses.GET, home_shots_url, json=home_shots_response, status=200)
+        responses.add(responses.GET, away_shots_url, json=away_shots_response, status=200)
+
+        with open('tests/data/missing_period_starters.json') as f:
+            period_starters_override = json.loads(f.read())
+
+        cls.GameData = StatsGameData(cls.GameId, response_data_directory=None)
+        cls.GameData.get_game_data(period_starters_override=period_starters_override)
+
+    def test_aggregate_team_stats(self):
+        stats = self.GameData.get_aggregated_possession_stats_for_entity_type('team')
+        assert stats['1612709925']['OffPoss'] == 101
+        assert stats['1612709925']['DefPoss'] == 100
+
+        assert stats['1612709925']['PlusMinus'] == 28
+        assert stats['1612709925']['FtsMade'] == 1
+        assert stats['1612709925']['2ptFtsMade'] == 6
+        assert stats['1612709925']['2pt Shooting Foul Free Throw Trips'] == 8
+
+        assert stats['1612709910']['FtsMade'] == 8
+        assert stats['1612709910']['1ptFtsMade'] == 2
+        assert stats['1612709910']['2ptFtsMade'] == 6
+        assert stats['1612709910']['2pt And 1 Free Throw Trips'] == 3
+        assert stats['1612709910']['2pt Shooting Foul Free Throw Trips'] == 10
+        assert stats['1612709910']['3pt Shooting Foul Free Throw Trips'] == 1

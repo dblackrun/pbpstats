@@ -221,10 +221,10 @@ class PbpEvent(object):
         return self.etype == 6 and self.mtype in [1, 2, 3, 5, 6, 9, 15, 17, 27, 28, 29]
 
     def is_first_ft(self):
-        return (self.is_made_ft() or self.is_missed_ft()) and ' 1 of ' in self.description
+        return (self.is_made_ft() or self.is_missed_ft()) and (' 1 of ' in self.description or (self.is_1pt_ft() or self.is_2pt_ft() or self.is_3pt_ft()))
 
     def is_technical_ft(self):
-        return (self.is_made_ft() or self.is_missed_ft()) and 'Free Throw Technical' in self.description
+        return (self.is_made_ft() or self.is_missed_ft()) and ' Technical' in self.description
 
     def get_and1_shot(self):
         """
@@ -301,6 +301,24 @@ class PbpEvent(object):
     def is_ft_3_of_3(self):
         return self.etype == 3 and self.mtype == 15
 
+    def is_1pt_ft(self):
+        """
+        only used in g-league, starting in 2019-20 season
+        """
+        return self.etype == 3 and self.mtype == 30
+
+    def is_2pt_ft(self):
+        """
+        only used in g-league, starting in 2019-20 season
+        """
+        return self.etype == 3 and self.mtype == 31
+
+    def is_3pt_ft(self):
+        """
+        only used in g-league, starting in 2019-20 season
+        """
+        return self.etype == 3 and self.mtype == 32
+
     def is_jump_ball(self):
         return self.etype == 10
 
@@ -314,7 +332,7 @@ class PbpEvent(object):
         returns bool
         """
         foul = self.get_foul_that_resulted_in_ft_excluding_techs()
-        if (self.is_ft_1_of_1() or self.is_ft_2_of_2()) and foul is not None and foul.get_foul_type() == pbpstats.AWAY_FROM_PLAY_FOUL_TYPE_STRING:
+        if ((self.is_ft_1_of_1() or self.is_1pt_ft()) or (self.is_ft_2_of_2() or self.is_2pt_ft())) and foul is not None and foul.get_foul_type() == pbpstats.AWAY_FROM_PLAY_FOUL_TYPE_STRING:
             made_shots_at_event_time = []
             fts_by_other_player_at_event_time = []
             events_at_event_time = self.get_all_events_at_event_time()
@@ -346,7 +364,7 @@ class PbpEvent(object):
 
         returns bool
         """
-        if self.is_ft_1_of_1():
+        if (self.is_ft_1_of_1() or self.is_1pt_ft()):
             events_at_event_time = self.get_all_events_at_event_time()
             for event in events_at_event_time:
                 if event.get_foul_type() == pbpstats.INBOUND_FOUL_TYPE_STRING:
@@ -419,7 +437,7 @@ class PbpEvent(object):
                 # check FT 1 of 1s at time of shot
                 ft_1_of_1s_at_time_of_shot = []
                 for event in events_at_event_time:
-                    if event.is_ft_1_of_1() and not event.is_technical_ft():
+                    if (event.is_ft_1_of_1() or event.is_1pt_ft()) and not event.is_technical_ft():
                         ft_1_of_1s_at_time_of_shot.append(event)
 
                 if len(ft_1_of_1s_at_time_of_shot) != 0:
@@ -434,7 +452,7 @@ class PbpEvent(object):
         elif shooter_team_id not in [event.team_id for event in fouls_at_time_of_shot]:
             ft_1_of_1s_at_time_of_shot = []
             for event in events_at_event_time:
-                if event.is_ft_1_of_1() and not event.is_technical_ft():
+                if (event.is_ft_1_of_1() or event.is_1pt_ft()) and not event.is_technical_ft():
                     ft_1_of_1s_at_time_of_shot.append(event)
 
             if len(ft_1_of_1s_at_time_of_shot) == 1:
@@ -517,7 +535,7 @@ class PbpEvent(object):
                 # check if missed shot was a free throw
                 ft = False
                 if last_miss_before_rebound.is_missed_ft():
-                    if not (last_miss_before_rebound.is_ft_1_of_1() or last_miss_before_rebound.is_ft_2_of_2() or last_miss_before_rebound.is_ft_3_of_3()):
+                    if not ((last_miss_before_rebound.is_ft_1_of_1() or last_miss_before_rebound.is_1pt_ft()) or (last_miss_before_rebound.is_ft_2_of_2() or last_miss_before_rebound.is_2pt_ft()) or (last_miss_before_rebound.is_ft_3_of_3() or last_miss_before_rebound.is_3pt_ft())):
                         return None
                     ft = True
             else:

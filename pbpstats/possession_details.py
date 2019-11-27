@@ -684,21 +684,35 @@ class PossessionDetails(object):
             foul_type = foul_event.get_foul_type()
             take_foul = foul_type == pbpstats.PERSONAL_TAKE_TYPE_STRING
 
-        self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.FTS_MADE_STRING] += 1
+        # handle new g-league free throw rules
+        if pbp_event.is_3pt_ft():
+            points = 3
+            free_throw_key = pbpstats.FT_3_PT_MADE_STRING
+        elif pbp_event.is_2pt_ft():
+            points = 2
+            free_throw_key = pbpstats.FT_2_PT_MADE_STRING
+        elif pbp_event.is_1pt_ft():
+            points = 1
+            free_throw_key = pbpstats.FT_1_PT_MADE_STRING
+        else:
+            points = 1
+            free_throw_key = pbpstats.FTS_MADE_STRING
+
+        self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][free_throw_key] += 1
         if second_chance:
-            self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.SECOND_CHANCE_STRING + pbpstats.FTS_MADE_STRING] += 1
+            self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.SECOND_CHANCE_STRING + free_throw_key] += 1
         if in_penalty:
-            self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.PENALTY_STRING + pbpstats.FTS_MADE_STRING] += 1
+            self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.PENALTY_STRING + free_throw_key] += 1
             if take_foul and pbp_event.seconds_remaining < 60 and self.Period >= 4:
-                self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING + pbpstats.FTS_MADE_STRING] += 1
+                self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING + free_throw_key] += 1
 
         # add plus minus and opponent points - used for lineup/wowy stats to get net rating
         for player_id in lineup_ids[team_id].split('-'):
-            self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.PLUS_MINUS_STRING] += 1
+            self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][pbpstats.PLUS_MINUS_STRING] += points
 
         for player_id in lineup_ids[opponent_team_id].split('-'):
-            self.PlayerStats[opponent_team_id][opponent_lineup_id][lineup_id][player_id][pbpstats.PLUS_MINUS_STRING] -= 1
-            self.PlayerStats[opponent_team_id][opponent_lineup_id][lineup_id][player_id][pbpstats.OPPONENT_POINTS] += 1
+            self.PlayerStats[opponent_team_id][opponent_lineup_id][lineup_id][player_id][pbpstats.PLUS_MINUS_STRING] -= points
+            self.PlayerStats[opponent_team_id][opponent_lineup_id][lineup_id][player_id][pbpstats.OPPONENT_POINTS] += points
 
     def increment_foul_stats(self, pbp_event, foul_tracker, in_penalty):
         """
@@ -774,9 +788,17 @@ class PossessionDetails(object):
                 free_throw_type = f"{num_fts} Shot Unknown Free Throw Trips"
             else:
                 foul_type = foul_event.get_foul_type()
+                num_fts = foul_event.get_number_of_fta_for_foul()
+                if num_fts is None:
+                    # should only happen with new gleague ft rules
+                    if pbp_event.is_1pt_ft():
+                        num_fts = 1
+                    elif pbp_event.is_2pt_ft():
+                        num_fts = 2
+                    elif pbp_event.is_3pt_ft():
+                        num_fts = 3
                 if foul_type in [pbpstats.SHOOTING_FOUL_TYPE_STRING, pbpstats.SHOOTING_BLOCK_TYPE_STRING]:
                     # check if 1, 2 or 3 shots
-                    num_fts = foul_event.get_number_of_fta_for_foul()
                     if num_fts == 1:
                         # and 1
                         and1_shot = foul_event.get_and1_shot()
@@ -798,21 +820,17 @@ class PossessionDetails(object):
                     else:
                         free_throw_type = f"{num_fts}pt Shooting Foul Free Throw Trips"
                 elif foul_type in [pbpstats.FLAGRANT_1_FOUL_TYPE_STRING, pbpstats.FLAGRANT_2_FOUL_TYPE_STRING]:
-                    num_fts = foul_event.get_number_of_fta_for_foul()
                     if num_fts is None:
                         # assume 2 shot flagrant if num_fts is None
                         num_fts = 2
                     free_throw_type = f"{num_fts} Shot Flagrant Free Throw Trips"
                 elif foul_type == pbpstats.AWAY_FROM_PLAY_FOUL_TYPE_STRING:
-                    num_fts = foul_event.get_number_of_fta_for_foul()
                     free_throw_type = f"{num_fts} Shot Away From Play Free Throw Trips"
                 elif foul_type == pbpstats.INBOUND_FOUL_TYPE_STRING:
-                    num_fts = foul_event.get_number_of_fta_for_foul()
                     free_throw_type = f"{num_fts} Shot Inbound Foul Free Throw Trips"
                 else:
                     # penalty
                     # check for 3 shots since sometimes shooting fouls are counted as personal fouls - can't really fix for 2 shot fouls but can for 3
-                    num_fts = foul_event.get_number_of_fta_for_foul()
                     if num_fts == 3:
                         free_throw_type = pbpstats.THREE_POINT_SHOOTING_FOUL_FREE_THROW_STRING
                     elif num_fts == 1:
@@ -976,6 +994,7 @@ class PossessionDetails(object):
             for lineup_id in self.PlayerStats[team_id].keys():
                 for opponent_lineup_id in self.PlayerStats[team_id][lineup_id].keys():
                     for player_id in self.PlayerStats[team_id][lineup_id][opponent_lineup_id].keys():
-                        if pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING + pbpstats.FTS_MADE_STRING in self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id].keys():
-                            return True
+                        for stat_key in self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id].keys():
+                            if pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING in stat_key and pbpstats.FTS_MADE_STRING in stat_key:
+                                return True
         return False
