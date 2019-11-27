@@ -157,7 +157,7 @@ class GameData(object):
                                     pbp_event for pbp_event in period.Events
                                     if pbp_event.seconds_remaining == event_time and
                                     pbp_event.team_id != foul_team and
-                                    (pbp_event.is_ft_1_of_1() or pbp_event.is_ft_2_of_2() or pbp_event.is_ft_3_of_3())
+                                    (pbp_event.is_ft_1_of_1() or pbp_event.is_1pt_ft() or pbp_event.is_ft_2_of_2() or pbp_event.is_2pt_ft() or pbp_event.is_ft_3_of_3() or pbp_event.is_3pt_ft())
                                 ]
                                 if len(final_fts_at_time_of_foul) == 0:
                                     # Example of when this happens: lane violation
