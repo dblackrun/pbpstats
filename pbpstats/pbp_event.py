@@ -224,7 +224,7 @@ class PbpEvent(object):
         return (self.is_made_ft() or self.is_missed_ft()) and (' 1 of ' in self.description or (self.is_1pt_ft() or self.is_2pt_ft() or self.is_3pt_ft()))
 
     def is_technical_ft(self):
-        return (self.is_made_ft() or self.is_missed_ft()) and 'Free Throw Technical' in self.description
+        return (self.is_made_ft() or self.is_missed_ft()) and ' Technical' in self.description
 
     def get_and1_shot(self):
         """
