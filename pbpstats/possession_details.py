@@ -789,14 +789,13 @@ class PossessionDetails(object):
             else:
                 foul_type = foul_event.get_foul_type()
                 num_fts = foul_event.get_number_of_fta_for_foul()
-                if num_fts is None:
-                    # should only happen with new gleague ft rules
-                    if pbp_event.is_1pt_ft():
-                        num_fts = 1
-                    elif pbp_event.is_2pt_ft():
-                        num_fts = 2
-                    elif pbp_event.is_3pt_ft():
-                        num_fts = 3
+                # should only happen with new gleague ft rules
+                if pbp_event.is_1pt_ft():
+                    num_fts = 1
+                elif pbp_event.is_2pt_ft():
+                    num_fts = 2
+                elif pbp_event.is_3pt_ft():
+                    num_fts = 3
                 if foul_type in [pbpstats.SHOOTING_FOUL_TYPE_STRING, pbpstats.SHOOTING_BLOCK_TYPE_STRING]:
                     # check if 1, 2 or 3 shots
                     if num_fts == 1:
