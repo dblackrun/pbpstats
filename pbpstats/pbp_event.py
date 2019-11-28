@@ -317,7 +317,7 @@ class PbpEvent(object):
         """
         only used in g-league, starting in 2019-20 season
         """
-        return self.etype == 3 and self.mtype == 32
+        return self.etype == 3 and (self.mtype == 32 or self.mtype == 37)
 
     def is_jump_ball(self):
         return self.etype == 10
