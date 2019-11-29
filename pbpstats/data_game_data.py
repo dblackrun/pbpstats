@@ -1,5 +1,4 @@
 # class for pulling and cleaning data from data.nba.com api
-import requests
 import pbpstats
 
 from pbpstats import utils
@@ -44,6 +43,8 @@ class DataGameData(GameData):
         self.SeasonType = utils.get_season_type_from_game_id(self.GameId)
         self.League = utils.get_league_from_game_id(game_id)
         self.PbpFilePath = f'{response_data_directory}pbp/data_{self.GameId}.json' if response_data_directory is not None else None
+        self.GameSummaryFilePath = f'{response_data_directory}game_details/data_{self.GameId}.json' if response_data_directory is not None else None
+
         if self.League == pbpstats.NBA_STRING:
             season_year = self.Season.split('-')[0]
             self.PbpUrl = (f"http://data.nba.com/data/v2015/json/mobile_teams/nba/{season_year}/scores/pbp/{self.GameId}_full_pbp.json")
@@ -67,7 +68,7 @@ class DataGameData(GameData):
             - do this if you don't want to fix issues with pbp and don't care about rebound stats
         period_starters_override - dict with missing period starters
         """
-        game_summary_json = self.get_game_summary_response_json()
+        game_summary_json = utils.get_json_response(self.GameDetailUrl, {}, self.GameSummaryFilePath)
         self.get_pbp_events()
         self.instantiate_team_and_player_data(game_summary_json)
         if 'period_starters_override' in kwargs:
@@ -90,15 +91,3 @@ class DataGameData(GameData):
         if last_event['de'] not in ['Game End', 'End Period']:
             raise Exception(f"Last event is not game end: GameId: {self.GameId}")
         self.Periods = [DataPeriod(period['pla'], self.GameId, period['p']) for period in game_periods]
-
-    def get_game_summary_response_json(self):
-        """
-        gets game summary response from data.nba.com for game id
-
-        returns request response (error if response status is not 200)
-        """
-        response = requests.get(self.GameDetailUrl, timeout=pbpstats.REQUEST_TIMEOUT)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            response.raise_for_status()

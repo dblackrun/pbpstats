@@ -37,7 +37,6 @@ class TestPbpEventConsistency:
         responses.add(responses.GET, pbp_url, json=game_pbp_response, status=200)
 
         data_game_data = DataGameData(game_id, response_data_directory=None)
-        data_game_data.get_game_summary_response_json()
         data_game_data.get_pbp_events()
 
         stats_game_data = StatsGameData(game_id, response_data_directory=None)
