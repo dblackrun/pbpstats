@@ -44,6 +44,8 @@ class DataGameData(GameData):
         self.SeasonType = utils.get_season_type_from_game_id(self.GameId)
         self.League = utils.get_league_from_game_id(game_id)
         self.PbpFilePath = f'{response_data_directory}pbp/data_{self.GameId}.json' if response_data_directory is not None else None
+        self.GameDetailFilePath = f'{response_data_directory}game_details/data_{self.GameId}.json' if response_data_directory is not None else None
+        
         if self.League == pbpstats.NBA_STRING:
             season_year = self.Season.split('-')[0]
             self.PbpUrl = (f"http://data.nba.com/data/v2015/json/mobile_teams/nba/{season_year}/scores/pbp/{self.GameId}_full_pbp.json")
@@ -97,8 +99,5 @@ class DataGameData(GameData):
 
         returns request response (error if response status is not 200)
         """
-        response = requests.get(self.GameDetailUrl, timeout=pbpstats.REQUEST_TIMEOUT)
-        if response.status_code == 200:
-            return response.json()
-        else:
-            response.raise_for_status()
+        response_json = utils.get_json_response(self.GameDetailUrl, {}, self.GameDetailFilePath)
+        return response_json
