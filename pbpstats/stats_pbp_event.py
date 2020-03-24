@@ -89,8 +89,8 @@ class StatsPbpEvent(PbpEvent):
         while event is not None and event.seconds_remaining == seconds_remaining and not ((event.is_made_ft() or event.is_missed_ft()) and not event.is_technical_ft() and self.team_id != event.team_id):
             event = event.next_event
 
-        if event is not None and (event.is_made_ft() or event.is_missed_ft()) and not event.is_technical_ft() and event.seconds_remaining == seconds_remaining and self.player3_id != event.player3_id:
-            # opid check is to make sure player who got fouled is player shooting free throws
+        if event is not None and (event.is_made_ft() or event.is_missed_ft()) and not event.is_technical_ft() and event.seconds_remaining == seconds_remaining and (self.player3_id != event.player3_id or self.player3_id == '' and event.player3_id == ''):
+            # player3 id check is to make sure player who got fouled is player shooting free throws, prior to 2005-06 because foul drawning player isn't in pbp
             if 'of 1' in event.description:
                 return 1
             elif 'of 2' in event.description:
@@ -103,8 +103,8 @@ class StatsPbpEvent(PbpEvent):
         while event is not None and event.seconds_remaining == seconds_remaining and not ((event.is_made_ft() or event.is_missed_ft()) and not event.is_technical_ft() and self.team_id != event.team_id):
             event = event.previous_event
 
-        if event is not None and (event.is_made_ft() or event.is_missed_ft()) and not event.is_technical_ft() and event.seconds_remaining == seconds_remaining and self.player3_id != event.player3_id:
-            # opid check is to make sure player who got fouled is player shooting free throws
+        if event is not None and (event.is_made_ft() or event.is_missed_ft()) and not event.is_technical_ft() and event.seconds_remaining == seconds_remaining and (self.player3_id != event.player3_id or self.player3_id == '' and event.player3_id == ''):
+            # player3 id check is to make sure player who got fouled is player shooting free throws, prior to 2005-06 because foul drawning player isn't in pbp
             if 'of 1' in event.description:
                 return 1
             elif 'of 2' in event.description:
