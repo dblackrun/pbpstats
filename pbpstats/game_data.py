@@ -34,9 +34,9 @@ class GameData(object):
             },
         }
         if self.GameId in PLAYERS_MISSING_FROM_BOXSCORE.keys():
-            for team_id in PLAYERS_MISSING_FROM_BOXSCORE[self.GameId].keys():
-                for player_id in PLAYERS_MISSING_FROM_BOXSCORE[self.GameId][team_id].keys():
-                    self.Players[team_id][player_id] = PLAYERS_MISSING_FROM_BOXSCORE[self.GameId][team_id][player_id]
+            for team_id, players in PLAYERS_MISSING_FROM_BOXSCORE[self.GameId].items():
+                for player_id, player_name in players.items():
+                    self.Players[team_id][player_id] = player_name
 
     def set_period_starters(self, missing_period_starters=MISSING_PERIOD_STARTERS):
         """
@@ -108,9 +108,9 @@ class GameData(object):
                 for team_id in missing_period_starters[self.GameId][str(period.Number)].keys():
                     period.Starters[team_id] = missing_period_starters[self.GameId][str(period.Number)][team_id]
 
-            for team_id in period.Starters.keys():
-                if len(period.Starters[team_id]) != 5:
-                    raise InvalidNumberOfStartersException(f"GameId: {self.GameId}, Period: {period}, TeamId: {team_id}, Players: {period.Starters[team_id]}")
+            for team_id, starters in period.Starters.items():
+                if len(starters) != 5:
+                    raise InvalidNumberOfStartersException(f"GameId: {self.GameId}, Period: {period}, TeamId: {team_id}, Players: {starters}")
 
     def add_players_on_floor(self):
         """
@@ -226,12 +226,11 @@ class GameData(object):
             aggregate_stats = {self.HomeTeamId: defaultdict(lambda: defaultdict(int)), self.VisitorTeamId: defaultdict(lambda: defaultdict(int))}
         for period in self.Periods:
             for possession in period.Possessions:
-                for team_id in possession.PlayerStats.keys():
-                    for lineup_id in possession.PlayerStats[team_id].keys():
-                        for opponent_lineup_id in possession.PlayerStats[team_id][lineup_id].keys():
-                            for player_id in possession.PlayerStats[team_id][lineup_id][opponent_lineup_id].keys():
-                                for stat_key in possession.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id].keys():
-                                    stat_value = possession.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id][stat_key]
+                for team_id, team_lineups in possession.PlayerStats.items():
+                    for lineup_id, opponent_lineups in team_lineups.items():
+                        for opponent_lineup_id, players in opponent_lineups.items():
+                            for player_id, stats in players.items():
+                                for stat_key, stat_value in stats.items():
                                     if entity_type == 'team':
                                         aggregate_stats[team_id][stat_key] += stat_value
                                     elif entity_type == 'opponent':
@@ -247,16 +246,16 @@ class GameData(object):
 
         # since stat keys are summed up from player stats team and lineup stats will need some stats to be divided by 5
         if entity_type in ['team', 'opponent']:
-            for team_id in aggregate_stats.keys():
-                for stat_key in aggregate_stats[team_id].keys():
+            for team_id, stats in aggregate_stats.items():
+                for stat_key, stat_value in stats.items():
                     if stat_key in pbpstats.KEYS_OFF_BY_FACTOR_OF_5_WHEN_AGGREGATING_FOR_TEAM_AND_LINEUPS:
-                        aggregate_stats[team_id][stat_key] = aggregate_stats[team_id][stat_key] / 5
+                        aggregate_stats[team_id][stat_key] = stat_value / 5
 
         if entity_type in ['lineup', 'lineupopponent']:
-            for team_id in aggregate_stats.keys():
-                for lineup_id in aggregate_stats[team_id].keys():
-                    for stat_key in aggregate_stats[team_id][lineup_id].keys():
+            for team_id, lineups in aggregate_stats.items():
+                for lineup_id, stats in lineups.items():
+                    for stat_key, stat_value in stats.items():
                         if stat_key in pbpstats.KEYS_OFF_BY_FACTOR_OF_5_WHEN_AGGREGATING_FOR_TEAM_AND_LINEUPS:
-                            aggregate_stats[team_id][lineup_id][stat_key] = aggregate_stats[team_id][lineup_id][stat_key] / 5
+                            aggregate_stats[team_id][lineup_id][stat_key] = stat_value / 5
 
         return aggregate_stats

@@ -183,8 +183,7 @@ class PossessionDetails(object):
                     event_seconds = self.Events[i - 1].seconds_remaining - event.seconds_remaining
 
                 if event_seconds > 0:
-                    for team_id in lineup_ids.keys():
-                        lineup_id = lineup_ids[team_id]
+                    for team_id, lineup_id in lineup_ids.items():
                         opponent_lineup_id = lineup_ids[utils.swap_team_id_for_game(team_id, [self.OffenseTeamId, self.DefenseTeamId])]
 
                         if team_id == self.OffenseTeamId:
@@ -368,8 +367,7 @@ class PossessionDetails(object):
                 opponent_opportunity_key = shot_type + pbpstats.DEFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUND_OPPORTUNITIES_STRING
                 if self.OffensiveRebounds == 0:
                     self.SecondChanceTime = pbp_event.seconds_remaining - self.EndTime
-                    for team_id in lineup_ids.keys():
-                        lineup_id = lineup_ids[team_id]
+                    for team_id, lineup_id in lineup_ids.items():
                         opponent_lineup_id = lineup_ids[utils.swap_team_id_for_game(team_id, [self.OffenseTeamId, self.DefenseTeamId])]
 
                         if team_id == self.OffenseTeamId:
@@ -989,11 +987,11 @@ class PossessionDetails(object):
         """
         checks if there was a take foul FT made on possession so that it can be counted as a possession
         """
-        for team_id in self.PlayerStats.keys():
-            for lineup_id in self.PlayerStats[team_id].keys():
-                for opponent_lineup_id in self.PlayerStats[team_id][lineup_id].keys():
-                    for player_id in self.PlayerStats[team_id][lineup_id][opponent_lineup_id].keys():
-                        for stat_key in self.PlayerStats[team_id][lineup_id][opponent_lineup_id][player_id].keys():
+        for team_id, lineups in self.PlayerStats.items():
+            for lineup_id, opponent_lineups in lineups.items():
+                for opponent_lineup_id, players in opponent_lineups.items():
+                    for player_id, stats in players.items():
+                        for stat_key in stats.keys():
                             if pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING in stat_key and pbpstats.FTS_MADE_STRING in stat_key:
                                 return True
         return False
