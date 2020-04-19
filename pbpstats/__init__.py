@@ -87,6 +87,7 @@ REBOUNDED_STRING = 'Rebounded'
 REBOUNDED_OPPORTUNITIES_STRING = 'ReboundedOpportunities'  # this is for getting oreb% on a player's missed shots
 ON_FLOOR_OFFENSIVE_REBOUND_STRING = 'OnFloorOffReb'  # used for calculating player usage
 BLOCK_STRING = 'Block'
+SELF_REBOUND_STRING = 'SelfOReb'
 
 PUTBACKS_STRING = 'Putbacks'
 HEAVE_MISSES_STRING = 'HeaveMisses'
