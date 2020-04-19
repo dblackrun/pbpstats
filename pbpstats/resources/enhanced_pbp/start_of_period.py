@@ -1,5 +1,6 @@
 import abc
 
+from pbpstats.overrides import MISSING_PERIOD_STARTERS
 from pbpstats.resources.enhanced_pbp.ejection import Ejection
 from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
@@ -9,20 +10,6 @@ from pbpstats.resources.enhanced_pbp.jump_ball import JumpBall
 from pbpstats.resources.enhanced_pbp.substitution import Substitution
 from pbpstats.resources.enhanced_pbp.timeout import Timeout
 from pbpstats.resources.enhanced_pbp.turnover import Turnover
-
-
-OVERRIDES = {
-    '0021900023': {5: {1610612743: [203924, 203914, 203999, 1627750, 1627736]}},
-    '0021900120': {5: {1610612750: [1626157, 203496, 203952, 1629006, 1626203]}},
-    '0021900272': {5: {1610612737: [203458, 1629027, 1627761, 203953, 1629631]}},
-    '0021900409': {5: {1610612764: [101133, 203078, 202738, 202722, 202397]}},
-    '0021900502': {5: {1610612744: [202692, 1627737, 203922, 203110, 1627814]}},
-    '0021900550': {5: {1610612760: [203471, 203500, 1628983, 101108, 1628390]}},
-    '0021900563': {5: {1610612765: [203083, 1628971, 201565, 1627748, 203503]}},
-    '0021900696': {5: {1610612758: [202357, 1628368, 1627741, 203992, 203084]}},
-    '0021900787': {5: {1610612737: [203473, 1629027, 1628381, 1628989, 1629631]}},
-    '0021900892': {5: {1610612745: [203496, 200782, 201566, 201935, 201569]}},
-}
 
 
 class InvalidNumberOfStartersException(Exception):
@@ -112,8 +99,8 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
                 if len(team_starters) == 4:
                     team_starters += dangling_starters
 
-        if self.game_id in OVERRIDES.keys() and self.period in OVERRIDES[self.game_id].keys():
-            for team_id, starters in OVERRIDES[self.game_id][self.period].items():
+        if self.game_id in MISSING_PERIOD_STARTERS.keys() and self.period in MISSING_PERIOD_STARTERS[self.game_id].keys():
+            for team_id, starters in MISSING_PERIOD_STARTERS[self.game_id][self.period].items():
                 starters_by_team[team_id] = starters
 
         for team_id, starters in starters_by_team.items():

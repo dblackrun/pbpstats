@@ -1,5 +1,6 @@
 import requests
 
+from pbpstats.overrides import NON_POSSESSION_CHANGING_EVENT_OVERRIDES, POSSESSION_CHANGING_EVENT_OVERRIDES
 from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
 from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
@@ -26,26 +27,6 @@ KEY_ATTR_MAPPER = {
     'SCORE': 'score',
     'SCOREMARGIN': 'score_margin',
     'VIDEO_AVAILABLE_FLAG': 'video_available',
-}
-
-# known cases where event triggers possession end, but shouldn't due to bug in pbp
-NON_POSSESSION_ENDING_EVENT_OVERRIDES = {
-    "0020600192": [105],
-    "2021900464": [488],
-    "2021900486": [713]
-}
-
-# known cases where event doesn't trigger possession end, but should due to bug in pbp
-POSSESSION_ENDING_EVENT_OVERRIDES = {
-    "0020000103": [471],
-    "0020000309": [486],
-    "0020000610": [462],
-    "0020000855": [235],
-    "0020000897": [125],
-    "0020001071": [284],
-    "0020300691": [481],
-    "0021700641": [538],
-    "0021900652": [255]
 }
 
 
@@ -122,10 +103,10 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
 
     @property
     def is_possession_ending_event(self):
-        if self.game_id in POSSESSION_ENDING_EVENT_OVERRIDES.keys() and self.event_num in POSSESSION_ENDING_EVENT_OVERRIDES[self.game_id]:
+        if self.game_id in POSSESSION_CHANGING_EVENT_OVERRIDES.keys() and self.event_num in POSSESSION_CHANGING_EVENT_OVERRIDES[self.game_id]:
             return True
 
-        if self.game_id in NON_POSSESSION_ENDING_EVENT_OVERRIDES.keys() and self.event_num in NON_POSSESSION_ENDING_EVENT_OVERRIDES[self.game_id]:
+        if self.game_id in NON_POSSESSION_CHANGING_EVENT_OVERRIDES.keys() and self.event_num in NON_POSSESSION_CHANGING_EVENT_OVERRIDES[self.game_id]:
             return False
 
         if isinstance(self, Rebound) and self.is_real_rebound and not self.oreb:
