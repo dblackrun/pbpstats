@@ -196,6 +196,27 @@ class FieldGoal(object):
         else:
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.MISSED_STRING + self.shot_type, 'stat_value': 1})
 
+        if self.made:
+            # add plus minus and opponent points - used for lineup/wowy stats to get net rating
+            for team_id, players in self.current_players.items():
+                multiplier = 1 if team_id == self.team_id else -1
+                for player_id in players:
+                    stat_item = {
+                        'player_id': player_id,
+                        'team_id': team_id,
+                        'stat_key': pbpstats.PLUS_MINUS_STRING,
+                        'stat_value': self.shot_value * multiplier,
+                    }
+                    stats.append(stat_item)
+                    if multiplier == -1:
+                        opponent_points_stat_item = {
+                            'player_id': player_id,
+                            'team_id': team_id,
+                            'stat_key': pbpstats.OPPONENT_POINTS,
+                            'stat_value': self.shot_value,
+                        }
+                        stats.append(opponent_points_stat_item)
+
         lineups_ids = self.lineup_ids
         for stat in stats:
             opponent_team_id = team_ids[0] if stat['team_id'] == team_ids[1] else team_ids[1]
