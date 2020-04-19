@@ -24,8 +24,15 @@ USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.
 REFERER = "http://stats.nba.com/"
 HEADERS = {
     'User-Agent': USER_AGENT,
-    'referer': REFERER,
-    'Accept-Language': 'en'
+    'Referer': REFERER,
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'x-nba-stats-origin': 'stats',
+    'x-nba-stats-token': 'true',
+    'DNT': '1',
+    'Connection': 'keep-alive',
+    'Pragma': 'no-cache',
+    'Cache-Control': 'no-cache'
 }
 
 NBA_STRING = 'nba'
