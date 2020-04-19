@@ -1,0 +1,37 @@
+from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
+from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
+
+
+class NbaPossessionLoader(object):
+    """
+    class for shared methods between data and stats nba possession loaders
+    both DataNbaPossessionLoader and StatsNbaPossessionLoader should inherit this
+    """
+    def _split_events_by_possession(self):
+        events = []
+        possession_events = []
+        for event in self.events:
+            possession_events.append(event)
+            if event.is_possession_ending_event:
+                events.append(possession_events)
+                possession_events = []
+        return events
+
+    def _add_extra_attrs_to_all_possessions(self):
+        number = 1
+        for i, possession in enumerate(self.items):
+            if i == 0 and i == len(self.items) - 1:
+                possession.previous_possession = None
+                possession.next_possession = None
+            elif isinstance(possession.events[0], StartOfPeriod) or i == 0:
+                possession.previous_possession = None
+                possession.next_possession = self.items[i + 1]
+                number = 1
+            elif isinstance(possession.events[-1], EndOfPeriod) or i == len(self.items) - 1:
+                possession.previous_possession = self.items[i - 1]
+                possession.next_possession = None
+            else:
+                possession.previous_possession = self.items[i - 1]
+                possession.next_possession = self.items[i + 1]
+            possession.number = number
+            number += 1
