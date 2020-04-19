@@ -3,7 +3,8 @@ import os
 import requests
 from pathlib import Path
 
-from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader, HEADERS, REQUEST_TIMEOUT
+from pbpstats import HEADERS, REQUEST_TIMEOUT
+from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 from pbpstats.data_loader.stats_nba.summary_loader import StatsNbaSummaryLoader
 from pbpstats.resources.shots.stats_nba_shot import StatsNbaShot

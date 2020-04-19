@@ -1,5 +1,6 @@
 import requests
 
+from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.overrides import NON_POSSESSION_CHANGING_EVENT_OVERRIDES, POSSESSION_CHANGING_EVENT_OVERRIDES
 from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
 from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
@@ -11,7 +12,7 @@ from pbpstats.resources.enhanced_pbp.rebound import Rebound
 from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
 from pbpstats.resources.enhanced_pbp.turnover import Turnover
 from pbpstats.resources.enhanced_pbp.violation import Violation
-from pbpstats.data_loader.stats_nba.web_loader import HEADERS, REQUEST_TIMEOUT
+
 
 KEY_ATTR_MAPPER = {
     'GAME_ID': 'game_id',

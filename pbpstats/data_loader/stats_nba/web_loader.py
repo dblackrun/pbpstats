@@ -1,23 +1,8 @@
 import requests
 
+from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 from pbpstats.data_loader.stats_nba.base import StatsNbaLoaderBase
-
-REQUEST_TIMEOUT = 10
-USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A'
-REFERER = "http://stats.nba.com/"
-HEADERS = {
-    'User-Agent': USER_AGENT,
-    'Referer': REFERER,
-    'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'en-US,en;q=0.5',
-    'x-nba-stats-origin': 'stats',
-    'x-nba-stats-token': 'true',
-    'DNT': '1',
-    'Connection': 'keep-alive',
-    'Pragma': 'no-cache',
-    'Cache-Control': 'no-cache'
-}
 
 
 class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):

@@ -1,6 +1,6 @@
 import requests
 
-from pbpstats.data_loader.stats_nba.web_loader import HEADERS, REQUEST_TIMEOUT
+from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import StatsEnhancedPbpItem
 from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod, InvalidNumberOfStartersException
 
