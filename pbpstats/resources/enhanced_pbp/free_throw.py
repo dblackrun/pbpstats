@@ -1,10 +1,12 @@
 import abc
 
+from pbpstats import FREE_THROW_STRING
 from pbpstats.resources.enhanced_pbp.foul import Foul
 
 
 class FreeThrow(metaclass=abc.ABCMeta):
     event_type = 3
+    shot_type = FREE_THROW_STRING
 
     @abc.abstractproperty
     def made(self):
