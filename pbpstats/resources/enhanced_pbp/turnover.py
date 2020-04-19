@@ -1,3 +1,6 @@
+import pbpstats
+
+
 class Turnover(object):
     event_type = 5
 
@@ -57,4 +60,38 @@ class Turnover(object):
 
     @property
     def event_stats(self):
-        return self.base_stats
+        stats = []
+        if not self.is_no_turnover:
+            team_ids = list(self.current_players.keys())
+            opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
+            if self.is_steal:
+                turnover_key = pbpstats.LOST_BALL_TURNOVER_STRING if self.is_lost_ball else pbpstats.BAD_PASS_TURNOVER_STRING
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': turnover_key, 'stat_value': 1})
+                steal_key = pbpstats.LOST_BALL_STEAL_STRING if self.is_lost_ball else pbpstats.BAD_PASS_STEAL_STRING
+                stats.append({'player_id': self.player3_id, 'team_id': opponent_team_id, 'stat_key': steal_key, 'stat_value': 1})
+            else:
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.DEADBALL_TURNOVERS_STRING, 'stat_value': 1})
+                if self.is_travel:
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.TRAVELS_STRING, 'stat_value': 1})
+                elif self.is_3_second_violation:
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.THREE_SECOND_VIOLATION_TURNOVER_STRING, 'stat_value': 1})
+                elif self.is_step_out_of_bounds:
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.STEP_OUT_OF_BOUNDS_TURNOVER_STRING, 'stat_value': 1})
+                elif self.is_offensive_goaltending:
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.OFFENSIVE_GOALTENDING_STRING, 'stat_value': 1})
+                elif self.is_lost_ball_out_of_bounds:
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.LOST_BALL_OUT_OF_BOUNDS_TURNOVER_STRING, 'stat_value': 1})
+                elif self.is_bad_pass_out_of_bounds:
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.BAD_PASS_OUT_OF_BOUNDS_TURNOVER_STRING, 'stat_value': 1})
+                elif self.is_shot_clock_violation:
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.SHOT_CLOCK_VIOLATION_TURNOVER_STRING, 'stat_value': 1})
+
+            lineups_ids = self.lineup_ids
+            # TODO: adjustment to fix lineup for sub in wrong order
+            for stat in stats:
+                opponent_team_id = team_ids[0] if stat['team_id'] == team_ids[1] else team_ids[1]
+                stat['lineup_id'] = lineups_ids[stat['team_id']]
+                stat['opponent_team_id'] = opponent_team_id
+                stat['opponent_lineup_id'] = lineups_ids[opponent_team_id]
+
+        return self.base_stats + stats
