@@ -1,3 +1,4 @@
+import pbpstats
 from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
 from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
@@ -109,4 +110,55 @@ class Rebound(object):
 
     @property
     def event_stats(self):
-        return self.base_stats
+        stats = []
+        if self.is_real_rebound:
+            shot_type = self.missed_shot.shot_type
+            if isinstance(self.missed_shot, FieldGoal) and self.missed_shot.blocked:
+                if not self.oreb:
+                    blocked_recovered_key = pbpstats.BLOCKED_STRING + shot_type + 'Recovered'
+                    block_player_id = self.missed_shot.player3_id
+                    stats.append({'player_id': block_player_id, 'team_id': self.team_id, 'stat_key': blocked_recovered_key, 'stat_value': 1})
+                shot_type += pbpstats.BLOCKED_STRING
+            if self.oreb:
+                reb_key = shot_type + pbpstats.OFFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUNDS_STRING
+                opportunity_key = shot_type + pbpstats.OFFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUND_OPPORTUNITIES_STRING
+                opponent_opportunity_key = shot_type + pbpstats.DEFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUND_OPPORTUNITIES_STRING
+            else:
+                reb_key = shot_type + pbpstats.DEFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUNDS_STRING
+                opportunity_key = shot_type + pbpstats.DEFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUND_OPPORTUNITIES_STRING
+                opponent_opportunity_key = shot_type + pbpstats.OFFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUND_OPPORTUNITIES_STRING
+
+            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': reb_key, 'stat_value': 1})
+
+            # rebound opportunites for all players on floor
+            for team_id, players in self.current_players.items():
+                stat_key = opportunity_key if team_id == self.team_id else opponent_opportunity_key
+                for player_id in players:
+                    stat_item = {
+                        'player_id': player_id,
+                        'team_id': team_id,
+                        'stat_key': stat_key,
+                        'stat_value': 1,
+                    }
+                    stats.append(stat_item)
+
+            # player missed shot rebound stats
+            shooter_player_id = self.missed_shot.player1_id
+            missed_shot_rebounded_opportunity_key = shot_type + pbpstats.OFFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUNDED_OPPORTUNITIES_STRING
+            stats.append({'player_id': shooter_player_id, 'team_id': self.missed_shot.team_id, 'stat_key': missed_shot_rebounded_opportunity_key, 'stat_value': 1})
+            if self.oreb:
+                missed_shot_rebounded_key = shot_type + pbpstats.OFFENSIVE_ABBREVIATION_PREFIX + pbpstats.REBOUNDED_STRING
+                stats.append({'player_id': shooter_player_id, 'team_id': self.missed_shot.team_id, 'stat_key': missed_shot_rebounded_key, 'stat_value': 1})
+                if self.self_reb:
+                    self_rebounded_key = shot_type + pbpstats.SELF_REBOUND_STRING
+                    stats.append({'player_id': shooter_player_id, 'team_id': self.missed_shot.team_id, 'stat_key': self_rebounded_key, 'stat_value': 1})
+
+            team_ids = list(self.current_players.keys())
+            opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
+            lineups_ids = self.lineup_ids
+            for stat in stats:
+                opponent_team_id = team_ids[0] if stat['team_id'] == team_ids[1] else team_ids[1]
+                stat['lineup_id'] = lineups_ids[stat['team_id']]
+                stat['opponent_team_id'] = opponent_team_id
+                stat['opponent_lineup_id'] = lineups_ids[opponent_team_id]
+        return self.base_stats + stats
