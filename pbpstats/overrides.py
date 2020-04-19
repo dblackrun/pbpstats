@@ -3,12 +3,32 @@ import os
 
 from pbpstats import DATA_DIRECTORY
 
+
+class IntDecoder(json.JSONDecoder):
+    def decode(self, s):
+        result = super().decode(s)
+        return self._decode(result)
+
+    def _decode(self, o):
+        if isinstance(o, str):
+            try:
+                return int(o)
+            except ValueError:
+                return o
+        elif isinstance(o, dict):
+            return {k: self._decode(v) for k, v in o.items()}
+        elif isinstance(o, list):
+            return [self._decode(v) for v in o]
+        else:
+            return o
+
+
 if DATA_DIRECTORY is not None:
     missing_period_starters_file_path = f'{DATA_DIRECTORY}overrides/missing_period_starters.json'
     if os.path.isfile(missing_period_starters_file_path):
         with open(missing_period_starters_file_path) as f:
             # hard code corrections for games with incorrect number of starters exceptions
-            MISSING_PERIOD_STARTERS = json.loads(f.read())
+            MISSING_PERIOD_STARTERS = json.loads(f.read(), cls=IntDecoder)
     else:
         MISSING_PERIOD_STARTERS = {}
 
@@ -16,7 +36,7 @@ if DATA_DIRECTORY is not None:
     if os.path.isfile(players_missing_from_boxscore_file_path):
         with open(players_missing_from_boxscore_file_path) as f:
             # hard code players missing from boxscore - mostly an issue from old games
-            PLAYERS_MISSING_FROM_BOXSCORE = json.loads(f.read())
+            PLAYERS_MISSING_FROM_BOXSCORE = json.loads(f.read(), cls=IntDecoder)
     else:
         PLAYERS_MISSING_FROM_BOXSCORE = {}
 
@@ -25,7 +45,7 @@ if DATA_DIRECTORY is not None:
         with open(possession_changing_event_overrides_file_path) as f:
             # issues with pbp - force these events to be possession changing events
             # {GameId: [EventNum]}
-            POSSESSION_CHANGING_EVENT_OVERRIDES = json.loads(f.read())
+            POSSESSION_CHANGING_EVENT_OVERRIDES = json.loads(f.read(), cls=IntDecoder)
     else:
         POSSESSION_CHANGING_EVENT_OVERRIDES = {}
 
@@ -34,7 +54,7 @@ if DATA_DIRECTORY is not None:
         with open(non_possession_changing_event_overrides_file_path) as f:
             # issues with pbp - force these events to be not possession changing events
             # {GameId: [EventNum]}
-            NON_POSSESSION_CHANGING_EVENT_OVERRIDES = json.loads(f.read())
+            NON_POSSESSION_CHANGING_EVENT_OVERRIDES = json.loads(f.read(), cls=IntDecoder)
     else:
         NON_POSSESSION_CHANGING_EVENT_OVERRIDES = {}
 
@@ -43,7 +63,7 @@ if DATA_DIRECTORY is not None:
         with open(bad_pbp_possessions_file_path) as f:
             # bad pbp where event is missing in pbp causing back to back possessions for same team - this will prevent back to back possession exception from being raised
             # {GameId: {Period:[EventNum]}}
-            BAD_PBP_CASES = json.loads(f.read())
+            BAD_PBP_CASES = json.loads(f.read(), cls=IntDecoder)
     else:
         BAD_PBP_CASES = {}
 else:
