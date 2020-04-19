@@ -1,7 +1,7 @@
 import json
 import os
 
-from pbpstats import NBA_STRING, G_LEAGUE_STRING, D_LEAGUE_STRING, WNBA_STRING
+from pbpstats import NBA_STRING, G_LEAGUE_STRING, D_LEAGUE_STRING, WNBA_STRING, PLAYOFFS_STRING, REGULAR_SEASON_STRING
 from pbpstats.data_loader.data_nba.file_loader import DataNbaFileLoader
 from pbpstats.data_loader.data_nba.web_loader import DataNbaWebLoader
 from pbpstats.resources.games.data_nba_game_item import DataNbaGameItem
@@ -45,9 +45,9 @@ class DataNbaScheduleLoader(DataNbaFileLoader, DataNbaWebLoader):
         self.items = [DataNbaGameItem(game) for item in self.data for game in item['mscd']['g'] if self._is_season_type(game)]
 
     def _is_season_type(self, game):
-        if game['gid'][2] == '4' and self.season_type == 'Playoffs':
+        if game['gid'][2] == '4' and self.season_type == PLAYOFFS_STRING:
             return True
-        elif game['gid'][2] == '2' and self.season_type == 'Regular Season':
+        elif game['gid'][2] == '2' and self.season_type == REGULAR_SEASON_STRING:
             return True
         return False
 

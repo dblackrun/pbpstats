@@ -1,6 +1,6 @@
 import requests
 
-from pbpstats import NBA_STRING, G_LEAGUE_STRING, WNBA_STRING
+from pbpstats import NBA_STRING, G_LEAGUE_STRING, WNBA_STRING, PLAYOFFS_STRING, REGULAR_SEASON_STRING
 from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 from pbpstats.data_loader.stats_nba.base import StatsNbaLoaderBase
@@ -62,6 +62,6 @@ class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
         2 for reg season, 4 for playoffs
         """
         if self.game_id[2] == "4":
-            return 'Playoffs'
+            return PLAYOFFS_STRING
         elif self.game_id[2] == "2":
-            return 'Regular Season'
+            return REGULAR_SEASON_STRING
