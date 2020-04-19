@@ -28,23 +28,24 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         stat_items = []
         team_ids = list(self.current_players.keys())
         lineups_ids = self.lineup_ids
-        if self.seconds_until_next_event != 0:
-            for team_id, players in self.current_players.items():
+        if self.seconds_since_previous_event != 0:
+            for team_id, players in self.previous_event.current_players.items():
                 seconds_stat_key = (
                     pbpstats.SECONDS_PLAYED_OFFENSE_STRING
                     if team_id == self.get_offense_team_id()
                     else pbpstats.SECONDS_PLAYED_DEFENSE_STRING
                 )
                 opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
+                previous_poss_lineup_ids = self.previous_event.lineup_ids
                 for player_id in players:
                     seconds_stat_item = {
                         'player_id': player_id,
                         'team_id': team_id,
                         'opponent_team_id': opponent_team_id,
-                        'lineup_id': lineups_ids[team_id],
-                        'opponent_lineup_id': lineups_ids[opponent_team_id],
+                        'lineup_id': previous_poss_lineup_ids[team_id],
+                        'opponent_lineup_id': previous_poss_lineup_ids[opponent_team_id],
                         'stat_key': seconds_stat_key,
-                        'stat_value': self.seconds_until_next_event,
+                        'stat_value': self.seconds_since_previous_event,
                     }
                     stat_items.append(seconds_stat_item)
 
@@ -128,6 +129,12 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         if self.next_event is None:
             return 0
         return self.seconds_remaining - self.next_event.seconds_remaining
+
+    @property
+    def seconds_since_previous_event(self):
+        if self.previous_event is None:
+            return 0
+        return self.previous_event.seconds_remaining - self.seconds_remaining
 
     @property
     def count_as_possession(self):
