@@ -4,10 +4,13 @@ class Possession(object):
         self.period = events[0].period
         self.events = events
         self.stats = [event.event_stats for event in events]
-        print(self.stats)
 
     def __repr__(self):
-        return f'<{type(self).__name__} GameId: {self.game_id}, Period: {self.period}, Number: {self.number}, StartTime: {self.start_time}, EndTime: {self.end_time}>'
+        return (
+            f'<{type(self).__name__} GameId: {self.game_id}, Period: {self.period}, '
+            f'Number: {self.number}, StartTime: {self.start_time}, EndTime: {self.end_time}, '
+            f'OffenseTeamId: {self.offense_team_id}>'
+        )
 
     @property
     def data(self):
@@ -22,3 +25,7 @@ class Possession(object):
     @property
     def end_time(self):
         return self.events[-1].clock
+
+    @property
+    def offense_team_id(self):
+        return self.events[0].get_offense_team_id()
