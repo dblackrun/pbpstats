@@ -1,12 +1,12 @@
 import abc
 
-from pbpstats import FREE_THROW_STRING
+import pbpstats
 from pbpstats.resources.enhanced_pbp.foul import Foul
 
 
 class FreeThrow(metaclass=abc.ABCMeta):
     event_type = 3
-    shot_type = FREE_THROW_STRING
+    shot_type = pbpstats.FREE_THROW_STRING
 
     @abc.abstractproperty
     def made(self):
@@ -153,9 +153,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
                 if self.player1_id == and1_shot.player1_id:
                     return f'{and1_shot.shot_value}pt And 1'
                 else:
-                    return '1 Shot Away From Play Foul'
+                    return '1 Shot Away From Play'
             else:
-                return '1 Shot Away From Play Foul'
+                return '1 Shot Away From Play'
         foul_event = self.foul_that_led_to_ft
         if foul_event.is_shooting_foul or foul_event.is_shooting_block_foul:
             return f'{num_fts}pt Shooting Foul'
@@ -163,13 +163,13 @@ class FreeThrow(metaclass=abc.ABCMeta):
             if num_fts is None:
                 # assume 2 shot flagrant if num_fts is None
                 num_fts = 2
-            return f'{num_fts} Shot Flagrant Foul'
+            return f'{num_fts} Shot Flagrant'
         elif foul_event.is_away_from_play_foul:
-            return f'{num_fts} Shot Away From Play Foul'
+            return f'{num_fts} Shot Away From Play'
         elif foul_event.is_inbound_foul:
             return f'{num_fts} Shot Inbound Foul'
         elif foul_event.is_clear_path_foul:
-            return f'{num_fts} Shot Clear Path Foul'
+            return f'{num_fts} Shot Clear Path'
         elif num_fts == 3:
             return '3pt Shooting Foul'
         else:
@@ -181,4 +181,52 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def event_stats(self):
-        return self.base_stats
+        stats = []
+        if self.made:
+            if self.ft_3pt:
+                points = 3
+                free_throw_key = pbpstats.FT_3_PT_MADE_STRING
+            elif self.ft_2pt:
+                points = 2
+                free_throw_key = pbpstats.FT_2_PT_MADE_STRING
+            elif self.ft_1pt:
+                points = 1
+                free_throw_key = pbpstats.FT_1_PT_MADE_STRING
+            else:
+                points = 1
+                free_throw_key = pbpstats.FTS_MADE_STRING
+            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
+
+            # add plus minus and opponent points - used for lineup/wowy stats to get net rating
+            for team_id, players in self.current_players.items():
+                multiplier = 1 if team_id == self.team_id else -1
+                for player_id in players:
+                    stat_item = {
+                        'player_id': player_id,
+                        'team_id': team_id,
+                        'stat_key': pbpstats.PLUS_MINUS_STRING,
+                        'stat_value': points * multiplier,
+                    }
+                    stats.append(stat_item)
+                    if multiplier == -1:
+                        opponent_points_stat_item = {
+                            'player_id': player_id,
+                            'team_id': team_id,
+                            'stat_key': pbpstats.OPPONENT_POINTS,
+                            'stat_value': points,
+                        }
+                        stats.append(opponent_points_stat_item)
+        if self.first_ft or self.technical_ft:
+            free_throw_trip_key = self.free_throw_type + ' Free Throw Trips'
+            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_trip_key, 'stat_value': 1})
+
+        team_ids = list(self.current_players.keys())
+        opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
+        lineups_ids = self.lineup_ids
+        for stat in stats:
+            opponent_team_id = team_ids[0] if stat['team_id'] == team_ids[1] else team_ids[1]
+            stat['lineup_id'] = lineups_ids[stat['team_id']]
+            stat['opponent_team_id'] = opponent_team_id
+            stat['opponent_lineup_id'] = lineups_ids[opponent_team_id]
+
+        return self.base_stats + stats
