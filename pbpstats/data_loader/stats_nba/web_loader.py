@@ -1,6 +1,9 @@
 import requests
 
-from pbpstats import NBA_STRING, G_LEAGUE_STRING, WNBA_STRING, PLAYOFFS_STRING, REGULAR_SEASON_STRING
+from pbpstats import (
+    NBA_STRING, G_LEAGUE_STRING, WNBA_STRING, PLAYOFFS_STRING, REGULAR_SEASON_STRING,
+    NBA_GAME_ID_PREFIX, G_LEAGUE_GAME_ID_PREFIX, WNBA_GAME_ID_PREFIX
+)
 from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 from pbpstats.data_loader.stats_nba.base import StatsNbaLoaderBase
@@ -29,11 +32,11 @@ class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
         First 2 in game id represent league
         00 for nba, 10 for wnba, 20 for g-league
         """
-        if self.game_id[0:2] == '00':
+        if self.game_id[0:2] == NBA_GAME_ID_PREFIX:
             return NBA_STRING
-        elif self.game_id[0:2] == '20':
+        elif self.game_id[0:2] == G_LEAGUE_GAME_ID_PREFIX:
             return G_LEAGUE_STRING
-        elif self.game_id[0:2] == '10':
+        elif self.game_id[0:2] == WNBA_GAME_ID_PREFIX:
             return WNBA_STRING
 
     @property

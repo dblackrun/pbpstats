@@ -1,6 +1,9 @@
 import requests
 
-from pbpstats import NBA_STRING, D_LEAGUE_STRING, WNBA_STRING
+from pbpstats import (
+    NBA_STRING, D_LEAGUE_STRING, WNBA_STRING, NBA_GAME_ID_PREFIX,
+    G_LEAGUE_GAME_ID_PREFIX, WNBA_GAME_ID_PREFIX
+)
 from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 
 
@@ -23,11 +26,11 @@ class DataNbaWebLoader(AbsDataLoader):
         First 2 in game id represent league
         00 for nba, 10 for wnba, 20 for g-league
         """
-        if self.game_id[0:2] == '00':
+        if self.game_id[0:2] == NBA_GAME_ID_PREFIX:
             return NBA_STRING
-        elif self.game_id[0:2] == '20':
+        elif self.game_id[0:2] == G_LEAGUE_GAME_ID_PREFIX:
             return D_LEAGUE_STRING  # url uses dleague instead of gleague
-        elif self.game_id[0:2] == '10':
+        elif self.game_id[0:2] == WNBA_GAME_ID_PREFIX:
             return WNBA_STRING
 
     @property

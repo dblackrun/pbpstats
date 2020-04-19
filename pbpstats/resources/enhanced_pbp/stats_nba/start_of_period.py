@@ -1,6 +1,9 @@
 import requests
 
-from pbpstats import NBA_STRING, G_LEAGUE_STRING, WNBA_STRING
+from pbpstats import (
+    NBA_STRING, G_LEAGUE_STRING, WNBA_STRING, NBA_GAME_ID_PREFIX,
+    G_LEAGUE_GAME_ID_PREFIX, WNBA_GAME_ID_PREFIX
+)
 from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import StatsEnhancedPbpItem
 from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod, InvalidNumberOfStartersException
@@ -68,9 +71,9 @@ class StatsStartOfPeriod(StartOfPeriod, StatsEnhancedPbpItem):
 
     @property
     def league_url_part(self):
-        if self.game_id[0:2] == '00':
+        if self.game_id[0:2] == NBA_GAME_ID_PREFIX:
             return NBA_STRING
-        elif self.game_id[0:2] == '20':
+        elif self.game_id[0:2] == G_LEAGUE_GAME_ID_PREFIX:
             return f'{G_LEAGUE_STRING}.{NBA_STRING}'
-        elif self.game_id[0:2] == '10':
+        elif self.game_id[0:2] == WNBA_GAME_ID_PREFIX:
             return WNBA_STRING

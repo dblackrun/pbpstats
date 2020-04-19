@@ -1,7 +1,10 @@
 import json
 import os
 
-from pbpstats import NBA_STRING, G_LEAGUE_STRING, D_LEAGUE_STRING, WNBA_STRING, PLAYOFFS_STRING, REGULAR_SEASON_STRING
+from pbpstats import (
+    NBA_STRING, G_LEAGUE_STRING, D_LEAGUE_STRING, WNBA_STRING, PLAYOFFS_STRING,
+    REGULAR_SEASON_STRING, NBA_GAME_ID_PREFIX, G_LEAGUE_GAME_ID_PREFIX, WNBA_GAME_ID_PREFIX
+)
 from pbpstats.data_loader.data_nba.file_loader import DataNbaFileLoader
 from pbpstats.data_loader.data_nba.web_loader import DataNbaWebLoader
 from pbpstats.resources.games.data_nba_game_item import DataNbaGameItem
@@ -58,8 +61,8 @@ class DataNbaScheduleLoader(DataNbaFileLoader, DataNbaWebLoader):
     @property
     def league_id(self):
         if self.league_string == NBA_STRING:
-            return '00'
+            return NBA_GAME_ID_PREFIX
         elif self.league_string == WNBA_STRING:
-            return '10'
+            return WNBA_GAME_ID_PREFIX
         elif self.league_string == G_LEAGUE_STRING:
-            return '20'
+            return G_LEAGUE_GAME_ID_PREFIX
