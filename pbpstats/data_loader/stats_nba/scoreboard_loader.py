@@ -1,6 +1,7 @@
 import json
 import os
 
+from pbpstats import NBA_STRING, G_LEAGUE_STRING, WNBA_STRING
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 from pbpstats.resources.games.stats_nba_game_item import StatsNbaGameItem
@@ -28,7 +29,7 @@ class StatsNbaScoreboardLoader(StatsNbaFileLoader, StatsNbaWebLoader):
         self._load_data_from_file()
 
     def _from_web(self):
-        league_url_part = 'gleague.nba' if self.league_string == 'gleague' else self.league_string
+        league_url_part = f'{G_LEAGUE_STRING}.{NBA_STRING}' if self.league_string == G_LEAGUE_STRING else self.league_string
         self.base_url = f'https://stats.{league_url_part}.com/stats/scoreboardV2'
         self.parameters = {
             'DayOffset': 0,
@@ -46,11 +47,11 @@ class StatsNbaScoreboardLoader(StatsNbaFileLoader, StatsNbaWebLoader):
 
     @property
     def league_id(self):
-        if self.league_string == 'nba':
+        if self.league_string == NBA_STRING:
             return '00'
-        elif self.league_string == 'wnba':
+        elif self.league_string == WNBA_STRING:
             return '10'
-        elif self.league_string == 'gleague':
+        elif self.league_string == G_LEAGUE_STRING:
             return '20'
 
     def _make_scoreboard_items(self):

@@ -1,6 +1,7 @@
 import json
 import os
 
+from pbpstats import NBA_STRING, G_LEAGUE_STRING
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 from pbpstats.resources.games.stats_nba_game_item import StatsNbaGameItem
@@ -27,7 +28,7 @@ class StatsNbaSummaryLoader(StatsNbaFileLoader, StatsNbaWebLoader):
         self._load_data_from_file()
 
     def _from_web(self):
-        league_url_part = 'gleague.nba' if self.league == 'gleague' else self.league
+        league_url_part = f'{G_LEAGUE_STRING}.{NBA_STRING}' if self.league == G_LEAGUE_STRING else self.league
         self.base_url = f'https://stats.{league_url_part}.com/stats/boxscoresummaryv2'
         self.parameters = {'GameId': self.game_id}
         self._load_request_data()

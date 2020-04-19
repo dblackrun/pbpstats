@@ -3,7 +3,7 @@ import os
 import requests
 from pathlib import Path
 
-from pbpstats import HEADERS, REQUEST_TIMEOUT
+from pbpstats import HEADERS, REQUEST_TIMEOUT, NBA_STRING, G_LEAGUE_STRING
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 from pbpstats.data_loader.stats_nba.summary_loader import StatsNbaSummaryLoader
@@ -46,7 +46,7 @@ class StatsNbaShotsLoader(StatsNbaWebLoader, StatsNbaFileLoader):
         summary = StatsNbaSummaryLoader(self.game_id, self.source, self.file_directory)
         home_team_id = summary.items[0].home_team_id
         away_team_id = summary.items[0].visitor_team_id
-        league_url_part = 'gleague.nba' if self.league == 'gleague' else self.league
+        league_url_part = f'{G_LEAGUE_STRING}.{NBA_STRING}' if self.league == G_LEAGUE_STRING else self.league
         self.base_url = f'https://stats.{league_url_part}.com/stats/shotchartdetail'
         base_paramaters = {
             'GameID': self.game_id,

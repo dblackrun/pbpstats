@@ -1,5 +1,6 @@
 import requests
 
+from pbpstats import NBA_STRING, G_LEAGUE_STRING, WNBA_STRING
 from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 from pbpstats.data_loader.stats_nba.base import StatsNbaLoaderBase
@@ -29,11 +30,11 @@ class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
         00 for nba, 10 for wnba, 20 for g-league
         """
         if self.game_id[0:2] == '00':
-            return 'nba'
+            return NBA_STRING
         elif self.game_id[0:2] == '20':
-            return 'gleague'
+            return G_LEAGUE_STRING
         elif self.game_id[0:2] == '10':
-            return 'wnba'
+            return WNBA_STRING
 
     @property
     def season(self):
@@ -46,13 +47,13 @@ class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
         digit5 = self.game_id[4]
         if digit4 == '9':
             if digit5 == '9':
-                return '1999' if self.league == 'wnba' else '1999-00'
+                return '1999' if self.league == WNBA_STRING else '1999-00'
             else:
-                return '19' + digit4 + digit5 if self.league == 'wnba' else '19' + digit4 + digit5 + '-' + digit4 + str(int(digit5) + 1)
+                return '19' + digit4 + digit5 if self.league == WNBA_STRING else '19' + digit4 + digit5 + '-' + digit4 + str(int(digit5) + 1)
         elif digit5 == '9':
-            return '20' + digit4 + digit5 if self.league == 'wnba' else '20' + digit4 + digit5 + '-' + str(int(digit4) + 1) + '0'
+            return '20' + digit4 + digit5 if self.league == WNBA_STRING else '20' + digit4 + digit5 + '-' + str(int(digit4) + 1) + '0'
         else:
-            return '20' + digit4 + digit5 if self.league == 'wnba' else '20' + digit4 + digit5 + '-' + digit4 + str(int(digit5) + 1)
+            return '20' + digit4 + digit5 if self.league == WNBA_STRING else '20' + digit4 + digit5 + '-' + digit4 + str(int(digit5) + 1)
 
     @property
     def season_type(self):

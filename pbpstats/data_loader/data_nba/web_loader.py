@@ -1,5 +1,6 @@
 import requests
 
+from pbpstats import NBA_STRING, D_LEAGUE_STRING, WNBA_STRING
 from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 
 
@@ -23,11 +24,11 @@ class DataNbaWebLoader(AbsDataLoader):
         00 for nba, 10 for wnba, 20 for g-league
         """
         if self.game_id[0:2] == '00':
-            return 'nba'
+            return NBA_STRING
         elif self.game_id[0:2] == '20':
-            return 'dleague'  # url uses dleague instead of gleague
+            return D_LEAGUE_STRING  # url uses dleague instead of gleague
         elif self.game_id[0:2] == '10':
-            return 'wnba'
+            return WNBA_STRING
 
     @property
     def season(self):

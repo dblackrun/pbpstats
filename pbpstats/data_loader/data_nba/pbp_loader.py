@@ -1,6 +1,7 @@
 import json
 import os
 
+from pbpstats import NBA_STRING, D_LEAGUE_STRING
 from pbpstats.data_loader.data_nba.file_loader import DataNbaFileLoader
 from pbpstats.data_loader.data_nba.web_loader import DataNbaWebLoader
 from pbpstats.resources.pbp.data_nba_pbp_item import DataNbaPbpItem
@@ -27,7 +28,7 @@ class DataNbaPbpLoader(DataNbaFileLoader, DataNbaWebLoader):
         self._load_data_from_file()
 
     def _from_web(self):
-        league_url_part = 'nba' if self.league == 'dleague' else self.league
+        league_url_part = NBA_STRING if self.league == D_LEAGUE_STRING else self.league
         self.url = f'https://data.{league_url_part}.com/data/v2015/json/mobile_teams/{self.league}/{self.season}/scores/pbp/{self.game_id}_full_pbp.json'
         self._load_request_data()
 

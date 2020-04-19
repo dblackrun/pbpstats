@@ -1,6 +1,7 @@
 import json
 import os
 
+from pbpstats import NBA_STRING, G_LEAGUE_STRING, D_LEAGUE_STRING, WNBA_STRING
 from pbpstats.data_loader.data_nba.file_loader import DataNbaFileLoader
 from pbpstats.data_loader.data_nba.web_loader import DataNbaWebLoader
 from pbpstats.resources.games.data_nba_game_item import DataNbaGameItem
@@ -28,8 +29,8 @@ class DataNbaScheduleLoader(DataNbaFileLoader, DataNbaWebLoader):
         self._load_data_from_file()
 
     def _from_web(self):
-        league_url_part = 'nba' if self.league_string == 'gleague' else self.league_string
-        league_part = 'dleague' if self.league_string == 'gleague' else self.league_string
+        league_url_part = NBA_STRING if self.league_string == G_LEAGUE_STRING else self.league_string
+        league_part = D_LEAGUE_STRING if self.league_string == G_LEAGUE_STRING else self.league_string
         self.url = f'https://data.{league_url_part}.com/data/10s/v2015/json/mobile_teams/{league_part}/{self.season_year}/league/{self.league_id}_full_schedule.json'
         self._load_request_data()
 
@@ -56,9 +57,9 @@ class DataNbaScheduleLoader(DataNbaFileLoader, DataNbaWebLoader):
 
     @property
     def league_id(self):
-        if self.league_string == 'nba':
+        if self.league_string == NBA_STRING:
             return '00'
-        elif self.league_string == 'wnba':
+        elif self.league_string == WNBA_STRING:
             return '10'
-        elif self.league_string == 'gleague':
+        elif self.league_string == G_LEAGUE_STRING:
             return '20'
