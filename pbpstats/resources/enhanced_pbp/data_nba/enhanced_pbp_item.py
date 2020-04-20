@@ -43,7 +43,6 @@ class DataEnhancedPbpItem(EnhancedPbpItem):
     def event_stats(self):
         return self.base_stats
 
-    @property
     def get_offense_team_id(self):
         return self.offense_team_id
 
