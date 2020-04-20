@@ -126,6 +126,45 @@ class Possession(object):
         return pbpstats.OFF_DEADBALL_STRING
 
     @property
+    def previous_possession_end_shooter_player_id(self):
+        if self.previous_possession is not None:
+            previous_possession_ending_event = self.previous_possession_ending_event
+            if isinstance(previous_possession_ending_event, FieldGoal) and previous_possession_ending_event.made:
+                return previous_possession_ending_event.player1_id
+            if isinstance(previous_possession_ending_event, Rebound):
+                if previous_possession_ending_event.player1_id != 0:
+                    missed_shot = previous_possession_ending_event.missed_shot
+                    return missed_shot.player1_id
+        return 0
+
+    @property
+    def previous_possession_end_rebound_player_id(self):
+        if self.previous_possession is not None:
+            previous_possession_ending_event = self.previous_possession_ending_event
+            if isinstance(previous_possession_ending_event, Rebound):
+                if previous_possession_ending_event.player1_id != 0:
+                    return previous_possession_ending_event.player1_id
+        return 0
+
+    @property
+    def previous_possession_end_turnover_player_id(self):
+        if self.previous_possession is not None:
+            previous_possession_ending_event = self.previous_possession_ending_event
+            if isinstance(previous_possession_ending_event, Turnover):
+                if previous_possession_ending_event.is_steal:
+                    return previous_possession_ending_event.player1_id
+        return 0
+
+    @property
+    def previous_possession_end_steal_player_id(self):
+        if self.previous_possession is not None:
+            previous_possession_ending_event = self.previous_possession_ending_event
+            if isinstance(previous_possession_ending_event, Turnover):
+                if previous_possession_ending_event.is_steal:
+                    return previous_possession_ending_event.player3_id
+        return 0
+
+    @property
     def possession_stats(self):
         grouper = itemgetter('player_id', 'team_id', 'opponent_team_id', 'lineup_id', 'opponent_lineup_id', 'stat_key')
         results = []
