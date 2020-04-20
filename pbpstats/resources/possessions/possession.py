@@ -1,6 +1,15 @@
 from itertools import groupby
 from operator import itemgetter
 
+import pbpstats
+from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
+from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
+from pbpstats.resources.enhanced_pbp.jump_ball import JumpBall
+from pbpstats.resources.enhanced_pbp.rebound import Rebound
+from pbpstats.resources.enhanced_pbp.substitution import Substitution
+from pbpstats.resources.enhanced_pbp.timeout import Timeout
+from pbpstats.resources.enhanced_pbp.turnover import Turnover
+
 
 class Possession(object):
     def __init__(self, events):
@@ -32,6 +41,89 @@ class Possession(object):
     @property
     def offense_team_id(self):
         return self.events[0].get_offense_team_id()
+
+    @property
+    def possession_has_timeout(self):
+        """
+        checks if there was a timeout called on the current possession
+        """
+        for i, event in enumerate(self.events):
+            if isinstance(event, Timeout) and event.clock != self.end_time:
+                # timeout is not at possession end time
+                if not (
+                    event.next_event is not None and
+                    (isinstance(event.next_event, FreeThrow) and not event.next_event.technical_ft) and
+                    event.clock == event.next_event.clock
+                ):
+                    # check to make sure timeout is not between/before FTs
+                    return True
+            elif isinstance(event, Timeout) and event.clock == self.end_time:
+                timeout_time = event.clock
+                after_timeout_index = i + 1
+                # call time out and turn ball over at same time as timeout following time out
+                for possession_event in self.events[after_timeout_index:]:
+                    if isinstance(possession_event, Turnover) and possession_event.clock == timeout_time:
+                        return True
+        return False
+
+    @property
+    def previous_possession_has_timeout(self):
+        """
+        check for timeout on previous possession - if there is a timeout at the same time as possession end, current possession starts off timeout
+        """
+        if self.previous_possession is not None:
+            for event in self.previous_possession.events:
+                if isinstance(event, Timeout) and event.clock == self.start_time:
+                    if not (
+                        event.next_event is not None and
+                        isinstance(event.next_event, FreeThrow) and
+                        event.clock == event.next_event.clock
+                    ):
+                        # check to make sure timeout is not beween FTs
+                        return True
+        return False
+
+    @property
+    def previous_possession_ending_event(self):
+        """
+        gets previous possession ending event - ignoring subs
+        """
+        previous_event_index = -1
+        while isinstance(self.previous_possession.events[previous_event_index], Substitution) and len(self.previous_possession.events) > abs(previous_event_index):
+            previous_event_index -= 1
+        return self.previous_possession.events[previous_event_index]
+
+    @property
+    def possession_start_type(self):
+        if self.number == 1:
+            return pbpstats.OFF_DEADBALL_STRING
+        if self.possession_has_timeout or self.previous_possession_has_timeout:
+            return pbpstats.OFF_TIMEOUT_STRING
+        previous_possession_ending_event = self.previous_possession_ending_event
+        if isinstance(previous_possession_ending_event, (FieldGoal, FreeThrow)) and previous_possession_ending_event.made:
+            shot_type = previous_possession_ending_event.shot_type
+            return f'Off{shot_type}{pbpstats.MAKE_STRING}'
+        if isinstance(previous_possession_ending_event, Turnover):
+            if previous_possession_ending_event.is_steal:
+                return pbpstats.OFF_LIVE_BALL_TURNOVER_STRING
+            return pbpstats.OFF_DEADBALL_STRING
+        if isinstance(previous_possession_ending_event, Rebound):
+            if previous_possession_ending_event.player1_id == 0:
+                # team rebound
+                return pbpstats.OFF_DEADBALL_STRING
+            missed_shot = previous_possession_ending_event.missed_shot
+            shot_type = missed_shot.shot_type
+            if hasattr(missed_shot, 'is_blocked_shot') and missed_shot.is_blocked_shot:
+                return f'Off{shot_type}{pbpstats.BLOCK_STRING}'
+            return f'Off{shot_type}{pbpstats.MISS_STRING}'
+
+        if isinstance(previous_possession_ending_event, JumpBall):
+            # jump balls tipped out of bounds have no player2_id and should be off deadball
+            if not hasattr(previous_possession_ending_event, 'player2_id'):
+                return pbpstats.OFF_LIVE_BALL_TURNOVER_STRING
+            else:
+                return pbpstats.OFF_DEADBALL_STRING
+        return pbpstats.OFF_DEADBALL_STRING
 
     @property
     def possession_stats(self):
