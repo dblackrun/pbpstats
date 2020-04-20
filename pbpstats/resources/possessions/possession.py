@@ -45,7 +45,7 @@ class Possession(object):
             # how previous possession ended to see which team actually started with the ball
             # because team id on jump ball is team that won the jump ball
             prev_event = self.previous_possession_ending_event
-            if isinstance(prev_event, Turnover):
+            if isinstance(prev_event, Turnover) and not prev_event.is_no_turnover:
                 team_ids = [self.previous_possession.offense_team_id, self.previous_possession.previous_possession.offense_team_id]
                 return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
             if isinstance(prev_event, Rebound) and prev_event.is_real_rebound:
@@ -77,7 +77,7 @@ class Possession(object):
                 after_timeout_index = i + 1
                 # call time out and turn ball over at same time as timeout following time out
                 for possession_event in self.events[after_timeout_index:]:
-                    if isinstance(possession_event, Turnover) and possession_event.clock == timeout_time:
+                    if isinstance(possession_event, Turnover) and not possession_event.is_no_turnover and possession_event.clock == timeout_time:
                         return True
         return False
 

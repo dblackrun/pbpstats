@@ -110,13 +110,14 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         while (
             prev_event is not None and
             not (
-                isinstance(prev_event, (FieldGoal, Turnover, JumpBall)) or
+                isinstance(prev_event, (FieldGoal, JumpBall)) or
+                (isinstance(prev_event, Turnover) and not prev_event.is_no_turnover) or
                 (isinstance(prev_event, Rebound) and prev_event.is_real_rebound) or
                 (isinstance(prev_event, FreeThrow) and not prev_event.technical_ft)
             )
         ):
             prev_event = prev_event.previous_event
-        if isinstance(prev_event, Turnover):
+        if isinstance(prev_event, Turnover) and not prev_event.is_no_turnover:
             return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
         if isinstance(prev_event, Rebound) and prev_event.is_real_rebound:
             if not prev_event.oreb:
@@ -177,10 +178,10 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
 
         if not isinstance(self.previous_event, StartOfPeriod) and isinstance(self, JumpBall):
             # need to check for rare case where possession changes on jump ball but there is no turnover/rebound
-            if isinstance(self.next_event, Turnover) and self.next_event.clock == self.clock:
+            if isinstance(self.next_event, Turnover) and not self.next_event.is_no_turnover and self.next_event.clock == self.clock:
                 # if next event is steal at same time of pbp don't need to change possession since steal takes care of it
                 return False
-            elif isinstance(self.previous_event, Turnover) and self.previous_event.clock == self.clock:
+            elif isinstance(self.previous_event, Turnover) and not self.previous_event.is_no_turnover and self.previous_event.clock == self.clock:
                 # if previous event is steal at same time of pbp don't need to change possession since steal takes care of it
                 return False
             elif isinstance(self.next_event, Violation) and self.next_event.is_jumpball_violation:
