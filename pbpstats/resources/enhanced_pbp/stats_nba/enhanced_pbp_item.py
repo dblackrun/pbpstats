@@ -127,6 +127,9 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
                 return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
             return prev_event.get_offense_team_id()
         if isinstance(prev_event, JumpBall):
+            if prev_event.count_as_possession:
+                team_ids = list(self.current_players.keys())
+                return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
             return prev_event.get_offense_team_id()
 
     @property

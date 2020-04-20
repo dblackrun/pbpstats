@@ -13,4 +13,7 @@ class StatsJumpBall(JumpBall, StatsEnhancedPbpItem):
         """
         if self.next_event.clock == self.clock and isinstance(self.next_event, Turnover):
             return self.next_event.team_id
+        if self.count_as_possession:
+            team_ids = list(self.current_players.keys())
+            return team_ids[0] if team_ids[1] == self.team_id else team_ids[1]
         return self.team_id
