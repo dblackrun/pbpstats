@@ -36,7 +36,7 @@ class FieldGoal(object):
     def is_corner_3(self):
         if self.shot_value != 3:
             return False
-        if self.locY is None:
+        if not hasattr(self, 'locY') or self.locY is None:
             return False
         if self.locY <= 87:
             return True
