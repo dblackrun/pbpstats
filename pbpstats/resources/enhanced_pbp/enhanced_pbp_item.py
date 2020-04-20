@@ -18,6 +18,10 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
     def event_stats(self):
         pass
 
+    @abc.abstractmethod
+    def get_offense_team_id(self):
+        pass
+
     @property
     def base_stats(self):
         """
@@ -85,17 +89,6 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                 events.append(event)
             event = event.next_event
         return sorted(events, key=lambda k: k.order)
-
-    def get_offense_team_id(self):
-        if not self.previous_event.count_as_possession:
-            if self.previous_event.is_possession_ending_event:
-                # this is to avoid team having back to back possessions when last possession doesn't count
-                team_ids = list(self.current_players.keys())
-                return team_ids[0] if team_ids[1] == self.previous_event.get_offense_team_id() else team_ids[1]
-            return self.previous_event.get_offense_team_id()
-        else:
-            team_ids = list(self.current_players.keys())
-            return team_ids[0] if team_ids[1] == self.previous_event.get_offense_team_id() else team_ids[1]
 
     @property
     def seconds_remaining(self):

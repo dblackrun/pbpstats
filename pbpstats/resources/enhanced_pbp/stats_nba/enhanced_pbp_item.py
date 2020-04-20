@@ -101,6 +101,32 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
                 response.raise_for_status()
         return None
 
+    def get_offense_team_id(self):
+        """
+        this method gets overriden in FieldGoal, FreeThrow, Rebound, Turnover, JumpBall
+        """
+        prev_event = self.previous_event
+        team_ids = list(self.current_players.keys())
+        while (
+            prev_event is not None and
+            not (
+                isinstance(prev_event, (FieldGoal, Turnover, JumpBall)) or
+                (isinstance(prev_event, Rebound) and prev_event.is_real_rebound) or
+                (isinstance(prev_event, FreeThrow) and not prev_event.technical_ft)
+            )
+        ):
+            prev_event = prev_event.previous_event
+        if isinstance(prev_event, Turnover):
+            return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
+        if isinstance(prev_event, Rebound) and prev_event.is_real_rebound:
+            return prev_event.get_offense_team_id()
+        if isinstance(prev_event, (FieldGoal, FreeThrow)):
+            if prev_event.is_possession_ending_event:
+                return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
+            return prev_event.get_offense_team_id()
+        if isinstance(prev_event, JumpBall):
+            return prev_event.get_offense_team_id()
+
     @property
     def is_possession_ending_event(self):
         if self.next_event is None:

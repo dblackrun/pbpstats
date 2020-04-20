@@ -44,6 +44,10 @@ class DataEnhancedPbpItem(EnhancedPbpItem):
         return self.base_stats
 
     @property
+    def get_offense_team_id(self):
+        return self.offense_team_id
+
+    @property
     def is_possession_ending_event(self):
         """
         data.pbp.com pbp has offense team id attribute

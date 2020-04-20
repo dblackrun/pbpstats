@@ -9,3 +9,9 @@ class StatsFieldGoal(FieldGoal, StatsEnhancedPbpItem):
     @property
     def shot_value(self):
         return 3 if ' 3PT ' in self.description else 2
+
+    def get_offense_team_id(self):
+        """
+        overrides method inherited from StatsEnhancedPbpItem
+        """
+        return self.team_id

@@ -9,3 +9,9 @@ class StatsFreeThrow(FreeThrow, StatsEnhancedPbpItem):
     @property
     def made(self):
         return 'MISS ' not in self.description
+
+    def get_offense_team_id(self):
+        """
+        overrides method inherited from StatsEnhancedPbpItem
+        """
+        return self.team_id
