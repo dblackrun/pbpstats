@@ -4,6 +4,7 @@ import pbpstats
 from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
 from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
+from pbpstats.resources.enhanced_pbp.rebound import Rebound
 
 
 class EnhancedPbpItem(metaclass=abc.ABCMeta):
@@ -32,11 +33,15 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         stat_items = []
         team_ids = list(self.current_players.keys())
         lineups_ids = self.lineup_ids
+        if self.is_possession_ending_event and isinstance(self, Rebound) and not self.oreb:
+            offense_team_id = team_ids[0] if self.get_offense_team_id() == team_ids[1] else team_ids[1]
+        else:
+            offense_team_id = self.get_offense_team_id()
         if self.seconds_since_previous_event != 0:
             for team_id, players in self.previous_event.current_players.items():
                 seconds_stat_key = (
                     pbpstats.SECONDS_PLAYED_OFFENSE_STRING
-                    if team_id == self.get_offense_team_id()
+                    if team_id == offense_team_id
                     else pbpstats.SECONDS_PLAYED_DEFENSE_STRING
                 )
                 opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
@@ -57,7 +62,7 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
             for team_id, players in self.current_players.items():
                 possessions_stat_key = (
                     pbpstats.OFFENSIVE_POSSESSION_STRING
-                    if team_id == self.get_offense_team_id()
+                    if team_id == offense_team_id
                     else pbpstats.DEFENSIVE_POSSESSION_STRING
                 )
                 opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
@@ -138,6 +143,12 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         if self.is_possession_ending_event:
             if self.seconds_remaining > 2:
                 return True
+            # check when previous possession ended
+            prev_event = self.previous_event
+            while prev_event is not None and not prev_event.is_possession_ending_event:
+                prev_event = prev_event.previous_event
+            if prev_event is None or prev_event.seconds_remaining > 2:
+                return True
             elif not isinstance(self, EndOfPeriod):
                 # possession starts in final 2 seconds
                 # return True if there is a FT or FGM
@@ -146,6 +157,4 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                     if isinstance(next_event, FreeThrow) or (isinstance(next_event, FieldGoal) and next_event.made):
                         return True
                     next_event = next_event.next_event
-            if isinstance(self, EndOfPeriod):
-                return True
         return False
