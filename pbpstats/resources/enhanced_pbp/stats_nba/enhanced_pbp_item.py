@@ -3,7 +3,6 @@ import requests
 from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.overrides import NON_POSSESSION_CHANGING_EVENT_OVERRIDES, POSSESSION_CHANGING_EVENT_OVERRIDES
 from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
 from pbpstats.resources.enhanced_pbp.foul import Foul
 from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
@@ -104,6 +103,9 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
 
     @property
     def is_possession_ending_event(self):
+        if self.next_event is None:
+            return True
+
         if self.game_id in POSSESSION_CHANGING_EVENT_OVERRIDES.keys() and self.event_num in POSSESSION_CHANGING_EVENT_OVERRIDES[self.game_id]:
             return True
 
@@ -173,8 +175,5 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
             if not jump_ball_winning_team_started_possession_with_ball and not(next_event_rebound or isinstance(self.next_event, JumpBall)):
                 # ignore jump ball if next event is a rebound or jump ball since that will trigger possession change
                 return True
-
-        if isinstance(self, EndOfPeriod):
-            return True
 
         return False

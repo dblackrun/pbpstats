@@ -1,5 +1,4 @@
 from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
-from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 
 
 class NbaPossessionLoader(object):
@@ -27,7 +26,7 @@ class NbaPossessionLoader(object):
                 possession.previous_possession = None
                 possession.next_possession = self.items[i + 1]
                 number = 1
-            elif isinstance(possession.events[-1], EndOfPeriod) or i == len(self.items) - 1:
+            elif i == len(self.items) - 1 or possession.period != self.items[i + 1].period:
                 possession.previous_possession = self.items[i - 1]
                 possession.next_possession = None
             else:

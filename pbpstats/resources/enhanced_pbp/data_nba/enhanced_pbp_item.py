@@ -1,5 +1,4 @@
 from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
 
 KEY_ATTR_MAPPER = {
@@ -50,7 +49,7 @@ class DataEnhancedPbpItem(EnhancedPbpItem):
         data.pbp.com pbp has offense team id attribute
         when offense team id is different in next event, event is a possession ending event
         """
-        if isinstance(self, EndOfPeriod):
+        if self.next_event is None:
             return True
         elif self.next_event is not None:
             oftid_changed = self.offense_team_id != self.next_event.offense_team_id

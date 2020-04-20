@@ -1,5 +1,4 @@
 from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
-from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 
 
 class NbaEnhancedPbpLoader(object):
@@ -17,7 +16,7 @@ class NbaEnhancedPbpLoader(object):
                 event.previous_event = None
                 event.next_event = self.items[i + 1]
                 start_period_indices.append(i)
-            elif isinstance(event, EndOfPeriod) or i == len(self.items) - 1:
+            elif i == len(self.items) - 1 or event.period != self.items[i + 1].period:
                 event.previous_event = self.items[i - 1]
                 event.next_event = None
             else:
