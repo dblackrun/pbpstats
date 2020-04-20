@@ -1,7 +1,6 @@
 import abc
 
 import pbpstats
-from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
 from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
 
@@ -145,12 +144,11 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                 prev_event = prev_event.previous_event
             if prev_event is None or prev_event.seconds_remaining > 2:
                 return True
-            elif not isinstance(self, EndOfPeriod):
-                # possession starts in final 2 seconds
-                # return True if there is a FT or FGM
-                next_event = self
-                while next_event is not None:
-                    if isinstance(next_event, FreeThrow) or (isinstance(next_event, FieldGoal) and next_event.made):
-                        return True
-                    next_event = next_event.next_event
+            # possession starts in final 2 seconds
+            # return True if there is a FT or FGM between now and end of period
+            next_event = prev_event.next_event
+            while next_event is not None:
+                if isinstance(next_event, FreeThrow) or (isinstance(next_event, FieldGoal) and next_event.made):
+                    return True
+                next_event = next_event.next_event
         return False
