@@ -40,6 +40,18 @@ class Possession(object):
 
     @property
     def offense_team_id(self):
+        if len(self.events) == 1 and isinstance(self.events[0], JumpBall):
+            # if possession only has one event and it is a jump ball, need to check
+            # how previous possession ended to see which team actually started with the ball
+            # because team id on jump ball is team that won the jump ball
+            prev_event = self.previous_possession_ending_event
+            if isinstance(prev_event, Turnover):
+                team_ids = list(self.current_players.keys())
+                return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
+            if isinstance(prev_event, Rebound) and prev_event.is_real_rebound:
+                return prev_event.get_offense_team_id()
+            if isinstance(prev_event, (FieldGoal, FreeThrow)):
+                return prev_event.get_offense_team_id()
         return self.events[0].get_offense_team_id()
 
     @property
