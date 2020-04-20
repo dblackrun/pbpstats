@@ -119,6 +119,8 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         if isinstance(prev_event, Turnover):
             return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
         if isinstance(prev_event, Rebound) and prev_event.is_real_rebound:
+            if not prev_event.oreb:
+                return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
             return prev_event.get_offense_team_id()
         if isinstance(prev_event, (FieldGoal, FreeThrow)):
             if prev_event.is_possession_ending_event:

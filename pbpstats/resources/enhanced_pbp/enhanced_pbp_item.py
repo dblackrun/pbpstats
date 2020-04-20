@@ -4,7 +4,6 @@ import pbpstats
 from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
 from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
-from pbpstats.resources.enhanced_pbp.rebound import Rebound
 
 
 class EnhancedPbpItem(metaclass=abc.ABCMeta):
@@ -33,10 +32,7 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         stat_items = []
         team_ids = list(self.current_players.keys())
         lineups_ids = self.lineup_ids
-        if self.is_possession_ending_event and isinstance(self, Rebound) and not self.oreb:
-            offense_team_id = team_ids[0] if self.get_offense_team_id() == team_ids[1] else team_ids[1]
-        else:
-            offense_team_id = self.get_offense_team_id()
+        offense_team_id = self.get_offense_team_id()
         if self.seconds_since_previous_event != 0:
             for team_id, players in self.previous_event.current_players.items():
                 seconds_stat_key = (

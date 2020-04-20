@@ -12,7 +12,7 @@ class StatsRebound(Rebound, StatsEnhancedPbpItem):
         overrides method inherited from StatsEnhancedPbpItem
         """
         if self.is_real_rebound:
-            return self.team_id
+            return self.missed_shot.team_id
         if isinstance(self.previous_event, Turnover):
             # shot clock turnover has place holder rebound after turnover
             # this correct team starts next possession
