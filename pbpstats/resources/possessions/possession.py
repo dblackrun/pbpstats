@@ -46,9 +46,12 @@ class Possession(object):
             # because team id on jump ball is team that won the jump ball
             prev_event = self.previous_possession_ending_event
             if isinstance(prev_event, Turnover):
-                team_ids = list(self.current_players.keys())
+                team_ids = [self.previous_possession.offense_team_id, self.previous_possession.previous_possession.offense_team_id]
                 return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
             if isinstance(prev_event, Rebound) and prev_event.is_real_rebound:
+                if not prev_event.oreb:
+                    team_ids = [self.previous_possession.offense_team_id, self.previous_possession.previous_possession.offense_team_id]
+                    return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
                 return prev_event.get_offense_team_id()
             if isinstance(prev_event, (FieldGoal, FreeThrow)):
                 return prev_event.get_offense_team_id()
