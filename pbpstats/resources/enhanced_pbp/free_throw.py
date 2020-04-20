@@ -220,6 +220,17 @@ class FreeThrow(metaclass=abc.ABCMeta):
             free_throw_trip_key = self.free_throw_type + ' Free Throw Trips'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_trip_key, 'stat_value': 1})
 
+        if not self.made:
+            if self.ft_3pt:
+                free_throw_key = pbpstats.FT_3_PT_MISSED_STRING
+            elif self.ft_2pt:
+                free_throw_key = pbpstats.FT_2_PT_MISSED_STRING
+            elif self.ft_1pt:
+                free_throw_key = pbpstats.FT_1_PT_MISSED_STRING
+            else:
+                free_throw_key = pbpstats.FTS_MISSED_STRING
+            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
+
         team_ids = list(self.current_players.keys())
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
         lineups_ids = self.lineup_ids
