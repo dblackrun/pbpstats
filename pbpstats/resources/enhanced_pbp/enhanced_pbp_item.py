@@ -148,7 +148,7 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
             elif not isinstance(self, EndOfPeriod):
                 # possession starts in final 2 seconds
                 # return True if there is a FT or FGM
-                next_event = self.next_event
+                next_event = self
                 while next_event is not None:
                     if isinstance(next_event, FreeThrow) or (isinstance(next_event, FieldGoal) and next_event.made):
                         return True
