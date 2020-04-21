@@ -43,7 +43,6 @@ class StatsNbaBoxscoreLoader(StatsNbaFileLoader, StatsNbaWebLoader):
     def _save_data_to_file(self):
         if self.file_directory is not None and os.path.isdir(self.file_directory):
             file_path = f'{self.file_directory}/game_details/stats_boxscore_{self.game_id}.json'
-            print(f'saving to {file_path}')
             with open(file_path, 'w') as outfile:
                 json.dump(self.source_data, outfile)
 
