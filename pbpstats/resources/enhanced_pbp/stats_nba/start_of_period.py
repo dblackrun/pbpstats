@@ -13,9 +13,9 @@ class StatsStartOfPeriod(StartOfPeriod, StatsEnhancedPbpItem):
     def __init__(self, *args):
         super().__init__(*args)
 
-    def get_period_starters(self):
+    def get_period_starters(self, file_directory=None):
         try:
-            return self._get_period_starters_from_period_events()
+            return self._get_period_starters_from_period_events(file_directory)
         except InvalidNumberOfStartersException:
             return self._get_starters_from_boxscore_request()
 

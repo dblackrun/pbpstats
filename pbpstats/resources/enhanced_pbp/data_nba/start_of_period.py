@@ -6,5 +6,5 @@ class DataStartOfPeriod(StartOfPeriod, DataEnhancedPbpItem):
     def __init__(self, *args):
         super().__init__(*args)
 
-    def get_period_starters(self):
-        return self._get_period_starters_from_period_events()
+    def get_period_starters(self, file_directory=None):
+        return self._get_period_starters_from_period_events(file_directory)

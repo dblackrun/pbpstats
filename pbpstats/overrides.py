@@ -33,6 +33,7 @@ def convert_to_int_but_keep_game_id_string(value):
         return value
 
 
+if DATA_DIRECTORY is not None:
     players_missing_from_boxscore_file_path = f'{DATA_DIRECTORY}overrides/players_missing_from_boxscore.json'
     if os.path.isfile(players_missing_from_boxscore_file_path):
         with open(players_missing_from_boxscore_file_path) as f:

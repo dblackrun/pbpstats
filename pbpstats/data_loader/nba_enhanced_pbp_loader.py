@@ -26,5 +26,5 @@ class NbaEnhancedPbpLoader(object):
         for i in start_period_indices:
             team_id = self.items[i].get_team_starting_with_ball()
             self.items[i].team_starting_with_ball = team_id
-            period_starters = self.items[i].get_period_starters()
+            period_starters = self.items[i].get_period_starters(file_directory=self.file_directory)
             self.items[i].period_starters = period_starters

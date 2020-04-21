@@ -1,6 +1,8 @@
 import abc
+import os
+import json
 
-from pbpstats.overrides import MISSING_PERIOD_STARTERS
+from pbpstats.overrides import IntDecoder
 from pbpstats.resources.enhanced_pbp.ejection import Ejection
 from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
@@ -20,7 +22,7 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
     event_type = 12
 
     @abc.abstractclassmethod
-    def get_period_starters(self):
+    def get_period_starters(self, file_directory):
         pass
 
     @property
@@ -47,7 +49,7 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
         """
         return self.team_starting_with_ball
 
-    def _get_period_starters_from_period_events(self):
+    def _get_period_starters_from_period_events(self, file_directory):
         starters = []
         subbed_in_players = []
         player_team_map = {}  # only player1 has team id in event, this is to track team
@@ -99,13 +101,28 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
                 if len(team_starters) == 4:
                     team_starters += dangling_starters
 
-        if self.game_id in MISSING_PERIOD_STARTERS.keys() and self.period in MISSING_PERIOD_STARTERS[self.game_id].keys():
-            for team_id, starters in MISSING_PERIOD_STARTERS[self.game_id][self.period].items():
-                starters_by_team[team_id] = starters
-
         for team_id, starters in starters_by_team.items():
             if len(starters) != 5:
-                raise InvalidNumberOfStartersException(f'GameId: {self.game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}')
+                # check if game and period are in overrides file
+                if file_directory is None:
+                    raise InvalidNumberOfStartersException(f'GameId: {self.game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}')
+
+                missing_period_starters_file_path = f'{file_directory}/overrides/missing_period_starters.json'
+                if not os.path.isfile(missing_period_starters_file_path):
+                    raise InvalidNumberOfStartersException(f'GameId: {self.game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}')
+
+                with open(missing_period_starters_file_path) as f:
+                    # hard code corrections for games with incorrect number of starters exceptions
+                    missing_period_starters = json.loads(f.read(), cls=IntDecoder)
+
+                if (
+                    self.game_id in missing_period_starters.keys() and
+                    self.period in missing_period_starters[self.game_id].keys() and
+                    team_id in missing_period_starters[self.game_id][self.period].keys()
+                ):
+                    starters_by_team[team_id] = missing_period_starters[self.game_id][self.period][team_id]
+                else:
+                    raise InvalidNumberOfStartersException(f'GameId: {self.game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}')
 
         return starters_by_team
 
