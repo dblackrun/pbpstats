@@ -8,11 +8,23 @@ from pbpstats.resources.boxscore.stats_nba_boxscore_item import StatsNbaBoxscore
 
 
 class StatsNbaBoxscoreLoader(StatsNbaFileLoader, StatsNbaWebLoader):
+    """
+    class for loading boxscore items from stats.nba.com
+    supports loading from api request or from file saved
+    on disk with api response data
+    """
     data_provider = 'stats_nba'
     resource = 'Boxscore'
     parent_object = 'Game'
 
     def __init__(self, game_id, source, file_directory):
+        """
+        game_id - string, stats.nba.com game id
+        source - string, file or web
+        file_directory - string, directory containing data saved on disk
+            - required if loading from file
+            - if not None when loading from web, response will be saved there
+        """
         self.game_id = game_id
         self.file_directory = file_directory
         self.source = source
