@@ -16,21 +16,22 @@ class IntDecoder(json.JSONDecoder):
             except ValueError:
                 return o
         elif isinstance(o, dict):
-            return {k: self._decode(v) for k, v in o.items()}
+            return {convert_to_int_but_keep_game_id_string(k): self._decode(v) for k, v in o.items()}
         elif isinstance(o, list):
             return [self._decode(v) for v in o]
         else:
             return o
 
 
-if DATA_DIRECTORY is not None:
-    missing_period_starters_file_path = f'{DATA_DIRECTORY}overrides/missing_period_starters.json'
-    if os.path.isfile(missing_period_starters_file_path):
-        with open(missing_period_starters_file_path) as f:
-            # hard code corrections for games with incorrect number of starters exceptions
-            MISSING_PERIOD_STARTERS = json.loads(f.read(), cls=IntDecoder)
-    else:
-        MISSING_PERIOD_STARTERS = {}
+def convert_to_int_but_keep_game_id_string(value):
+    try:
+        if str(int(value)) == value:
+            return int(value)
+        else:
+            return value
+    except ValueError:
+        return value
+
 
     players_missing_from_boxscore_file_path = f'{DATA_DIRECTORY}overrides/players_missing_from_boxscore.json'
     if os.path.isfile(players_missing_from_boxscore_file_path):
