@@ -44,7 +44,6 @@ class StatsNbaScoreboardLoader(StatsNbaFileLoader, StatsNbaWebLoader):
     def _save_data_to_file(self):
         if self.file_directory is not None and os.path.isdir(self.file_directory):
             file_path = f'{self.file_directory}/schedule/stats_{self.league_string}_{self.date.replace("/", "_")}.json'
-            print(f'saving to {file_path}')
             with open(file_path, 'w') as outfile:
                 json.dump(self.source_data, outfile)
 
