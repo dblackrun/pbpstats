@@ -56,7 +56,6 @@ class FieldGoal(object):
                 return int(self.description.split("'")[0].split(' ')[-1])
             except:
                 return None
-        return None
 
     @property
     def shot_type(self):
