@@ -30,7 +30,6 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         """
         stat_items = []
         team_ids = list(self.current_players.keys())
-        lineups_ids = self.lineup_ids
         offense_team_id = self.get_offense_team_id()
         if self.seconds_since_previous_event != 0:
             for team_id, players in self.previous_event.current_players.items():
@@ -54,7 +53,13 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                     stat_items.append(seconds_stat_item)
 
         if self.count_as_possession:
-            for team_id, players in self.current_players.items():
+            if isinstance(self, FreeThrow):
+                current_players = self.foul_event_for_plus_minus.current_players
+                lineup_ids = self.foul_event_for_plus_minus.lineup_ids
+            else:
+                current_players = self.current_players
+                lineup_ids = self.lineup_ids
+            for team_id, players in current_players.items():
                 possessions_stat_key = (
                     pbpstats.OFFENSIVE_POSSESSION_STRING
                     if team_id == offense_team_id
@@ -66,8 +71,8 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                         'player_id': player_id,
                         'team_id': team_id,
                         'opponent_team_id': opponent_team_id,
-                        'lineup_id': lineups_ids[team_id],
-                        'opponent_lineup_id': lineups_ids[opponent_team_id],
+                        'lineup_id': lineup_ids[team_id],
+                        'opponent_lineup_id': lineup_ids[opponent_team_id],
                         'stat_key': possessions_stat_key,
                         'stat_value': 1,
                     }
