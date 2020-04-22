@@ -62,11 +62,13 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
             else:
                 # when jump ball is tipped out of bounds, winning team is PLAYER3_ID
                 self.team_id = event['PLAYER3_ID']
-                delattr(self, 'player2_id')
+                if hasattr(self, 'player2_id'):
+                    delattr(self, 'player2_id')
         elif self.event_type in [5, 6]:
             # steals need to change PLAYER2_ID to player3_id - this is player who turned ball over
             # fouls need to change PLAYER2_ID to player3_id - this is player who drew foul
-            delattr(self, 'player2_id')
+            if hasattr(self, 'player2_id'):
+                delattr(self, 'player2_id')
             if event.get('PLAYER2_ID') is not None:
                 self.player3_id = event['PLAYER2_ID']
 
