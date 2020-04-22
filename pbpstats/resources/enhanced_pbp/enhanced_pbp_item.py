@@ -123,12 +123,6 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         return lineup_ids
 
     @property
-    def seconds_until_next_event(self):
-        if self.next_event is None:
-            return 0
-        return self.seconds_remaining - self.next_event.seconds_remaining
-
-    @property
     def seconds_since_previous_event(self):
         if self.previous_event is None:
             return 0
