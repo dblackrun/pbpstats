@@ -1,3 +1,4 @@
+import pbpstats
 from pbpstats.client import Client
 
 
@@ -8,6 +9,85 @@ class TestFullGamePossessions:
     }
     client = Client(settings)
     game = client.Game('0021600270')
+
+    def test_first_possession_start_time(self):
+        assert self.game.possessions.items[0].start_time == '12:00'
+
+    def test_first_possession_start_type(self):
+        assert self.game.possessions.items[0].possession_start_type == pbpstats.OFF_DEADBALL_STRING
+
+    def test_off_short_mid_range_make_start_type(self):
+        assert self.game.possessions.items[1].possession_start_type == f'Off{pbpstats.SHORT_MID_RANGE_STRING}{pbpstats.MAKE_STRING}'
+        assert self.game.possessions.items[1].previous_possession_end_shooter_player_id == 202693
+        assert self.game.possessions.items[1].previous_possession_end_rebound_player_id == 0
+        assert self.game.possessions.items[1].previous_possession_end_turnover_player_id == 0
+        assert self.game.possessions.items[1].previous_possession_end_steal_player_id == 0
+
+    def test_off_arc3_miss_start_type(self):
+        assert self.game.possessions.items[3].possession_start_type == f'Off{pbpstats.ARC_3_STRING}{pbpstats.MISS_STRING}'
+        assert self.game.possessions.items[3].previous_possession_end_shooter_player_id == 202322
+        assert self.game.possessions.items[3].previous_possession_end_rebound_player_id == 1627734
+
+    def test_off_short_mid_range_miss_start_type(self):
+        assert self.game.possessions.items[4].possession_start_type == f'Off{pbpstats.SHORT_MID_RANGE_STRING}{pbpstats.MISS_STRING}'
+
+    def test_off_live_ball_turnover_start_type(self):
+        assert self.game.possessions.items[5].possession_start_type == pbpstats.OFF_LIVE_BALL_TURNOVER_STRING
+        assert self.game.possessions.items[5].previous_possession_end_shooter_player_id == 0
+        assert self.game.possessions.items[5].previous_possession_end_rebound_player_id == 0
+        assert self.game.possessions.items[5].previous_possession_end_turnover_player_id == 202693
+        assert self.game.possessions.items[5].previous_possession_end_steal_player_id == 1627734
+
+    def test_dead_ball_turnover_start_type(self):
+        assert self.game.possessions.items[20].possession_start_type == pbpstats.OFF_DEADBALL_STRING
+
+    def test_off_timeout_start_type(self):
+        assert self.game.possessions.items[23].possession_start_type == pbpstats.OFF_TIMEOUT_STRING
+
+    def test_team_rebound_start_type(self):
+        assert self.game.possessions.items[24].possession_start_type == pbpstats.OFF_DEADBALL_STRING
+
+    def test_first_possession_stats(self):
+        assert self.game.possessions.items[0].possession_stats == [
+            {'player_id': 101162, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'OffPoss', 'stat_value': 1},
+            {'player_id': 101162, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'PlusMinus', 'stat_value': 2},
+            {'player_id': 101162, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'SecondsPlayedOff', 'stat_value': 21.0},
+            {'player_id': 201566, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'DefPoss', 'stat_value': 1},
+            {'player_id': 201566, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'OpponentPoints', 'stat_value': 2},
+            {'player_id': 201566, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'PlusMinus', 'stat_value': -2},
+            {'player_id': 201566, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'SecondsPlayedDef', 'stat_value': 21.0},
+            {'player_id': 202322, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'OffPoss', 'stat_value': 1},
+            {'player_id': 202322, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'PlusMinus', 'stat_value': 2},
+            {'player_id': 202322, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'SecondsPlayedOff', 'stat_value': 21.0},
+            {'player_id': 202693, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'OffPoss', 'stat_value': 1},
+            {'player_id': 202693, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'PlusMinus', 'stat_value': 2},
+            {'player_id': 202693, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'SecondsPlayedOff', 'stat_value': 21.0},
+            {'player_id': 202693, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'Total2ptShotDistance', 'stat_value': 12.1},
+            {'player_id': 202693, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'Total2ptShotsWithDistance', 'stat_value': 1},
+            {'player_id': 202693, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'UnassistedShortMidRange', 'stat_value': 1},
+            {'player_id': 203078, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'OffPoss', 'stat_value': 1},
+            {'player_id': 203078, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'PlusMinus', 'stat_value': 2},
+            {'player_id': 203078, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'SecondsPlayedOff', 'stat_value': 21.0},
+            {'player_id': 203460, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'DefPoss', 'stat_value': 1},
+            {'player_id': 203460, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'OpponentPoints', 'stat_value': 2},
+            {'player_id': 203460, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'PlusMinus', 'stat_value': -2},
+            {'player_id': 203460, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'SecondsPlayedDef', 'stat_value': 21.0},
+            {'player_id': 203490, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'OffPoss', 'stat_value': 1},
+            {'player_id': 203490, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'PlusMinus', 'stat_value': 2},
+            {'player_id': 203490, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-202322-202693-203078-203490', 'opponent_lineup_id': '1627734-201566-203460-203500-203506', 'stat_key': 'SecondsPlayedOff', 'stat_value': 21.0},
+            {'player_id': 203500, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'DefPoss', 'stat_value': 1},
+            {'player_id': 203500, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'OpponentPoints', 'stat_value': 2},
+            {'player_id': 203500, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'PlusMinus', 'stat_value': -2},
+            {'player_id': 203500, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'SecondsPlayedDef', 'stat_value': 21.0},
+            {'player_id': 203506, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'DefPoss', 'stat_value': 1},
+            {'player_id': 203506, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'OpponentPoints', 'stat_value': 2},
+            {'player_id': 203506, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'PlusMinus', 'stat_value': -2},
+            {'player_id': 203506, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'SecondsPlayedDef', 'stat_value': 21.0},
+            {'player_id': 1627734, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'DefPoss', 'stat_value': 1},
+            {'player_id': 1627734, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'OpponentPoints', 'stat_value': 2},
+            {'player_id': 1627734, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'PlusMinus', 'stat_value': -2},
+            {'player_id': 1627734, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '1627734-201566-203460-203500-203506', 'opponent_lineup_id': '101162-202322-202693-203078-203490', 'stat_key': 'SecondsPlayedDef', 'stat_value': 21.0}
+        ]
 
     def test_team_stats(self):
         results = self.game.possessions.team_stats
