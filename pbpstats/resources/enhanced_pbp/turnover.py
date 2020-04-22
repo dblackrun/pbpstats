@@ -1,4 +1,5 @@
 import pbpstats
+from pbpstats.resources.enhanced_pbp.substitution import Substitution
 
 
 class Turnover(object):
@@ -64,6 +65,7 @@ class Turnover(object):
         if not self.is_no_turnover:
             team_ids = list(self.current_players.keys())
             opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
+            lineup_ids = self.lineup_ids
             if self.is_steal:
                 turnover_key = pbpstats.LOST_BALL_TURNOVER_STRING if self.is_lost_ball else pbpstats.BAD_PASS_TURNOVER_STRING
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': turnover_key, 'stat_value': 1})
@@ -86,12 +88,21 @@ class Turnover(object):
                 elif self.is_shot_clock_violation:
                     stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.SHOT_CLOCK_VIOLATION_TURNOVER_STRING, 'stat_value': 1})
 
-            lineups_ids = self.lineup_ids
-            # TODO: adjustment to fix lineup for sub in wrong order
+                # sometimes events are out of order and turnover happens after sub
+                # if player who turned ball over is subbed out before turnover event, fix lineup id
+                events_to_check = self.get_all_events_at_current_time()
+                if self.player1_id != 0 and str(self.player1_id) not in lineup_ids[self.team_id].split('-'):
+                    # sub in wrong order - fix lineup
+                    for event in events_to_check:
+                        if isinstance(event, Substitution):
+                            if event.outgoing_player_id == self.player1_id:
+                                fixed_lineup_id = lineup_ids[self.team_id].replace(str(event.incoming_player_id), str(event.outgoing_player_id))
+                                lineup_ids[self.team_id] = fixed_lineup_id
+
             for stat in stats:
                 opponent_team_id = team_ids[0] if stat['team_id'] == team_ids[1] else team_ids[1]
-                stat['lineup_id'] = lineups_ids[stat['team_id']]
+                stat['lineup_id'] = lineup_ids[stat['team_id']]
                 stat['opponent_team_id'] = opponent_team_id
-                stat['opponent_lineup_id'] = lineups_ids[opponent_team_id]
+                stat['opponent_lineup_id'] = lineup_ids[opponent_team_id]
 
         return self.base_stats + stats
