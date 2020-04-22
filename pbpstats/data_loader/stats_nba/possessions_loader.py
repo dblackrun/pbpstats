@@ -5,6 +5,7 @@ from pbpstats.overrides import IntDecoder
 from pbpstats.data_loader.stats_nba.enhanced_pbp_loader import StatsNbaEnhancedPbpLoader
 from pbpstats.data_loader.nba_possession_loader import NbaPossessionLoader
 from pbpstats.resources.possessions.possession import Possession
+from pbpstats.resources.enhanced_pbp.foul import Foul
 
 
 class TeamHasBackToBackPossessionsException(Exception):
@@ -41,13 +42,22 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
                         possession.period in self.bad_pbp_cases[self.game_id].keys() and
                         possession.number in self.bad_pbp_cases[self.game_id][possession.period]
                     ):
-                        exception_text = (
-                            f'GameId: {possession.game_id}, Period: {possession.period}, '
-                            f'Number: {possession.number}, Events: {possession.events}, '
-                            f'Previous Events: {possession.previous_possession.events}>'
-                        )
+                        ignore_because_of_flagrant = False
+                        events_to_check = possession.previous_possession.events
+                        if possession.previous_possession.previous_possession is not None:
+                            events_to_check += possession.previous_possession.previous_possession.events
+                        for event in events_to_check:
+                            if isinstance(event, Foul) and event.is_flagrant:
+                                ignore_because_of_flagrant = True
 
-                        raise TeamHasBackToBackPossessionsException(exception_text)
+                        if not ignore_because_of_flagrant:
+                            exception_text = (
+                                f'GameId: {possession.game_id}, Period: {possession.period}, '
+                                f'Number: {possession.number}, Events: {possession.events}, '
+                                f'Previous Events: {possession.previous_possession.events}>'
+                            )
+
+                            raise TeamHasBackToBackPossessionsException(exception_text)
             if possession.next_possession is not None:
                 if possession.offense_team_id == possession.next_possession.offense_team_id:
                     if not (
@@ -55,13 +65,22 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
                         possession.period in self.bad_pbp_cases[self.game_id].keys() and
                         possession.next_possession.number in self.bad_pbp_cases[self.game_id][possession.period]
                     ):
-                        exception_text = (
-                            f'GameId: {possession.game_id}, Period: {possession.period}, '
-                            f'Number: {possession.next_possession.number}, Events: {possession.next_possession.events}, '
-                            f'Previous Events: {possession.events}>'
-                        )
+                        ignore_because_of_flagrant = False
+                        events_to_check = possession.events
+                        if possession.previous_possession is not None:
+                            events_to_check += possession.previous_possession.events
+                        for event in events_to_check:
+                            if isinstance(event, Foul) and event.is_flagrant:
+                                ignore_because_of_flagrant = True
 
-                        raise TeamHasBackToBackPossessionsException(exception_text)
+                        if not ignore_because_of_flagrant:
+                            exception_text = (
+                                f'GameId: {possession.game_id}, Period: {possession.period}, '
+                                f'Number: {possession.next_possession.number}, Events: {possession.next_possession.events}, '
+                                f'Previous Events: {possession.events}>'
+                            )
+
+                            raise TeamHasBackToBackPossessionsException(exception_text)
 
     def _load_bad_possession_overrides(self):
         self.bad_pbp_cases = {}
