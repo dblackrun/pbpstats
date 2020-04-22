@@ -197,7 +197,7 @@ def test_flagrant_free_throw_type():
     assert ft_1_of_1_event.free_throw_type == '2 Shot Flagrant'
 
 
-def test_foul_event_for_plus_minus_when_events_out_of_order():
+def test_event_for_efficiency_stats_when_events_out_of_order():
     ft = {'EVENTMSGTYPE': 3, 'EVENTMSGACTIONTYPE': 10, 'HOMEDESCRIPTION': 'Free Throw 1 of 1', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 1, 'PLAYER1_ID': 1}
     order = 1
     ft_event = StatsFreeThrow(ft, order)
@@ -209,4 +209,4 @@ def test_foul_event_for_plus_minus_when_events_out_of_order():
     ft_event.next_event = foul_event
     foul_event.previous_event = ft_event
     foul_event.next_event = None
-    assert ft_event.foul_event_for_plus_minus == foul_event
+    assert ft_event.event_for_efficiency_stats == foul_event

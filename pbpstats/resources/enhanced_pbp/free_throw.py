@@ -176,7 +176,7 @@ class FreeThrow(metaclass=abc.ABCMeta):
             return 'Penalty'
 
     @property
-    def foul_event_for_plus_minus(self):
+    def event_for_efficiency_stats(self):
         clock = self.clock
         # foul should be before FT so start by going backwards
         event = self
@@ -193,7 +193,7 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
         if isinstance(event, Foul) and event.clock == clock:
             return event
-        return None
+        return self
 
     @property
     def event_stats(self):
@@ -215,8 +215,10 @@ class FreeThrow(metaclass=abc.ABCMeta):
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
 
             # add plus minus and opponent points - used for lineup/wowy stats to get net rating
-            plus_minus_lineup_ids = self.foul_event_for_plus_minus.lineup_ids
-            for team_id, players in self.foul_event_for_plus_minus.current_players.items():
+            if self.event_for_efficiency_stats is None:
+                print(self)
+            plus_minus_lineup_ids = self.event_for_efficiency_stats.lineup_ids
+            for team_id, players in self.event_for_efficiency_stats.current_players.items():
                 multiplier = 1 if team_id == self.team_id else -1
                 opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
                 for player_id in players:

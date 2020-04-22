@@ -54,8 +54,8 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
 
         if self.count_as_possession:
             if isinstance(self, FreeThrow):
-                current_players = self.foul_event_for_plus_minus.current_players
-                lineup_ids = self.foul_event_for_plus_minus.lineup_ids
+                current_players = self.event_for_efficiency_stats.current_players
+                lineup_ids = self.event_for_efficiency_stats.lineup_ids
             else:
                 current_players = self.current_players
                 lineup_ids = self.lineup_ids
