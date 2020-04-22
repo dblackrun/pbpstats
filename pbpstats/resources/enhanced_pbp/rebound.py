@@ -141,6 +141,15 @@ class Rebound(object):
                         'stat_value': 1,
                     }
                     stats.append(stat_item)
+                if team_id == self.team_id and self.oreb:
+                    for player_id in players:
+                        on_floor_oreb_stat_item = {
+                            'player_id': player_id,
+                            'team_id': team_id,
+                            'stat_key': pbpstats.ON_FLOOR_OFFENSIVE_REBOUND_STRING,
+                            'stat_value': 1,
+                        }
+                        stats.append(on_floor_oreb_stat_item)
 
             # player missed shot rebound stats
             shooter_player_id = self.missed_shot.player1_id
