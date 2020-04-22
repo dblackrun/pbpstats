@@ -123,6 +123,10 @@ class FieldGoal(object):
                 if foul_team_team_id != shooter_team_id:
                     return True
 
+            other_makes_at_time_of_shot = []
+            for event in events_at_shot_time:
+                if isinstance(event, FieldGoal) and event.event_num != self.event_num and event.made and self.team_id == event.team_id:
+                    other_makes_at_time_of_shot.append(event)
             if shooter_team_id != foul_team_team_id:
                 # check FT 1 of 1s at time of shot
                 ft_1_of_1s_at_time_of_shot = []
@@ -130,7 +134,12 @@ class FieldGoal(object):
                     if isinstance(event, FreeThrow) and (event.ft_1_of_1 or event.ft_1pt) and not event.technical_ft:
                         ft_1_of_1s_at_time_of_shot.append(event)
 
-                if len(ft_1_of_1s_at_time_of_shot) != 0:
+                if len(other_makes_at_time_of_shot) == 1 and len(ft_1_of_1s_at_time_of_shot) == 1:
+                    if ft_1_of_1s_at_time_of_shot[0].player1_id == other_makes_at_time_of_shot[0].player1_id:
+                        return False
+                    elif ft_1_of_1s_at_time_of_shot[0].player1_id == self.player1_id:
+                        return True
+                elif len(ft_1_of_1s_at_time_of_shot) > 0:
                     for ft_event in ft_1_of_1s_at_time_of_shot:
                         if ft_event.team_id == shooter_team_id:
                             return True

@@ -321,18 +321,44 @@ def test_putback_no_prev_event_false():
     assert fg_event.putback is False
 
 
-def test_and1_true():
-    pass
+def test_and1_shot_at_time_of_and1_ft_is_false():
+    make = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 15, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45', 'EVENTNUM': 1}
+    order = 1
+    make_event = StatsFieldGoal(make, order)
+    foul = {'EVENTMSGTYPE': 6, 'EVENTMSGACTIONTYPE': 2, 'VISITORDESCRIPTION': 'Shooting Foul', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 2, 'PLAYER1_ID': 12, 'PLAYER2_ID': 15, 'EVENTNUM': 2}
+    order = 1
+    foul_event = StatsFoul(foul, order)
+    ft = {'EVENTMSGTYPE': 3, 'EVENTMSGACTIONTYPE': 10, 'HOMEDESCRIPTION': 'Free Throw 1 of 1', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 1, 'PLAYER1_ID': 15, 'EVENTNUM': 3}
+    order = 1
+    ft_event = StatsFreeThrow(ft, order)
+    rebound = {'EVENTMSGTYPE': 4, 'EVENTMSGACTIONTYPE': 0, 'PLAYER1_ID': 17, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Rebound', 'PCTIMESTRING': '0:45', 'EVENTNUM': 4}
+    order = 2
+    rebound_event = StatsRebound(rebound, order)
+    tip = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 17, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45', 'EVENTNUM': 5}
+    order = 1
+    tip_event = StatsFieldGoal(tip, order)
+    make_event.previous_event = None
+    make_event.next_event = foul_event
+    foul_event.previous_event = make_event
+    foul_event.next_event = ft_event
+    ft_event.previous_event = foul_event
+    ft_event.next_event = rebound_event
+    rebound_event.previous_event = ft_event
+    rebound_event.next_event = tip_event
+    tip_event.previous_event = rebound_event
+    tip_event.next_event = None
+    assert make_event.and1 is True
+    assert tip_event.and1 is False
 
 
 def test_and1_with_foul_out_of_order_true():
-    make = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 15, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45'}
+    make = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 15, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45', 'EVENTNUM': 1}
     order = 1
     make_event = StatsFieldGoal(make, order)
-    ft = {'EVENTMSGTYPE': 3, 'EVENTMSGACTIONTYPE': 10, 'HOMEDESCRIPTION': 'Free Throw 1 of 1', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 1, 'PLAYER1_ID': 15}
+    ft = {'EVENTMSGTYPE': 3, 'EVENTMSGACTIONTYPE': 10, 'HOMEDESCRIPTION': 'Free Throw 1 of 1', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 1, 'PLAYER1_ID': 15, 'EVENTNUM': 2}
     order = 1
     ft_event = StatsFreeThrow(ft, order)
-    foul = {'EVENTMSGTYPE': 6, 'EVENTMSGACTIONTYPE': 2, 'VISITORDESCRIPTION': 'Shooting Foul', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 2, 'PLAYER1_ID': 12, 'PLAYER2_ID': 15}
+    foul = {'EVENTMSGTYPE': 6, 'EVENTMSGACTIONTYPE': 2, 'VISITORDESCRIPTION': 'Shooting Foul', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 2, 'PLAYER1_ID': 12, 'PLAYER2_ID': 15, 'EVENTNUM': 3}
     order = 1
     foul_event = StatsFoul(foul, order)
     make_event.previous_event = None
@@ -345,13 +371,13 @@ def test_and1_with_foul_out_of_order_true():
 
 
 def test_and1_with_lane_violation_true():
-    make = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 15, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45'}
+    make = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 15, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45', 'EVENTNUM': 1}
     order = 1
     make_event = StatsFieldGoal(make, order)
-    foul = {'EVENTMSGTYPE': 6, 'EVENTMSGACTIONTYPE': 2, 'VISITORDESCRIPTION': 'Shooting Foul', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 2, 'PLAYER1_ID': 12, 'PLAYER2_ID': 15}
+    foul = {'EVENTMSGTYPE': 6, 'EVENTMSGACTIONTYPE': 2, 'VISITORDESCRIPTION': 'Shooting Foul', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 2, 'PLAYER1_ID': 12, 'PLAYER2_ID': 15, 'EVENTNUM': 2}
     order = 1
     foul_event = StatsFoul(foul, order)
-    lane_violation = {'EVENTMSGTYPE': 5, 'EVENTMSGACTIONTYPE': 17, 'HOMEDESCRIPTION': 'Lane Violation Turnover', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 1, 'PLAYER1_ID': 15, 'PLAYER2_ID': None}
+    lane_violation = {'EVENTMSGTYPE': 5, 'EVENTMSGACTIONTYPE': 17, 'HOMEDESCRIPTION': 'Lane Violation Turnover', 'PCTIMESTRING': '0:45', 'PLAYER1_TEAM_ID': 1, 'PLAYER1_ID': 15, 'PLAYER2_ID': None, 'EVENTNUM': 3}
     order = 1
     lane_violation_event = StatsTurnover(lane_violation, order)
     make_event.previous_event = None
@@ -361,7 +387,3 @@ def test_and1_with_lane_violation_true():
     lane_violation_event.previous_event = foul_event
     lane_violation_event.next_event = None
     assert make_event.and1 is True
-
-
-def test_and1_false():
-    pass
