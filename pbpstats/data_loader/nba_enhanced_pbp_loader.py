@@ -40,7 +40,7 @@ class NbaEnhancedPbpLoader(object):
 
     def _load_possession_changing_event_overrides(self):
         if self.file_directory is None:
-            possession_changing_event_overrides_file_path = f'{self.file_directory}overrides/possession_change_event_overrides.json'
+            possession_changing_event_overrides_file_path = f'{self.file_directory}/overrides/possession_change_event_overrides.json'
             if os.path.isfile(possession_changing_event_overrides_file_path):
                 with open(possession_changing_event_overrides_file_path) as f:
                     # issues with pbp - force these events to be possession changing events
@@ -49,7 +49,7 @@ class NbaEnhancedPbpLoader(object):
             else:
                 self.possession_changing_event_overrides = {}
 
-            non_possession_changing_event_overrides_file_path = f'{self.file_directory}overrides/non_possession_changing_event_overrides.json'
+            non_possession_changing_event_overrides_file_path = f'{self.file_directory}/overrides/non_possession_changing_event_overrides.json'
             if os.path.isfile(non_possession_changing_event_overrides_file_path):
                 with open(non_possession_changing_event_overrides_file_path) as f:
                     # issues with pbp - force these events to be not possession changing events
