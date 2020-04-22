@@ -188,6 +188,11 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
             elif isinstance(self.next_event, Violation) and self.next_event.is_jumpball_violation:
                 # jump ball violation - turnover will be possession changing event
                 return False
+            elif isinstance(self.next_event, Foul) and self.next_event.clock == self.clock:
+                next_event = self.next_event.next_event
+                if isinstance(next_event, Turnover) and not next_event.is_no_turnover and next_event.clock == self.clock:
+                    # foul turnover on jump ball - turnover will trigger change of possession
+                    return False
 
             jump_ball_winning_team_id = self.team_id
 
