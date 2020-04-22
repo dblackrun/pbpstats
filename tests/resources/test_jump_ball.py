@@ -27,6 +27,11 @@ def test_dangling_jump_ball_changes_possession():
     turnover_event.previous_event = jump_ball_event
     turnover_event.next_event = None
 
+    jump_ball_event.possession_changing_override = False
+    jump_ball_event.non_possession_changing_override = False
+    rebound_event.possession_changing_override = False
+    rebound_event.non_possession_changing_override = False
+
     assert jump_ball_event.is_possession_ending_event is True
 
 
@@ -52,6 +57,9 @@ def test_jump_ball_turnover_next_event_not_possession_change():
     jump_ball_event.next_event = turnover_event
     turnover_event.previous_event = jump_ball_event
     turnover_event.next_event = None
+
+    jump_ball_event.possession_changing_override = False
+    jump_ball_event.non_possession_changing_override = False
 
     assert jump_ball_event.is_possession_ending_event is False
 
@@ -83,5 +91,8 @@ def test_jump_ball_turnover_previous_event_not_possession_change():
     jump_ball_event.next_event = shot2_event
     shot2_event.previous_event = jump_ball_event
     shot2_event.next_event = None
+
+    jump_ball_event.possession_changing_override = False
+    jump_ball_event.non_possession_changing_override = False
 
     assert jump_ball_event.is_possession_ending_event is False

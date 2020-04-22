@@ -1,7 +1,6 @@
 import requests
 
 from pbpstats import HEADERS, REQUEST_TIMEOUT
-from pbpstats.overrides import NON_POSSESSION_CHANGING_EVENT_OVERRIDES, POSSESSION_CHANGING_EVENT_OVERRIDES
 from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
 from pbpstats.resources.enhanced_pbp.foul import Foul
@@ -140,10 +139,10 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         if self.next_event is None:
             return True
 
-        if self.game_id in POSSESSION_CHANGING_EVENT_OVERRIDES.keys() and self.event_num in POSSESSION_CHANGING_EVENT_OVERRIDES[self.game_id]:
+        if self.possession_changing_override:
             return True
 
-        if self.game_id in NON_POSSESSION_CHANGING_EVENT_OVERRIDES.keys() and self.event_num in NON_POSSESSION_CHANGING_EVENT_OVERRIDES[self.game_id]:
+        if self.non_possession_changing_override:
             return False
 
         if isinstance(self, Rebound) and self.is_real_rebound and not self.oreb:
