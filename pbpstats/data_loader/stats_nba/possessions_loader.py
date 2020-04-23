@@ -43,7 +43,7 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
                         possession.number in self.bad_pbp_cases[self.game_id][possession.period]
                     ):
                         ignore_because_of_flagrant = False
-                        events_to_check = possession.previous_possession.events
+                        events_to_check = [event for event in possession.previous_possession.events]
                         if possession.previous_possession.previous_possession is not None:
                             events_to_check += possession.previous_possession.previous_possession.events
                         for event in events_to_check:
@@ -66,7 +66,7 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
                         possession.next_possession.number in self.bad_pbp_cases[self.game_id][possession.period]
                     ):
                         ignore_because_of_flagrant = False
-                        events_to_check = possession.events
+                        events_to_check = [event for event in possession.events]
                         if possession.previous_possession is not None:
                             events_to_check += possession.previous_possession.events
                         for event in events_to_check:
