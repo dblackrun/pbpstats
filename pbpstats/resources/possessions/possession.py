@@ -54,6 +54,9 @@ class Possession(object):
                     return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
                 return prev_event.get_offense_team_id()
             if isinstance(prev_event, (FieldGoal, FreeThrow)):
+                if prev_event.made:
+                    team_ids = list(set([event.team_id for event in self.events] + [event.team_id for event in self.previous_possession.events]))
+                    return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
                 return prev_event.get_offense_team_id()
         return self.events[0].get_offense_team_id()
 
