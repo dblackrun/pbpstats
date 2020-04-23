@@ -5,6 +5,7 @@ from pbpstats.data_loader.data_nba.possessions_loader import DataNbaPossessionLo
 from pbpstats.data_loader.data_nba.schedule_loader import DataNbaScheduleLoader
 from pbpstats.data_loader.stats_nba.boxscore_loader import StatsNbaBoxscoreLoader
 from pbpstats.data_loader.stats_nba.enhanced_pbp_loader import StatsNbaEnhancedPbpLoader
+from pbpstats.data_loader.stats_nba.game_finder_loader import StatsNbaGameFinderLoader
 from pbpstats.data_loader.stats_nba.pbp_loader import StatsNbaPbpLoader
 from pbpstats.data_loader.stats_nba.possessions_loader import StatsNbaPossessionLoader
 from pbpstats.data_loader.stats_nba.scoreboard_loader import StatsNbaScoreboardLoader
@@ -18,6 +19,7 @@ __all__ = [
     'DataNbaScheduleLoader',
     'StatsNbaBoxscoreLoader',
     'StatsNbaEnhancedPbpLoader',
+    'StatsNbaGameFinderLoader',
     'StatsNbaPbpLoader',
     'StatsNbaPossessionLoader',
     'StatsNbaScoreboardLoader',
