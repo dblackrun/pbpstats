@@ -100,7 +100,7 @@ class Rebound(object):
             if isinstance(self.previous_event, FieldGoal):
                 return self.previous_event.previous_event
         elif isinstance(self.previous_event, JumpBall):
-            if isinstance(self.previous_event.previous_event, FieldGoal):
+            if isinstance(self.previous_event.previous_event, (FieldGoal, FreeThrow)):
                 return self.previous_event.previous_event
         raise ValueError(f'previous event: {self.previous_event} is not a missed free throw or field goal. check event order.')
 
