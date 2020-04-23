@@ -19,11 +19,12 @@ class Client(object):
         self._load_resources()
         for resource, value in settings.items():
             if resource in data_loader.loaders.keys():
-                resource_data_loader = data_loader.get_data_loader(value['data_provider'], resource)
-                parent_cls_name = resource_data_loader.parent_object
-                setattr(getattr(self, parent_cls_name), f'{resource}{DATA_LOADER_SUFFIX}', resource_data_loader)
-                setattr(getattr(self, parent_cls_name), f'{resource}{DATA_SOURCE_SUFFIX}', value['source'])
-                setattr(getattr(self, parent_cls_name), resource, self.resource_dict[resource])
+                resource_data_loaders = data_loader.get_data_loader(value['data_provider'], resource)
+                for resource_data_loader in resource_data_loaders:
+                    parent_cls_name = resource_data_loader.parent_object
+                    setattr(getattr(self, parent_cls_name), f'{resource}{DATA_LOADER_SUFFIX}', resource_data_loader)
+                    setattr(getattr(self, parent_cls_name), f'{resource}{DATA_SOURCE_SUFFIX}', value['source'])
+                    setattr(getattr(self, parent_cls_name), resource, self.resource_dict[resource])
 
     def _load_objects(self):
         """
