@@ -73,6 +73,14 @@ class Foul(object):
         return self.event_action_type == 29
 
     @property
+    def counts_towards_penalty(self):
+        return self.event_action_type in [1, 2, 3, 5, 6, 9, 14, 15, 27, 28, 29]
+
+    @property
+    def counts_as_personal_foul(self):
+        return self.event_action_type in [1, 2, 3, 4, 5, 6, 9, 10, 14, 15, 26, 27, 28, 29]
+
+    @property
     def foul_type_string(self):
         if self.is_personal_foul:
             return pbpstats.PERSONAL_FOUL_TYPE_STRING
