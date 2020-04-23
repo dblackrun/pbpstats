@@ -6,6 +6,7 @@ from pbpstats.resources.enhanced_pbp.jump_ball import JumpBall
 from pbpstats.resources.enhanced_pbp.replay import Replay
 from pbpstats.resources.enhanced_pbp.turnover import Turnover
 from pbpstats.resources.enhanced_pbp.substitution import Substitution
+from pbpstats.resources.enhanced_pbp.timeout import Timeout
 
 
 class Rebound(object):
@@ -102,7 +103,7 @@ class Rebound(object):
                 return self.previous_event.previous_event
         elif isinstance(self.previous_event, JumpBall):
             prev_event = self.previous_event.previous_event
-            while isinstance(prev_event, Substitution):
+            while isinstance(prev_event, (Substitution, Timeout)):
                 prev_event = prev_event.previous_event
             if isinstance(prev_event, (FieldGoal, FreeThrow)):
                 return prev_event
