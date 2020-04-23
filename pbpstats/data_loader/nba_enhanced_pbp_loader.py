@@ -39,7 +39,7 @@ class NbaEnhancedPbpLoader(object):
             self.items[i].period_starters = period_starters
 
     def _load_possession_changing_event_overrides(self):
-        if self.file_directory is None:
+        if self.file_directory is not None:
             possession_changing_event_overrides_file_path = f'{self.file_directory}/overrides/possession_change_event_overrides.json'
             if os.path.isfile(possession_changing_event_overrides_file_path):
                 with open(possession_changing_event_overrides_file_path) as f:
