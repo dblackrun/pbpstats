@@ -3,6 +3,7 @@ import abc
 import pbpstats
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
 from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
+from pbpstats.resources.enhanced_pbp.rebound import Rebound
 
 
 class EnhancedPbpItem(metaclass=abc.ABCMeta):
@@ -127,6 +128,17 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         if self.previous_event is None:
             return 0
         return self.previous_event.seconds_remaining - self.seconds_remaining
+
+    @property
+    def is_second_chance_event(self):
+        event = self.previous_event
+        if isinstance(event, Rebound) and event.is_real_rebound and event.oreb:
+            return True
+        while not (event is None or event.is_possession_ending_event):
+            if isinstance(event, Rebound) and event.is_real_rebound and event.oreb:
+                return True
+            event = event.previous_event
+        return False
 
     @property
     def count_as_possession(self):
