@@ -5,6 +5,7 @@ from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
 from pbpstats.resources.enhanced_pbp.jump_ball import JumpBall
 from pbpstats.resources.enhanced_pbp.replay import Replay
 from pbpstats.resources.enhanced_pbp.turnover import Turnover
+from pbpstats.resources.enhanced_pbp.substitution import Substitution
 
 
 class Rebound(object):
@@ -100,8 +101,11 @@ class Rebound(object):
             if isinstance(self.previous_event, FieldGoal):
                 return self.previous_event.previous_event
         elif isinstance(self.previous_event, JumpBall):
-            if isinstance(self.previous_event.previous_event, (FieldGoal, FreeThrow)):
-                return self.previous_event.previous_event
+            prev_event = self.previous_event.previous_event
+            while isinstance(prev_event, Substitution):
+                prev_event = prev_event.previous_event
+            if isinstance(prev_event, (FieldGoal, FreeThrow)):
+                return prev_event
         raise ValueError(f'previous event: {self.previous_event} is not a missed free throw or field goal. check event order.')
 
     @property
