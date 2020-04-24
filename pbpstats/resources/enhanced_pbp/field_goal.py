@@ -124,7 +124,7 @@ class FieldGoal(object):
             shot_data['AssistPlayerId'] = self.player2_id
         if self.blocked:
             shot_data['BlockPlayerId'] = self.player3_id
-        if self.is_second_chance_event:
+        if self.is_second_chance_event():
             prev_event = self.previous_event
             while not (hasattr(prev_event, 'is_real_rebound') and prev_event.is_real_rebound):
                 prev_event = prev_event.previous_event
