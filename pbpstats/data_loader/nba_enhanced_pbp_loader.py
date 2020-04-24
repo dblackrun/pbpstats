@@ -20,7 +20,7 @@ class NbaEnhancedPbpLoader(object):
         change_override_event_nums = self.possession_changing_event_overrides.get(self.game_id, [])
         non_change_override_event_nums = self.non_possession_changing_event_overrides.get(self.game_id, [])
         player_game_fouls = defaultdict(int)
-        team_period_fouls = defaultdict(int)
+        fouls_to_give = defaultdict(lambda: 4)
         score = defaultdict(int)
         for i, event in enumerate(self.items):
             if i == 0 and i == len(self.items) - 1:
@@ -30,21 +30,27 @@ class NbaEnhancedPbpLoader(object):
                 event.previous_event = None
                 event.next_event = self.items[i + 1]
                 start_period_indices.append(i)
-                team_period_fouls = defaultdict(int)
+                if event.period <= 4:
+                    fouls_to_give = defaultdict(lambda: 4)
+                else:
+                    fouls_to_give = defaultdict(lambda: 3)
             elif i == len(self.items) - 1 or event.period != self.items[i + 1].period:
                 event.previous_event = self.items[i - 1]
                 event.next_event = None
             else:
                 event.previous_event = self.items[i - 1]
                 event.next_event = self.items[i + 1]
+            if event.seconds_remaining <= 120:
+                for team_id in fouls_to_give.keys():
+                    fouls_to_give[team_id] = min(fouls_to_give[team_id], 1)
             if isinstance(event, Foul):
-                if event.counts_towards_penalty:
-                    team_period_fouls[event.team_id] += 1
+                if event.counts_towards_penalty and fouls_to_give[event.team_id] > 0:
+                    fouls_to_give[event.team_id] -= 1
                 if event.counts_as_personal_foul:
                     player_game_fouls[event.player1_id] += 1
             if isinstance(event, (FieldGoal, FreeThrow)) and event.made:
                 score[event.team_id] += event.shot_value
-            event.team_period_fouls = team_period_fouls.copy()
+            event.fouls_to_give = fouls_to_give.copy()
             event.player_game_fouls = player_game_fouls.copy()
             event.score = score.copy()
             event.possession_changing_override = event.event_num in change_override_event_nums

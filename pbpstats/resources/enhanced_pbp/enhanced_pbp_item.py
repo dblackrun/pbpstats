@@ -2,6 +2,7 @@ import abc
 
 import pbpstats
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
+from pbpstats.resources.enhanced_pbp.foul import Foul
 from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
 from pbpstats.resources.enhanced_pbp.rebound import Rebound
 
@@ -109,6 +110,34 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         return False
 
     @property
+    def is_penalty_event(self):
+        if hasattr(self, 'fouls_to_give'):
+            team_ids = list(self.current_players.keys())
+            offense_team_id = self.get_offense_team_id()
+            defense_team_id = team_ids[0] if offense_team_id == team_ids[1] else team_ids[1]
+            if self.fouls_to_give[defense_team_id] == 0:
+                if isinstance(self, (Foul, FreeThrow, Rebound)):
+                    # if foul or free throw or rebound on a missed ft
+                    # check foul event and should return false is foul
+                    # was shooting foul and team had a foul to give
+                    if isinstance(self, Foul):
+                        foul_event = self
+                    elif isinstance(self, FreeThrow):
+                        foul_event = self.foul_that_led_to_ft
+                    else:
+                        # if rebound is on missed ft, also need to look at foul that led to FT
+                        if not self.oreb and isinstance(self.missed_shot, FreeThrow):
+                            foul_event = self.missed_shot.foul_that_led_to_ft
+                        else:
+                            return True
+
+                    fouls_to_give_prior_to_foul = foul_event.previous_event.fouls_to_give[defense_team_id]
+                    if fouls_to_give_prior_to_foul > 0:
+                        return False
+                return True
+        return False
+
+    @property
     def count_as_possession(self):
         """
         don't count possession change if it starts with <= 2 seconds left
@@ -138,6 +167,7 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         - seconds played
         - seconds played for number of fouls
         - second chance seconds played
+        - penalty seconds played
         """
         stat_items = []
         team_ids = list(self.current_players.keys())
@@ -160,6 +190,9 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                     if self.is_second_chance_event:
                         seconds_chance_seconds_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{seconds_stat_key}'
                         keys_to_add.append(seconds_chance_seconds_stat_key)
+                    if self.is_penalty_event:
+                        penalty_seconds_stat_key = f'{pbpstats.PENALTY_STRING}{seconds_stat_key}'
+                        keys_to_add.append(penalty_seconds_stat_key)
                     for stat_key in keys_to_add:
                         stat_item = {
                             'player_id': player_id,
@@ -178,6 +211,7 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         makes event stats items for:
         - possessions played
         - second chance possessions played
+        - penalty possessions played
         """
         stat_items = []
         team_ids = list(self.current_players.keys())
@@ -201,6 +235,9 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                     if self.is_second_chance_event:
                         seconds_chance_possessions_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{possessions_stat_key}'
                         keys_to_add.append(seconds_chance_possessions_stat_key)
+                    if self.is_penalty_event:
+                        penalty_possessions_stat_key = f'{pbpstats.PENALTY_STRING}{possessions_stat_key}'
+                        keys_to_add.append(penalty_possessions_stat_key)
                     for stat_key in keys_to_add:
                         stat_item = {
                             'player_id': player_id,

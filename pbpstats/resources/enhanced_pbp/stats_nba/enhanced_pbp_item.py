@@ -76,7 +76,6 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         if hasattr(self, 'player3_id') and self.player3_id == 0:
             delattr(self, 'player3_id')
         self.order = order
-        self.team_period_fouls = defaultdict(int)
         self.player_game_fouls = defaultdict(int)
         self.possession_changing_override = False
         self.non_possession_changing_override = False

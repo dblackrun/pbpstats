@@ -110,7 +110,7 @@ class TestFullGamePossessions:
 
     def test_team_stats(self):
         results = self.game.possessions.team_stats
-        assert len(results) == 360
+        assert len(results) == 418
         assert {'team_id': 1610612760, 'stat_key': '1627734:AssistsTo:201566:AtRim', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': '1627734:AssistsTo:203506:LongMidRange', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': '201566:AssistsTo:1627734:AtRim', 'stat_value': 3} in results
@@ -257,6 +257,17 @@ class TestFullGamePossessions:
         assert {'team_id': 1610612760, 'stat_key': 'SecondChanceUnassistedAtRim', 'stat_value': 3} in results
         assert {'team_id': 1610612760, 'stat_key': 'SecondChanceFtsMade', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': 'SecondChanceFtsMissed', 'stat_value': 1} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyDefPoss', 'stat_value': 45} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyOffPoss', 'stat_value': 25} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyBadPassTurnovers', 'stat_value': 3} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyLostBallTurnovers', 'stat_value': 1} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyTravels', 'stat_value': 1} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyUnassistedAtRim', 'stat_value': 2} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyAssistedAtRim', 'stat_value': 2} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyAssistedArc3', 'stat_value': 2} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyMissedArc3', 'stat_value': 2} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyFtsMade', 'stat_value': 11} in results
+        assert {'team_id': 1610612760, 'stat_key': 'PenaltyFtsMissed', 'stat_value': 2} in results
         assert {'team_id': 1610612760, 'stat_key': 'SecondChance2pt Shooting Foul Free Throw Trips', 'stat_value': 1} in results
         assert {'team_id': 1610612764, 'stat_key': '101162:AssistsTo:203078:Arc3', 'stat_value': 1} in results
         assert {'team_id': 1610612764, 'stat_key': '101162:AssistsTo:203078:AtRim', 'stat_value': 1} in results
@@ -383,10 +394,12 @@ class TestFullGamePossessions:
         assert {'team_id': 1610612764, 'stat_key': 'SecondChanceOffPoss', 'stat_value': 13} in results
         assert {'team_id': 1610612764, 'stat_key': 'SecondChanceDeadBallTurnovers', 'stat_value': 1} in results
         assert {'team_id': 1610612764, 'stat_key': 'SecondChanceShotClockViolations', 'stat_value': 1} in results
+        assert {'team_id': 1610612764, 'stat_key': 'PenaltyDefPoss', 'stat_value': 25} in results
+        assert {'team_id': 1610612764, 'stat_key': 'PenaltyOffPoss', 'stat_value': 45} in results
 
     def test_opponent_stats(self):
         results = self.game.possessions.opponent_stats
-        assert len(results) == 360
+        assert len(results) == 418
         assert {'opponent_team_id': 1610612760, 'stat_key': '101162:AssistsTo:203078:Arc3', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': '101162:AssistsTo:203078:AtRim', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': '1626162:AssistsTo:203490:AtRim', 'stat_value': 1} in results
@@ -749,6 +762,14 @@ class TestFullGamePossessions:
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondChanceBadPassOutOfBoundsTurnovers', 'stat_value': 1} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondChanceMissedAtRim', 'stat_value': 2} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondChanceUnassistedAtRim', 'stat_value': 2} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PenaltyDefPoss', 'stat_value': 35} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PenaltyOffPoss', 'stat_value': 17} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PenaltyBadPassTurnovers', 'stat_value': 2} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PenaltyLostBallSteals', 'stat_value': 1} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PenaltyUnassistedAtRim', 'stat_value': 1} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PenaltyAssistedAtRim', 'stat_value': 1} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PenaltyMissedArc3', 'stat_value': 1} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PenaltyFtsMade', 'stat_value': 5} in results
 
     def test_lineup_stats(self):
         results = self.game.possessions.lineup_stats

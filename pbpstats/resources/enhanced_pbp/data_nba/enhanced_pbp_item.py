@@ -36,7 +36,6 @@ class DataEnhancedPbpItem(EnhancedPbpItem):
                     setattr(self, value, int(attr_value))
                 except ValueError:
                     setattr(self, value, attr_value)
-        self.team_period_fouls = defaultdict(int)
         self.player_game_fouls = defaultdict(int)
         self.possession_changing_override = False
         self.non_possession_changing_override = False
