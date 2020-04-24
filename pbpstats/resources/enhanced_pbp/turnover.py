@@ -62,6 +62,7 @@ class Turnover(object):
     @property
     def event_stats(self):
         stats = []
+        second_chance_stats = []
         if not self.is_no_turnover:
             team_ids = list(self.current_players.keys())
             opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
@@ -99,7 +100,6 @@ class Turnover(object):
                                 fixed_lineup_id = lineup_ids[self.team_id].replace(str(event.incoming_player_id), str(event.outgoing_player_id))
                                 lineup_ids[self.team_id] = fixed_lineup_id
 
-            second_chance_stats = []
             for stat in stats:
                 opponent_team_id = team_ids[0] if stat['team_id'] == team_ids[1] else team_ids[1]
                 stat['lineup_id'] = lineup_ids[stat['team_id']]
