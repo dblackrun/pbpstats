@@ -29,93 +29,7 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         - seconds played off/def
         - possession off/def
         """
-        stat_items = []
-        team_ids = list(self.current_players.keys())
-        offense_team_id = self.get_offense_team_id()
-        if self.seconds_since_previous_event != 0:
-            for team_id, players in self.previous_event.current_players.items():
-                seconds_stat_key = (
-                    pbpstats.SECONDS_PLAYED_OFFENSE_STRING
-                    if team_id == offense_team_id
-                    else pbpstats.SECONDS_PLAYED_DEFENSE_STRING
-                )
-                opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
-                previous_poss_lineup_ids = self.previous_event.lineup_ids
-                for player_id in players:
-                    seconds_stat_item = {
-                        'player_id': player_id,
-                        'team_id': team_id,
-                        'opponent_team_id': opponent_team_id,
-                        'lineup_id': previous_poss_lineup_ids[team_id],
-                        'opponent_lineup_id': previous_poss_lineup_ids[opponent_team_id],
-                        'stat_key': seconds_stat_key,
-                        'stat_value': self.seconds_since_previous_event,
-                    }
-                    stat_items.append(seconds_stat_item)
-                    player_fouls = self.previous_event.player_game_fouls[player_id]
-                    period = self.period if self.period <= 4 else 'OT'
-                    foul_tracking_seconds_stat_key = f'Period{period}Fouls{player_fouls}{seconds_stat_key}'
-                    foul_tracking_seconds_stat_item = {
-                        'player_id': player_id,
-                        'team_id': team_id,
-                        'opponent_team_id': opponent_team_id,
-                        'lineup_id': previous_poss_lineup_ids[team_id],
-                        'opponent_lineup_id': previous_poss_lineup_ids[opponent_team_id],
-                        'stat_key': foul_tracking_seconds_stat_key,
-                        'stat_value': self.seconds_since_previous_event,
-                    }
-                    stat_items.append(foul_tracking_seconds_stat_item)
-                    if self.is_second_chance_event:
-                        seconds_chance_seconds_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{seconds_stat_key}'
-                        seconds_chance_seconds_stat_item = {
-                            'player_id': player_id,
-                            'team_id': team_id,
-                            'opponent_team_id': opponent_team_id,
-                            'lineup_id': previous_poss_lineup_ids[team_id],
-                            'opponent_lineup_id': previous_poss_lineup_ids[opponent_team_id],
-                            'stat_key': seconds_chance_seconds_stat_key,
-                            'stat_value': self.seconds_since_previous_event,
-                        }
-                        stat_items.append(seconds_chance_seconds_stat_item)
-
-        if self.count_as_possession:
-            if isinstance(self, FreeThrow):
-                current_players = self.event_for_efficiency_stats.current_players
-                lineup_ids = self.event_for_efficiency_stats.lineup_ids
-            else:
-                current_players = self.current_players
-                lineup_ids = self.lineup_ids
-            for team_id, players in current_players.items():
-                possessions_stat_key = (
-                    pbpstats.OFFENSIVE_POSSESSION_STRING
-                    if team_id == offense_team_id
-                    else pbpstats.DEFENSIVE_POSSESSION_STRING
-                )
-                opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
-                for player_id in players:
-                    possessions_stat_item = {
-                        'player_id': player_id,
-                        'team_id': team_id,
-                        'opponent_team_id': opponent_team_id,
-                        'lineup_id': lineup_ids[team_id],
-                        'opponent_lineup_id': lineup_ids[opponent_team_id],
-                        'stat_key': possessions_stat_key,
-                        'stat_value': 1,
-                    }
-                    stat_items.append(possessions_stat_item)
-                    if self.is_second_chance_event:
-                        seconds_chance_possessions_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{possessions_stat_key}'
-                        seconds_chance_possessions_stat_item = {
-                            'player_id': player_id,
-                            'team_id': team_id,
-                            'opponent_team_id': opponent_team_id,
-                            'lineup_id': lineup_ids[team_id],
-                            'opponent_lineup_id': lineup_ids[opponent_team_id],
-                            'stat_key': seconds_chance_possessions_stat_key,
-                            'stat_value': 1,
-                        }
-                        stat_items.append(seconds_chance_possessions_stat_item)
-        return stat_items
+        return self._get_seconds_played_stats_items() + self._get_possessions_played_stats_items()
 
     def get_all_events_at_current_time(self):
         events = [self]
@@ -200,3 +114,86 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                     return True
                 next_event = next_event.next_event
         return False
+
+    def _get_seconds_played_stats_items(self):
+        """
+        makes event stats items for:
+        - seconds played
+        - seconds played for number of fouls
+        - second chance seconds played
+        """
+        stat_items = []
+        team_ids = list(self.current_players.keys())
+        offense_team_id = self.get_offense_team_id()
+        if self.seconds_since_previous_event != 0:
+            for team_id, players in self.previous_event.current_players.items():
+                seconds_stat_key = (
+                    pbpstats.SECONDS_PLAYED_OFFENSE_STRING
+                    if team_id == offense_team_id
+                    else pbpstats.SECONDS_PLAYED_DEFENSE_STRING
+                )
+                opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
+                previous_poss_lineup_ids = self.previous_event.lineup_ids
+                for player_id in players:
+                    keys_to_add = [seconds_stat_key]
+                    player_fouls = self.previous_event.player_game_fouls[player_id]
+                    period = self.period if self.period <= 4 else 'OT'
+                    foul_tracking_seconds_stat_key = f'Period{period}Fouls{player_fouls}{seconds_stat_key}'
+                    keys_to_add.append(foul_tracking_seconds_stat_key)
+                    if self.is_second_chance_event:
+                        seconds_chance_seconds_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{seconds_stat_key}'
+                        keys_to_add.append(seconds_chance_seconds_stat_key)
+                    for stat_key in keys_to_add:
+                        stat_item = {
+                            'player_id': player_id,
+                            'team_id': team_id,
+                            'opponent_team_id': opponent_team_id,
+                            'lineup_id': previous_poss_lineup_ids[team_id],
+                            'opponent_lineup_id': previous_poss_lineup_ids[opponent_team_id],
+                            'stat_key': stat_key,
+                            'stat_value': self.seconds_since_previous_event,
+                        }
+                        stat_items.append(stat_item)
+        return stat_items
+
+    def _get_possessions_played_stats_items(self):
+        """
+        makes event stats items for:
+        - possessions played
+        - second chance possessions played
+        """
+        stat_items = []
+        team_ids = list(self.current_players.keys())
+        offense_team_id = self.get_offense_team_id()
+        if self.count_as_possession:
+            if isinstance(self, FreeThrow):
+                current_players = self.event_for_efficiency_stats.current_players
+                lineup_ids = self.event_for_efficiency_stats.lineup_ids
+            else:
+                current_players = self.current_players
+                lineup_ids = self.lineup_ids
+            for team_id, players in current_players.items():
+                possessions_stat_key = (
+                    pbpstats.OFFENSIVE_POSSESSION_STRING
+                    if team_id == offense_team_id
+                    else pbpstats.DEFENSIVE_POSSESSION_STRING
+                )
+                opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
+                for player_id in players:
+                    keys_to_add = [possessions_stat_key]
+                    if self.is_second_chance_event:
+                        seconds_chance_possessions_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{possessions_stat_key}'
+                        keys_to_add.append(seconds_chance_possessions_stat_key)
+                    for stat_key in keys_to_add:
+                        stat_item = {
+                            'player_id': player_id,
+                            'team_id': team_id,
+                            'opponent_team_id': opponent_team_id,
+                            'lineup_id': lineup_ids[team_id],
+                            'opponent_lineup_id': lineup_ids[opponent_team_id],
+                            'stat_key': stat_key,
+                            'stat_value': 1,
+                        }
+                        stat_items.append(stat_item)
+
+        return stat_items
