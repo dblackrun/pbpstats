@@ -130,7 +130,8 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                             foul_event = self.missed_shot.foul_that_led_to_ft
                         else:
                             return True
-
+                    if foul_event is None:
+                        return True
                     fouls_to_give_prior_to_foul = foul_event.previous_event.fouls_to_give[defense_team_id]
                     if fouls_to_give_prior_to_foul > 0:
                         return False
