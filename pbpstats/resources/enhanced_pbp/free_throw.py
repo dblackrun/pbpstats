@@ -70,6 +70,14 @@ class FreeThrow(metaclass=abc.ABCMeta):
         return self.event_action_type == 32 or self.event_action_type == 37
 
     @property
+    def shot_value(self):
+        if self.ft_2pt:
+            return 2
+        if self.ft_3pt:
+            return 3
+        return 1
+
+    @property
     def is_away_from_play_ft(self):
         foul = self.foul_that_led_to_ft
         if ((self.ft_1_of_1 or self.ft_1pt) or (self.ft_2_of_2 or self.ft_2pt)) and foul is not None and foul.is_away_from_play_foul:
@@ -199,19 +207,16 @@ class FreeThrow(metaclass=abc.ABCMeta):
     def event_stats(self):
         stats = []
         team_ids = list(self.current_players.keys())
+        if self.ft_3pt:
+            free_throw_key = pbpstats.FT_3_PT_MISSED_STRING
+        elif self.ft_2pt:
+            free_throw_key = pbpstats.FT_2_PT_MISSED_STRING
+        elif self.ft_1pt:
+            free_throw_key = pbpstats.FT_1_PT_MISSED_STRING
+        else:
+            free_throw_key = pbpstats.FTS_MISSED_STRING
         if self.made:
-            if self.ft_3pt:
-                points = 3
-                free_throw_key = pbpstats.FT_3_PT_MADE_STRING
-            elif self.ft_2pt:
-                points = 2
-                free_throw_key = pbpstats.FT_2_PT_MADE_STRING
-            elif self.ft_1pt:
-                points = 1
-                free_throw_key = pbpstats.FT_1_PT_MADE_STRING
-            else:
-                points = 1
-                free_throw_key = pbpstats.FTS_MADE_STRING
+            points = self.shot_value
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
 
             # add plus minus and opponent points - used for lineup/wowy stats to get net rating
@@ -248,14 +253,6 @@ class FreeThrow(metaclass=abc.ABCMeta):
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_trip_key, 'stat_value': 1})
 
         if not self.made:
-            if self.ft_3pt:
-                free_throw_key = pbpstats.FT_3_PT_MISSED_STRING
-            elif self.ft_2pt:
-                free_throw_key = pbpstats.FT_2_PT_MISSED_STRING
-            elif self.ft_1pt:
-                free_throw_key = pbpstats.FT_1_PT_MISSED_STRING
-            else:
-                free_throw_key = pbpstats.FTS_MISSED_STRING
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
 
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
