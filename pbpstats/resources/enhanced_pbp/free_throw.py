@@ -224,6 +224,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
             if self.is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{free_throw_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
+                if self.foul_that_led_to_ft.is_personal_take_foul and self.seconds_remaining < 60 and self.period >= 4:
+                    final_minute_take_foul_stat_key = f'{pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING}{free_throw_key}'
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': final_minute_take_foul_stat_key, 'stat_value': 1})
 
             # add plus minus and opponent points - used for lineup/wowy stats to get net rating
             plus_minus_lineup_ids = self.event_for_efficiency_stats.lineup_ids
@@ -261,6 +264,23 @@ class FreeThrow(metaclass=abc.ABCMeta):
             if self.is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{free_throw_trip_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
+                if self.foul_that_led_to_ft.is_personal_take_foul and self.seconds_remaining < 60 and self.period >= 4:
+                    current_players = self.event_for_efficiency_stats.current_players
+                    offense_team_id = self.get_offense_team_id()
+                    for team_id, players in current_players.items():
+                        final_minute_take_foul_possessions_stat_key = (
+                            f'{pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING}{pbpstats.OFFENSIVE_POSSESSION_STRING}'
+                            if team_id == offense_team_id
+                            else f'{pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING}{pbpstats.DEFENSIVE_POSSESSION_STRING}'
+                        )
+                        for player_id in players:
+                            stat_item = {
+                                'player_id': player_id,
+                                'team_id': team_id,
+                                'stat_key': final_minute_take_foul_possessions_stat_key,
+                                'stat_value': 1,
+                            }
+                            stats.append(stat_item)
 
         if not self.made:
             if self.ft_3pt:
@@ -278,6 +298,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
             if self.is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{free_throw_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
+                if self.foul_that_led_to_ft.is_personal_take_foul and self.seconds_remaining < 60 and self.period >= 4:
+                    final_minute_take_foul_stat_key = f'{pbpstats.FINAL_MINUTE_PENALTY_TAKE_FOUL_STRING}{free_throw_key}'
+                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': final_minute_take_foul_stat_key, 'stat_value': 1})
 
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
         lineups_ids = self.lineup_ids
