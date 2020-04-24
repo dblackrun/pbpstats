@@ -220,6 +220,8 @@ class FieldGoal(object):
     @property
     def event_stats(self):
         stats = []
+        is_penalty_event = self.is_penalty_event()
+        is_second_chance_event = self.is_second_chance_event()
         if self.distance is not None:
             if self.shot_value == 2:
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.TOTAL_2PT_SHOT_DISTANCE_STRING, 'stat_value': self.distance})
@@ -235,10 +237,10 @@ class FieldGoal(object):
         if self.made and not self.assisted:
             stat_key = f'{pbpstats.UNASSISTED_STRING}{self.shot_type}'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': stat_key, 'stat_value': 1})
-            if self.is_second_chance_event:
+            if is_second_chance_event:
                 second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{stat_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
-            if self.is_penalty_event:
+            if is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{stat_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
             if self.putback:
@@ -248,12 +250,12 @@ class FieldGoal(object):
             assist_key = f'{self.shot_type}{pbpstats.ASSISTS_STRING}'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': scorer_key, 'stat_value': 1})
             stats.append({'player_id': self.player2_id, 'team_id': self.team_id, 'stat_key': assist_key, 'stat_value': 1})
-            if self.is_second_chance_event:
+            if is_second_chance_event:
                 second_chance_scorer_key = f'{pbpstats.SECOND_CHANCE_STRING}{scorer_key}'
                 second_chance_assist_key = f'{pbpstats.SECOND_CHANCE_STRING}{assist_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_scorer_key, 'stat_value': 1})
                 stats.append({'player_id': self.player2_id, 'team_id': self.team_id, 'stat_key': second_chance_assist_key, 'stat_value': 1})
-            if self.is_penalty_event:
+            if is_penalty_event:
                 penalty_scorer_key = f'{pbpstats.PENALTY_STRING}{scorer_key}'
                 penalty_assist_key = f'{pbpstats.PENALTY_STRING}{assist_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_scorer_key, 'stat_value': 1})
@@ -265,12 +267,12 @@ class FieldGoal(object):
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': shot_key, 'stat_value': 1})
             block_key = f'{pbpstats.BLOCKED_STRING}{self.shot_type}'
             stats.append({'player_id': self.player3_id, 'team_id': opponent_team_id, 'stat_key': block_key, 'stat_value': 1})
-            if self.is_second_chance_event:
+            if is_second_chance_event:
                 second_chance_shot_key = f'{pbpstats.SECOND_CHANCE_STRING}{shot_key}'
                 second_chance_block_key = f'{pbpstats.SECOND_CHANCE_STRING}{block_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_shot_key, 'stat_value': 1})
                 stats.append({'player_id': self.player3_id, 'team_id': opponent_team_id, 'stat_key': second_chance_block_key, 'stat_value': 1})
-            if self.is_penalty_event:
+            if is_penalty_event:
                 penalty_shot_key = f'{pbpstats.PENALTY_STRING}{shot_key}'
                 penalty_block_key = f'{pbpstats.PENALTY_STRING}{block_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_shot_key, 'stat_value': 1})
@@ -278,10 +280,10 @@ class FieldGoal(object):
         else:
             stat_key = f'{pbpstats.MISSED_STRING}{self.shot_type}'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': stat_key, 'stat_value': 1})
-            if self.is_second_chance_event:
+            if is_second_chance_event:
                 second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{stat_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
-            if self.is_penalty_event:
+            if is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{stat_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
 

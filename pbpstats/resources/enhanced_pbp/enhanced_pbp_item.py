@@ -98,7 +98,6 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
             return 0
         return self.previous_event.seconds_remaining - self.seconds_remaining
 
-    @property
     def is_second_chance_event(self):
         event = self.previous_event
         if isinstance(event, Rebound) and event.is_real_rebound and event.oreb:
@@ -109,7 +108,6 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
             event = event.previous_event
         return False
 
-    @property
     def is_penalty_event(self):
         if hasattr(self, 'fouls_to_give'):
             team_ids = list(self.current_players.keys())
@@ -173,6 +171,8 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         stat_items = []
         team_ids = list(self.current_players.keys())
         offense_team_id = self.get_offense_team_id()
+        is_penalty_event = self.is_penalty_event()
+        is_second_chance_event = self.is_second_chance_event()
         if self.seconds_since_previous_event != 0:
             for team_id, players in self.previous_event.current_players.items():
                 seconds_stat_key = (
@@ -188,10 +188,10 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                     period = self.period if self.period <= 4 else 'OT'
                     foul_tracking_seconds_stat_key = f'Period{period}Fouls{player_fouls}{seconds_stat_key}'
                     keys_to_add.append(foul_tracking_seconds_stat_key)
-                    if self.is_second_chance_event:
+                    if is_second_chance_event:
                         seconds_chance_seconds_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{seconds_stat_key}'
                         keys_to_add.append(seconds_chance_seconds_stat_key)
-                    if self.is_penalty_event:
+                    if is_penalty_event:
                         penalty_seconds_stat_key = f'{pbpstats.PENALTY_STRING}{seconds_stat_key}'
                         keys_to_add.append(penalty_seconds_stat_key)
                     for stat_key in keys_to_add:
@@ -217,6 +217,8 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         stat_items = []
         team_ids = list(self.current_players.keys())
         offense_team_id = self.get_offense_team_id()
+        is_penalty_event = self.is_penalty_event()
+        is_second_chance_event = self.is_second_chance_event()
         if self.count_as_possession:
             if isinstance(self, FreeThrow):
                 current_players = self.event_for_efficiency_stats.current_players
@@ -233,10 +235,10 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                 opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
                 for player_id in players:
                     keys_to_add = [possessions_stat_key]
-                    if self.is_second_chance_event:
+                    if is_second_chance_event:
                         seconds_chance_possessions_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{possessions_stat_key}'
                         keys_to_add.append(seconds_chance_possessions_stat_key)
-                    if self.is_penalty_event:
+                    if is_penalty_event:
                         penalty_possessions_stat_key = f'{pbpstats.PENALTY_STRING}{possessions_stat_key}'
                         keys_to_add.append(penalty_possessions_stat_key)
                     for stat_key in keys_to_add:

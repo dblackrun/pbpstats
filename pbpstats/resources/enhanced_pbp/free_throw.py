@@ -207,6 +207,8 @@ class FreeThrow(metaclass=abc.ABCMeta):
     def event_stats(self):
         stats = []
         team_ids = list(self.current_players.keys())
+        is_penalty_event = self.is_penalty_event()
+        is_second_chance_event = self.is_second_chance_event()
         if self.made:
             if self.ft_3pt:
                 free_throw_key = pbpstats.FT_3_PT_MADE_STRING
@@ -218,10 +220,10 @@ class FreeThrow(metaclass=abc.ABCMeta):
                 free_throw_key = pbpstats.FTS_MADE_STRING
             points = self.shot_value
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
-            if self.is_second_chance_event:
+            if is_second_chance_event:
                 second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{free_throw_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
-            if self.is_penalty_event:
+            if is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{free_throw_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
                 foul_event = self.foul_that_led_to_ft
@@ -259,10 +261,10 @@ class FreeThrow(metaclass=abc.ABCMeta):
         if self.first_ft or self.technical_ft:
             free_throw_trip_key = self.free_throw_type + ' Free Throw Trips'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_trip_key, 'stat_value': 1})
-            if self.is_second_chance_event:
+            if is_second_chance_event:
                 second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{free_throw_trip_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
-            if self.is_penalty_event:
+            if is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{free_throw_trip_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
                 foul_event = self.foul_that_led_to_ft
@@ -294,10 +296,10 @@ class FreeThrow(metaclass=abc.ABCMeta):
             else:
                 free_throw_key = pbpstats.FTS_MISSED_STRING
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
-            if self.is_second_chance_event:
+            if is_second_chance_event:
                 second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{free_throw_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
-            if self.is_penalty_event:
+            if is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{free_throw_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
                 foul_event = self.foul_that_led_to_ft

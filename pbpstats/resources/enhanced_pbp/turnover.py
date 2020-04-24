@@ -105,9 +105,9 @@ class Turnover(object):
                 stat['lineup_id'] = lineup_ids[stat['team_id']]
                 stat['opponent_team_id'] = opponent_team_id
                 stat['opponent_lineup_id'] = lineup_ids[opponent_team_id]
-                if self.is_second_chance_event:
+                if self.is_second_chance_event():
                     second_chance_stats.append({key: value if key != 'stat_key' else f'{pbpstats.SECOND_CHANCE_STRING}{value}' for key, value in stat.items()})
-                if self.is_penalty_event:
+                if self.is_penalty_event():
                     second_chance_stats.append({key: value if key != 'stat_key' else f'{pbpstats.PENALTY_STRING}{value}' for key, value in stat.items()})
 
         return self.base_stats + stats + second_chance_stats
