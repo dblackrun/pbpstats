@@ -40,9 +40,20 @@ class NbaEnhancedPbpLoader(object):
             else:
                 event.previous_event = self.items[i - 1]
                 event.next_event = self.items[i + 1]
+
             if event.seconds_remaining <= 120:
-                for team_id in fouls_to_give.keys():
-                    fouls_to_give[team_id] = min(fouls_to_give[team_id], 1)
+                if len(fouls_to_give.keys()) == 0:
+                    # neither team has fouled yet in the period
+                    fouls_to_give = defaultdict(lambda: 1)
+                elif len(fouls_to_give.keys()) == 1:
+                    # only one team has fouled - other team id key is not in defaultdict
+                    team_id = list(fouls_to_give.keys())[0]
+                    team_fouls_to_give = min(fouls_to_give[team_id], 1)
+                    fouls_to_give = defaultdict(lambda: 1)
+                    fouls_to_give[team_id] = team_fouls_to_give
+                else:
+                    for team_id in fouls_to_give.keys():
+                        fouls_to_give[team_id] = min(fouls_to_give[team_id], 1)
             if isinstance(event, Foul):
                 if event.counts_towards_penalty and fouls_to_give[event.team_id] > 0:
                     fouls_to_give[event.team_id] -= 1
@@ -50,11 +61,13 @@ class NbaEnhancedPbpLoader(object):
                     player_game_fouls[event.player1_id] += 1
             if isinstance(event, (FieldGoal, FreeThrow)) and event.made:
                 score[event.team_id] += event.shot_value
+
             event.fouls_to_give = fouls_to_give.copy()
             event.player_game_fouls = player_game_fouls.copy()
             event.score = score.copy()
             event.possession_changing_override = event.event_num in change_override_event_nums
             event.non_possession_changing_override = event.event_num in non_change_override_event_nums
+
         # these need next and previous event to be added to all events
         for i in start_period_indices:
             team_id = self.items[i].get_team_starting_with_ball()
