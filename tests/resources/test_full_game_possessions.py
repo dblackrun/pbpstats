@@ -47,6 +47,13 @@ class TestFullGamePossessions:
     def test_team_rebound_start_type(self):
         assert self.game.possessions.items[24].possession_start_type == pbpstats.OFF_DEADBALL_STRING
 
+    def test_second_chance_possession(self):
+        stats = self.game.possessions.items[69].possession_stats
+        assert {'player_id': 101162, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-201977-202322-202693-203078', 'opponent_lineup_id': '201566-202683-203460-203506-203924', 'stat_key': 'SecondChanceDefPoss', 'stat_value': 1} in stats
+        assert {'player_id': 101162, 'team_id': 1610612764, 'opponent_team_id': 1610612760, 'lineup_id': '101162-201977-202322-202693-203078', 'opponent_lineup_id': '201566-202683-203460-203506-203924', 'stat_key': 'SecondChanceSecondsPlayedDef', 'stat_value': 14.0} in stats
+        assert {'player_id': 201566, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '201566-202683-203460-203506-203924', 'opponent_lineup_id': '101162-201977-202322-202693-203078', 'stat_key': 'SecondChanceOffPoss', 'stat_value': 1} in stats
+        assert {'player_id': 201566, 'team_id': 1610612760, 'opponent_team_id': 1610612764, 'lineup_id': '201566-202683-203460-203506-203924', 'opponent_lineup_id': '101162-201977-202322-202693-203078', 'stat_key': 'SecondChanceSecondsPlayedOff', 'stat_value': 14.0} in stats
+
     def test_first_possession_stats(self):
         results = self.game.possessions.items[0].possession_stats
         assert len(results) == 48
@@ -101,7 +108,7 @@ class TestFullGamePossessions:
 
     def test_team_stats(self):
         results = self.game.possessions.team_stats
-        assert len(results) == 326
+        assert len(results) == 334
         assert {'team_id': 1610612760, 'stat_key': '1627734:AssistsTo:201566:AtRim', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': '1627734:AssistsTo:203506:LongMidRange', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': '201566:AssistsTo:1627734:AtRim', 'stat_value': 3} in results
@@ -235,6 +242,8 @@ class TestFullGamePossessions:
         assert {'team_id': 1610612760, 'stat_key': 'UnassistedAtRim', 'stat_value': 9} in results
         assert {'team_id': 1610612760, 'stat_key': 'UnassistedLongMidRange', 'stat_value': 4} in results
         assert {'team_id': 1610612760, 'stat_key': 'UnassistedShortMidRange', 'stat_value': 3} in results
+        assert {'team_id': 1610612760, 'stat_key': 'SecondChanceDefPoss', 'stat_value': 13} in results
+        assert {'team_id': 1610612760, 'stat_key': 'SecondChanceOffPoss', 'stat_value': 11} in results
         assert {'team_id': 1610612764, 'stat_key': '101162:AssistsTo:203078:Arc3', 'stat_value': 1} in results
         assert {'team_id': 1610612764, 'stat_key': '101162:AssistsTo:203078:AtRim', 'stat_value': 1} in results
         assert {'team_id': 1610612764, 'stat_key': '1626162:AssistsTo:203490:AtRim', 'stat_value': 1} in results
@@ -356,10 +365,12 @@ class TestFullGamePossessions:
         assert {'team_id': 1610612764, 'stat_key': 'UnassistedAtRim', 'stat_value': 10} in results
         assert {'team_id': 1610612764, 'stat_key': 'UnassistedLongMidRange', 'stat_value': 1} in results
         assert {'team_id': 1610612764, 'stat_key': 'UnassistedShortMidRange', 'stat_value': 6} in results
+        assert {'team_id': 1610612764, 'stat_key': 'SecondChanceDefPoss', 'stat_value': 11} in results
+        assert {'team_id': 1610612764, 'stat_key': 'SecondChanceOffPoss', 'stat_value': 13} in results
 
     def test_opponent_stats(self):
         results = self.game.possessions.opponent_stats
-        assert len(results) == 326
+        assert len(results) == 334
         assert {'opponent_team_id': 1610612760, 'stat_key': '101162:AssistsTo:203078:Arc3', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': '101162:AssistsTo:203078:AtRim', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': '1626162:AssistsTo:203490:AtRim', 'stat_value': 1} in results
@@ -481,6 +492,8 @@ class TestFullGamePossessions:
         assert {'opponent_team_id': 1610612760, 'stat_key': 'UnassistedAtRim', 'stat_value': 10} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': 'UnassistedLongMidRange', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': 'UnassistedShortMidRange', 'stat_value': 6} in results
+        assert {'opponent_team_id': 1610612760, 'stat_key': 'SecondChanceDefPoss', 'stat_value': 11} in results
+        assert {'opponent_team_id': 1610612760, 'stat_key': 'SecondChanceOffPoss', 'stat_value': 13} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': '1627734:AssistsTo:201566:AtRim', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': '1627734:AssistsTo:203506:LongMidRange', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': '201566:AssistsTo:1627734:AtRim', 'stat_value': 3} in results
@@ -614,6 +627,8 @@ class TestFullGamePossessions:
         assert {'opponent_team_id': 1610612764, 'stat_key': 'UnassistedAtRim', 'stat_value': 9} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': 'UnassistedLongMidRange', 'stat_value': 4} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': 'UnassistedShortMidRange', 'stat_value': 3} in results
+        assert {'opponent_team_id': 1610612764, 'stat_key': 'SecondChanceDefPoss', 'stat_value': 13} in results
+        assert {'opponent_team_id': 1610612764, 'stat_key': 'SecondChanceOffPoss', 'stat_value': 11} in results
 
     def test_player_stats(self):
         results = self.game.possessions.player_stats
@@ -711,6 +726,10 @@ class TestFullGamePossessions:
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PeriodOTFouls2SecondsPlayedOff', 'stat_value': 141} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PeriodOTFouls3SecondsPlayedDef', 'stat_value': 14} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PeriodOTFouls3SecondsPlayedOff', 'stat_value': 4} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondChanceDefPoss', 'stat_value': 9} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondChanceOffPoss', 'stat_value': 10} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondChanceSecondsPlayedDef', 'stat_value': 93} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondChanceSecondsPlayedOff', 'stat_value': 47} in results
 
     def test_lineup_stats(self):
         results = self.game.possessions.lineup_stats
