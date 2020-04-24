@@ -207,21 +207,19 @@ class FreeThrow(metaclass=abc.ABCMeta):
     def event_stats(self):
         stats = []
         team_ids = list(self.current_players.keys())
-        if self.ft_3pt:
-            free_throw_key = pbpstats.FT_3_PT_MISSED_STRING
-        elif self.ft_2pt:
-            free_throw_key = pbpstats.FT_2_PT_MISSED_STRING
-        elif self.ft_1pt:
-            free_throw_key = pbpstats.FT_1_PT_MISSED_STRING
-        else:
-            free_throw_key = pbpstats.FTS_MISSED_STRING
         if self.made:
+            if self.ft_3pt:
+                free_throw_key = pbpstats.FT_3_PT_MADE_STRING
+            elif self.ft_2pt:
+                free_throw_key = pbpstats.FT_2_PT_MADE_STRING
+            elif self.ft_1pt:
+                free_throw_key = pbpstats.FT_1_PT_MADE_STRING
+            else:
+                free_throw_key = pbpstats.FTS_MADE_STRING
             points = self.shot_value
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
 
             # add plus minus and opponent points - used for lineup/wowy stats to get net rating
-            if self.event_for_efficiency_stats is None:
-                print(self)
             plus_minus_lineup_ids = self.event_for_efficiency_stats.lineup_ids
             for team_id, players in self.event_for_efficiency_stats.current_players.items():
                 multiplier = 1 if team_id == self.team_id else -1
@@ -253,6 +251,14 @@ class FreeThrow(metaclass=abc.ABCMeta):
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_trip_key, 'stat_value': 1})
 
         if not self.made:
+            if self.ft_3pt:
+                free_throw_key = pbpstats.FT_3_PT_MISSED_STRING
+            elif self.ft_2pt:
+                free_throw_key = pbpstats.FT_2_PT_MISSED_STRING
+            elif self.ft_1pt:
+                free_throw_key = pbpstats.FT_1_PT_MISSED_STRING
+            else:
+                free_throw_key = pbpstats.FTS_MISSED_STRING
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
 
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
