@@ -218,6 +218,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
                 free_throw_key = pbpstats.FTS_MADE_STRING
             points = self.shot_value
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
+            if self.is_second_chance_event:
+                second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{free_throw_key}'
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
 
             # add plus minus and opponent points - used for lineup/wowy stats to get net rating
             plus_minus_lineup_ids = self.event_for_efficiency_stats.lineup_ids
@@ -249,6 +252,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
         if self.first_ft or self.technical_ft:
             free_throw_trip_key = self.free_throw_type + ' Free Throw Trips'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_trip_key, 'stat_value': 1})
+            if self.is_second_chance_event:
+                second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{free_throw_trip_key}'
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
 
         if not self.made:
             if self.ft_3pt:
@@ -260,6 +266,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
             else:
                 free_throw_key = pbpstats.FTS_MISSED_STRING
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': free_throw_key, 'stat_value': 1})
+            if self.is_second_chance_event:
+                second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{free_throw_key}'
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
 
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
         lineups_ids = self.lineup_ids
