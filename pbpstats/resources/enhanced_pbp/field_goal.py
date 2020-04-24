@@ -188,21 +188,41 @@ class FieldGoal(object):
         team_ids = list(self.current_players.keys())
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
         if self.made and not self.assisted:
-            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.UNASSISTED_STRING + self.shot_type, 'stat_value': 1})
+            stat_key = f'{pbpstats.UNASSISTED_STRING}{self.shot_type}'
+            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': stat_key, 'stat_value': 1})
+            if self.is_second_chance_event:
+                second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{stat_key}'
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
             if self.putback:
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.PUTBACKS_STRING, 'stat_value': 1})
         elif self.assisted:
-            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.ASSISTED_STRING + self.shot_type, 'stat_value': 1})
-            stats.append({'player_id': self.player2_id, 'team_id': self.team_id, 'stat_key': self.shot_type + pbpstats.ASSISTS_STRING, 'stat_value': 1})
+            scorer_key = f'{pbpstats.ASSISTED_STRING}{self.shot_type}'
+            assist_key = f'{self.shot_type}{pbpstats.ASSISTS_STRING}'
+            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': scorer_key, 'stat_value': 1})
+            stats.append({'player_id': self.player2_id, 'team_id': self.team_id, 'stat_key': assist_key, 'stat_value': 1})
+            if self.is_second_chance_event:
+                second_chance_scorer_key = f'{pbpstats.SECOND_CHANCE_STRING}{scorer_key}'
+                second_chance_assist_key = f'{pbpstats.SECOND_CHANCE_STRING}{assist_key}'
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_scorer_key, 'stat_value': 1})
+                stats.append({'player_id': self.player2_id, 'team_id': self.team_id, 'stat_key': second_chance_assist_key, 'stat_value': 1})
             assist_to_key = f'{self.player2_id}:AssistsTo:{self.player1_id}:{self.shot_type}'
             stats.append({'player_id': self.player2_id, 'team_id': self.team_id, 'stat_key': assist_to_key, 'stat_value': 1})
         elif self.blocked:
-            shot_key = self.shot_type + pbpstats.BLOCKED_STRING
+            shot_key = f'{self.shot_type}{pbpstats.BLOCKED_STRING}'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': shot_key, 'stat_value': 1})
-            block_key = pbpstats.BLOCKED_STRING + self.shot_type
+            block_key = f'{pbpstats.BLOCKED_STRING}{self.shot_type}'
             stats.append({'player_id': self.player3_id, 'team_id': opponent_team_id, 'stat_key': block_key, 'stat_value': 1})
+            if self.is_second_chance_event:
+                second_chance_shot_key = f'{pbpstats.SECOND_CHANCE_STRING}{shot_key}'
+                second_chance_block_key = f'{pbpstats.SECOND_CHANCE_STRING}{block_key}'
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_shot_key, 'stat_value': 1})
+                stats.append({'player_id': self.player3_id, 'team_id': opponent_team_id, 'stat_key': second_chance_block_key, 'stat_value': 1})
         else:
-            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.MISSED_STRING + self.shot_type, 'stat_value': 1})
+            stat_key = f'{pbpstats.MISSED_STRING}{self.shot_type}'
+            stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': stat_key, 'stat_value': 1})
+            if self.is_second_chance_event:
+                second_chance_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{stat_key}'
+                stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': second_chance_stat_key, 'stat_value': 1})
 
         if self.made:
             # add plus minus and opponent points - used for lineup/wowy stats to get net rating
