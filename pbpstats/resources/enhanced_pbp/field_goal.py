@@ -99,6 +99,51 @@ class FieldGoal(object):
         )
 
     @property
+    def shot_data(self):
+        team_ids = list(self.current_players.keys())
+        opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
+        shot_data = {
+            'PlayerId': self.player1_id,
+            'TeamId': self.team_id,
+            'OpponentTeamId': opponent_team_id,
+            'LineupId': self.lineup_ids[self.team_id],
+            'OpponentLineupId': self.lineup_ids[opponent_team_id],
+            'Made': self.made,
+            'X': self.locX,
+            'Y': self.locY,
+            'Time': self.seconds_remaining,
+            'ShotValue': self.shot_value,
+            'Assisted': self.assisted,
+            'Blocked': self.blocked,
+            'Putback': self.putback,
+            'ShotType': self.shot_type,
+            'ScoreMargin': self.score_margin,
+            'EventNum': self.event_num
+        }
+        if self.assisted:
+            shot_data['AssistPlayerId'] = self.player2_id
+        if self.blocked:
+            shot_data['BlockPlayerId'] = self.player3_id
+        if self.is_second_chance_event:
+            prev_event = self.previous_event
+            while not (hasattr(prev_event, 'is_real_rebound') and prev_event.is_real_rebound):
+                prev_event = prev_event.previous_event
+            shot_data['SecondsSinceOReb'] = prev_event.seconds_remaining - self.seconds_remaining
+            shot_data['OrebShotPlayerId'] = prev_event.missed_shot.player1_id
+            shot_data['OrebReboundPlayerId'] = prev_event.player1_id
+            if prev_event.player1_id != 0:
+                rebound_shot_type = prev_event.missed_shot.shot_type
+                if prev_event.missed_shot.blocked:
+                    rebound_shot_type += pbpstats.BLOCKED_STRING
+            elif prev_event.missed_shot.blocked:
+                # separate blocked from non blocked because blocked won't have shot clock reset
+                rebound_shot_type = 'TeamBlocked'
+            else:
+                rebound_shot_type = 'Team'
+            shot_data['OrebShotType'] = rebound_shot_type
+        return shot_data
+
+    @property
     def and1(self):
         """
         note that this will return true for plays where there is a foul away from the play at the time of the shot.

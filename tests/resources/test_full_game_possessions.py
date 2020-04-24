@@ -15,6 +15,25 @@ class TestFullGamePossessions:
         assert self.game.possessions.items[0].possession_start_type == pbpstats.OFF_DEADBALL_STRING
         assert self.game.possessions.items[0].start_score_margin == 0
         assert self.game.possessions.items[0].events[-1].score_margin == 0
+        expected_shot_data = {
+            'PlayerId': 202693,
+            'TeamId': 1610612764,
+            'OpponentTeamId': 1610612760,
+            'LineupId': '101162-202322-202693-203078-203490',
+            'OpponentLineupId': '1627734-201566-203460-203500-203506',
+            'Made': True,
+            'X': -19,
+            'Y': 120,
+            'Time': 699,
+            'ShotValue': 2,
+            'Assisted': False,
+            'Putback': False,
+            'Blocked': False,
+            'ShotType': 'ShortMidRange',
+            'ScoreMargin': 0,
+            'EventNum': 2
+        }
+        assert self.game.possessions.items[0].events[-1].shot_data == expected_shot_data
 
     def test_off_short_mid_range_make(self):
         assert self.game.possessions.items[1].possession_start_type == f'Off{pbpstats.SHORT_MID_RANGE_STRING}{pbpstats.MAKE_STRING}'
@@ -29,6 +48,29 @@ class TestFullGamePossessions:
         assert self.game.possessions.items[3].possession_start_type == f'Off{pbpstats.ARC_3_STRING}{pbpstats.MISS_STRING}'
         assert self.game.possessions.items[3].previous_possession_end_shooter_player_id == 202322
         assert self.game.possessions.items[3].previous_possession_end_rebound_player_id == 1627734
+        expected_shot_data = {
+            'PlayerId': 203500,
+            'TeamId': 1610612760,
+            'OpponentTeamId': 1610612764,
+            'LineupId': '1627734-201566-203460-203500-203506',
+            'OpponentLineupId': '101162-202322-202693-203078-203490',
+            'Made': False,
+            'X': 27,
+            'Y': 57,
+            'Time': 644.0,
+            'ShotValue': 2,
+            'SecondsSinceOReb': 6.0,
+            'OrebShotPlayerId': 201566,
+            'OrebReboundPlayerId': 0,
+            'OrebShotType': 'Team',
+            'Blocked': False,
+            'Putback': False,
+            'Assisted': False,
+            'ShotType': 'ShortMidRange',
+            'ScoreMargin': 0,
+            'EventNum': 10
+        }
+        assert self.game.possessions.items[3].events[-2].shot_data == expected_shot_data
 
     def test_off_short_mid_range_miss_start_type(self):
         assert self.game.possessions.items[4].possession_start_type == f'Off{pbpstats.SHORT_MID_RANGE_STRING}{pbpstats.MISS_STRING}'
