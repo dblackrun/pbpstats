@@ -52,6 +52,19 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                         'stat_value': self.seconds_since_previous_event,
                     }
                     stat_items.append(seconds_stat_item)
+                    player_fouls = self.previous_event.player_game_fouls[player_id]
+                    period = self.period if self.period <= 4 else 'OT'
+                    foul_tracking_seconds_stat_key = f'Period{period}Fouls{player_fouls}{seconds_stat_key}'
+                    foul_tracking_seconds_stat_item = {
+                        'player_id': player_id,
+                        'team_id': team_id,
+                        'opponent_team_id': opponent_team_id,
+                        'lineup_id': previous_poss_lineup_ids[team_id],
+                        'opponent_lineup_id': previous_poss_lineup_ids[opponent_team_id],
+                        'stat_key': foul_tracking_seconds_stat_key,
+                        'stat_value': self.seconds_since_previous_event,
+                    }
+                    stat_items.append(foul_tracking_seconds_stat_item)
 
         if self.count_as_possession:
             if isinstance(self, FreeThrow):
