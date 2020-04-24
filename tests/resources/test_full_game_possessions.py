@@ -10,20 +10,22 @@ class TestFullGamePossessions:
     client = Client(settings)
     game = client.Game('0021600270')
 
-    def test_first_possession_start_time(self):
+    def test_first_possession(self):
         assert self.game.possessions.items[0].start_time == '12:00'
-
-    def test_first_possession_start_type(self):
         assert self.game.possessions.items[0].possession_start_type == pbpstats.OFF_DEADBALL_STRING
+        assert self.game.possessions.items[0].start_score_margin == 0
+        assert self.game.possessions.items[0].events[-1].score_margin == 0
 
-    def test_off_short_mid_range_make_start_type(self):
+    def test_off_short_mid_range_make(self):
         assert self.game.possessions.items[1].possession_start_type == f'Off{pbpstats.SHORT_MID_RANGE_STRING}{pbpstats.MAKE_STRING}'
         assert self.game.possessions.items[1].previous_possession_end_shooter_player_id == 202693
         assert self.game.possessions.items[1].previous_possession_end_rebound_player_id == 0
         assert self.game.possessions.items[1].previous_possession_end_turnover_player_id == 0
         assert self.game.possessions.items[1].previous_possession_end_steal_player_id == 0
+        assert self.game.possessions.items[1].start_score_margin == -2
+        assert self.game.possessions.items[1].events[0].score_margin == -2
 
-    def test_off_arc3_miss_start_type(self):
+    def test_off_arc3_miss(self):
         assert self.game.possessions.items[3].possession_start_type == f'Off{pbpstats.ARC_3_STRING}{pbpstats.MISS_STRING}'
         assert self.game.possessions.items[3].previous_possession_end_shooter_player_id == 202322
         assert self.game.possessions.items[3].previous_possession_end_rebound_player_id == 1627734
@@ -31,7 +33,7 @@ class TestFullGamePossessions:
     def test_off_short_mid_range_miss_start_type(self):
         assert self.game.possessions.items[4].possession_start_type == f'Off{pbpstats.SHORT_MID_RANGE_STRING}{pbpstats.MISS_STRING}'
 
-    def test_off_live_ball_turnover_start_type(self):
+    def test_off_live_ball_turnover(self):
         assert self.game.possessions.items[5].possession_start_type == pbpstats.OFF_LIVE_BALL_TURNOVER_STRING
         assert self.game.possessions.items[5].previous_possession_end_shooter_player_id == 0
         assert self.game.possessions.items[5].previous_possession_end_rebound_player_id == 0

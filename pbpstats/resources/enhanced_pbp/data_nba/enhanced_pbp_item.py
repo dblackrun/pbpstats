@@ -40,6 +40,7 @@ class DataEnhancedPbpItem(EnhancedPbpItem):
         self.player_game_fouls = defaultdict(int)
         self.possession_changing_override = False
         self.non_possession_changing_override = False
+        self.score = defaultdict(int)
 
     @property
     def data(self):

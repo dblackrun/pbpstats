@@ -62,6 +62,23 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         return self.previous_event.current_players
 
     @property
+    def score_margin(self):
+        """
+        from perspective of offense team
+        """
+        if self.previous_event is None:
+            score = self.score
+        else:
+            score = self.previous_event.score
+        offense_team_id = self.get_offense_team_id()
+        offense_points = score[offense_team_id]
+        defense_points = 0
+        for team_id, points in score.items():
+            if team_id != offense_team_id:
+                defense_points = points
+        return offense_points - defense_points
+
+    @property
     def lineup_ids(self):
         """
         hyphen separated sorted player id strings

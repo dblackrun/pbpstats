@@ -39,6 +39,20 @@ class Possession(object):
         return self.events[-1].clock
 
     @property
+    def start_score_margin(self):
+        if not hasattr(self, 'previous_possession') or self.previous_possession is None:
+            score = self.events[0].score
+        else:
+            score = self.previous_possession.events[-1].score
+        offense_team_id = self.offense_team_id
+        offense_points = score[offense_team_id]
+        defense_points = 0
+        for team_id, points in score.items():
+            if team_id != offense_team_id:
+                defense_points = points
+        return offense_points - defense_points
+
+    @property
     def offense_team_id(self):
         if len(self.events) == 1 and isinstance(self.events[0], JumpBall):
             # if possession only has one event and it is a jump ball, need to check

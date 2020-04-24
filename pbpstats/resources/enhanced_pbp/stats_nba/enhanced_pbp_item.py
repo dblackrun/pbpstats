@@ -25,8 +25,6 @@ KEY_ATTR_MAPPER = {
     'PLAYER1_TEAM_ID': 'team_id',
     'PLAYER2_ID': 'player2_id',
     'PLAYER3_ID': 'player3_id',
-    'SCORE': 'score',
-    'SCOREMARGIN': 'score_margin',
     'VIDEO_AVAILABLE_FLAG': 'video_available',
 }
 
@@ -82,6 +80,7 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         self.player_game_fouls = defaultdict(int)
         self.possession_changing_override = False
         self.non_possession_changing_override = False
+        self.score = defaultdict(int)
 
     @property
     def data(self):

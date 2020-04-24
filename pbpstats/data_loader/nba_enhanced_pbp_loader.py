@@ -4,7 +4,9 @@ from collections import defaultdict
 
 from pbpstats.overrides import IntDecoder
 from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
+from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
 from pbpstats.resources.enhanced_pbp.foul import Foul
+from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
 
 
 class NbaEnhancedPbpLoader(object):
@@ -19,6 +21,7 @@ class NbaEnhancedPbpLoader(object):
         non_change_override_event_nums = self.non_possession_changing_event_overrides.get(self.game_id, [])
         player_game_fouls = defaultdict(int)
         team_period_fouls = defaultdict(int)
+        score = defaultdict(int)
         for i, event in enumerate(self.items):
             if i == 0 and i == len(self.items) - 1:
                 event.previous_event = None
@@ -39,8 +42,11 @@ class NbaEnhancedPbpLoader(object):
                     team_period_fouls[event.team_id] += 1
                 if event.counts_as_personal_foul:
                     player_game_fouls[event.player1_id] += 1
+            if isinstance(event, (FieldGoal, FreeThrow)) and event.made:
+                score[event.team_id] += event.shot_value
             event.team_period_fouls = team_period_fouls.copy()
             event.player_game_fouls = player_game_fouls.copy()
+            event.score = score.copy()
             event.possession_changing_override = event.event_num in change_override_event_nums
             event.non_possession_changing_override = event.event_num in non_change_override_event_nums
         # these need next and previous event to be added to all events
