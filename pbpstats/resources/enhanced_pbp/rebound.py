@@ -9,6 +9,10 @@ from pbpstats.resources.enhanced_pbp.substitution import Substitution
 from pbpstats.resources.enhanced_pbp.timeout import Timeout
 
 
+class EventOrderError(Exception):
+    pass
+
+
 class Rebound(object):
     event_type = 4
 
@@ -107,7 +111,7 @@ class Rebound(object):
                 prev_event = prev_event.previous_event
             if isinstance(prev_event, (FieldGoal, FreeThrow)):
                 return prev_event
-        raise ValueError(f'previous event: {self.previous_event} is not a missed free throw or field goal. check event order.')
+        raise EventOrderError(f'previous event: {self.previous_event} is not a missed free throw or field goal')
 
     @property
     def oreb(self):
