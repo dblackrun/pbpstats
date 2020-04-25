@@ -1,20 +1,3 @@
-import os
-
-DATA_DIRECTORY = os.environ.get('PBP_STATS_DATA_DIRECTORY')
-DATA_DIRECTORY is None
-if DATA_DIRECTORY is not None and os.path.isdir(DATA_DIRECTORY):
-    pbp_dir = f'{DATA_DIRECTORY}pbp/'
-    game_details_dir = f'{DATA_DIRECTORY}game_details/'
-    overrides_dir = f'{DATA_DIRECTORY}overrides/'
-    if not os.path.isdir(pbp_dir):
-        os.makedirs(pbp_dir)
-    if not os.path.isdir(game_details_dir):
-        os.makedirs(game_details_dir)
-    if not os.path.isdir(overrides_dir):
-        os.makedirs(overrides_dir)
-else:
-    DATA_DIRECTORY = None
-
 VIDEO_EVENT_ASSET_BASE_URL = 'https://stats.nba.com/stats/videoeventsasset'
 TODAYS_NBA_SCORES_URL = 'http://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
 TODAYS_WNBA_SCORES_URL = 'http://data.wnba.com/data/5s/v2015/json/mobile_teams/wnba/2019/scores/10_todays_scores.json'
