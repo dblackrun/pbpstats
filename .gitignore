@@ -7,3 +7,4 @@ dist/
 build/
 notes.txt
 debug.py
+*.ipynb
