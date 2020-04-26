@@ -28,7 +28,6 @@ class TestFullGamePossessions:
             'ShotValue': 2,
             'Assisted': False,
             'Putback': False,
-            'Blocked': False,
             'ShotType': 'ShortMidRange',
             'ScoreMargin': 0,
             'EventNum': 2
@@ -65,7 +64,6 @@ class TestFullGamePossessions:
             'OrebShotType': 'Team',
             'Blocked': False,
             'Putback': False,
-            'Assisted': False,
             'ShotType': 'ShortMidRange',
             'ScoreMargin': 0,
             'EventNum': 10

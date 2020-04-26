@@ -113,17 +113,19 @@ class FieldGoal(object):
             'Y': self.locY,
             'Time': self.seconds_remaining,
             'ShotValue': self.shot_value,
-            'Assisted': self.assisted,
-            'Blocked': self.blocked,
             'Putback': self.putback,
             'ShotType': self.shot_type,
             'ScoreMargin': self.score_margin,
             'EventNum': self.event_num
         }
-        if self.assisted:
-            shot_data['AssistPlayerId'] = self.player2_id
-        if self.blocked:
-            shot_data['BlockPlayerId'] = self.player3_id
+        if self.made:
+            shot_data['Assisted'] = self.assisted
+            if self.assisted:
+                shot_data['AssistPlayerId'] = self.player2_id
+        if not self.made:
+            shot_data['Blocked'] = self.blocked
+            if self.blocked:
+                shot_data['BlockPlayerId'] = self.player3_id
         if self.is_second_chance_event():
             prev_event = self.previous_event
             while not (hasattr(prev_event, 'is_real_rebound') and prev_event.is_real_rebound):
