@@ -1,20 +1,3 @@
-import os
-
-DATA_DIRECTORY = os.environ.get('PBP_STATS_DATA_DIRECTORY')
-DATA_DIRECTORY is None
-if DATA_DIRECTORY is not None and os.path.isdir(DATA_DIRECTORY):
-    pbp_dir = f'{DATA_DIRECTORY}pbp/'
-    game_details_dir = f'{DATA_DIRECTORY}game_details/'
-    overrides_dir = f'{DATA_DIRECTORY}overrides/'
-    if not os.path.isdir(pbp_dir):
-        os.makedirs(pbp_dir)
-    if not os.path.isdir(game_details_dir):
-        os.makedirs(game_details_dir)
-    if not os.path.isdir(overrides_dir):
-        os.makedirs(overrides_dir)
-else:
-    DATA_DIRECTORY = None
-
 VIDEO_EVENT_ASSET_BASE_URL = 'https://stats.nba.com/stats/videoeventsasset'
 TODAYS_NBA_SCORES_URL = 'http://data.nba.com/data/5s/v2015/json/mobile_teams/nba/2019/scores/00_todays_scores.json'
 TODAYS_WNBA_SCORES_URL = 'http://data.wnba.com/data/5s/v2015/json/mobile_teams/wnba/2019/scores/10_todays_scores.json'
@@ -24,13 +7,21 @@ USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.
 REFERER = "http://stats.nba.com/"
 HEADERS = {
     'User-Agent': USER_AGENT,
-    'referer': REFERER,
-    'Accept-Language': 'en'
+    'Referer': REFERER,
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'x-nba-stats-origin': 'stats',
+    'x-nba-stats-token': 'true',
+    'DNT': '1',
+    'Connection': 'keep-alive',
+    'Pragma': 'no-cache',
+    'Cache-Control': 'no-cache'
 }
 
 NBA_STRING = 'nba'
 G_LEAGUE_STRING = 'gleague'
 WNBA_STRING = 'wnba'
+D_LEAGUE_STRING = 'dleague'
 
 NBA_GAME_ID_PREFIX = '00'
 G_LEAGUE_GAME_ID_PREFIX = '20'
@@ -62,11 +53,17 @@ SHORT_MID_RANGE_STRING = 'ShortMidRange'
 LONG_MID_RANGE_STRING = 'LongMidRange'
 CORNER_3_STRING = 'Corner3'
 ARC_3_STRING = 'Arc3'
+UNKNOWN_SHOT_DISTANCE_STRING = 'UnknownDistance2pt'
 FREE_THROW_STRING = 'FT'
 FTS_MADE_STRING = 'FtsMade'
 FT_1_PT_MADE_STRING = '1ptFtsMade'
 FT_2_PT_MADE_STRING = '2ptFtsMade'
 FT_3_PT_MADE_STRING = '3ptFtsMade'
+TECHNICAL_FTS_MADE_STRING = 'TechFtsMade'
+FTS_MISSED_STRING = 'FtsMissed'
+FT_1_PT_MISSED_STRING = '1ptFtsMissed'
+FT_2_PT_MISSED_STRING = '2ptFtsMissed'
+FT_3_PT_MISSED_STRING = '3ptFtsMissed'
 ASSISTS_STRING = 'Assists'
 REBOUNDS_STRING = 'Rebounds'
 ASSISTED_STRING = 'Assisted'
@@ -78,6 +75,7 @@ REBOUNDED_STRING = 'Rebounded'
 REBOUNDED_OPPORTUNITIES_STRING = 'ReboundedOpportunities'  # this is for getting oreb% on a player's missed shots
 ON_FLOOR_OFFENSIVE_REBOUND_STRING = 'OnFloorOffReb'  # used for calculating player usage
 BLOCK_STRING = 'Block'
+SELF_REBOUND_STRING = 'SelfOReb'
 
 PUTBACKS_STRING = 'Putbacks'
 HEAVE_MISSES_STRING = 'HeaveMisses'
@@ -134,7 +132,7 @@ THREE_POINT_AND1_FREE_THROW_STRING = '3pt And 1 Free Throw Trips'
 TWO_POINT_AND1_FREE_THROW_STRING = '2pt And 1 Free Throw Trips'
 THREE_POINT_SHOOTING_FOUL_FREE_THROW_STRING = '3pt Shooting Foul Free Throw Trips'
 TWO_POINT_SHOOTING_FOUL_FREE_THROW_STRING = '2pt Shooting Foul Free Throw Trips'
-TECHNICAL_FREE_THROW_STRING = 'Technical Free Throws Trips'
+TECHNICAL_FREE_THROW_STRING = 'Technical Free Throw Trips'
 
 PLUS_MINUS_STRING = 'PlusMinus'
 TIME_STRING = 'Time'
@@ -155,18 +153,19 @@ DEADBALL_TURNOVERS_STRING = 'DeadBallTurnovers'
 STEALS_STRING = 'Steals'
 TRAVELS_STRING = 'Travels'
 THREE_SECOND_VIOLATION_TURNOVER_STRING = '3SecondViolations'
+SHOT_CLOCK_VIOLATION_TURNOVER_STRING = 'ShotClockViolations'
 STEP_OUT_OF_BOUNDS_TURNOVER_STRING = 'StepOutOfBoundsTurnovers'
 LOST_BALL_TURNOVER_STRING = 'LostBallTurnovers'
 LOST_BALL_OUT_OF_BOUNDS_TURNOVER_STRING = 'LostBallOutOfBoundsTurnovers'
 BAD_PASS_TURNOVER_STRING = 'BadPassTurnovers'
 BAD_PASS_OUT_OF_BOUNDS_TURNOVER_STRING = 'BadPassOutOfBoundsTurnovers'
+LOST_BALL_STEAL_STRING = 'LostBallSteals'
+BAD_PASS_STEAL_STRING = 'BadPassSteals'
+
 
 OFFENSIVE_GOALTENDING_STRING = 'OffensiveGoaltends'
 DEFENSIVE_GOALTENDING_STRING = 'DefensiveGoaltends'
 
-CHALLENGE_SUPPORT_RULING_STRING = 'ChallengeSupportRuling'
-CHALLENGE_OVERTURN_RULING_STRING = 'ChallengeOverturnRuling'
-CHALLENGE_RULING_STANDS_STRING = 'ChallengeRulingStands'
 
 KEYS_OFF_BY_FACTOR_OF_5_WHEN_AGGREGATING_FOR_TEAM_AND_LINEUPS = [
     OFFENSIVE_POSSESSION_STRING,
