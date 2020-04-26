@@ -231,8 +231,11 @@ class FieldGoal(object):
             else:
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.TOTAL_3PT_SHOT_DISTANCE_STRING, 'stat_value': self.distance})
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.TOTAL_3PT_SHOTS_WITH_DISTANCE, 'stat_value': 1})
-                if self.distance >= pbpstats.HEAVE_DISTANCE_CUTOFF and self.seconds_remaining < pbpstats.HEAVE_TIME_CUTOFF:
-                    stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.HEAVE_MISSES_STRING, 'stat_value': 1})
+                if self.is_heave:
+                    if self.made:
+                        stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.HEAVE_MAKES_STRING, 'stat_value': 1})
+                    else:
+                        stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.HEAVE_MISSES_STRING, 'stat_value': 1})
 
         team_ids = list(self.current_players.keys())
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
