@@ -132,7 +132,7 @@ THREE_POINT_AND1_FREE_THROW_STRING = '3pt And 1 Free Throw Trips'
 TWO_POINT_AND1_FREE_THROW_STRING = '2pt And 1 Free Throw Trips'
 THREE_POINT_SHOOTING_FOUL_FREE_THROW_STRING = '3pt Shooting Foul Free Throw Trips'
 TWO_POINT_SHOOTING_FOUL_FREE_THROW_STRING = '2pt Shooting Foul Free Throw Trips'
-TECHNICAL_FREE_THROW_STRING = 'Technical Free Throws Trips'
+TECHNICAL_FREE_THROW_STRING = 'Technical Free Throw Trips'
 
 PLUS_MINUS_STRING = 'PlusMinus'
 TIME_STRING = 'Time'
