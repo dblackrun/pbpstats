@@ -152,7 +152,7 @@ class TestFullGamePossessions:
 
     def test_team_stats(self):
         results = self.game.possessions.team_stats
-        assert len(results) == 421
+        assert len(results) == 424
         assert {'team_id': 1610612760, 'stat_key': '1627734:AssistsTo:201566:AtRim', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': '1627734:AssistsTo:203506:LongMidRange', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': '201566:AssistsTo:1627734:AtRim', 'stat_value': 3} in results
@@ -231,7 +231,8 @@ class TestFullGamePossessions:
         assert {'team_id': 1610612760, 'stat_key': 'FTOffRebounded', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': 'FTOffReboundedOpportunities', 'stat_value': 4} in results
         assert {'team_id': 1610612760, 'stat_key': 'FTOffRebounds', 'stat_value': 1} in results
-        assert {'team_id': 1610612760, 'stat_key': 'FtsMade', 'stat_value': 22} in results
+        assert {'team_id': 1610612760, 'stat_key': 'FtsMade', 'stat_value': 21} in results
+        assert {'team_id': 1610612760, 'stat_key': 'TechFtsMade', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': 'FtsMissed', 'stat_value': 9} in results
         assert {'team_id': 1610612760, 'stat_key': 'LongMidRangeAssists', 'stat_value': 1} in results
         assert {'team_id': 1610612760, 'stat_key': 'LongMidRangeDefReboundOpportunities', 'stat_value': 9} in results
@@ -377,7 +378,8 @@ class TestFullGamePossessions:
         assert {'team_id': 1610612764, 'stat_key': 'FTDefRebounds', 'stat_value': 3} in results
         assert {'team_id': 1610612764, 'stat_key': 'FTOffReboundOpportunities', 'stat_value': 4} in results
         assert {'team_id': 1610612764, 'stat_key': 'FTOffReboundedOpportunities', 'stat_value': 4} in results
-        assert {'team_id': 1610612764, 'stat_key': 'FtsMade', 'stat_value': 17} in results
+        assert {'team_id': 1610612764, 'stat_key': 'FtsMade', 'stat_value': 16} in results
+        assert {'team_id': 1610612764, 'stat_key': 'TechFtsMade', 'stat_value': 1} in results
         assert {'team_id': 1610612764, 'stat_key': 'FtsMissed', 'stat_value': 9} in results
         assert {'team_id': 1610612764, 'stat_key': 'HeaveMisses', 'stat_value': 1} in results
         assert {'team_id': 1610612764, 'stat_key': 'LongMidRangeAssists', 'stat_value': 1} in results
@@ -444,7 +446,7 @@ class TestFullGamePossessions:
 
     def test_opponent_stats(self):
         results = self.game.possessions.opponent_stats
-        assert len(results) == 421
+        assert len(results) == 424
         assert {'opponent_team_id': 1610612760, 'stat_key': '101162:AssistsTo:203078:Arc3', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': '101162:AssistsTo:203078:AtRim', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': '1626162:AssistsTo:203490:AtRim', 'stat_value': 1} in results
@@ -509,7 +511,7 @@ class TestFullGamePossessions:
         assert {'opponent_team_id': 1610612760, 'stat_key': 'FTDefRebounds', 'stat_value': 3} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': 'FTOffReboundOpportunities', 'stat_value': 4} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': 'FTOffReboundedOpportunities', 'stat_value': 4} in results
-        assert {'opponent_team_id': 1610612760, 'stat_key': 'FtsMade', 'stat_value': 17} in results
+        assert {'opponent_team_id': 1610612760, 'stat_key': 'FtsMade', 'stat_value': 16} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': 'FtsMissed', 'stat_value': 9} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': 'HeaveMisses', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612760, 'stat_key': 'LongMidRangeAssists', 'stat_value': 1} in results
@@ -646,7 +648,7 @@ class TestFullGamePossessions:
         assert {'opponent_team_id': 1610612764, 'stat_key': 'FTOffRebounded', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': 'FTOffReboundedOpportunities', 'stat_value': 4} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': 'FTOffRebounds', 'stat_value': 1} in results
-        assert {'opponent_team_id': 1610612764, 'stat_key': 'FtsMade', 'stat_value': 22} in results
+        assert {'opponent_team_id': 1610612764, 'stat_key': 'FtsMade', 'stat_value': 21} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': 'FtsMissed', 'stat_value': 9} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': 'LongMidRangeAssists', 'stat_value': 1} in results
         assert {'opponent_team_id': 1610612764, 'stat_key': 'LongMidRangeDefReboundOpportunities', 'stat_value': 9} in results
@@ -711,7 +713,8 @@ class TestFullGamePossessions:
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondsPlayedDef', 'stat_value': 1288.0} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'SecondsPlayedOff', 'stat_value': 1179.0} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'PlusMinus', 'stat_value': 4} in results
-        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'FtsMade', 'stat_value': 10} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'FtsMade', 'stat_value': 9} in results
+        assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'TechFtsMade', 'stat_value': 1} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'AssistedAtRim', 'stat_value': 2} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'AssistedShortMidRange', 'stat_value': 1} in results
         assert {'player_id': 201566, 'team_id': 1610612760, 'stat_key': 'UnassistedArc3', 'stat_value': 1} in results

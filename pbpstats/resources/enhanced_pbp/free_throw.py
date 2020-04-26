@@ -216,6 +216,8 @@ class FreeThrow(metaclass=abc.ABCMeta):
                 free_throw_key = pbpstats.FT_2_PT_MADE_STRING
             elif self.ft_1pt:
                 free_throw_key = pbpstats.FT_1_PT_MADE_STRING
+            elif self.technical_ft:
+                free_throw_key = pbpstats.TECHNICAL_FTS_MADE_STRING
             else:
                 free_throw_key = pbpstats.FTS_MADE_STRING
             points = self.shot_value
