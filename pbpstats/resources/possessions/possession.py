@@ -145,7 +145,7 @@ class Possession(object):
                 return pbpstats.OFF_DEADBALL_STRING
             missed_shot = previous_possession_ending_event.missed_shot
             shot_type = missed_shot.shot_type
-            if hasattr(missed_shot, 'is_blocked_shot') and missed_shot.is_blocked_shot:
+            if hasattr(missed_shot, 'blocked') and missed_shot.blocked:
                 return f'Off{shot_type}{pbpstats.BLOCK_STRING}'
             return f'Off{shot_type}{pbpstats.MISS_STRING}'
 
