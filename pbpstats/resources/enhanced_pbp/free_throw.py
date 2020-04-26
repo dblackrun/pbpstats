@@ -209,6 +209,7 @@ class FreeThrow(metaclass=abc.ABCMeta):
         team_ids = list(self.current_players.keys())
         is_penalty_event = self.is_penalty_event()
         is_second_chance_event = self.is_second_chance_event()
+        lineup_ids = self.event_for_efficiency_stats.lineup_ids
         if self.made:
             if self.ft_3pt:
                 free_throw_key = pbpstats.FT_3_PT_MADE_STRING
@@ -234,7 +235,6 @@ class FreeThrow(metaclass=abc.ABCMeta):
                     stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': final_minute_take_foul_stat_key, 'stat_value': 1})
 
             # add plus minus and opponent points - used for lineup/wowy stats to get net rating
-            plus_minus_lineup_ids = self.event_for_efficiency_stats.lineup_ids
             for team_id, players in self.event_for_efficiency_stats.current_players.items():
                 multiplier = 1 if team_id == self.team_id else -1
                 opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
@@ -243,8 +243,8 @@ class FreeThrow(metaclass=abc.ABCMeta):
                         'player_id': player_id,
                         'team_id': team_id,
                         'opponent_team_id': opponent_team_id,
-                        'lineup_id': plus_minus_lineup_ids[team_id],
-                        'opponent_lineup_id': plus_minus_lineup_ids[opponent_team_id],
+                        'lineup_id': lineup_ids[team_id],
+                        'opponent_lineup_id': lineup_ids[opponent_team_id],
                         'stat_key': pbpstats.PLUS_MINUS_STRING,
                         'stat_value': points * multiplier,
                     }
@@ -254,8 +254,8 @@ class FreeThrow(metaclass=abc.ABCMeta):
                             'player_id': player_id,
                             'team_id': team_id,
                             'opponent_team_id': opponent_team_id,
-                            'lineup_id': plus_minus_lineup_ids[team_id],
-                            'opponent_lineup_id': plus_minus_lineup_ids[opponent_team_id],
+                            'lineup_id': lineup_ids[team_id],
+                            'opponent_lineup_id': lineup_ids[opponent_team_id],
                             'stat_key': pbpstats.OPPONENT_POINTS,
                             'stat_value': points,
                         }
@@ -310,12 +310,11 @@ class FreeThrow(metaclass=abc.ABCMeta):
                     stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': final_minute_take_foul_stat_key, 'stat_value': 1})
 
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
-        lineups_ids = self.lineup_ids
         for stat in stats:
             if 'lineup_id' not in stat.keys():
                 opponent_team_id = team_ids[0] if stat['team_id'] == team_ids[1] else team_ids[1]
-                stat['lineup_id'] = lineups_ids[stat['team_id']]
+                stat['lineup_id'] = lineup_ids[stat['team_id']]
                 stat['opponent_team_id'] = opponent_team_id
-                stat['opponent_lineup_id'] = lineups_ids[opponent_team_id]
+                stat['opponent_lineup_id'] = lineup_ids[opponent_team_id]
 
         return self.base_stats + stats
