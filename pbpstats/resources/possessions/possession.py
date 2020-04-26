@@ -159,7 +159,7 @@ class Possession(object):
 
     @property
     def previous_possession_end_shooter_player_id(self):
-        if self.previous_possession is not None:
+        if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
             if isinstance(previous_possession_ending_event, FieldGoal) and previous_possession_ending_event.made:
                 return previous_possession_ending_event.player1_id
@@ -171,7 +171,7 @@ class Possession(object):
 
     @property
     def previous_possession_end_rebound_player_id(self):
-        if self.previous_possession is not None:
+        if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
             if isinstance(previous_possession_ending_event, Rebound):
                 if previous_possession_ending_event.player1_id != 0:
@@ -180,7 +180,7 @@ class Possession(object):
 
     @property
     def previous_possession_end_turnover_player_id(self):
-        if self.previous_possession is not None:
+        if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
             if isinstance(previous_possession_ending_event, Turnover):
                 if previous_possession_ending_event.is_steal:
@@ -189,7 +189,7 @@ class Possession(object):
 
     @property
     def previous_possession_end_steal_player_id(self):
-        if self.previous_possession is not None:
+        if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
             if isinstance(previous_possession_ending_event, Turnover):
                 if previous_possession_ending_event.is_steal:
