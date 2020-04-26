@@ -36,51 +36,33 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
         """
         for possession in self.items:
             if possession.previous_possession is not None:
-                if possession.offense_team_id == possession.previous_possession.offense_team_id:
-                    if not (
-                        self.game_id in self.bad_pbp_cases.keys() and
-                        possession.period in self.bad_pbp_cases[self.game_id].keys() and
-                        possession.number in self.bad_pbp_cases[self.game_id][possession.period]
-                    ):
-                        ignore_because_of_flagrant = False
-                        events_to_check = [event for event in possession.previous_possession.events]
-                        if possession.previous_possession.previous_possession is not None:
-                            events_to_check += possession.previous_possession.previous_possession.events
-                        for event in events_to_check:
-                            if isinstance(event, Foul) and event.is_flagrant:
-                                ignore_because_of_flagrant = True
+                poss = possession
+                prev_poss = possession.previous_possession
+            elif possession.next_possession is not None:
+                poss = possession.next_possession
+                prev_poss = possession
+            if poss.offense_team_id == prev_poss.offense_team_id:
+                if not (
+                    self.game_id in self.bad_pbp_cases.keys() and
+                    poss.period in self.bad_pbp_cases[self.game_id].keys() and
+                    poss.number in self.bad_pbp_cases[self.game_id][poss.period]
+                ):
+                    ignore_because_of_flagrant = False
+                    events_to_check = [event for event in prev_poss.events]
+                    if prev_poss.previous_possession is not None:
+                        events_to_check += prev_poss.previous_possession.events
+                    for event in events_to_check:
+                        if isinstance(event, Foul) and event.is_flagrant:
+                            ignore_because_of_flagrant = True
 
-                        if not ignore_because_of_flagrant:
-                            exception_text = (
-                                f'GameId: {possession.game_id}, Period: {possession.period}, '
-                                f'Number: {possession.number}, Events: {possession.events}, '
-                                f'Previous Events: {possession.previous_possession.events}>'
-                            )
+                    if not ignore_because_of_flagrant:
+                        exception_text = (
+                            f'GameId: {poss.game_id}, Period: {poss.period}, '
+                            f'Number: {poss.number}, Events: {poss.events}, '
+                            f'Previous Events: {prev_poss.events}>'
+                        )
 
-                            raise TeamHasBackToBackPossessionsException(exception_text)
-            if possession.next_possession is not None:
-                if possession.offense_team_id == possession.next_possession.offense_team_id:
-                    if not (
-                        self.game_id in self.bad_pbp_cases.keys() and
-                        possession.period in self.bad_pbp_cases[self.game_id].keys() and
-                        possession.next_possession.number in self.bad_pbp_cases[self.game_id][possession.period]
-                    ):
-                        ignore_because_of_flagrant = False
-                        events_to_check = [event for event in possession.events]
-                        if possession.previous_possession is not None:
-                            events_to_check += possession.previous_possession.events
-                        for event in events_to_check:
-                            if isinstance(event, Foul) and event.is_flagrant:
-                                ignore_because_of_flagrant = True
-
-                        if not ignore_because_of_flagrant:
-                            exception_text = (
-                                f'GameId: {possession.game_id}, Period: {possession.period}, '
-                                f'Number: {possession.next_possession.number}, Events: {possession.next_possession.events}, '
-                                f'Previous Events: {possession.events}>'
-                            )
-
-                            raise TeamHasBackToBackPossessionsException(exception_text)
+                        raise TeamHasBackToBackPossessionsException(exception_text)
 
     def _load_bad_possession_overrides(self):
         self.bad_pbp_cases = {}
