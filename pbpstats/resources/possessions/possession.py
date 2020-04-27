@@ -52,6 +52,20 @@ class Possession(object):
                 defense_points = points
         return offense_points - defense_points
 
+    def get_team_ids(self):
+        team_ids = list(set([event.team_id for event in self.events if event.team_id != 0]))
+        prev_poss = self.previous_possession
+        while len(team_ids) != 2 and prev_poss is not None:
+            team_ids += [event.team_id for event in prev_poss.events if event.team_id != 0]
+            team_ids = list(set(team_ids))
+            prev_poss = prev_poss.previous_possession
+        next_poss = self.next_possession
+        while len(team_ids) != 2 and next_poss is not None:
+            team_ids += [event.team_id for event in next_poss.events if event.team_id != 0]
+            team_ids = list(set(team_ids))
+            next_poss = next_poss.next_possession
+        return team_ids
+
     @property
     def offense_team_id(self):
         if len(self.events) == 1 and isinstance(self.events[0], JumpBall):
@@ -60,16 +74,16 @@ class Possession(object):
             # because team id on jump ball is team that won the jump ball
             prev_event = self.previous_possession_ending_event
             if isinstance(prev_event, Turnover) and not prev_event.is_no_turnover:
-                team_ids = [self.previous_possession.offense_team_id, self.previous_possession.previous_possession.offense_team_id]
+                team_ids = self.get_team_ids()
                 return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
             if isinstance(prev_event, Rebound) and prev_event.is_real_rebound:
                 if not prev_event.oreb:
-                    team_ids = list(set([event.team_id for event in self.events] + [event.team_id for event in self.previous_possession.events]))
+                    team_ids = self.get_team_ids()
                     return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
                 return prev_event.get_offense_team_id()
             if isinstance(prev_event, (FieldGoal, FreeThrow)):
                 if prev_event.made:
-                    team_ids = list(set([event.team_id for event in self.events] + [event.team_id for event in self.previous_possession.events]))
+                    team_ids = self.get_team_ids()
                     return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
                 return prev_event.get_offense_team_id()
         return self.events[0].get_offense_team_id()
