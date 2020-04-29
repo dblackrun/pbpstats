@@ -2,6 +2,10 @@ import abc
 import os
 import json
 
+from pbpstats import (
+    NBA_GAME_ID_PREFIX, G_LEAGUE_GAME_ID_PREFIX, WNBA_GAME_ID_PREFIX,
+    NBA_STRING, G_LEAGUE_STRING, WNBA_STRING
+)
 from pbpstats.overrides import IntDecoder
 from pbpstats.resources.enhanced_pbp.ejection import Ejection
 from pbpstats.resources.enhanced_pbp.end_of_period import EndOfPeriod
@@ -31,6 +35,19 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
         overrides EnhancedPbpItem current_players property
         """
         return self.period_starters
+
+    @property
+    def league(self):
+        """
+        First 2 in game id represent league
+        00 for nba, 10 for wnba, 20 for g-league
+        """
+        if self.game_id[0:2] == NBA_GAME_ID_PREFIX:
+            return NBA_STRING
+        elif self.game_id[0:2] == G_LEAGUE_GAME_ID_PREFIX:
+            return G_LEAGUE_STRING
+        elif self.game_id[0:2] == WNBA_GAME_ID_PREFIX:
+            return WNBA_STRING
 
     def get_team_starting_with_ball(self):
         if (self.period == 1 or self.period >= 5) and isinstance(self.next_event, JumpBall):
@@ -114,15 +131,15 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
                 with open(missing_period_starters_file_path) as f:
                     # hard code corrections for games with incorrect number of starters exceptions
                     missing_period_starters = json.loads(f.read(), cls=IntDecoder)
-
+                game_id = self.game_id if self.league == NBA_STRING else int(self.game_id)
                 if (
                     self.game_id in missing_period_starters.keys() and
-                    self.period in missing_period_starters[self.game_id].keys() and
-                    team_id in missing_period_starters[self.game_id][self.period].keys()
+                    self.period in missing_period_starters[game_id].keys() and
+                    team_id in missing_period_starters[game_id][self.period].keys()
                 ):
                     starters_by_team[team_id] = missing_period_starters[self.game_id][self.period][team_id]
                 else:
-                    raise InvalidNumberOfStartersException(f'GameId: {self.game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}')
+                    raise InvalidNumberOfStartersException(f'GameId: {game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}')
 
         return starters_by_team
 

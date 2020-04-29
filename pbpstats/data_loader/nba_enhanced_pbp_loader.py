@@ -2,6 +2,7 @@ import os
 import json
 from collections import defaultdict
 
+from pbpstats import NBA_STRING
 from pbpstats.overrides import IntDecoder
 from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
 from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
@@ -17,8 +18,9 @@ class NbaEnhancedPbpLoader(object):
     def _add_extra_attrs_to_all_events(self):
         start_period_indices = []
         self._load_possession_changing_event_overrides()
-        change_override_event_nums = self.possession_changing_event_overrides.get(self.game_id, [])
-        non_change_override_event_nums = self.non_possession_changing_event_overrides.get(self.game_id, [])
+        game_id = self.game_id if self.league == NBA_STRING else int(self.game_id)
+        change_override_event_nums = self.possession_changing_event_overrides.get(game_id, [])
+        non_change_override_event_nums = self.non_possession_changing_event_overrides.get(game_id, [])
         player_game_fouls = defaultdict(int)
         fouls_to_give = defaultdict(lambda: 4)
         score = defaultdict(int)
