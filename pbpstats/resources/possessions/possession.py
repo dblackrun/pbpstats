@@ -2,13 +2,7 @@ from itertools import groupby
 from operator import itemgetter
 
 import pbpstats
-from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
-from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
-from pbpstats.resources.enhanced_pbp.jump_ball import JumpBall
-from pbpstats.resources.enhanced_pbp.rebound import Rebound
-from pbpstats.resources.enhanced_pbp.substitution import Substitution
-from pbpstats.resources.enhanced_pbp.timeout import Timeout
-from pbpstats.resources.enhanced_pbp.turnover import Turnover
+from pbpstats.resources.enhanced_pbp import FieldGoal, FreeThrow, JumpBall, Rebound, Substitution, Timeout, Turnover
 
 
 class Possession(object):

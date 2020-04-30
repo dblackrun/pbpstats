@@ -9,7 +9,7 @@ from pbpstats.overrides import IntDecoder
 from pbpstats.data_loader.stats_nba.enhanced_pbp_loader import StatsNbaEnhancedPbpLoader
 from pbpstats.data_loader.nba_possession_loader import NbaPossessionLoader
 from pbpstats.resources.possessions.possession import Possession
-from pbpstats.resources.enhanced_pbp.foul import Foul
+from pbpstats.resources.enhanced_pbp import Foul
 
 
 class TeamHasBackToBackPossessionsException(Exception):

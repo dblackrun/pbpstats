@@ -1,5 +1,5 @@
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import StatsEnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.replay import Replay
+from pbpstats.resources.enhanced_pbp import Replay
 
 
 class StatsReplay(Replay, StatsEnhancedPbpItem):

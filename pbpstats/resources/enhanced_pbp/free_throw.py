@@ -1,7 +1,7 @@
 import abc
 
 import pbpstats
-from pbpstats.resources.enhanced_pbp.foul import Foul
+from pbpstats.resources.enhanced_pbp import Foul
 
 
 class FreeThrow(metaclass=abc.ABCMeta):

@@ -1,6 +1,5 @@
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import StatsEnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.rebound import Rebound
-from pbpstats.resources.enhanced_pbp.turnover import Turnover
+from pbpstats.resources.enhanced_pbp import Rebound, Turnover
 
 
 class StatsRebound(Rebound, StatsEnhancedPbpItem):

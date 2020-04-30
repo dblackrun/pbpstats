@@ -1,5 +1,5 @@
 from pbpstats.resources.enhanced_pbp.data_nba.enhanced_pbp_item import DataEnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.substitution import Substitution
+from pbpstats.resources.enhanced_pbp import Substitution
 
 
 class DataSubstitution(Substitution, DataEnhancedPbpItem):

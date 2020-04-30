@@ -1,5 +1,5 @@
 import pbpstats
-from pbpstats.resources.enhanced_pbp.substitution import Substitution
+from pbpstats.resources.enhanced_pbp import Substitution
 
 
 class Turnover(object):

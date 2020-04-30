@@ -4,14 +4,7 @@ import requests
 
 from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
-from pbpstats.resources.enhanced_pbp.foul import Foul
-from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
-from pbpstats.resources.enhanced_pbp.jump_ball import JumpBall
-from pbpstats.resources.enhanced_pbp.rebound import Rebound
-from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
-from pbpstats.resources.enhanced_pbp.turnover import Turnover
-from pbpstats.resources.enhanced_pbp.violation import Violation
+from pbpstats.resources.enhanced_pbp import FieldGoal, Foul, FreeThrow, JumpBall, Rebound, StartOfPeriod, Turnover, Violation
 
 
 KEY_ATTR_MAPPER = {

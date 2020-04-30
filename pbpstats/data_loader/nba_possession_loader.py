@@ -1,4 +1,4 @@
-from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
+from pbpstats.resources.enhanced_pbp import StartOfPeriod
 
 
 class NbaPossessionLoader(object):

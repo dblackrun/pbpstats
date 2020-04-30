@@ -4,10 +4,7 @@ from collections import defaultdict
 
 from pbpstats import NBA_STRING
 from pbpstats.overrides import IntDecoder
-from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
-from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
-from pbpstats.resources.enhanced_pbp.foul import Foul
-from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
+from pbpstats.resources.enhanced_pbp import FieldGoal, Foul, FreeThrow, StartOfPeriod
 
 
 class NbaEnhancedPbpLoader(object):

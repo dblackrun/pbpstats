@@ -1,7 +1,5 @@
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import StatsEnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.jump_ball import JumpBall
-from pbpstats.resources.enhanced_pbp.turnover import Turnover
-from pbpstats.resources.enhanced_pbp.foul import Foul
+from pbpstats.resources.enhanced_pbp import JumpBall, Turnover, Foul
 
 
 class StatsJumpBall(JumpBall, StatsEnhancedPbpItem):

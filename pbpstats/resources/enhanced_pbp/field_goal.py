@@ -1,10 +1,7 @@
 import math
 
 import pbpstats
-from pbpstats.resources.enhanced_pbp.foul import Foul
-from pbpstats.resources.enhanced_pbp.free_throw import FreeThrow
-from pbpstats.resources.enhanced_pbp.turnover import Turnover
-from pbpstats.resources.enhanced_pbp.violation import Violation
+from pbpstats.resources.enhanced_pbp import Foul, FreeThrow, Turnover, Violation
 
 
 class FieldGoal(object):

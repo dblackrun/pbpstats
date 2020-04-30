@@ -1,5 +1,5 @@
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import StatsEnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
+from pbpstats.resources.enhanced_pbp import FieldGoal
 
 
 class StatsFieldGoal(FieldGoal, StatsEnhancedPbpItem):

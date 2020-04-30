@@ -1,7 +1,7 @@
 from collections import defaultdict
 
 from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod
+from pbpstats.resources.enhanced_pbp import StartOfPeriod
 
 KEY_ATTR_MAPPER = {
     'evt': 'event_num',

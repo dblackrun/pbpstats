@@ -6,7 +6,7 @@ from pbpstats import (
 )
 from pbpstats import HEADERS, REQUEST_TIMEOUT
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import StatsEnhancedPbpItem
-from pbpstats.resources.enhanced_pbp.start_of_period import StartOfPeriod, InvalidNumberOfStartersException
+from pbpstats.resources.enhanced_pbp import StartOfPeriod, InvalidNumberOfStartersException
 
 
 class StatsStartOfPeriod(StartOfPeriod, StatsEnhancedPbpItem):

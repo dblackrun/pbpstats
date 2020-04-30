@@ -2,7 +2,7 @@ from pbpstats.data_loader.stats_nba.pbp_loader import StatsNbaPbpLoader
 from pbpstats.data_loader.stats_nba.shots_loader import StatsNbaShotsLoader
 from pbpstats.data_loader.nba_enhanced_pbp_loader import NbaEnhancedPbpLoader
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_factory import StatsNbaEnhancedPbpFactory
-from pbpstats.resources.enhanced_pbp.field_goal import FieldGoal
+from pbpstats.resources.enhanced_pbp import FieldGoal
 from pbpstats.resources.enhanced_pbp.rebound import EventOrderError
 
 
