@@ -79,11 +79,7 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
                             f'Number: {poss.number}, Events: {poss.events}, '
                             f'Previous Events: {prev_poss.events}>'
                         )
-                        for event in prev_poss.events:
-                            print(event, event.get_offense_team_id(), event.is_possession_ending_event)
-                        print()
-                        for event in poss.events:
-                            print(event, event.get_offense_team_id(), event.is_possession_ending_event)
+
                         raise TeamHasBackToBackPossessionsException(exception_text)
 
     def _load_bad_possession_overrides(self):
