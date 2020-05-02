@@ -13,7 +13,7 @@ class NbaEnhancedPbpLoader(object):
     both DataNbaEnhancedPbpLoader and StatsNbaEnhancedPbpLoader should inherit this
     """
     def _add_extra_attrs_to_all_events(self):
-        start_period_indices = []
+        self.start_period_indices = []
         self._load_possession_changing_event_overrides()
         game_id = self.game_id if self.league == NBA_STRING else int(self.game_id)
         change_override_event_nums = self.possession_changing_event_overrides.get(game_id, [])
@@ -28,7 +28,7 @@ class NbaEnhancedPbpLoader(object):
             elif isinstance(event, StartOfPeriod) or i == 0:
                 event.previous_event = None
                 event.next_event = self.items[i + 1]
-                start_period_indices.append(i)
+                self.start_period_indices.append(i)
                 if event.period <= 4:
                     fouls_to_give = defaultdict(lambda: 4)
                 else:
@@ -68,7 +68,10 @@ class NbaEnhancedPbpLoader(object):
             event.non_possession_changing_override = event.event_num in non_change_override_event_nums
 
         # these need next and previous event to be added to all events
-        for i in start_period_indices:
+        self._set_period_start_items()
+
+    def _set_period_start_items(self):
+        for i in self.start_period_indices:
             team_id = self.items[i].get_team_starting_with_ball()
             self.items[i].team_starting_with_ball = team_id
             period_starters = self.items[i].get_period_starters(file_directory=self.file_directory)
