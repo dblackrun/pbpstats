@@ -48,7 +48,7 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
         else:
             # find team id on first shot, non technical ft or turnover
             next_event = self.next_event
-            while not (isinstance(next_event, (FieldGoal, Turnover)) or (isinstance(next_event, FreeThrow) and not next_event.technical_ft)):
+            while not (isinstance(next_event, (FieldGoal, Turnover)) or (isinstance(next_event, FreeThrow) and not next_event.is_technical_ft)):
                 next_event = next_event.next_event
             return next_event.team_id
 

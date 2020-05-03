@@ -7,7 +7,7 @@ class StatsFreeThrow(FreeThrow, StatsEnhancedPbpItem):
         super().__init__(*args)
 
     @property
-    def made(self):
+    def is_made(self):
         return 'MISS ' not in self.description
 
     def get_offense_team_id(self):

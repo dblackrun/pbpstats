@@ -10,10 +10,10 @@ class StatsFoul(Foul, StatsEnhancedPbpItem):
     def number_of_fta_for_foul(self):
         clock = self.clock
         event = self
-        while event is not None and event.clock == clock and not (hasattr(event, 'first_ft') and not event.technical_ft and self.team_id != event.team_id):
+        while event is not None and event.clock == clock and not (hasattr(event, 'is_first_ft') and not event.is_technical_ft and self.team_id != event.team_id):
             event = event.next_event
 
-        if event is not None and hasattr(event, 'first_ft') and not event.technical_ft and event.clock == clock and (not hasattr(self, 'player3_id') or self.player3_id == event.player1_id):
+        if event is not None and hasattr(event, 'is_first_ft') and not event.is_technical_ft and event.clock == clock and (not hasattr(self, 'player3_id') or self.player3_id == event.player1_id):
             # player3 id check is to make sure player who got fouled is player shooting free throws, prior to 2005-06 because foul drawning player isn't in pbp
             if 'of 1' in event.description:
                 return 1
@@ -24,10 +24,10 @@ class StatsFoul(Foul, StatsEnhancedPbpItem):
 
         # if we haven't found ft yet, try going backwards
         event = self
-        while event is not None and event.clock == clock and not (hasattr(event, 'first_ft') and not event.technical_ft and self.team_id != event.team_id):
+        while event is not None and event.clock == clock and not (hasattr(event, 'is_first_ft') and not event.is_technical_ft and self.team_id != event.team_id):
             event = event.previous_event
 
-        if event is not None and hasattr(event, 'first_ft') and not event.technical_ft and event.clock == clock and (not hasattr(self, 'player3_id') or self.player3_id == event.player1_id):
+        if event is not None and hasattr(event, 'is_first_ft') and not event.is_technical_ft and event.clock == clock and (not hasattr(self, 'player3_id') or self.player3_id == event.player1_id):
             # player3 id check is to make sure player who got fouled is player shooting free throws, prior to 2005-06 because foul drawning player isn't in pbp
             if 'of 1' in event.description:
                 return 1

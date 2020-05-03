@@ -76,7 +76,7 @@ class Possession(object):
                     return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
                 return prev_event.get_offense_team_id()
             if isinstance(prev_event, (FieldGoal, FreeThrow)):
-                if prev_event.made:
+                if prev_event.is_made:
                     team_ids = self.get_team_ids()
                     return team_ids[0] if team_ids[1] == prev_event.get_offense_team_id() else team_ids[1]
                 return prev_event.get_offense_team_id()
@@ -92,7 +92,7 @@ class Possession(object):
                 # timeout is not at possession end time
                 if not (
                     event.next_event is not None and
-                    (isinstance(event.next_event, FreeThrow) and not event.next_event.technical_ft) and
+                    (isinstance(event.next_event, FreeThrow) and not event.next_event.is_technical_ft) and
                     event.clock == event.next_event.clock
                 ):
                     # check to make sure timeout is not between/before FTs
@@ -140,7 +140,7 @@ class Possession(object):
         if self.possession_has_timeout or self.previous_possession_has_timeout:
             return pbpstats.OFF_TIMEOUT_STRING
         previous_possession_ending_event = self.previous_possession_ending_event
-        if isinstance(previous_possession_ending_event, (FieldGoal, FreeThrow)) and previous_possession_ending_event.made:
+        if isinstance(previous_possession_ending_event, (FieldGoal, FreeThrow)) and previous_possession_ending_event.is_made:
             shot_type = previous_possession_ending_event.shot_type
             return f'Off{shot_type}{pbpstats.MAKE_STRING}'
         if isinstance(previous_possession_ending_event, Turnover):
@@ -153,7 +153,7 @@ class Possession(object):
                 return pbpstats.OFF_DEADBALL_STRING
             missed_shot = previous_possession_ending_event.missed_shot
             shot_type = missed_shot.shot_type
-            if hasattr(missed_shot, 'blocked') and missed_shot.blocked:
+            if hasattr(missed_shot, 'is_blocked') and missed_shot.is_blocked:
                 return f'Off{shot_type}{pbpstats.BLOCK_STRING}'
             return f'Off{shot_type}{pbpstats.MISS_STRING}'
 
@@ -169,7 +169,7 @@ class Possession(object):
     def previous_possession_end_shooter_player_id(self):
         if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
-            if isinstance(previous_possession_ending_event, FieldGoal) and previous_possession_ending_event.made:
+            if isinstance(previous_possession_ending_event, FieldGoal) and previous_possession_ending_event.is_made:
                 return previous_possession_ending_event.player1_id
             if isinstance(previous_possession_ending_event, Rebound):
                 if previous_possession_ending_event.player1_id != 0:

@@ -42,42 +42,42 @@ def test_made_true():
     event = {'EVENTNUM': 21, 'PCTIMESTRING': '09:31', 'VISITORDESCRIPTION': "Bogdanovic 2' Driving Layup (2 PTS)", 'EVENTMSGACTIONTYPE': 42, 'EVENTMSGTYPE': 1, 'PLAYER1_ID': 202711, 'PLAYER1_TEAM_ID': 1610612751, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     fg_event = StatsFieldGoal(event, order)
-    assert fg_event.made is True
+    assert fg_event.is_made is True
 
 
 def test_made_false():
     event = {'EVENTNUM': 14, 'PCTIMESTRING': '10:34', 'VISITORDESCRIPTION': "MISS Bogdanovic 2' Layup", 'EVENTMSGACTIONTYPE': 5, 'EVENTMSGTYPE': 2, 'PLAYER1_ID': 202711, 'PLAYER1_TEAM_ID': 1610612751, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     fg_event = StatsFieldGoal(event, order)
-    assert fg_event.made is False
+    assert fg_event.is_made is False
 
 
 def test_blocked_true():
     event = {'EVENTNUM': 59, 'PCTIMESTRING': '05:27', 'HOMEDESCRIPTION': "MISS Porzingis 3' Layup", 'VISITORDESCRIPTION': "Lopez BLOCK (1 BLK)", 'EVENTMSGACTIONTYPE': 5, 'EVENTMSGTYPE': 2, 'PLAYER1_ID': 204001, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': 201572, 'PLAYER3_TEAM_ID': 1610612751}
     order = 1
     fg_event = StatsFieldGoal(event, order)
-    assert fg_event.blocked is True
+    assert fg_event.is_blocked is True
 
 
 def test_blocked_false():
     event = {'EVENTNUM': 61, 'PCTIMESTRING': '05:21', 'VISITORDESCRIPTION': "MISS Hollis-Jefferson 1' Layup", 'EVENTMSGACTIONTYPE': 5, 'EVENTMSGTYPE': 2, 'PLAYER1_ID': 1626178, 'PLAYER1_TEAM_ID': 1610612751, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     fg_event = StatsFieldGoal(event, order)
-    assert fg_event.blocked is False
+    assert fg_event.is_blocked is False
 
 
 def test_assisted_true():
     event = {'EVENTNUM': 20, 'PCTIMESTRING': '09:57', 'HOMEDESCRIPTION': 'Rose  3PT Jump Shot (5 PTS) (Anthony 1 AST)', 'EVENTMSGACTIONTYPE': 1, 'EVENTMSGTYPE': 1, 'PLAYER1_ID': 201565, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': 2546, 'PLAYER2_TEAM_ID': 1610612752, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     fg_event = StatsFieldGoal(event, order)
-    assert fg_event.assisted is True
+    assert fg_event.is_assisted is True
 
 
 def test_assisted_false():
     event = {'EVENTNUM': 21, 'PCTIMESTRING': '09:31', 'VISITORDESCRIPTION': "Bogdanovic 2' Driving Layup (2 PTS)", 'EVENTMSGACTIONTYPE': 42, 'EVENTMSGTYPE': 1, 'PLAYER1_ID': 202711, 'PLAYER1_TEAM_ID': 1610612751, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     fg_event = StatsFieldGoal(event, order)
-    assert fg_event.assisted is False
+    assert fg_event.is_assisted is False
 
 
 def test_rebound_event_on_miss():
@@ -241,7 +241,7 @@ def test_putback_true():
     rebound_event.next_event = make_event
     make_event.previous_event = rebound_event
     make_event.next_event = None
-    assert make_event.putback is True
+    assert make_event.is_putback is True
 
 
 def test_putback_outside_time_cutoff_false():
@@ -260,7 +260,7 @@ def test_putback_outside_time_cutoff_false():
     rebound_event.next_event = make_event
     make_event.previous_event = rebound_event
     make_event.next_event = None
-    assert make_event.putback is False
+    assert make_event.is_putback is False
 
 
 def test_putback_reb_by_different_player_false():
@@ -279,7 +279,7 @@ def test_putback_reb_by_different_player_false():
     rebound_event.next_event = make_event
     make_event.previous_event = rebound_event
     make_event.next_event = None
-    assert make_event.putback is False
+    assert make_event.is_putback is False
 
 
 def test_putback_goaltend_true():
@@ -303,14 +303,14 @@ def test_putback_goaltend_true():
     goaltend_event.next_event = make_event
     make_event.previous_event = goaltend_event
     make_event.next_event = None
-    assert make_event.putback is True
+    assert make_event.is_putback is True
 
 
 def test_putback_3pt_false():
     event = {'EVENTNUM': 20, 'PCTIMESTRING': '09:57', 'HOMEDESCRIPTION': 'Rose  3PT Jump Shot (5 PTS) (Anthony 1 AST)', 'EVENTMSGACTIONTYPE': 1, 'EVENTMSGTYPE': 1, 'PLAYER1_ID': 201565, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': 2546, 'PLAYER2_TEAM_ID': 1610612752, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     fg_event = StatsFieldGoal(event, order)
-    assert fg_event.putback is False
+    assert fg_event.is_putback is False
 
 
 def test_putback_no_prev_event_false():
@@ -318,7 +318,7 @@ def test_putback_no_prev_event_false():
     order = 1
     fg_event = StatsFieldGoal(event, order)
     fg_event.previous_event = None
-    assert fg_event.putback is False
+    assert fg_event.is_putback is False
 
 
 def test_and1_shot_at_time_of_and1_ft_is_false():

@@ -8,20 +8,20 @@ class FieldGoal(object):
     event_type = [1, 2]
 
     @property
-    def made(self):
+    def is_made(self):
         return self.event_type == 1
 
     @property
-    def blocked(self):
-        return not self.made and hasattr(self, 'player3_id')
+    def is_blocked(self):
+        return not self.is_made and hasattr(self, 'player3_id')
 
     @property
-    def assisted(self):
-        return self.made and hasattr(self, 'player2_id')
+    def is_assisted(self):
+        return self.is_made and hasattr(self, 'player2_id')
 
     @property
     def rebound(self):
-        if not self.made and self.next_event.is_real_rebound:
+        if not self.is_made and self.next_event.is_real_rebound:
             return self.next_event
         return None
 
@@ -72,8 +72,8 @@ class FieldGoal(object):
             return pbpstats.LONG_MID_RANGE_STRING
 
     @property
-    def putback(self):
-        if self.assisted or self.shot_value == 3:
+    def is_putback(self):
+        if self.is_assisted or self.shot_value == 3:
             return False
         prev_evt = self.previous_event
         if prev_evt is None:
@@ -105,23 +105,23 @@ class FieldGoal(object):
             'OpponentTeamId': opponent_team_id,
             'LineupId': self.lineup_ids[self.team_id],
             'OpponentLineupId': self.lineup_ids[opponent_team_id],
-            'Made': self.made,
+            'Made': self.is_made,
             'X': self.locX,
             'Y': self.locY,
             'Time': self.seconds_remaining,
             'ShotValue': self.shot_value,
-            'Putback': self.putback,
+            'Putback': self.is_putback,
             'ShotType': self.shot_type,
             'ScoreMargin': self.score_margin,
             'EventNum': self.event_num
         }
-        if self.made:
-            shot_data['Assisted'] = self.assisted
-            if self.assisted:
+        if self.is_made:
+            shot_data['Assisted'] = self.is_assisted
+            if self.is_assisted:
                 shot_data['AssistPlayerId'] = self.player2_id
-        if not self.made:
-            shot_data['Blocked'] = self.blocked
-            if self.blocked:
+        if not self.is_made:
+            shot_data['Blocked'] = self.is_blocked
+            if self.is_blocked:
                 shot_data['BlockPlayerId'] = self.player3_id
         if self.is_second_chance_event():
             prev_event = self.previous_event
@@ -132,9 +132,9 @@ class FieldGoal(object):
             shot_data['OrebReboundPlayerId'] = prev_event.player1_id
             if prev_event.player1_id != 0:
                 rebound_shot_type = prev_event.missed_shot.shot_type
-                if isinstance(prev_event, FieldGoal) and prev_event.missed_shot.blocked:
+                if isinstance(prev_event, FieldGoal) and prev_event.missed_shot.is_blocked:
                     rebound_shot_type += pbpstats.BLOCKED_STRING
-            elif isinstance(prev_event, FieldGoal) and prev_event.missed_shot.blocked:
+            elif isinstance(prev_event, FieldGoal) and prev_event.missed_shot.is_blocked:
                 # separate blocked from non blocked because blocked won't have shot clock reset
                 rebound_shot_type = 'TeamBlocked'
             else:
@@ -169,13 +169,13 @@ class FieldGoal(object):
 
             other_makes_at_time_of_shot = []
             for event in events_at_shot_time:
-                if isinstance(event, FieldGoal) and event.event_num != self.event_num and event.made and self.team_id == event.team_id:
+                if isinstance(event, FieldGoal) and event.event_num != self.event_num and event.is_made and self.team_id == event.team_id:
                     other_makes_at_time_of_shot.append(event)
             if shooter_team_id != foul_team_team_id:
                 # check FT 1 of 1s at time of shot
                 ft_1_of_1s_at_time_of_shot = []
                 for event in events_at_shot_time:
-                    if isinstance(event, FreeThrow) and (event.ft_1_of_1 or event.ft_1pt) and not event.technical_ft:
+                    if isinstance(event, FreeThrow) and (event.is_ft_1_of_1 or event.is_ft_1pt) and not event.is_technical_ft:
                         ft_1_of_1s_at_time_of_shot.append(event)
 
                 if len(other_makes_at_time_of_shot) == 1 and len(ft_1_of_1s_at_time_of_shot) == 1:
@@ -197,7 +197,7 @@ class FieldGoal(object):
         elif shooter_team_id not in [event.team_id for event in fouls_at_time_of_shot]:
             ft_1_of_1s_at_time_of_shot = []
             for event in events_at_shot_time:
-                if isinstance(event, FreeThrow) and (event.ft_1_of_1 or event.ft_1pt) and not event.technical_ft:
+                if isinstance(event, FreeThrow) and (event.is_ft_1_of_1 or event.is_ft_1pt) and not event.is_technical_ft:
                     ft_1_of_1s_at_time_of_shot.append(event)
 
             if len(ft_1_of_1s_at_time_of_shot) == 1:
@@ -229,14 +229,14 @@ class FieldGoal(object):
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.TOTAL_3PT_SHOT_DISTANCE_STRING, 'stat_value': self.distance})
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.TOTAL_3PT_SHOTS_WITH_DISTANCE, 'stat_value': 1})
                 if self.is_heave:
-                    if self.made:
+                    if self.is_made:
                         stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.HEAVE_MAKES_STRING, 'stat_value': 1})
                     else:
                         stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.HEAVE_MISSES_STRING, 'stat_value': 1})
 
         team_ids = list(self.current_players.keys())
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
-        if self.made and not self.assisted:
+        if self.is_made and not self.is_assisted:
             stat_key = f'{pbpstats.UNASSISTED_STRING}{self.shot_type}'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': stat_key, 'stat_value': 1})
             if is_second_chance_event:
@@ -245,9 +245,9 @@ class FieldGoal(object):
             if is_penalty_event:
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{stat_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
-            if self.putback:
+            if self.is_putback:
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': pbpstats.PUTBACKS_STRING, 'stat_value': 1})
-        elif self.assisted:
+        elif self.is_assisted:
             scorer_key = f'{pbpstats.ASSISTED_STRING}{self.shot_type}'
             assist_key = f'{self.shot_type}{pbpstats.ASSISTS_STRING}'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': scorer_key, 'stat_value': 1})
@@ -264,7 +264,7 @@ class FieldGoal(object):
                 stats.append({'player_id': self.player2_id, 'team_id': self.team_id, 'stat_key': penalty_assist_key, 'stat_value': 1})
             assist_to_key = f'{self.player2_id}:AssistsTo:{self.player1_id}:{self.shot_type}'
             stats.append({'player_id': self.player2_id, 'team_id': self.team_id, 'stat_key': assist_to_key, 'stat_value': 1})
-        elif self.blocked:
+        elif self.is_blocked:
             shot_key = f'{self.shot_type}{pbpstats.BLOCKED_STRING}'
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': shot_key, 'stat_value': 1})
             block_key = f'{pbpstats.BLOCKED_STRING}{self.shot_type}'
@@ -289,7 +289,7 @@ class FieldGoal(object):
                 penalty_stat_key = f'{pbpstats.PENALTY_STRING}{stat_key}'
                 stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': penalty_stat_key, 'stat_value': 1})
 
-        if self.made:
+        if self.is_made:
             # add plus minus and opponent points - used for lineup/wowy stats to get net rating
             for team_id, players in self.current_players.items():
                 multiplier = 1 if team_id == self.team_id else -1

@@ -16,7 +16,7 @@ class EnhancedPbp(Base):
 
     @property
     def fgms(self):
-        return [item for item in self.items if isinstance(item, FieldGoal) and item.made]
+        return [item for item in self.items if isinstance(item, FieldGoal) and item.is_made]
 
     @property
     def ftas(self):

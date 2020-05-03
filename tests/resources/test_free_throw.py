@@ -9,7 +9,7 @@ def test_data_made_free_throw():
     period = 1
     game_id = '0021900001'
     event = DataFreeThrow(item, period, game_id)
-    assert event.made is True
+    assert event.is_made is True
 
 
 def test_data_missed_free_throw():
@@ -17,42 +17,42 @@ def test_data_missed_free_throw():
     period = 1
     game_id = '0021900001'
     event = DataFreeThrow(item, period, game_id)
-    assert event.made is False
+    assert event.is_made is False
 
 
 def test_stats_made_free_throw():
     item = {'EVENTNUM': 110, 'PCTIMESTRING': '01:09', 'HOMEDESCRIPTION': "O'Quinn Free Throw 2 of 2 (3 PTS)", 'EVENTMSGACTIONTYPE': 12, 'EVENTMSGTYPE': 3, 'PLAYER1_ID': 203124, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     event = StatsFreeThrow(item, order)
-    assert event.made is True
+    assert event.is_made is True
 
 
 def test_stats_missed_free_throw():
     item = {'EVENTNUM': 108, 'PCTIMESTRING': '01:09', 'HOMEDESCRIPTION': "MISS O'Quinn Free Throw 1 of 2", 'EVENTMSGACTIONTYPE': 11, 'EVENTMSGTYPE': 3, 'PLAYER1_ID': 203124, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     event = StatsFreeThrow(item, order)
-    assert event.made is False
+    assert event.is_made is False
 
 
 def test_ft_1_of_2():
     item = {'EVENTNUM': 108, 'PCTIMESTRING': '01:09', 'HOMEDESCRIPTION': "MISS O'Quinn Free Throw 1 of 2", 'EVENTMSGACTIONTYPE': 11, 'EVENTMSGTYPE': 3, 'PLAYER1_ID': 203124, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     event = StatsFreeThrow(item, order)
-    assert event.ft_1_of_2 is True
+    assert event.is_ft_1_of_2 is True
 
 
 def test_ft_1_of_3():
     item = {'EVENTNUM': 108, 'PCTIMESTRING': '01:09', 'HOMEDESCRIPTION': "MISS O'Quinn Free Throw 1 of 3", 'EVENTMSGACTIONTYPE': 13, 'EVENTMSGTYPE': 3, 'PLAYER1_ID': 203124, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     event = StatsFreeThrow(item, order)
-    assert event.ft_1_of_3 is True
+    assert event.is_ft_1_of_3 is True
 
 
 def test_ft_2_of_3():
     item = {'EVENTNUM': 108, 'PCTIMESTRING': '01:09', 'HOMEDESCRIPTION': "MISS O'Quinn Free Throw 2 of 3", 'EVENTMSGACTIONTYPE': 14, 'EVENTMSGTYPE': 3, 'PLAYER1_ID': 203124, 'PLAYER1_TEAM_ID': 1610612752, 'PLAYER2_ID': None, 'PLAYER2_TEAM_ID': None, 'PLAYER3_ID': None, 'PLAYER3_TEAM_ID': None}
     order = 1
     event = StatsFreeThrow(item, order)
-    assert event.ft_2_of_3 is True
+    assert event.is_ft_2_of_3 is True
 
 
 def test_num_ft_for_trip_is_3():

@@ -56,7 +56,7 @@ class Rebound(object):
         """
         example: rebound after missed flagrant FT 2 of 2
         """
-        if isinstance(self.missed_shot, FreeThrow) and not self.missed_shot.end_ft:
+        if isinstance(self.missed_shot, FreeThrow) and not self.missed_shot.is_end_ft:
             return True
         return False
 
@@ -93,7 +93,7 @@ class Rebound(object):
     @property
     def missed_shot(self):
         if isinstance(self.previous_event, (FieldGoal, FreeThrow)):
-            if not self.previous_event.made:
+            if not self.previous_event.is_made:
                 return self.previous_event
         elif isinstance(self.previous_event, Turnover) and self.previous_event.is_shot_clock_violation:
             if isinstance(self.previous_event, FieldGoal):
@@ -119,7 +119,7 @@ class Rebound(object):
         stats = []
         if self.is_real_rebound:
             shot_type = self.missed_shot.shot_type
-            if isinstance(self.missed_shot, FieldGoal) and self.missed_shot.blocked:
+            if isinstance(self.missed_shot, FieldGoal) and self.missed_shot.is_blocked:
                 if not self.oreb:
                     blocked_recovered_key = pbpstats.BLOCKED_STRING + shot_type + 'Recovered'
                     block_player_id = self.missed_shot.player3_id

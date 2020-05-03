@@ -152,7 +152,7 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
             # return True if there is a FT or FGM between now and end of period
             next_event = prev_event.next_event
             while next_event is not None:
-                if isinstance(next_event, FreeThrow) or (isinstance(next_event, FieldGoal) and next_event.made):
+                if isinstance(next_event, FreeThrow) or (isinstance(next_event, FieldGoal) and next_event.is_made):
                     return True
                 next_event = next_event.next_event
         return False

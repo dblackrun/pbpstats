@@ -116,7 +116,7 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
                 isinstance(event_to_check, (FieldGoal, JumpBall)) or
                 (isinstance(event_to_check, Turnover) and not event_to_check.is_no_turnover) or
                 (isinstance(event_to_check, Rebound) and event_to_check.is_real_rebound) or
-                (isinstance(event_to_check, FreeThrow) and not event_to_check.technical_ft)
+                (isinstance(event_to_check, FreeThrow) and not event_to_check.is_technical_ft)
             )
         ):
             event_to_check = event_to_check.previous_event
@@ -157,7 +157,7 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         if isinstance(self, Turnover) and not self.is_no_turnover:
             return True
 
-        if isinstance(self, FieldGoal) and self.made:
+        if isinstance(self, FieldGoal) and self.is_made:
             # no possession change on flagrant foul
             next_event_is_flagrant_drawn = (
                 isinstance(self.next_event, Foul) and
@@ -168,7 +168,7 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
             if not self.and1 and not next_event_is_flagrant_drawn:
                 return True
 
-        if isinstance(self, FreeThrow) and self.made and self.end_ft:
+        if isinstance(self, FreeThrow) and self.is_made and self.is_end_ft:
             next_event_is_foul_drawn_at_ft_time = (
                 isinstance(self.next_event, Foul) and
                 self.clock == self.next_event.clock and

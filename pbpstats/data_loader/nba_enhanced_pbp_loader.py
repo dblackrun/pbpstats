@@ -58,7 +58,7 @@ class NbaEnhancedPbpLoader(object):
                     fouls_to_give[event.team_id] -= 1
                 if event.counts_as_personal_foul:
                     player_game_fouls[event.player1_id] += 1
-            if isinstance(event, (FieldGoal, FreeThrow)) and event.made:
+            if isinstance(event, (FieldGoal, FreeThrow)) and event.is_made:
                 score[event.team_id] += event.shot_value
 
             event.fouls_to_give = fouls_to_give.copy()

@@ -7,5 +7,5 @@ class DataFreeThrow(FreeThrow, DataEnhancedPbpItem):
         super().__init__(*args)
 
     @property
-    def made(self):
+    def is_made(self):
         return ' Missed' not in self.description
