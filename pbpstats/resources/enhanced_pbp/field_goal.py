@@ -132,9 +132,9 @@ class FieldGoal(object):
             shot_data['OrebReboundPlayerId'] = prev_event.player1_id
             if prev_event.player1_id != 0:
                 rebound_shot_type = prev_event.missed_shot.shot_type
-                if isinstance(prev_event, FieldGoal) and prev_event.missed_shot.is_blocked:
+                if isinstance(prev_event.missed_shot, FieldGoal) and prev_event.missed_shot.is_blocked:
                     rebound_shot_type += pbpstats.BLOCKED_STRING
-            elif isinstance(prev_event, FieldGoal) and prev_event.missed_shot.is_blocked:
+            elif isinstance(prev_event.missed_shot, FieldGoal) and prev_event.missed_shot.is_blocked:
                 # separate blocked from non blocked because blocked won't have shot clock reset
                 rebound_shot_type = 'TeamBlocked'
             else:
