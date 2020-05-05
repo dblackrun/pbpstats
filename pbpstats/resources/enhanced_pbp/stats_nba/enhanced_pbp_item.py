@@ -165,7 +165,7 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
                 self.team_id != self.next_event.team_id and
                 self.clock == self.next_event.clock
             )
-            if not self.and1 and not next_event_is_flagrant_drawn:
+            if not self.is_make_that_does_not_end_possession and not next_event_is_flagrant_drawn:
                 return True
 
         if isinstance(self, FreeThrow) and self.is_made and self.is_end_ft:

@@ -143,9 +143,8 @@ class FieldGoal(object):
         return shot_data
 
     @property
-    def and1(self):
+    def is_make_that_does_not_end_possession(self):
         """
-        note that this will return true for plays where there is a foul away from the play at the time of the shot.
         this is to make sure possession does not end if there are still FTs to shoot
         to get true and1s need to check the shooter is the player who drew the foul
         """

@@ -321,7 +321,7 @@ def test_putback_no_prev_event_false():
     assert fg_event.is_putback is False
 
 
-def test_and1_shot_at_time_of_and1_ft_is_false():
+def test_is_make_that_does_not_end_possession_shot_at_time_of_and1_ft_is_false():
     make = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 15, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45', 'EVENTNUM': 1}
     order = 1
     make_event = StatsFieldGoal(make, order)
@@ -347,11 +347,11 @@ def test_and1_shot_at_time_of_and1_ft_is_false():
     rebound_event.next_event = tip_event
     tip_event.previous_event = rebound_event
     tip_event.next_event = None
-    assert make_event.and1 is True
-    assert tip_event.and1 is False
+    assert make_event.is_make_that_does_not_end_possession is True
+    assert tip_event.is_make_that_does_not_end_possession is False
 
 
-def test_and1_with_foul_out_of_order_true():
+def test_is_make_that_does_not_end_possession_with_foul_out_of_order_true():
     make = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 15, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45', 'EVENTNUM': 1}
     order = 1
     make_event = StatsFieldGoal(make, order)
@@ -367,10 +367,10 @@ def test_and1_with_foul_out_of_order_true():
     ft_event.next_event = foul_event
     foul_event.previous_event = ft_event
     foul_event.next_event = None
-    assert make_event.and1 is True
+    assert make_event.is_make_that_does_not_end_possession is True
 
 
-def test_and1_with_lane_violation_true():
+def test_is_make_that_does_not_end_possession_with_lane_violation_true():
     make = {'EVENTMSGTYPE': 1, 'EVENTMSGACTIONTYPE': 10, 'PLAYER1_ID': 15, 'PLAYER1_TEAM_ID': 1, 'HOMEDESCRIPTION': 'Made Shot', 'PCTIMESTRING': '0:45', 'EVENTNUM': 1}
     order = 1
     make_event = StatsFieldGoal(make, order)
@@ -386,4 +386,4 @@ def test_and1_with_lane_violation_true():
     foul_event.next_event = lane_violation_event
     lane_violation_event.previous_event = foul_event
     lane_violation_event.next_event = None
-    assert make_event.and1 is True
+    assert make_event.is_make_that_does_not_end_possession is True
