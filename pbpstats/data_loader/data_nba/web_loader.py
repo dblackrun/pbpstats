@@ -9,8 +9,11 @@ from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 
 class DataNbaWebLoader(AbsDataLoader):
     """
-    base class for loading data from data.nba.com
-    should not be called directly
+    Base class for loading data from data.nba.com API request.
+
+    All data.nba.com data loader classes should inherit from this class.
+
+    This class should not be instantiated directly.
     """
     def _load_request_data(self):
         response = requests.get(self.url)
@@ -23,8 +26,9 @@ class DataNbaWebLoader(AbsDataLoader):
     @property
     def league(self):
         """
-        First 2 in game id represent league
-        00 for nba, 10 for wnba, 20 for g-league
+        Returns League for game id.
+
+        First 2 in game id represent league - 00 for nba, 10 for wnba, 20 for g-league
         """
         if self.game_id[0:2] == NBA_GAME_ID_PREFIX:
             return NBA_STRING
@@ -36,7 +40,8 @@ class DataNbaWebLoader(AbsDataLoader):
     @property
     def season(self):
         """
-        season url part is year in which season starts
+        Returns year in which season starts for game id
+
         4th and 5th characters in game id represent season year
         ex. for 2016-17 season 4th and 5th characters would be 16 and season should return 2016
         """

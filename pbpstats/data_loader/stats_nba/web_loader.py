@@ -11,8 +11,11 @@ from pbpstats.data_loader.stats_nba.base import StatsNbaLoaderBase
 
 class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
     """
-    base class for loading data from stats.nba.com api endpoint
-    should not be called directly
+    Base class for loading data from data.nba.com API request.
+
+    All stats.nba.com data loader classes should inherit from this class.
+
+    This class should not be instantiated directly.
     """
     def _load_request_data(self):
         response = requests.get(self.base_url, self.parameters, headers=HEADERS, timeout=REQUEST_TIMEOUT)
@@ -24,13 +27,17 @@ class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
 
     @property
     def data(self):
+        """
+        returns data from response JSON as a list of dicts
+        """
         return self.make_list_of_dicts()
 
     @property
     def league(self):
         """
-        First 2 in game id represent league
-        00 for nba, 10 for wnba, 20 for g-league
+        Returns League for game id.
+
+        First 2 in game id represent league - 00 for nba, 10 for wnba, 20 for g-league
         """
         if self.game_id[0:2] == NBA_GAME_ID_PREFIX:
             return NBA_STRING
@@ -42,9 +49,11 @@ class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
     @property
     def season(self):
         """
+        Returns season for game id
+
         4th and 5th characters in game id represent season year
-        ex. for 2016-17 season 4th and 5th characters would be 16
-        for WNBA, season is just year, ex. 2016
+        ex. for 2016-17 season 4th and 5th characters would be 16 and season should return 2016-17
+        For WNBA just returns season year
         """
         digit4 = int(self.game_id[3])
         digit5 = int(self.game_id[4])
@@ -61,8 +70,9 @@ class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
     @property
     def season_type(self):
         """
-        3rd character in game id represent season type
-        2 for reg season, 4 for playoffs
+        Returns season type for game id
+
+        3rd character in game id represent season type - 2 for reg season, 4 for playoffs
         """
         if self.game_id[2] == "4":
             return PLAYOFFS_STRING

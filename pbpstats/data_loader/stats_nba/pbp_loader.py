@@ -1,3 +1,17 @@
+"""
+``StatsNbaPbpLoader`` loads pbp data for a game and
+creates :obj:`~pbpstats.resources.pbp.stats_nba_pbp_item.StatsNbaPbpItem` objects for each event
+
+The following code will load pbp data for game id "0021900001" from a file
+located in a subdirectory of the /data directory
+
+.. code-block:: python
+
+    from pbpstats.data_loader import StatsNbaPbpLoader
+
+    pbp_loader = StatsNbaPbpLoader("0021900001", "file", "/data")
+    print(pbp_loader.items[0].data)  # prints dict with the first event of the game
+"""
 import json
 import os
 
@@ -8,6 +22,18 @@ from pbpstats.resources.pbp.stats_nba_pbp_item import StatsNbaPbpItem
 
 
 class StatsNbaPbpLoader(StatsNbaWebLoader, StatsNbaFileLoader):
+    """
+    Loads stats.nba.com source pbp data for game.
+    Events are stored in items attribute
+    as :obj:`~pbpstats.resources.pbp.stats_nba_pbp_item.StatsNbaPbpItem` objects
+
+    :param str game_id: NBA Stats Game Id
+    :param str source: Where should data be loaded from. Options are 'web' or 'file'
+    :param str file_directory: (optional if source is 'web')
+        Directory in which data should be either stored (if source is web) or loaded from (if source is file).
+        The specific file location will be `stats_<game_id>.json` in the `/pbp` subdirectory.
+        If not provided response data will not be saved on disk.
+    """
     data_provider = 'stats_nba'
     resource = 'Pbp'
     parent_object = 'Game'

@@ -1,3 +1,18 @@
+"""
+``StatsNbaShotsLoader`` loads shot data for a game and
+creates :obj:`~pbpstats.resources.shots.stats_nba_shot.StatsNbaShot`
+objects for all shots
+
+The following code will load shot data for game id "0021900001" from
+a file located in a subdirectory of the /data directory
+
+.. code-block:: python
+
+    from pbpstats.data_loader import StatsNbaShotsLoader
+
+    shot_loader = StatsNbaShotsLoader("0021900001", "file", "/data")
+    print(shot_loader.items[0].data) # prints dict with data for one shot from game
+"""
 import json
 import os
 import requests
@@ -11,11 +26,24 @@ from pbpstats.resources.shots.stats_nba_shot import StatsNbaShot
 
 
 class StatsNbaShotsLoader(StatsNbaWebLoader, StatsNbaFileLoader):
+    """
+    Loads stats.nba.com source shot data for game.
+    Shots are stored in items attribute
+    as :obj:`~pbpstats.resources.shots.stats_nba_shot.StatsNbaShot` objects
+
+    :param str game_id: NBA Stats Game Id
+    :param str source: Where should data be loaded from. Options are 'web' or 'file'
+    :param str file_directory: (optional if source is 'web')
+        Directory in which data should be either stored (if source is web) or loaded from (if source is file).
+        The specific file location will be `stats_home_shots_<game_id>.json`
+        and `stats_away_shots_<game_id>.json` in the `/game_details` subdirectory.
+        If not provided response data will not be saved on disk.
+    """
     data_provider = 'stats_nba'
     resource = 'Shots'
     parent_object = 'Game'
 
-    def __init__(self, game_id, source, file_directory):
+    def __init__(self, game_id, source, file_directory=None):
         self.game_id = game_id
         self.source = source
         self.file_directory = file_directory
@@ -104,7 +132,10 @@ class StatsNbaShotsLoader(StatsNbaWebLoader, StatsNbaFileLoader):
 
     def make_list_of_dicts(self, results_set_index=0):
         """
-        creates list of dicts from data
+        Creates list of dicts from home and away source data
+
+        :param int results_set_index: Index results are in. Default is 0
+        :returns: list of dicts with shot data for all shots
         """
         headers = self.home_source_data['resultSets'][results_set_index]['headers']
         home_rows = self.home_source_data['resultSets'][results_set_index]['rowSet']

@@ -1,3 +1,18 @@
+"""
+``StatsNbaSummaryLoader`` loads summary data for a game and
+creates :obj:`~pbpstats.resources.games.stats_nba_game_item.StatsNbaGameItem`
+objects for game
+
+The following code will load summary data for game id "0021900001" from
+a file located in a subdirectory of the /data directory
+
+.. code-block:: python
+
+    from pbpstats.data_loader.stats_nba.summary_loader import StatsNbaSummaryLoader
+
+    summary_loader = StatsNbaSummaryLoader("0021900001", "file", "/data")
+    print(summary_loader.items[0].data) # prints game summary dict for game
+"""
 import json
 import os
 
@@ -8,11 +23,23 @@ from pbpstats.resources.games.stats_nba_game_item import StatsNbaGameItem
 
 
 class StatsNbaSummaryLoader(StatsNbaFileLoader, StatsNbaWebLoader):
+    """
+    Loads stats.nba.com source summary data for game.
+    Summary data is stored in items attribute
+    as :obj:`~pbpstats.resources.games.stats_nba_game_item.StatsNbaGameItem` objects
+
+    :param str game_id: NBA Stats Game Id
+    :param str source: Where should data be loaded from. Options are 'web' or 'file'
+    :param str file_directory: (optional if source is 'web')
+        Directory in which data should be either stored (if source is web) or loaded from (if source is file).
+        The specific file location will be `stats_summary_<game_id>.json` in the `/game_details` subdirectory.
+        If not provided response data will not be saved on disk.
+    """
     data_provider = 'stats_nba'
     resource = 'Games'
     parent_object = 'Game'
 
-    def __init__(self, game_id, source, file_directory):
+    def __init__(self, game_id, source, file_directory=None):
         self.game_id = game_id
         self.file_directory = file_directory
         self.source = source

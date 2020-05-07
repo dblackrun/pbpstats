@@ -9,10 +9,18 @@ from pbpstats.resources.enhanced_pbp import FieldGoal, Foul, FreeThrow, StartOfP
 
 class NbaEnhancedPbpLoader(object):
     """
-    class for shared methods between data and stats nba pbp loaders
-    both DataNbaEnhancedPbpLoader and StatsNbaEnhancedPbpLoader should inherit this
+    Class for shared methods between :obj:`~pbpstats.data_loader.data_nba.enhanced_pbp_loader.DataNbaEnhancedPbpLoader`
+    and :obj:`~pbpstats.data_loader.stats_nba.enhanced_pbp_loader.StatsNbaEnhancedPbpLoader`
+
+    Both :obj:`~pbpstats.data_loader.data_nba.enhanced_pbp_loader.DataNbaEnhancedPbpLoader`
+    and :obj:`~pbpstats.data_loader.stats_nba.enhanced_pbp_loader.StatsNbaEnhancedPbpLoader` should inherit from this class
+
+    This class should not be instantiated directly
     """
     def _add_extra_attrs_to_all_events(self):
+        """
+        adds fouls to give, player fouls, score, next event and previous event to each event
+        """
         self.start_period_indices = []
         self._load_possession_changing_event_overrides()
         game_id = self.game_id if self.league == NBA_STRING else int(self.game_id)
@@ -71,6 +79,9 @@ class NbaEnhancedPbpLoader(object):
         self._set_period_start_items()
 
     def _set_period_start_items(self):
+        """
+        sets team starting period with the ball and period starters for each team
+        """
         for i in self.start_period_indices:
             team_id = self.items[i].get_team_starting_with_ball()
             self.items[i].team_starting_with_ball = team_id
@@ -78,6 +89,9 @@ class NbaEnhancedPbpLoader(object):
             self.items[i].period_starters = period_starters
 
     def _load_possession_changing_event_overrides(self):
+        """
+        loads overrides for possession or non possession changing events
+        """
         if self.file_directory is not None:
             possession_changing_event_overrides_file_path = f'{self.file_directory}/overrides/possession_change_event_overrides.json'
             if os.path.isfile(possession_changing_event_overrides_file_path):

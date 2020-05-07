@@ -1,3 +1,17 @@
+"""
+``StatsNbaGameFinderLoader`` loads all games for a season and
+creates :obj:`~pbpstats.resources.games.stats_nba_game_item.StatsNbaGameItem`
+objects for each game
+
+The following code will load data for the 2019-20 NBA Regular Season
+
+.. code-block:: python
+
+    from pbpstats.data_loader import StatsNbaGameFinderLoader
+
+    game_finder_loader = StatsNbaGameFinderLoader("nba", "2019-20", "Regular Season", "web")
+    print(game_finder_loader.items[0].data) # prints dict for first game
+"""
 import json
 import os
 
@@ -12,9 +26,18 @@ from pbpstats.resources.games.stats_nba_game_item import StatsNbaGameItem
 
 class StatsNbaGameFinderLoader(StatsNbaFileLoader, StatsNbaWebLoader):
     """
-    Class for loading game finder data from stats.nba.com
-    data.nba.com schedule end point doesn't have data for older season
-    this is an easy way to get all games for a season
+    Loads stats.nba.com source data for season.
+    Games are stored in items attribute
+    as :obj:`~pbpstats.resources.games.stats_nba_game_item.StatsNbaGameItem` objects
+
+    :param str league: Options are 'nba', 'wnba' or 'gleague'
+    :param str season: Formatted as 2019-20 for NBA and G-League, 2019 of WNBA.
+    :param str season_type: Options are 'Regular Season' or 'Playoffs'
+    :param str source: Where should data be loaded from. Options are 'web' or 'file'
+    :param str file_directory: (optional if source is 'web')
+        Directory in which data should be either stored (if source is web) or loaded from (if source is file).
+        The specific file location will be `stats_<league>_<season>_<season_type>.json` in the `/schedule` subdirectory.
+        If not provided response data will not be saved on disk.
     """
     data_provider = 'stats_nba'
     resource = 'Games'
@@ -57,6 +80,11 @@ class StatsNbaGameFinderLoader(StatsNbaFileLoader, StatsNbaWebLoader):
 
     @property
     def league_id(self):
+        """
+        Returns League Id for league.
+
+        00 for nba, 10 for wnba, 20 for g-league
+        """
         if self.league_string == NBA_STRING:
             return NBA_GAME_ID_PREFIX
         elif self.league_string == WNBA_STRING:
