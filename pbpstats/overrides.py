@@ -13,7 +13,10 @@ class IntDecoder(json.JSONDecoder):
             except ValueError:
                 return o
         elif isinstance(o, dict):
-            return {convert_to_int_but_keep_game_id_string(k): self._decode(v) for k, v in o.items()}
+            return {
+                convert_to_int_but_keep_game_id_string(k): self._decode(v)
+                for k, v in o.items()
+            }
         elif isinstance(o, list):
             return [self._decode(v) for v in o]
         else:

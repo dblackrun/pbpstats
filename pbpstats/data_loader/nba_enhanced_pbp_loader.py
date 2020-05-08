@@ -9,15 +9,28 @@ from pbpstats.resources.enhanced_pbp import FieldGoal, Foul, FreeThrow, StartOfP
 
 class NbaEnhancedPbpLoader(object):
     """
-    class for shared methods between data and stats nba pbp loaders
-    both DataNbaEnhancedPbpLoader and StatsNbaEnhancedPbpLoader should inherit this
+    Class for shared methods between :obj:`~pbpstats.data_loader.data_nba.enhanced_pbp_loader.DataNbaEnhancedPbpLoader`
+    and :obj:`~pbpstats.data_loader.stats_nba.enhanced_pbp_loader.StatsNbaEnhancedPbpLoader`
+
+    Both :obj:`~pbpstats.data_loader.data_nba.enhanced_pbp_loader.DataNbaEnhancedPbpLoader`
+    and :obj:`~pbpstats.data_loader.stats_nba.enhanced_pbp_loader.StatsNbaEnhancedPbpLoader` should inherit from this class
+
+    This class should not be instantiated directly
     """
+
     def _add_extra_attrs_to_all_events(self):
+        """
+        adds fouls to give, player fouls, score, next event and previous event to each event
+        """
         self.start_period_indices = []
         self._load_possession_changing_event_overrides()
         game_id = self.game_id if self.league == NBA_STRING else int(self.game_id)
-        change_override_event_nums = self.possession_changing_event_overrides.get(game_id, [])
-        non_change_override_event_nums = self.non_possession_changing_event_overrides.get(game_id, [])
+        change_override_event_nums = self.possession_changing_event_overrides.get(
+            game_id, []
+        )
+        non_change_override_event_nums = self.non_possession_changing_event_overrides.get(
+            game_id, []
+        )
         player_game_fouls = defaultdict(int)
         fouls_to_give = defaultdict(lambda: 4)
         score = defaultdict(int)
@@ -64,36 +77,52 @@ class NbaEnhancedPbpLoader(object):
             event.fouls_to_give = fouls_to_give.copy()
             event.player_game_fouls = player_game_fouls.copy()
             event.score = score.copy()
-            event.possession_changing_override = event.event_num in change_override_event_nums
-            event.non_possession_changing_override = event.event_num in non_change_override_event_nums
+            event.possession_changing_override = (
+                event.event_num in change_override_event_nums
+            )
+            event.non_possession_changing_override = (
+                event.event_num in non_change_override_event_nums
+            )
 
         # these need next and previous event to be added to all events
         self._set_period_start_items()
 
     def _set_period_start_items(self):
+        """
+        sets team starting period with the ball and period starters for each team
+        """
         for i in self.start_period_indices:
             team_id = self.items[i].get_team_starting_with_ball()
             self.items[i].team_starting_with_ball = team_id
-            period_starters = self.items[i].get_period_starters(file_directory=self.file_directory)
+            period_starters = self.items[i].get_period_starters(
+                file_directory=self.file_directory
+            )
             self.items[i].period_starters = period_starters
 
     def _load_possession_changing_event_overrides(self):
+        """
+        loads overrides for possession or non possession changing events
+        """
         if self.file_directory is not None:
-            possession_changing_event_overrides_file_path = f'{self.file_directory}/overrides/possession_change_event_overrides.json'
+            possession_changing_event_overrides_file_path = f"{self.file_directory}/overrides/possession_change_event_overrides.json"
             if os.path.isfile(possession_changing_event_overrides_file_path):
                 with open(possession_changing_event_overrides_file_path) as f:
                     # issues with pbp - force these events to be possession changing events
                     # {GameId: [EventNum]}
-                    self.possession_changing_event_overrides = json.loads(f.read(), cls=IntDecoder)
+                    self.possession_changing_event_overrides = json.loads(
+                        f.read(), cls=IntDecoder
+                    )
             else:
                 self.possession_changing_event_overrides = {}
 
-            non_possession_changing_event_overrides_file_path = f'{self.file_directory}/overrides/non_possession_changing_event_overrides.json'
+            non_possession_changing_event_overrides_file_path = f"{self.file_directory}/overrides/non_possession_changing_event_overrides.json"
             if os.path.isfile(non_possession_changing_event_overrides_file_path):
                 with open(non_possession_changing_event_overrides_file_path) as f:
                     # issues with pbp - force these events to be not possession changing events
                     # {GameId: [EventNum]}
-                    self.non_possession_changing_event_overrides = json.loads(f.read(), cls=IntDecoder)
+                    self.non_possession_changing_event_overrides = json.loads(
+                        f.read(), cls=IntDecoder
+                    )
             else:
                 self.non_possession_changing_event_overrides = {}
         else:

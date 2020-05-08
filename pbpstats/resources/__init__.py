@@ -6,10 +6,10 @@ from pbpstats.resources.possessions.possessions import Possessions
 from pbpstats.resources.shots.shots import Shots
 
 __all__ = [
-    'Boxscore',
-    'EnhancedPbp',
-    'Games',
-    'Pbp',
-    'Possessions',
-    'Shots',
+    "Boxscore",
+    "EnhancedPbp",
+    "Games",
+    "Pbp",
+    "Possessions",
+    "Shots",
 ]

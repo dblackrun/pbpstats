@@ -8,3 +8,4 @@ build/
 notes.txt
 debug.py
 *.ipynb
+docs/_build

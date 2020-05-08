@@ -1,3 +1,6 @@
+"""
+``EnhancedPbpItem`` is an abstract base class for all enhanced pbp event types
+"""
 import abc
 
 import pbpstats
@@ -10,26 +13,39 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
 
     @abc.abstractproperty
     def is_possession_ending_event(self):
+        """
+        returns True if event ends a possession, False otherwise
+        """
         pass
 
     @abc.abstractproperty
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         pass
 
     @abc.abstractmethod
     def get_offense_team_id(self):
+        """
+        returns team id for team on offense for event
+        """
         pass
 
     @property
     def base_stats(self):
         """
-        these are event stats for all event types
-        - seconds played off/def
-        - possession off/def
+        returns list of dicts with all seconds played and possession count stats for event
         """
-        return self._get_seconds_played_stats_items() + self._get_possessions_played_stats_items()
+        return (
+            self._get_seconds_played_stats_items()
+            + self._get_possessions_played_stats_items()
+        )
 
     def get_all_events_at_current_time(self):
+        """
+        returns list of all events that take place as the same time as the current event
+        """
         events = [self]
         # going backwards
         event = self
@@ -47,22 +63,30 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
 
     @property
     def seconds_remaining(self):
-        split = self.clock.split(':')
+        """
+        returns seconds remaining in period as a ``float``
+        """
+        split = self.clock.split(":")
         return float(split[0]) * 60 + float(split[1])
 
     @property
     def current_players(self):
         """
-        for all non subsitution events current players are just
+        returns dict with list of player ids for each team
+        with players on the floor for current event
+
+        For all non subsitution events current players are just
         the same as previous event
-        this gets overwritten in Substitution class
+
+        This gets overwritten in :obj:`~pbpstats.resources.enhanced_pbp.substitution.Substitution`
+        since those are the only event types where players are not the same as the previous event
         """
         return self.previous_event.current_players
 
     @property
     def score_margin(self):
         """
-        from perspective of offense team
+        returns the score margin from perspective of offense team before the event took place
         """
         if self.previous_event is None:
             score = self.score
@@ -79,23 +103,31 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
     @property
     def lineup_ids(self):
         """
-        hyphen separated sorted player id strings
+        returns dict with lineup ids for each team for current event.
+        Lineup ids are hyphen separated sorted player id strings.
         """
         lineup_ids = {}
         for team_id, team_players in self.current_players.items():
             players = [str(player_id) for player_id in team_players]
             sorted_player_ids = sorted(players)
-            lineup_id = '-'.join(sorted_player_ids)
+            lineup_id = "-".join(sorted_player_ids)
             lineup_ids[team_id] = lineup_id
         return lineup_ids
 
     @property
     def seconds_since_previous_event(self):
+        """
+        returns the number of seconds that have elapsed since the previous event
+        """
         if self.previous_event is None:
             return 0
         return self.previous_event.seconds_remaining - self.seconds_remaining
 
     def is_second_chance_event(self):
+        """
+        returns True if the event takes place after an offensive rebound
+        on the current possession, False otherwise
+        """
         event = self.previous_event
         if isinstance(event, Rebound) and event.is_real_rebound and event.oreb:
             return True
@@ -106,10 +138,15 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         return False
 
     def is_penalty_event(self):
-        if hasattr(self, 'fouls_to_give'):
+        """
+        returns True if the team on offense is in the penalty, False otherwise
+        """
+        if hasattr(self, "fouls_to_give"):
             team_ids = list(self.current_players.keys())
             offense_team_id = self.get_offense_team_id()
-            defense_team_id = team_ids[0] if offense_team_id == team_ids[1] else team_ids[1]
+            defense_team_id = (
+                team_ids[0] if offense_team_id == team_ids[1] else team_ids[1]
+            )
             if self.fouls_to_give[defense_team_id] == 0:
                 if isinstance(self, (Foul, FreeThrow, Rebound)):
                     # if foul or free throw or rebound on a missed ft
@@ -127,7 +164,9 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                             return True
                     if foul_event is None:
                         return True
-                    fouls_to_give_prior_to_foul = foul_event.previous_event.fouls_to_give[defense_team_id]
+                    fouls_to_give_prior_to_foul = foul_event.previous_event.fouls_to_give[
+                        defense_team_id
+                    ]
                     if fouls_to_give_prior_to_foul > 0:
                         return False
                 return True
@@ -136,7 +175,11 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
     @property
     def count_as_possession(self):
         """
-        don't count possession change if it starts with <= 2 seconds left
+        returns True if event is possession changing event
+        that should count as a real possession, False otherwise.
+
+        In order to not include possessions which a very low probability of scoring in possession counts,
+        possession won't be counted as a possession if it starts with <= 2 seconds left
         and no points are scored before period ends
         """
         if self.is_possession_ending_event:
@@ -152,7 +195,9 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
             # return True if there is a FT or FGM between now and end of period
             next_event = prev_event.next_event
             while next_event is not None:
-                if isinstance(next_event, FreeThrow) or (isinstance(next_event, FieldGoal) and next_event.is_made):
+                if isinstance(next_event, FreeThrow) or (
+                    isinstance(next_event, FieldGoal) and next_event.is_made
+                ):
                     return True
                 next_event = next_event.next_event
         return False
@@ -177,29 +222,39 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                     if team_id == offense_team_id
                     else pbpstats.SECONDS_PLAYED_DEFENSE_STRING
                 )
-                opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
+                opponent_team_id = (
+                    team_ids[0] if team_id == team_ids[1] else team_ids[1]
+                )
                 previous_poss_lineup_ids = self.previous_event.lineup_ids
                 for player_id in players:
                     keys_to_add = [seconds_stat_key]
                     player_fouls = self.previous_event.player_game_fouls[player_id]
-                    period = self.period if self.period <= 4 else 'OT'
-                    foul_tracking_seconds_stat_key = f'Period{period}Fouls{player_fouls}{seconds_stat_key}'
+                    period = self.period if self.period <= 4 else "OT"
+                    foul_tracking_seconds_stat_key = (
+                        f"Period{period}Fouls{player_fouls}{seconds_stat_key}"
+                    )
                     keys_to_add.append(foul_tracking_seconds_stat_key)
                     if is_second_chance_event:
-                        seconds_chance_seconds_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{seconds_stat_key}'
+                        seconds_chance_seconds_stat_key = (
+                            f"{pbpstats.SECOND_CHANCE_STRING}{seconds_stat_key}"
+                        )
                         keys_to_add.append(seconds_chance_seconds_stat_key)
                     if is_penalty_event:
-                        penalty_seconds_stat_key = f'{pbpstats.PENALTY_STRING}{seconds_stat_key}'
+                        penalty_seconds_stat_key = (
+                            f"{pbpstats.PENALTY_STRING}{seconds_stat_key}"
+                        )
                         keys_to_add.append(penalty_seconds_stat_key)
                     for stat_key in keys_to_add:
                         stat_item = {
-                            'player_id': player_id,
-                            'team_id': team_id,
-                            'opponent_team_id': opponent_team_id,
-                            'lineup_id': previous_poss_lineup_ids[team_id],
-                            'opponent_lineup_id': previous_poss_lineup_ids[opponent_team_id],
-                            'stat_key': stat_key,
-                            'stat_value': self.seconds_since_previous_event,
+                            "player_id": player_id,
+                            "team_id": team_id,
+                            "opponent_team_id": opponent_team_id,
+                            "lineup_id": previous_poss_lineup_ids[team_id],
+                            "opponent_lineup_id": previous_poss_lineup_ids[
+                                opponent_team_id
+                            ],
+                            "stat_key": stat_key,
+                            "stat_value": self.seconds_since_previous_event,
                         }
                         stat_items.append(stat_item)
         return stat_items
@@ -229,24 +284,30 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                     if team_id == offense_team_id
                     else pbpstats.DEFENSIVE_POSSESSION_STRING
                 )
-                opponent_team_id = team_ids[0] if team_id == team_ids[1] else team_ids[1]
+                opponent_team_id = (
+                    team_ids[0] if team_id == team_ids[1] else team_ids[1]
+                )
                 for player_id in players:
                     keys_to_add = [possessions_stat_key]
                     if is_second_chance_event:
-                        seconds_chance_possessions_stat_key = f'{pbpstats.SECOND_CHANCE_STRING}{possessions_stat_key}'
+                        seconds_chance_possessions_stat_key = (
+                            f"{pbpstats.SECOND_CHANCE_STRING}{possessions_stat_key}"
+                        )
                         keys_to_add.append(seconds_chance_possessions_stat_key)
                     if is_penalty_event:
-                        penalty_possessions_stat_key = f'{pbpstats.PENALTY_STRING}{possessions_stat_key}'
+                        penalty_possessions_stat_key = (
+                            f"{pbpstats.PENALTY_STRING}{possessions_stat_key}"
+                        )
                         keys_to_add.append(penalty_possessions_stat_key)
                     for stat_key in keys_to_add:
                         stat_item = {
-                            'player_id': player_id,
-                            'team_id': team_id,
-                            'opponent_team_id': opponent_team_id,
-                            'lineup_id': lineup_ids[team_id],
-                            'opponent_lineup_id': lineup_ids[opponent_team_id],
-                            'stat_key': stat_key,
-                            'stat_value': 1,
+                            "player_id": player_id,
+                            "team_id": team_id,
+                            "opponent_team_id": opponent_team_id,
+                            "lineup_id": lineup_ids[team_id],
+                            "opponent_lineup_id": lineup_ids[opponent_team_id],
+                            "stat_key": stat_key,
+                            "stat_value": 1,
                         }
                         stat_items.append(stat_item)
 
