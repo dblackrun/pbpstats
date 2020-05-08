@@ -7,10 +7,10 @@ def test_game_init_loads_data():
     game_cls = Game
     game_cls.Boxscore = Boxscore
     game_cls.BoxscoreDataLoaderClass = StatsNbaBoxscoreLoader
-    game_cls.BoxscoreDataSource = 'file'
-    game_cls.data_directory = 'tests/data'
+    game_cls.BoxscoreDataSource = "file"
+    game_cls.data_directory = "tests/data"
 
-    game_id = '0021600270'
+    game_id = "0021600270"
 
     game = game_cls(game_id)
     assert len(game.boxscore.items) == 21
