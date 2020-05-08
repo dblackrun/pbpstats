@@ -1,3 +1,18 @@
+"""
+``StatsNbaBoxscoreLoader`` loads boxscore data for a game and
+creates :obj:`~pbpstats.resources.boxscore.stats_nba_boxscore_item.StatsNbaBoxscoreItem`
+objects for each player and team
+
+The following code will load boxscore data for game id "0021900001" from
+a file located in a subdirectory of the /data directory
+
+.. code-block:: python
+
+    from pbpstats.data_loader import StatsNbaBoxscoreLoader
+
+    boxscore_loader = StatsNbaBoxscoreLoader("0021900001", "file", "/data")
+    print(boxscore_loader.items[0].data) # prints dict with a player's boxscore data for game
+"""
 import json
 import os
 
@@ -9,22 +24,21 @@ from pbpstats.resources.boxscore.stats_nba_boxscore_item import StatsNbaBoxscore
 
 class StatsNbaBoxscoreLoader(StatsNbaFileLoader, StatsNbaWebLoader):
     """
-    class for loading boxscore items from stats.nba.com
-    supports loading from api request or from file saved
-    on disk with api response data
+    Loads stats.nba.com source boxscore data for game.
+    Team/Player data is stored in items attribute as :obj:`~pbpstats.resources.boxscore.stats_nba_boxscore_item.StatsNbaBoxscoreItem` objects
+
+    :param str game_id: NBA Stats Game Id
+    :param str source: Where should data be loaded from. Options are 'web' or 'file'
+    :param str file_directory: (optional if source is 'web')
+        Directory in which data should be either stored (if source is web) or loaded from (if source is file).
+        The specific file location will be `stats_boxscore_<game_id>.json` in the `/game_details` subdirectory.
+        If not provided response data will not be saved on disk.
     """
     data_provider = 'stats_nba'
     resource = 'Boxscore'
     parent_object = 'Game'
 
-    def __init__(self, game_id, source, file_directory):
-        """
-        game_id - string, stats.nba.com game id
-        source - string, file or web
-        file_directory - string, directory containing data saved on disk
-            - required if loading from file
-            - if not None when loading from web, response will be saved there
-        """
+    def __init__(self, game_id, source, file_directory=None):
         self.game_id = game_id
         self.file_directory = file_directory
         self.source = source

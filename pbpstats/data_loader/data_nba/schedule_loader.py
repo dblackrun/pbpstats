@@ -1,3 +1,16 @@
+"""
+``DataNbaScheduleLoader`` loads schedule data for a season and
+creates :obj:`~pbpstats.resources.games.data_nba_game_item.DataNbaGameItem` objects for each game
+
+The following code will load schedule data for 2019-20 NBA Regular Season
+
+.. code-block:: python
+
+    from pbpstats.data_loader import DataNbaScheduleLoader
+
+    schedule_loader = DataNbaScheduleLoader("nba", "2019-20", "Regular Season", "web")
+    print(schedule_loader.items[0].data)  # prints dict with the first game of the season
+"""
 import json
 import os
 
@@ -11,6 +24,20 @@ from pbpstats.resources.games.data_nba_game_item import DataNbaGameItem
 
 
 class DataNbaScheduleLoader(DataNbaFileLoader, DataNbaWebLoader):
+    """
+    Loads data.nba.com source schedule data for season.
+    Games are stored in items attribute
+    as :obj:`~pbpstats.resources.games.data_nba_game_item.DataNbaGameItem` objects
+
+    :param str league: Options are 'nba', 'wnba' or 'gleague'
+    :param str season: Can be formatted as either 2019-20 or 2019.
+    :param str season_type: Options are 'Regular Season' or 'Playoffs'
+    :param str source: Where should data be loaded from. Options are 'web' or 'file'
+    :param str file_directory: (optional if source is 'web')
+        Directory in which data should be either stored (if source is web) or loaded from (if source is file).
+        The specific file location will be `data_<league>_<season_year>.json` in the `/schedule` subdirectory.
+        If not provided response data will not be saved on disk.
+    """
     data_provider = 'data_nba'
     resource = 'Games'
     parent_object = 'Season'
@@ -56,10 +83,18 @@ class DataNbaScheduleLoader(DataNbaFileLoader, DataNbaWebLoader):
 
     @property
     def data(self):
+        """
+        returns raw JSON response data
+        """
         return self.source_data['lscd']
 
     @property
     def league_id(self):
+        """
+        Returns League Id for league.
+
+        00 for nba, 10 for wnba, 20 for g-league
+        """
         if self.league_string == NBA_STRING:
             return NBA_GAME_ID_PREFIX
         elif self.league_string == WNBA_STRING:

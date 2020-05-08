@@ -3,12 +3,15 @@ from pbpstats.resources.enhanced_pbp import Rebound, Turnover
 
 
 class StatsRebound(Rebound, StatsEnhancedPbpItem):
+    """
+    Class for rebound events
+    """
     def __init__(self, *args):
         super().__init__(*args)
 
     def get_offense_team_id(self):
         """
-        overrides method inherited from StatsEnhancedPbpItem
+        returns team id for team on offense for the shot that was rebounded
         """
         if self.is_real_rebound:
             return self.missed_shot.team_id

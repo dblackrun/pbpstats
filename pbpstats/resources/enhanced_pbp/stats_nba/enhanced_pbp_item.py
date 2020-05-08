@@ -1,3 +1,6 @@
+"""
+``StatsEnhancedPbpItem`` is the base class for all stats.nba.com enhanced pbp event types
+"""
 from collections import defaultdict
 
 import requests
@@ -23,6 +26,12 @@ KEY_ATTR_MAPPER = {
 
 
 class StatsEnhancedPbpItem(EnhancedPbpItem):
+    """
+    Base class for enhanced pbp events from stats.nba.com
+
+    :param dict event: dict with event data
+    :param int order: sequential order in which event occurs
+    """
     def __init__(self, event, order):
         for key, value in KEY_ATTR_MAPPER.items():
             if event.get(key) is not None:
@@ -76,12 +85,15 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
 
     @property
     def data(self):
+        """
+        returns event as a dict
+        """
         return self.__dict__
 
     @property
     def video_url(self):
         """
-        gets url for mp4 video of play
+        returns url for mp4 video of play, if available
         """
         if self.video_available == 1:
             parameters = {
@@ -101,7 +113,7 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
 
     def get_offense_team_id(self):
         """
-        this method gets overriden in FieldGoal, FreeThrow, Rebound, Turnover, JumpBall
+        returns team id for team on offense for event
         """
         if isinstance(self, Foul) and (self.is_charge or self.is_offensive_foul):
             # offensive foul returns team id
@@ -142,6 +154,9 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
 
     @property
     def is_possession_ending_event(self):
+        """
+        returns True if event ends a possession, False otherwise
+        """
         if self.next_event is None:
             return True
 

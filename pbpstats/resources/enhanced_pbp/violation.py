@@ -2,6 +2,9 @@ from pbpstats import DEFENSIVE_GOALTENDING_STRING
 
 
 class Violation(object):
+    """
+    Class for violation events
+    """
     event_type = 7
 
     @property
@@ -30,6 +33,9 @@ class Violation(object):
 
     @property
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         stats = []
         if self.is_goaltend_violation:
             stats.append({'player_id': self.player1_id, 'team_id': self.team_id, 'stat_key': DEFENSIVE_GOALTENDING_STRING, 'stat_value': 1})

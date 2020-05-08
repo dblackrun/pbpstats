@@ -3,11 +3,17 @@ from pbpstats.resources.enhanced_pbp import Foul
 
 
 class DataFoul(Foul, DataEnhancedPbpItem):
+    """
+    Class for foul events
+    """
     def __init__(self, *args):
         super().__init__(*args)
 
     @property
     def number_of_fta_for_foul(self):
+        """
+        returns the number of free throws resulting from the foul
+        """
         if '(1 FTA)' in self.description:
             return 1
         elif '(2 FTA)' in self.description:

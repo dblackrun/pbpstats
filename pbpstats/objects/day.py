@@ -1,9 +1,35 @@
+"""
+Instantiating a ``Day`` object will load all resources for the ``Day``
+object that were set in the settings when the client was instantiated
+
+The following code will instantiate the client and get game data
+for games played on 02/03/2020
+
+.. code-block:: python
+
+    from pbpstats.client import Client
+
+    settings = {
+        "dir": "/response_data",
+        "Games": {"source": "web", "data_provider": "stats_nba"}
+    }
+    client = Client(settings)
+    day = client.Day("02/03/2020", "nba")
+    for game in day.games.items:
+        print(game.data)
+"""
 import inspect
 
 import pbpstats.client as client
 
 
 class Day(object):
+    """
+    Class for loading resource data from data loaders with a ``parent_object`` of ``Day``
+
+    :param str date: Formatted as MM/DD/YYYY
+    :param str league: Options are 'nba', 'wnba' or 'gleague'
+    """
     def __init__(self, date, league):
         """
         date format - 'MM/DD/YYYY

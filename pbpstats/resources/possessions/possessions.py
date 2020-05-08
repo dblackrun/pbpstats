@@ -1,3 +1,6 @@
+"""
+The ``Possessions`` class has some basic properties for aggregating possession stats
+"""
 from itertools import groupby
 from operator import itemgetter
 
@@ -6,11 +9,21 @@ from pbpstats.resources.base import Base
 
 
 class Possessions(Base):
+    """
+    Class for possession items
+
+    :param list items: list of
+        :obj:`~pbpstats.resources.possessions.possession.Possession` items,
+        typically from a possession data loader
+    """
     def __init__(self, items):
         self.items = items
 
     @property
     def data(self):
+        """
+        returns possessions dict
+        """
         return self.__dict__
 
     def _aggregate_event_stats(self, *args):
@@ -30,20 +43,35 @@ class Possessions(Base):
 
     @property
     def team_stats(self):
+        """
+        returns list of dicts with aggregated stats by team
+        """
         return self._aggregate_event_stats('team_id', 'stat_key')
 
     @property
     def opponent_stats(self):
+        """
+        returns list of dicts with aggregated stats by opponent
+        """
         return self._aggregate_event_stats('opponent_team_id', 'stat_key')
 
     @property
     def player_stats(self):
+        """
+        returns list of dicts with aggregated stats by player
+        """
         return self._aggregate_event_stats('player_id', 'team_id', 'stat_key')
 
     @property
     def lineup_stats(self):
+        """
+        returns list of dicts with aggregated stats by lineup
+        """
         return self._aggregate_event_stats('lineup_id', 'team_id', 'stat_key')
 
     @property
     def lineup_opponent_stats(self):
+        """
+        returns list of dicts with aggregated stats by lineup opponent
+        """
         return self._aggregate_event_stats('opponent_lineup_id', 'opponent_team_id', 'stat_key')

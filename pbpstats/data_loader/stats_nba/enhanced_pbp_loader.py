@@ -1,3 +1,20 @@
+"""
+``StatsNbaEnhancedPbpLoader`` loads pbp data for a game and
+creates :obj:`~pbpstats.resources.enhanced_pbp.enhanced_pbp_item.EnhancedPbpItem` objects
+for each event
+
+Enhanced data for each event includes current players on floor, score, fouls to give and number of fouls committed by each player,
+plus additional data depending on event type
+
+The following code will load pbp data for game id "0021900001" from a file located in a subdirectory of the /data directory
+
+.. code-block:: python
+
+    from pbpstats.data_loader import StatsNbaEnhancedPbpLoader
+
+    pbp_loader = StatsNbaEnhancedPbpLoader("0021900001", "file", "/data")
+    print(pbp_loader.items[0].data)  # prints dict with the first event of the game
+"""
 from pbpstats.data_loader.stats_nba.pbp_loader import StatsNbaPbpLoader
 from pbpstats.data_loader.stats_nba.shots_loader import StatsNbaShotsLoader
 from pbpstats.data_loader.nba_enhanced_pbp_loader import NbaEnhancedPbpLoader
@@ -7,6 +24,23 @@ from pbpstats.resources.enhanced_pbp.rebound import EventOrderError
 
 
 class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
+    """
+    Loads stats.nba.com source enhanced pbp data for game.
+    Events are stored in items attribute as :obj:`~pbpstats.resources.enhanced_pbp.enhanced_pbp_item.EnhancedPbpItem` objects
+
+    :param str game_id: NBA Stats Game Id
+    :param str source: Where should data be loaded from. Options are 'web' or 'file'
+    :param str file_directory: (optional if source is 'web')
+        Directory in which data should be either stored (if source is web) or loaded from (if source is file).
+        The specific file location will be `stats_<game_id>.json` in the `/pbp` subdirectory.
+        If not provided response data will not be saved on disk.
+    :raises: :obj:`~pbpstats.resources.enhanced_pbp.start_of_period.InvalidNumberOfStartersException`:
+        If all 5 players that start the period for a team can't be determined.
+        You can add the correct period starters to overrides/missing_period_starters.json in your data directory to fix this.
+    :raises: :obj:`~pbpstats.resources.enhanced_pbp.rebound.EventOrderError`:
+        If rebound event is not immediately following a missed shot event.
+        You can manually edit the event order in the pbp file stored on disk to fix this.
+    """
     data_provider = 'stats_nba'
     resource = 'EnhancedPbp'
     parent_object = 'Game'

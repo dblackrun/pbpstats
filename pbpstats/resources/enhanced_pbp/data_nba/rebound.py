@@ -3,5 +3,8 @@ from pbpstats.resources.enhanced_pbp import Rebound
 
 
 class DataRebound(Rebound, DataEnhancedPbpItem):
+    """
+    Class for rebound events
+    """
     def __init__(self, *args):
         super().__init__(*args)

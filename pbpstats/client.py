@@ -1,3 +1,23 @@
+"""
+Instantiating a ``Client`` object will load data loader objects
+for resources specified in settings dict.
+
+The following code will instantiate the client and get Possession data
+for game id 0021900001 from files in ``/response_data`` subdirectories
+
+.. code-block:: python
+
+    from pbpstats.client import Client
+
+    settings = {
+        "dir": "/response_data",
+        "Possessions": {"source": "file", "data_provider": "stats_nba"}
+    }
+    client = Client(settings)
+    game = client.Game('0021900001')
+    for possession in game.possessions.items:
+        print(possession)
+"""
 import re
 
 import pbpstats.objects as objects
@@ -11,6 +31,13 @@ PATTERN = re.compile(r'(?<!^)(?=[A-Z])')  # for converting camel case to snake c
 
 
 class Client(object):
+    """
+    :param dict settings: Dict with data that specifies which data loaders should be used.
+        ``dir`` key is optional, but recommended and should point to the directory you have set up
+        that either already contains response data or where you want to store the response data.
+        Other keys in the settings dict should be resources from the :py:mod:`~pbpstats.resources` module
+        and their values should be a dict with ``source`` ('file' or 'web') and ``data_provider`` ('stats_nba' or 'data_nba')
+    """
     def __init__(self, settings):
         data_loader = DataLoaderFactory()
         self.settings = settings

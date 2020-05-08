@@ -11,28 +11,49 @@ from pbpstats.resources.enhanced_pbp import Ejection, EndOfPeriod, FieldGoal, Fo
 
 
 class InvalidNumberOfStartersException(Exception):
+    """
+    Class for exception when a team's 5 period starters can't be determined.
+
+    You can add the correct period starters to
+    overrides/missing_period_starters.json in your data directory to fix this.
+    """
     pass
 
 
 class StartOfPeriod(metaclass=abc.ABCMeta):
+    """
+    Class for start of period events
+    """
     event_type = 12
 
     @abc.abstractclassmethod
     def get_period_starters(self, file_directory):
+        """
+        Gets player ids of players who started the period for each team
+
+        :param str file_directory: directory in which overrides subdirectory exists
+            containing period starter overrides when period starters can't be determined
+            from parsing pbp events
+        :returns: dict with list of player ids for each team
+            with players on the floor at start of period
+        :raises: :obj:`~pbpstats.resources.enhanced_pbp.start_of_period.InvalidNumberOfStartersException`:
+            If all 5 players that start the period for a team can't be determined.
+        """
         pass
 
     @property
     def current_players(self):
         """
-        overrides EnhancedPbpItem current_players property
+        returns period starters
         """
         return self.period_starters
 
     @property
     def league(self):
         """
-        First 2 in game id represent league
-        00 for nba, 10 for wnba, 20 for g-league
+        Returns League for game id.
+
+        First 2 in game id represent league - 00 for nba, 10 for wnba, 20 for g-league
         """
         if self.game_id[0:2] == NBA_GAME_ID_PREFIX:
             return NBA_STRING
@@ -42,6 +63,9 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
             return WNBA_STRING
 
     def get_team_starting_with_ball(self):
+        """
+        returns team id for team on starting period with the ball
+        """
         if (self.period == 1 or self.period >= 5) and isinstance(self.next_event, JumpBall):
             # period starts with jump ball - team that wins starts with the ball
             return self.next_event.team_id
@@ -54,7 +78,7 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
 
     def get_offense_team_id(self):
         """
-        overrides EnhancedPbpItem offense_team_id property
+        returns team id for team on starting period on offense
         """
         return self.team_starting_with_ball
 
@@ -137,4 +161,7 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
 
     @property
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         return self.base_stats

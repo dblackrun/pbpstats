@@ -1,3 +1,6 @@
+"""
+``DataEnhancedPbpItem`` is the base class for all data.nba.com enhanced pbp event types
+"""
 from collections import defaultdict
 
 from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
@@ -25,6 +28,13 @@ KEY_ATTR_MAPPER = {
 
 
 class DataEnhancedPbpItem(EnhancedPbpItem):
+    """
+    Base class for enhanced pbp events from data.nba.com
+
+    :param dict item: dict with event data
+    :param int period: period in which event occurs
+    :param str game_id: NBA Stats Game Id
+    """
     def __init__(self, item, period, game_id):
         self.game_id = game_id
         self.period = period
@@ -43,20 +53,28 @@ class DataEnhancedPbpItem(EnhancedPbpItem):
 
     @property
     def data(self):
+        """
+        returns event as a dict
+        """
         return self.__dict__
 
     @property
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         return self.base_stats
 
     def get_offense_team_id(self):
+        """
+        returns team id for team on offense for event
+        """
         return self.offense_team_id
 
     @property
     def is_possession_ending_event(self):
         """
-        data.pbp.com pbp has offense team id attribute
-        when offense team id is different in next event, event is a possession ending event
+        returns True if event ends a possession, False otherwise
         """
         if self.next_event is None:
             return True

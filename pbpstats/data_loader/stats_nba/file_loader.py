@@ -7,8 +7,11 @@ from pbpstats.data_loader.stats_nba.base import StatsNbaLoaderBase
 
 class StatsNbaFileLoader(AbsDataLoader, StatsNbaLoaderBase):
     """
-    base class for loading stats.nba.com saved on disk
-    should not be called directly
+    Base class for loading stats.nba.com files saved on disk.
+
+    All stats.nba.com data loader classes should inherit from this class.
+
+    This class should not be instantiated directly.
     """
     def _load_data_from_file(self):
         data_file = Path(self.file_path)
@@ -19,4 +22,7 @@ class StatsNbaFileLoader(AbsDataLoader, StatsNbaLoaderBase):
 
     @property
     def data(self):
+        """
+        returns data from response JSON as a list of dicts
+        """
         return self.make_list_of_dicts()

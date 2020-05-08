@@ -2,6 +2,9 @@ import pbpstats
 
 
 class Foul(object):
+    """
+    Class for foul events
+    """
     event_type = 6
 
     @property
@@ -74,14 +77,23 @@ class Foul(object):
 
     @property
     def counts_towards_penalty(self):
+        """
+        returns True if foul is a foul type that counts towards the penalty, False otherwise
+        """
         return self.event_action_type in [1, 2, 3, 5, 6, 9, 14, 15, 27, 28, 29]
 
     @property
     def counts_as_personal_foul(self):
+        """
+        returns True if fouls is a foul type that counts as a personal foul, False otherwise
+        """
         return self.event_action_type in [1, 2, 3, 4, 5, 6, 9, 10, 14, 15, 26, 27, 28, 29]
 
     @property
     def foul_type_string(self):
+        """
+        returns string description of foul type
+        """
         if self.is_personal_foul:
             return pbpstats.PERSONAL_FOUL_TYPE_STRING
         if self.is_shooting_foul:
@@ -115,6 +127,9 @@ class Foul(object):
 
     @property
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         stats = []
         foul_type = self.foul_type_string
         if foul_type is not None:

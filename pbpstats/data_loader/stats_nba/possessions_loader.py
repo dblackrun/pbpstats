@@ -1,3 +1,17 @@
+"""
+``StatsNbaPossessionLoader`` loads possession data for a game and
+creates :obj:`~pbpstats.resources.possessions.possession.Possession` objects for each possession
+
+The following code will load possession data for game id "0021900001" from a
+pbp file located in the ``/pbp`` subdirectory of the ``/data`` directory
+
+.. code-block:: python
+
+    from pbpstats.data_loader import StatsNbaPossessionLoader
+
+    possession_loader = StatsNbaPossessionLoader("0021900001", "file", "/data")
+    print(possession_loader.items[0].data)  # prints dict with the first possession of the game
+"""
 import os
 import json
 
@@ -13,10 +27,29 @@ from pbpstats.resources.enhanced_pbp import Foul
 
 
 class TeamHasBackToBackPossessionsException(Exception):
+    """
+    Class for exception when a team is credited with back-to-back possessions.
+
+    You can manually edit the event order in the pbp file stored on disk or add
+    an event to the overrides file in your data directory to fix this.
+    """
     pass
 
 
 class StatsNbaPossessionLoader(NbaPossessionLoader):
+    """
+    Loads stats.nba.com source possession data for game.
+    Possessions are stored in items attribute as :obj:`~pbpstats.resources.possessions.possession.Possession` objects
+
+    :param str game_id: NBA Stats Game Id
+    :param str source: Where should data be loaded from. Options are 'web' or 'file'
+    :param str file_directory: (optional if source is 'web')
+        Directory in which data should be either stored (if source is web) or loaded from (if source is file).
+        The specific file location will be `stats_<game_id>.json` in the `/pbp` subdirectory.
+        If not provided response data will not be saved on disk.
+    :raises: :obj:`~pbpstats.data_loader.stats_nba.possessions_loader.TeamHasBackToBackPossessionsException`:
+        If team has the ball on back-to-back possessions.
+    """
     data_provider = 'stats_nba'
     resource = 'Possessions'
     parent_object = 'Game'
@@ -36,8 +69,9 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
     @property
     def league(self):
         """
-        First 2 in game id represent league
-        00 for nba, 10 for wnba, 20 for g-league
+        Returns League for game id.
+
+        First 2 in game id represent league - 00 for nba, 10 for wnba, 20 for g-league
         """
         if self.game_id[0:2] == NBA_GAME_ID_PREFIX:
             return NBA_STRING

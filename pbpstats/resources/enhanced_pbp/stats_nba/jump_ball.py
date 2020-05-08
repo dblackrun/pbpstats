@@ -3,12 +3,15 @@ from pbpstats.resources.enhanced_pbp import JumpBall, Turnover, Foul
 
 
 class StatsJumpBall(JumpBall, StatsEnhancedPbpItem):
+    """
+    Class for jump ball events
+    """
     def __init__(self, *args):
         super().__init__(*args)
 
     def get_offense_team_id(self):
         """
-        overrides method inherited from StatsEnhancedPbpItem
+        returns team id for team on offense for event
         """
         if self.next_event.clock == self.clock and isinstance(self.next_event, Turnover):
             return self.next_event.team_id

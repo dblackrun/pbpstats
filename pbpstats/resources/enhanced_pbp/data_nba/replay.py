@@ -3,5 +3,8 @@ from pbpstats.resources.enhanced_pbp import Replay
 
 
 class DataReplay(Replay, DataEnhancedPbpItem):
+    """
+    Class for replay events
+    """
     def __init__(self, *args):
         super().__init__(*args)

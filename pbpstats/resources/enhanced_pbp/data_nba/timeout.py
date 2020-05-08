@@ -3,5 +3,8 @@ from pbpstats.resources.enhanced_pbp import Timeout
 
 
 class DataTimeout(Timeout, DataEnhancedPbpItem):
+    """
+    Class for timeout events
+    """
     def __init__(self, *args):
         super().__init__(*args)
