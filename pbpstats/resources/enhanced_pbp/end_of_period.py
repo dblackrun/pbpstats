@@ -2,6 +2,7 @@ class EndOfPeriod(object):
     """
     Class for end of period events
     """
+
     event_type = 13
 
     @property

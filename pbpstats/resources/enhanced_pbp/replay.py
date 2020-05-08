@@ -2,6 +2,7 @@ class Replay(object):
     """
     Class for replay events
     """
+
     event_type = 18
 
     @property
