@@ -12,6 +12,7 @@ class Shots(Base):
         :obj:`~pbpstats.resources.shots.stats_nba_shot.StatsNbaShot` items,
         typically from a shots data loader
     """
+
     def __init__(self, items):
         self.items = items
 

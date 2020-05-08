@@ -4,6 +4,7 @@ class StatsNbaShot(object):
 
     :param dict item: dict with shot data
     """
+
     def __init__(self, item):
         for key, value in item.items():
             setattr(self, key.lower(), value)

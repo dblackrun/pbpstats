@@ -5,6 +5,7 @@ class DataNbaPbpItem(object):
     :param dict item: dict with event data
     :param int period: period in which event occurs
     """
+
     def __init__(self, item, period):
         self.period = period
         for key, value in item.items():
