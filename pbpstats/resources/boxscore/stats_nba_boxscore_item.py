@@ -1,5 +1,5 @@
 OVERRIDES = {
-    'PLAYER_NAME': 'name',
+    "PLAYER_NAME": "name",
 }
 
 
@@ -9,6 +9,7 @@ class StatsNbaBoxscoreItem(object):
 
     :param dict item: dict with boxscore stats from response
     """
+
     def __init__(self, item):
         for key, value in item.items():
             setattr(self, OVERRIDES.get(key, key.lower()), value)

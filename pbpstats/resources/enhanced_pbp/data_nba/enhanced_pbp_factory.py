@@ -13,7 +13,9 @@ The following code will get the event class for event type 1 (which is the event
     print(event_class)  # prints "<class 'pbpstats.resources.enhanced_pbp.data_nba.field_goal.DataFieldGoal'>"
 """
 import pbpstats.resources.enhanced_pbp.data_nba as event_types
-from pbpstats.resources.enhanced_pbp.data_nba.enhanced_pbp_item import DataEnhancedPbpItem
+from pbpstats.resources.enhanced_pbp.data_nba.enhanced_pbp_item import (
+    DataEnhancedPbpItem,
+)
 
 
 class DataNbaEnhancedPbpFactory(object):
@@ -21,12 +23,19 @@ class DataNbaEnhancedPbpFactory(object):
     Class for factory of event type classes. On initialization will load
     in all event classes in the :mod:`pbpstats.resources.enhanced_pbp.data_nba` module
     """
+
     def __init__(self):
         self.event_classes = {}
         self._load_event_classes()
 
     def _load_event_classes(self):
-        event_classes = dict([(name, cls) for name, cls in event_types.__dict__.items() if isinstance(cls, type)])
+        event_classes = dict(
+            [
+                (name, cls)
+                for name, cls in event_types.__dict__.items()
+                if isinstance(cls, type)
+            ]
+        )
         for _, event_cls in event_classes.items():
             if isinstance(event_cls.event_type, list):
                 for event_type in event_cls.event_type:

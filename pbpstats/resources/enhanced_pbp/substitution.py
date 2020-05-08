@@ -2,6 +2,7 @@ class Substitution(object):
     """
     Class for Substitution events
     """
+
     event_type = 8
 
     @property
@@ -25,7 +26,10 @@ class Substitution(object):
         with players on the floor following the sub
         """
         players = self.previous_event.current_players.copy()
-        players[self.team_id] = [self.incoming_player_id if player == self.outgoing_player_id else player for player in players[self.team_id]]
+        players[self.team_id] = [
+            self.incoming_player_id if player == self.outgoing_player_id else player
+            for player in players[self.team_id]
+        ]
         return players
 
     @property

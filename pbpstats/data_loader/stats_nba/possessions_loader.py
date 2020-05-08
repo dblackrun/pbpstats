@@ -16,8 +16,12 @@ import os
 import json
 
 from pbpstats import (
-    NBA_GAME_ID_PREFIX, G_LEAGUE_GAME_ID_PREFIX, WNBA_GAME_ID_PREFIX,
-    NBA_STRING, G_LEAGUE_STRING, WNBA_STRING
+    NBA_GAME_ID_PREFIX,
+    G_LEAGUE_GAME_ID_PREFIX,
+    WNBA_GAME_ID_PREFIX,
+    NBA_STRING,
+    G_LEAGUE_STRING,
+    WNBA_STRING,
 )
 from pbpstats.overrides import IntDecoder
 from pbpstats.data_loader.stats_nba.enhanced_pbp_loader import StatsNbaEnhancedPbpLoader
@@ -33,6 +37,7 @@ class TeamHasBackToBackPossessionsException(Exception):
     You can manually edit the event order in the pbp file stored on disk or add
     an event to the overrides file in your data directory to fix this.
     """
+
     pass
 
 
@@ -50,9 +55,10 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
     :raises: :obj:`~pbpstats.data_loader.stats_nba.possessions_loader.TeamHasBackToBackPossessionsException`:
         If team has the ball on back-to-back possessions.
     """
-    data_provider = 'stats_nba'
-    resource = 'Possessions'
-    parent_object = 'Game'
+
+    data_provider = "stats_nba"
+    resource = "Possessions"
+    parent_object = "Game"
 
     def __init__(self, game_id, source, file_directory=None):
 
@@ -61,7 +67,9 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
         pbp_events = StatsNbaEnhancedPbpLoader(game_id, source, file_directory)
         self.events = pbp_events.items
         events_by_possession = self._split_events_by_possession()
-        self.items = [Possession(possession_events) for possession_events in events_by_possession]
+        self.items = [
+            Possession(possession_events) for possession_events in events_by_possession
+        ]
         self._add_extra_attrs_to_all_possessions()
         self._load_bad_possession_overrides()
         self._check_that_possessions_alternate()
@@ -93,11 +101,13 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
                 poss = possession.next_possession
                 prev_poss = possession
             if poss.offense_team_id == prev_poss.offense_team_id:
-                game_id = self.game_id if self.league == NBA_STRING else int(self.game_id)
+                game_id = (
+                    self.game_id if self.league == NBA_STRING else int(self.game_id)
+                )
                 if not (
-                    game_id in self.bad_pbp_cases.keys() and
-                    poss.period in self.bad_pbp_cases[game_id].keys() and
-                    poss.number in self.bad_pbp_cases[game_id][poss.period]
+                    game_id in self.bad_pbp_cases.keys()
+                    and poss.period in self.bad_pbp_cases[game_id].keys()
+                    and poss.number in self.bad_pbp_cases[game_id][poss.period]
                 ):
                     ignore_because_of_flagrant = False
                     events_to_check = [event for event in prev_poss.events]
@@ -109,9 +119,9 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
 
                     if not ignore_because_of_flagrant:
                         exception_text = (
-                            f'GameId: {poss.game_id}, Period: {poss.period}, '
-                            f'Number: {poss.number}, Events: {poss.events}, '
-                            f'Previous Events: {prev_poss.events}>'
+                            f"GameId: {poss.game_id}, Period: {poss.period}, "
+                            f"Number: {poss.number}, Events: {poss.events}, "
+                            f"Previous Events: {prev_poss.events}>"
                         )
 
                         raise TeamHasBackToBackPossessionsException(exception_text)
@@ -119,7 +129,9 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
     def _load_bad_possession_overrides(self):
         self.bad_pbp_cases = {}
         if self.file_directory is not None:
-            bad_pbp_possessions_file_path = f'{self.file_directory}/overrides/bad_pbp_possessions.json'
+            bad_pbp_possessions_file_path = (
+                f"{self.file_directory}/overrides/bad_pbp_possessions.json"
+            )
             if os.path.isfile(bad_pbp_possessions_file_path):
                 with open(bad_pbp_possessions_file_path) as f:
                     # bad pbp where event is missing in pbp causing back to back possessions for same team - this will prevent back to back possession exception from being raised

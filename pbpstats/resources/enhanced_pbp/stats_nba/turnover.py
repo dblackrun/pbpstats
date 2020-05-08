@@ -1,4 +1,6 @@
-from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import StatsEnhancedPbpItem
+from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import (
+    StatsEnhancedPbpItem,
+)
 from pbpstats.resources.enhanced_pbp import Turnover
 
 
@@ -6,6 +8,7 @@ class StatsTurnover(Turnover, StatsEnhancedPbpItem):
     """
     Class for Turnover events
     """
+
     def __init__(self, *args):
         super().__init__(*args)
 

@@ -22,6 +22,7 @@ class DataLoaderFactory(object):
     """
     Class for factory of data loader classes. On initialization will load in all data loader classes in ``data_loader`` module
     """
+
     def __init__(self):
         self.loaders = defaultdict(lambda: defaultdict(lambda: []))
         self._load_data_loaders()
@@ -30,9 +31,17 @@ class DataLoaderFactory(object):
         """
         loads data loaders from data_loader package
         """
-        loaders = dict([(name, cls) for name, cls in data_loader.__dict__.items() if isinstance(cls, type)])
+        loaders = dict(
+            [
+                (name, cls)
+                for name, cls in data_loader.__dict__.items()
+                if isinstance(cls, type)
+            ]
+        )
         for _, loader_cls in loaders.items():
-            self.loaders[loader_cls.resource][loader_cls.data_provider].append(loader_cls)
+            self.loaders[loader_cls.resource][loader_cls.data_provider].append(
+                loader_cls
+            )
 
     def get_data_loader(self, data_provider, resource):
         """

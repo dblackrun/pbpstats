@@ -9,11 +9,13 @@ def check_file_directory(method):
 
     :raises: ValueError: If file_directory is None
     """
+
     @wraps(method)
     def decorated_method(self, *method_args, **method_kwargs):
         if self.file_directory is None:
-            raise ValueError(f'file_directory cannot be None when data source is file')
+            raise ValueError(f"file_directory cannot be None when data source is file")
         return method(self, *method_args, **method_kwargs)
+
     return decorated_method
 
 

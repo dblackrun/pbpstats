@@ -11,6 +11,7 @@ class NbaPossessionLoader(object):
 
     This class should not be instantiated directly
     """
+
     def _split_events_by_possession(self):
         """
         splits events by possession
@@ -38,7 +39,10 @@ class NbaPossessionLoader(object):
                 possession.previous_possession = None
                 possession.next_possession = self.items[i + 1]
                 number = 1
-            elif i == len(self.items) - 1 or possession.period != self.items[i + 1].period:
+            elif (
+                i == len(self.items) - 1
+                or possession.period != self.items[i + 1].period
+            ):
                 possession.previous_possession = self.items[i - 1]
                 possession.next_possession = None
             else:

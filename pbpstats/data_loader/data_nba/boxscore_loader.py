@@ -33,9 +33,10 @@ class DataNbaBoxscoreLoader(DataNbaFileLoader, DataNbaWebLoader):
         The specific file location will be `data_<game_id>.json` in the `/game_details` subdirectory.
         If not provided response data will not be saved on disk.
     """
-    data_provider = 'data_nba'
-    resource = 'Boxscore'
-    parent_object = 'Game'
+
+    data_provider = "data_nba"
+    resource = "Boxscore"
+    parent_object = "Game"
 
     def __init__(self, game_id, source, file_directory=None):
         self.game_id = game_id
@@ -45,39 +46,53 @@ class DataNbaBoxscoreLoader(DataNbaFileLoader, DataNbaWebLoader):
         self._make_boxscore_items()
 
     def _load_data(self):
-        source_method = getattr(self, f'_from_{self.source}')
+        source_method = getattr(self, f"_from_{self.source}")
         source_method()
 
     @check_file_directory
     def _from_file(self):
-        self.file_path = f'{self.file_directory}/game_details/data_{self.game_id}.json'
+        self.file_path = f"{self.file_directory}/game_details/data_{self.game_id}.json"
         self._load_data_from_file()
 
     def _from_web(self):
         league_url_part = NBA_STRING if self.league == G_LEAGUE_STRING else self.league
-        self.url = f'http://data.{league_url_part}.com/data/v2015/json/mobile_teams/{self.league}/{self.season}/scores/gamedetail/{self.game_id}_gamedetail.json'
+        self.url = f"http://data.{league_url_part}.com/data/v2015/json/mobile_teams/{self.league}/{self.season}/scores/gamedetail/{self.game_id}_gamedetail.json"
         self._load_request_data()
 
     def _save_data_to_file(self):
         if self.file_directory is not None and os.path.isdir(self.file_directory):
-            file_path = f'{self.file_directory}/game_details/data_{self.game_id}.json'
-            with open(file_path, 'w') as outfile:
+            file_path = f"{self.file_directory}/game_details/data_{self.game_id}.json"
+            with open(file_path, "w") as outfile:
                 json.dump(self.source_data, outfile)
 
     def _make_boxscore_items(self):
         """
         makes :obj:`~pbpstats.resources.boxscore.DataNbaBoxscoreItem` items for each player/team
         """
-        home = self.data['hls']
-        away = self.data['vls']
-        self.items = [DataNbaBoxscoreItem(item, team_id=away['tid'], team_abbreviation=away['ta']) for item in away['pstsg']]
-        self.items += [DataNbaBoxscoreItem(item, team_id=home['tid'], team_abbreviation=home['ta']) for item in home['pstsg']]
-        self.items.append(DataNbaBoxscoreItem(away['tstsg'], team_id=away['tid'], team_abbreviation=away['ta']))
-        self.items.append(DataNbaBoxscoreItem(home['tstsg'], team_id=home['tid'], team_abbreviation=home['ta']))
+        home = self.data["hls"]
+        away = self.data["vls"]
+        self.items = [
+            DataNbaBoxscoreItem(item, team_id=away["tid"], team_abbreviation=away["ta"])
+            for item in away["pstsg"]
+        ]
+        self.items += [
+            DataNbaBoxscoreItem(item, team_id=home["tid"], team_abbreviation=home["ta"])
+            for item in home["pstsg"]
+        ]
+        self.items.append(
+            DataNbaBoxscoreItem(
+                away["tstsg"], team_id=away["tid"], team_abbreviation=away["ta"]
+            )
+        )
+        self.items.append(
+            DataNbaBoxscoreItem(
+                home["tstsg"], team_id=home["tid"], team_abbreviation=home["ta"]
+            )
+        )
 
     @property
     def data(self):
         """
         returns raw JSON response data
         """
-        return self.source_data['g']
+        return self.source_data["g"]

@@ -13,6 +13,7 @@ class Games(Base):
         :obj:`~pbpstats.resources.games.data_nba_game_item.DataNbaGameItem` items,
         typically from a games data loader
     """
+
     def __init__(self, items):
         self.items = items
 

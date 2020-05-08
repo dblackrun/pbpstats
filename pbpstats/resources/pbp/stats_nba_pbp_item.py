@@ -5,6 +5,7 @@ class StatsNbaPbpItem(object):
     :param dict event: dict with event data
     :param int order: sequential order in which event occurs
     """
+
     def __init__(self, event, order):
         for key, value in event.items():
             setattr(self, key.lower(), value)

@@ -13,6 +13,7 @@ class EnhancedPbp(Base):
         :obj:`~pbpstats.resources.enhanced_pbp.enhanced_pbp_item.EnhancedPbpItem` items,
         typically from a enhanced pbp data loader
     """
+
     def __init__(self, items):
         self.items = items
 
@@ -35,7 +36,9 @@ class EnhancedPbp(Base):
         """
         returns list of :obj:`~pbpstats.resources.enhanced_pbp.field_goal.FieldGoal` events with all made FGs
         """
-        return [item for item in self.items if isinstance(item, FieldGoal) and item.is_made]
+        return [
+            item for item in self.items if isinstance(item, FieldGoal) and item.is_made
+        ]
 
     @property
     def ftas(self):
@@ -49,11 +52,19 @@ class EnhancedPbp(Base):
         """
         returns list of :obj:`~pbpstats.resources.enhanced_pbp.field_goal.Rebound` events
         """
-        return [item for item in self.items if isinstance(item, Rebound) and item.is_real_rebound]
+        return [
+            item
+            for item in self.items
+            if isinstance(item, Rebound) and item.is_real_rebound
+        ]
 
     @property
     def turnovers(self):
         """
         returns list of :obj:`~pbpstats.resources.enhanced_pbp.field_goal.Turnover` events
         """
-        return [item for item in self.items if isinstance(item, Turnover) and not item.is_no_turnover]
+        return [
+            item
+            for item in self.items
+            if isinstance(item, Turnover) and not item.is_no_turnover
+        ]

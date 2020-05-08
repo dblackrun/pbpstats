@@ -13,6 +13,7 @@ class Pbp(Base):
         :obj:`~pbpstats.resources.pbp.data_nba_pbp_item.DataNbaPbpItem` items,
         typically from a pbp data loader
     """
+
     def __init__(self, items):
         self.items = items
 
