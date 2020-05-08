@@ -1,8 +1,12 @@
 import requests
 
 from pbpstats import (
-    NBA_STRING, D_LEAGUE_STRING, WNBA_STRING, NBA_GAME_ID_PREFIX,
-    G_LEAGUE_GAME_ID_PREFIX, WNBA_GAME_ID_PREFIX
+    NBA_STRING,
+    D_LEAGUE_STRING,
+    WNBA_STRING,
+    NBA_GAME_ID_PREFIX,
+    G_LEAGUE_GAME_ID_PREFIX,
+    WNBA_GAME_ID_PREFIX,
 )
 from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 
@@ -15,6 +19,7 @@ class DataNbaWebLoader(AbsDataLoader):
 
     This class should not be instantiated directly.
     """
+
     def _load_request_data(self):
         response = requests.get(self.url)
         if response.status_code == 200:
@@ -45,7 +50,7 @@ class DataNbaWebLoader(AbsDataLoader):
         4th and 5th characters in game id represent season year
         ex. for 2016-17 season 4th and 5th characters would be 16 and season should return 2016
         """
-        if self.game_id[3] == '9':
-            return '19' + self.game_id[3] + self.game_id[4]
+        if self.game_id[3] == "9":
+            return "19" + self.game_id[3] + self.game_id[4]
         else:
-            return '20' + self.game_id[3] + self.game_id[4]
+            return "20" + self.game_id[3] + self.game_id[4]

@@ -12,16 +12,16 @@ from pbpstats.data_loader.stats_nba.scoreboard_loader import StatsNbaScoreboardL
 from pbpstats.data_loader.stats_nba.shots_loader import StatsNbaShotsLoader
 
 __all__ = [
-    'DataNbaBoxscoreLoader',
-    'DataNbaEnhancedPbpLoader',
-    'DataNbaPbpLoader',
-    'DataNbaPossessionLoader',
-    'DataNbaScheduleLoader',
-    'StatsNbaBoxscoreLoader',
-    'StatsNbaEnhancedPbpLoader',
-    'StatsNbaGameFinderLoader',
-    'StatsNbaPbpLoader',
-    'StatsNbaPossessionLoader',
-    'StatsNbaScoreboardLoader',
-    'StatsNbaShotsLoader',
+    "DataNbaBoxscoreLoader",
+    "DataNbaEnhancedPbpLoader",
+    "DataNbaPbpLoader",
+    "DataNbaPossessionLoader",
+    "DataNbaScheduleLoader",
+    "StatsNbaBoxscoreLoader",
+    "StatsNbaEnhancedPbpLoader",
+    "StatsNbaGameFinderLoader",
+    "StatsNbaPbpLoader",
+    "StatsNbaPossessionLoader",
+    "StatsNbaScoreboardLoader",
+    "StatsNbaShotsLoader",
 ]

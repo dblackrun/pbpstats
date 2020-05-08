@@ -4,6 +4,7 @@ class StatsNbaLoaderBase(object):
 
     This class should not be instantiated directly
     """
+
     def make_list_of_dicts(self, results_set_index=0):
         """
         Creates list of dicts from source data
@@ -11,8 +12,8 @@ class StatsNbaLoaderBase(object):
         :param int results_set_index: Index results are in. Default is 0
         :returns: list of dicts with data for results
         """
-        headers = self.source_data['resultSets'][results_set_index]['headers']
-        rows = self.source_data['resultSets'][results_set_index]['rowSet']
+        headers = self.source_data["resultSets"][results_set_index]["headers"]
+        rows = self.source_data["resultSets"][results_set_index]["rowSet"]
         deduped_rows = self.dedupe_events_row_set(rows)
         return [dict(zip(headers, row)) for row in deduped_rows]
 

@@ -27,13 +27,16 @@ class DataNbaPossessionLoader(NbaPossessionLoader):
         The specific file location will be `data_<game_id>.json` in the `/pbp` subdirectory.
         If not provided response data will not be saved on disk.
     """
-    data_provider = 'data_nba'
-    resource = 'Possessions'
-    parent_object = 'Game'
+
+    data_provider = "data_nba"
+    resource = "Possessions"
+    parent_object = "Game"
 
     def __init__(self, game_id, source, file_directory=None):
         pbp_events = DataNbaEnhancedPbpLoader(game_id, source, file_directory)
         self.events = pbp_events.items
         events_by_possession = self._split_events_by_possession()
-        self.items = [Possession(possession_events) for possession_events in events_by_possession]
+        self.items = [
+            Possession(possession_events) for possession_events in events_by_possession
+        ]
         self._add_extra_attrs_to_all_possessions()
