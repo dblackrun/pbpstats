@@ -1,9 +1,37 @@
+"""
+Instantiating a ``Season`` object will load all resources for the ``Season``
+object that were set in the settings when the client was instantiated
+
+The following code will instantiate the client and get all games for the
+2019-20 NBA Regular Season and store the schedule response in a
+``/response_data`` subdirectory
+
+.. code-block:: python
+
+    from pbpstats.client import Client
+
+    settings = {
+        "dir": "/response_data",
+        "Games": {"source": "web", "data_provider": "data_nba"}
+    }
+    client = Client(settings)
+    season = client.Season("nba", "2019-20", "Regular Season")
+    for game in season.games.items:
+        print(game)
+"""
 import inspect
 
 import pbpstats.client as client
 
 
 class Season(object):
+    """
+    Class for loading resource data from data loaders with a ``parent_object`` of ``Season``
+
+    :param str league: Options are 'nba', 'wnba' or 'gleague'
+    :param str season: Can be formatted as either 2019-20 or 2019.
+    :param str season_type: Options are 'Regular Season' or 'Playoffs'
+    """
     def __init__(self, league, season, season_type):
         self.league = league
         self.season = season

@@ -1,9 +1,34 @@
+"""
+Instantiating a ``Game`` object will load all resources for the ``Game``
+object that were set in the settings when the client was instantiated
+
+The following code will instantiate the client and get possession data
+for game id 0021900001 from files in ``/response_data`` subdirectories
+
+.. code-block:: python
+
+    from pbpstats.client import Client
+
+    settings = {
+        "dir": "/response_data",
+        "Possessions": {"source": "file", "data_provider": "stats_nba"}
+    }
+    client = Client(settings)
+    game = client.Game('0021900001')
+    for possession in game.possessions.items:
+        print(possession)
+"""
 import inspect
 
 import pbpstats.client as client
 
 
 class Game(object):
+    """
+    Class for loading resource data from data loaders with a ``parent_object`` of ``Game``
+
+    :param str game_id: NBA Stats Game Id
+    """
     def __init__(self, game_id):
         self.game_id = game_id
         attributes = inspect.getmembers(self, lambda a: not(inspect.isroutine(a)))
