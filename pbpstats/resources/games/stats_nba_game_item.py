@@ -8,6 +8,11 @@ KEY_ATTR_MAPPER = {
 
 
 class StatsNbaGameItem(object):
+    """
+    Class for game data from stats.nba.com
+
+    :param dict item: dict with game data
+    """
     def __init__(self, item):
         for key, value in KEY_ATTR_MAPPER.items():
             if item.get(key) is not None:
@@ -15,8 +20,14 @@ class StatsNbaGameItem(object):
 
     @property
     def data(self):
+        """
+        returns game dict
+        """
         return self.__dict__
 
     @property
     def is_final(self):
+        """
+        returns True if game is final, False otherwise
+        """
         return self.status == 'Final'
