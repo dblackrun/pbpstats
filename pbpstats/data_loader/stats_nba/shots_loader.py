@@ -19,6 +19,7 @@ import requests
 from pathlib import Path
 
 from pbpstats import HEADERS, REQUEST_TIMEOUT, NBA_STRING, G_LEAGUE_STRING
+from pbpstats.data_loader.abs_data_loader import check_file_directory
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 from pbpstats.data_loader.stats_nba.summary_loader import StatsNbaSummaryLoader
@@ -54,6 +55,7 @@ class StatsNbaShotsLoader(StatsNbaWebLoader, StatsNbaFileLoader):
         source_method = getattr(self, f'_from_{self.source}')
         source_method()
 
+    @check_file_directory
     def _from_file(self):
         self.home_file_path = f'{self.file_directory }/game_details/stats_home_shots_{self.game_id}.json'
         self.away_file_path = f'{self.file_directory }/game_details/stats_away_shots_{self.game_id}.json'

@@ -17,6 +17,7 @@ import json
 import os
 
 from pbpstats import NBA_STRING, G_LEAGUE_STRING
+from pbpstats.data_loader.abs_data_loader import check_file_directory
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 from pbpstats.resources.boxscore.stats_nba_boxscore_item import StatsNbaBoxscoreItem
@@ -49,6 +50,7 @@ class StatsNbaBoxscoreLoader(StatsNbaFileLoader, StatsNbaWebLoader):
         source_method = getattr(self, f'_from_{self.source}')
         source_method()
 
+    @check_file_directory
     def _from_file(self):
         self.file_path = f'{self.file_directory}/game_details/stats_boxscore_{self.game_id}.json'
         self._load_data_from_file()
