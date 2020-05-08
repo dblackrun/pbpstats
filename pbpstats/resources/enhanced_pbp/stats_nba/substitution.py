@@ -3,5 +3,8 @@ from pbpstats.resources.enhanced_pbp import Substitution
 
 
 class StatsSubstitution(Substitution, StatsEnhancedPbpItem):
+    """
+    Class for Substitution events
+    """
     def __init__(self, *args):
         super().__init__(*args)

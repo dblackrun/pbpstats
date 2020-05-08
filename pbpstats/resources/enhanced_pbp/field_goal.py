@@ -5,32 +5,54 @@ from pbpstats.resources.enhanced_pbp import Foul, FreeThrow, Turnover, Violation
 
 
 class FieldGoal(object):
+    """
+    Class for field goal events
+    """
     event_type = [1, 2]
 
     @property
     def is_made(self):
+        """
+        returns True if shot was made, False otherwise
+        """
         return self.event_type == 1
 
     @property
     def is_blocked(self):
+        """
+        returns True if shot was blocked, False otherwise
+        """
         return not self.is_made and hasattr(self, 'player3_id')
 
     @property
     def is_assisted(self):
+        """
+        returns True if shot was assisted, False otherwise
+        """
         return self.is_made and hasattr(self, 'player2_id')
 
     @property
     def rebound(self):
+        """
+        returns :obj:`~pbpstats.resources.enhanced_pbp.rebound.Rebound` item
+        for the rebound of the shot, if it was missed, None otherwise
+        """
         if not self.is_made and self.next_event.is_real_rebound:
             return self.next_event
         return None
 
     @property
     def is_heave(self):
+        """
+        returns True if shot was a last second heave, False otherwise
+        """
         return self.distance > pbpstats.HEAVE_DISTANCE_CUTOFF and self.seconds_remaining < pbpstats.HEAVE_TIME_CUTOFF
 
     @property
     def is_corner_3(self):
+        """
+        returns True if shot was a corner 3, False otherwise
+        """
         if self.shot_value != 3:
             return False
         if not hasattr(self, 'locY') or self.locY is None:
@@ -41,6 +63,9 @@ class FieldGoal(object):
 
     @property
     def distance(self):
+        """
+        returns shot distance in feet
+        """
         if hasattr(self, 'locX') and hasattr(self, 'locY'):
             x_squared = self.locX ** 2
             y_squared = self.locY ** 2
@@ -56,6 +81,9 @@ class FieldGoal(object):
 
     @property
     def shot_type(self):
+        """
+        returns shot type string ('AtRim', 'ShortMidRange', 'LongMidRange', 'Arc3' or 'Corner3')
+        """
         if self.shot_value == 3:
             if self.is_corner_3:
                 return pbpstats.CORNER_3_STRING
@@ -73,6 +101,10 @@ class FieldGoal(object):
 
     @property
     def is_putback(self):
+        """
+        returns True if shot is a 2pt attempt within 2 seconds of an
+        offensive rebound attempted by the same player who got the rebound
+        """
         if self.is_assisted or self.shot_value == 3:
             return False
         prev_evt = self.previous_event
@@ -97,6 +129,9 @@ class FieldGoal(object):
 
     @property
     def shot_data(self):
+        """
+        returns a dict with detailed shot data
+        """
         team_ids = list(self.current_players.keys())
         opponent_team_id = team_ids[0] if self.team_id == team_ids[1] else team_ids[1]
         shot_data = {
@@ -145,8 +180,7 @@ class FieldGoal(object):
     @property
     def is_make_that_does_not_end_possession(self):
         """
-        this is to make sure possession does not end if there are still FTs to shoot
-        to get true and1s need to check the shooter is the player who drew the foul
+        returns True if shot is a made shot that does not end the possession due to a foul, False otherwise
         """
         # check for foul at time of shot
         shooter_team_id = self.team_id
@@ -217,6 +251,9 @@ class FieldGoal(object):
 
     @property
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         stats = []
         is_penalty_event = self.is_penalty_event()
         is_second_chance_event = self.is_second_chance_event()

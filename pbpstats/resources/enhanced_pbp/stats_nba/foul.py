@@ -3,11 +3,17 @@ from pbpstats.resources.enhanced_pbp import Foul
 
 
 class StatsFoul(Foul, StatsEnhancedPbpItem):
+    """
+    Class for foul events
+    """
     def __init__(self, *args):
         super().__init__(*args)
 
     @property
     def number_of_fta_for_foul(self):
+        """
+        returns the number of free throws resulting from the foul
+        """
         clock = self.clock
         event = self
         while event is not None and event.clock == clock and not (hasattr(event, 'is_first_ft') and not event.is_technical_ft and self.team_id != event.team_id):

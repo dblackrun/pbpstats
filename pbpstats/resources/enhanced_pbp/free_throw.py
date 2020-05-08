@@ -5,11 +5,17 @@ from pbpstats.resources.enhanced_pbp import Foul
 
 
 class FreeThrow(metaclass=abc.ABCMeta):
+    """
+    Class for free throw events
+    """
     event_type = 3
     shot_type = pbpstats.FREE_THROW_STRING
 
     @abc.abstractproperty
     def is_made(self):
+        """
+        returns True if shot was made, False otherwise
+        """
         pass
 
     @property
@@ -38,10 +44,16 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def is_first_ft(self):
+        """
+        returns True if free throw is first of trip to the free throw line, False otherwise
+        """
         return '1 of' in self.description or self.is_ft_1pt or self.is_ft_2pt or self.is_ft_3pt
 
     @property
     def is_end_ft(self):
+        """
+        returns True if free throw is last of trip to the free throw line, False otherwise
+        """
         return self.is_ft_1_of_1 or self.is_ft_2_of_2 or self.is_ft_3_of_3 or self.is_ft_1pt or self.is_ft_2pt or self.is_ft_3pt
 
     @property
@@ -51,26 +63,33 @@ class FreeThrow(metaclass=abc.ABCMeta):
     @property
     def is_ft_1pt(self):
         """
-        only used in g-league, starting in 2019-20 season
+        returns True if free throw is a 1 point free throw, False otherwise
+        Only used in g-league, starting in 2019-20 season
         """
         return self.event_action_type == 30 or self.event_action_type == 35
 
     @property
     def is_ft_2pt(self):
         """
-        only used in g-league, starting in 2019-20 season
+        returns True if free throw is a 2 point free throw, False otherwise
+        Only used in g-league, starting in 2019-20 season
         """
         return self.event_action_type == 31 or self.event_action_type == 36
 
     @property
     def is_ft_3pt(self):
         """
-        only used in g-league, starting in 2019-20 season
+        returns True if free throw is a 3 point free throw, False otherwise
+        Only used in g-league, starting in 2019-20 season
         """
         return self.event_action_type == 32 or self.event_action_type == 37
 
     @property
     def shot_value(self):
+        """
+        returns shot value of a free throw
+        Starting in 2019-20 season, the G-League added 2 and 3 point FTs
+        """
         if self.is_ft_2pt:
             return 2
         if self.is_ft_3pt:
@@ -79,6 +98,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def is_away_from_play_ft(self):
+        """
+        returns True if free throw is from an away from the play foul, False otherwise.
+        """
         foul = self.foul_that_led_to_ft
         if ((self.is_ft_1_of_1 or self.is_ft_1pt) or (self.is_ft_2_of_2 or self.is_ft_2pt)) and foul is not None and foul.is_away_from_play_foul:
             made_shots_at_event_time = []
@@ -108,6 +130,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def is_inbound_foul_ft(self):
+        """
+        returns True if free throw is from an inbound foul, False otherwise.
+        """
         if self.is_ft_1_of_1 or self.is_ft_1pt:
             events_at_event_time = self.get_all_events_at_current_time()
             for event in events_at_event_time:
@@ -118,6 +143,10 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def foul_that_led_to_ft(self):
+        """
+        returns :obj:`~pbpstats.resources.enhanced_pbp.foul.Foul` object for the foul
+        that resulted in the free throw
+        """
         clock = self.clock
         # foul should be before FT so start by going backwards
         event = self
@@ -138,6 +167,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def num_ft_for_trip(self):
+        """
+        returns number of shots for the trip to the free throw line
+        """
         if 'of 1' in self.description:
             return 1
         elif 'of 2' in self.description:
@@ -147,6 +179,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def free_throw_type(self):
+        """
+        returns string description of free throw type
+        """
         if self.is_technical_ft:
             return 'Technical'
         num_fts = self.num_ft_for_trip
@@ -185,6 +220,11 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def event_for_efficiency_stats(self):
+        """
+        returns :obj:`~pbpstats.resources.enhanced_pbp.foul.Foul` object for the foul
+        that resulted in the free throw. Plus/minus points should go to
+        the players on the floor at the time of the foul, not the free throw.
+        """
         clock = self.clock
         # foul should be before FT so start by going backwards
         event = self
@@ -205,6 +245,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
 
     @property
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         stats = []
         team_ids = list(self.current_players.keys())
         is_penalty_event = self.is_penalty_event()

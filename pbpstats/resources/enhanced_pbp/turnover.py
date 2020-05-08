@@ -3,6 +3,9 @@ from pbpstats.resources.enhanced_pbp import Substitution
 
 
 class Turnover(object):
+    """
+    Class for Turnover events
+    """
     event_type = 5
 
     @property
@@ -61,6 +64,9 @@ class Turnover(object):
 
     @property
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         stats = []
         second_chance_stats = []
         if not self.is_no_turnover:

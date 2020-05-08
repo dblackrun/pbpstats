@@ -3,17 +3,30 @@ from pbpstats.resources.enhanced_pbp import EndOfPeriod, FieldGoal, FreeThrow, J
 
 
 class EventOrderError(Exception):
+    """
+    Class for exception raised when rebound event is
+    not immediately following a missed shot event.
+
+    You can manually edit the event order in the pbp file
+    stored on disk to fix this.
+    """
     pass
 
 
 class Rebound(object):
+    """
+    Class for rebound events
+    """
     event_type = 4
 
     @property
     def is_real_rebound(self):
         """
-        all missed shots have a rebound in the play-by-play but
-        not all of these rebounds should be counted as actual rebounds
+        Returns True if rebound should be counted as a rebound, False otherwise.
+
+        All missed shots have a rebound in the play-by-play but
+        not all of these rebounds should be counted as actual rebounds. Some are just
+        placeholder events.
         """
         if self.is_placeholder:
             return False
@@ -35,15 +48,18 @@ class Rebound(object):
     @property
     def is_placeholder(self):
         """
-        these are team rebounds on for example missed FT 1 of 2
+        returns True if rebound is a placeholder event, False otherwise.
+
+        These are team rebounds on for example missed FT 1 of 2
         """
         return self.event_action_type != 0 and self.player1_id == 0
 
     @property
     def is_turnover_placeholder(self):
         """
-        ignore if shot clock violation or kicked ball turnover at time of team rebound
-        these get logged as team rebounds but they aren't actual rebounds, they are turnovers
+        returns True if rebound is a placeholder event when a turnover occurs, False otherwise.
+
+        Example shot clock violation or kicked ball turnover at time of team rebound
         """
         events_at_event_time = self.get_all_events_at_current_time()
         for event in events_at_event_time:
@@ -54,7 +70,9 @@ class Rebound(object):
     @property
     def is_non_live_ft_placeholder(self):
         """
-        example: rebound after missed flagrant FT 2 of 2
+        returns True if rebound is a placeholder event after a missed free throw that is not a live ball, False otherwise.
+
+        Example: rebound after missed flagrant FT 2 of 2
         """
         if isinstance(self.missed_shot, FreeThrow) and not self.missed_shot.is_end_ft:
             return True
@@ -63,7 +81,10 @@ class Rebound(object):
     @property
     def is_buzzer_beater_placeholder(self):
         """
-        rebounds occur after time has expired but are still logged in play-by-play
+        returns True if rebound is a placeholder event after a missed buzzer beater, False otherwise.
+
+        Rebounds occur after time has expired but are still logged in play-by-play,
+        but should not be counted in rebound totals
         """
         next_event = self.next_event
         if isinstance(next_event, Replay):
@@ -79,8 +100,10 @@ class Rebound(object):
     @property
     def is_buzzer_beater_rebound_at_shot_time(self):
         """
-        sometimes rebound on buzzer beater is given the same time as shot - don't count these
-        only don't count if rebound is last event before end of period event, ignoring replay events
+        returns True if rebound is a placeholder event after a missed buzzer beater, False otherwise.
+
+        Sometimes rebound on buzzer beater is given the same time as shot - don't count these.
+        Only don't count if rebound is last event before end of period event, ignoring replay events
         """
         if self.missed_shot.seconds_remaining <= 3 and self.seconds_remaining == self.missed_shot.seconds_remaining and self.player1_id == 0:
             next_event = self.next_event
@@ -92,6 +115,14 @@ class Rebound(object):
 
     @property
     def missed_shot(self):
+        """
+        returns :obj:`~pbpstats.resources.enhanced_pbp.field_goal.FieldGoal` or
+        :obj:`~pbpstats.resources.enhanced_pbp.free_throw.FreeThrow` object
+        for shot that was missed
+
+        :raises: :obj:`~pbpstats.resources.enhanced_pbp.rebound.EventOrderError`:
+            If rebound event is not immediately following a missed shot event.
+        """
         if isinstance(self.previous_event, (FieldGoal, FreeThrow)):
             if not self.previous_event.is_made:
                 return self.previous_event
@@ -108,14 +139,23 @@ class Rebound(object):
 
     @property
     def oreb(self):
+        """
+        returns True if rebound is an offensive rebound, False otherwise
+        """
         return self.team_id == self.missed_shot.team_id
 
     @property
     def self_reb(self):
+        """
+        returns True if rebound was gotten by player who missed the shot, False otherwise
+        """
         return self.player1_id == self.missed_shot.player1_id
 
     @property
     def event_stats(self):
+        """
+        returns list of dicts with all stats for event
+        """
         stats = []
         if self.is_real_rebound:
             shot_type = self.missed_shot.shot_type

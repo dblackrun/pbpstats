@@ -3,5 +3,8 @@ from pbpstats.resources.enhanced_pbp import Ejection
 
 
 class StatsEjection(Ejection, StatsEnhancedPbpItem):
+    """
+    Class for Ejection events
+    """
     def __init__(self, *args):
         super().__init__(*args)

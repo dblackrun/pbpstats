@@ -3,5 +3,8 @@ from pbpstats.resources.enhanced_pbp import EndOfPeriod
 
 
 class StatsEndOfPeriod(EndOfPeriod, StatsEnhancedPbpItem):
+    """
+    Class for end of period events
+    """
     def __init__(self, *args):
         super().__init__(*args)
