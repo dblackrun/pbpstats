@@ -1,3 +1,6 @@
+"""
+The ``Possession`` class has some basic properties for handling possession data
+"""
 from itertools import groupby
 from operator import itemgetter
 
@@ -6,6 +9,13 @@ from pbpstats.resources.enhanced_pbp import FieldGoal, FreeThrow, JumpBall, Rebo
 
 
 class Possession(object):
+    """
+    Class for possession
+
+    :param list events: list of
+        :obj:`~pbpstats.resources.enhanced_pbp.enhanced_pbp_item.EnhancedPbpItem` items for possession,
+        typically from a possession data loader
+    """
     def __init__(self, events):
         self.game_id = events[0].game_id
         self.period = events[0].period
@@ -20,20 +30,32 @@ class Possession(object):
 
     @property
     def data(self):
+        """
+        returns dict possession data
+        """
         return self.__dict__
 
     @property
     def start_time(self):
+        """
+        returns the time remaining (MM:SS) in the period when the possession started
+        """
         if not hasattr(self, 'previous_possession') or self.previous_possession is None:
             return self.events[0].clock
         return self.previous_possession.events[-1].clock
 
     @property
     def end_time(self):
+        """
+        returns the time remaining (MM:SS) in the period when the possession ended
+        """
         return self.events[-1].clock
 
     @property
     def start_score_margin(self):
+        """
+        returns the score margin from the perspective of the team on offense when the possession started
+        """
         if not hasattr(self, 'previous_possession') or self.previous_possession is None:
             score = self.events[0].score
         else:
@@ -47,6 +69,9 @@ class Possession(object):
         return offense_points - defense_points
 
     def get_team_ids(self):
+        """
+        returns a list with the team ids of both teams playing
+        """
         team_ids = list(set([event.team_id for event in self.events if event.team_id != 0]))
         prev_poss = self.previous_possession
         while len(team_ids) != 2 and prev_poss is not None:
@@ -62,6 +87,9 @@ class Possession(object):
 
     @property
     def offense_team_id(self):
+        """
+        returns team id for team on offense on possession
+        """
         if len(self.events) == 1 and isinstance(self.events[0], JumpBall):
             # if possession only has one event and it is a jump ball, need to check
             # how previous possession ended to see which team actually started with the ball
@@ -85,7 +113,7 @@ class Possession(object):
     @property
     def possession_has_timeout(self):
         """
-        checks if there was a timeout called on the current possession
+        returns True if there was a timeout called on the current possession, False otherwise
         """
         for i, event in enumerate(self.events):
             if isinstance(event, Timeout) and event.clock != self.end_time:
@@ -109,7 +137,7 @@ class Possession(object):
     @property
     def previous_possession_has_timeout(self):
         """
-        check for timeout on previous possession - if there is a timeout at the same time as possession end, current possession starts off timeout
+        returns True if there was a timeout called at same time as possession ended, False otherwise
         """
         if self.previous_possession is not None:
             for event in self.previous_possession.events:
@@ -126,7 +154,7 @@ class Possession(object):
     @property
     def previous_possession_ending_event(self):
         """
-        gets previous possession ending event - ignoring subs
+        returns previous possession ending event - ignoring subs
         """
         previous_event_index = -1
         while isinstance(self.previous_possession.events[previous_event_index], Substitution) and len(self.previous_possession.events) > abs(previous_event_index):
@@ -135,6 +163,9 @@ class Possession(object):
 
     @property
     def possession_start_type(self):
+        """
+        returns possession start type string
+        """
         if self.number == 1:
             return pbpstats.OFF_DEADBALL_STRING
         if self.possession_has_timeout or self.previous_possession_has_timeout:
@@ -167,6 +198,10 @@ class Possession(object):
 
     @property
     def previous_possession_end_shooter_player_id(self):
+        """
+        returns player id of player who took shot (make or miss) that ended previous possession.
+        returns 0 if previous possession did not end with made field goal or live ball rebound
+        """
         if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
             if isinstance(previous_possession_ending_event, FieldGoal) and previous_possession_ending_event.is_made:
@@ -179,6 +214,10 @@ class Possession(object):
 
     @property
     def previous_possession_end_rebound_player_id(self):
+        """
+        returns player id of player who got rebound that ended previous possession.
+        returns 0 if previous possession did not end with a live ball rebound
+        """
         if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
             if isinstance(previous_possession_ending_event, Rebound):
@@ -188,6 +227,10 @@ class Possession(object):
 
     @property
     def previous_possession_end_turnover_player_id(self):
+        """
+        returns player id of player who turned ball over that ended previous possession.
+        returns 0 if previous possession did not end with a live ball turnover
+        """
         if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
             if isinstance(previous_possession_ending_event, Turnover):
@@ -197,6 +240,10 @@ class Possession(object):
 
     @property
     def previous_possession_end_steal_player_id(self):
+        """
+        returns player id of player who got steal that ended previous possession.
+        returns 0 if previous possession did not end with a live ball turnover
+        """
         if self.previous_possession is not None and not(self.possession_has_timeout or self.previous_possession_has_timeout):
             previous_possession_ending_event = self.previous_possession_ending_event
             if isinstance(previous_possession_ending_event, Turnover):
@@ -206,6 +253,9 @@ class Possession(object):
 
     @property
     def possession_stats(self):
+        """
+        returns list of dicts with aggregate stats for possession
+        """
         grouper = itemgetter('player_id', 'team_id', 'opponent_team_id', 'lineup_id', 'opponent_lineup_id', 'stat_key')
         results = []
         event_stats = [event_stat for event in self.events for event_stat in event.event_stats]
