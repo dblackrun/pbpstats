@@ -1,3 +1,5 @@
+import pytest
+
 from pbpstats.client import Client
 from pbpstats.data_loader.stats_nba.boxscore_loader import StatsNbaBoxscoreLoader
 from pbpstats.resources.boxscore.boxscore import Boxscore
@@ -38,3 +40,12 @@ def test_client_loads_data():
     client = Client(settings)
     game = client.Game('0021600270')
     assert len(game.boxscore.items) > 0
+
+
+def test_value_error_raised_when_dir_missing():
+    settings = {
+        'Boxscore': {'source': 'file', 'data_provider': 'data_nba'},
+    }
+    client = Client(settings)
+    with pytest.raises(ValueError):
+        assert client.Game('0021600270')

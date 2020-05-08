@@ -19,6 +19,7 @@ from pbpstats import (
     NBA_STRING, G_LEAGUE_STRING, WNBA_STRING, NBA_GAME_ID_PREFIX,
     G_LEAGUE_GAME_ID_PREFIX, WNBA_GAME_ID_PREFIX
 )
+from pbpstats.data_loader.abs_data_loader import check_file_directory
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 from pbpstats.resources.games.stats_nba_game_item import StatsNbaGameItem
@@ -56,6 +57,7 @@ class StatsNbaGameFinderLoader(StatsNbaFileLoader, StatsNbaWebLoader):
         source_method = getattr(self, f'_from_{self.source}')
         source_method()
 
+    @check_file_directory
     def _from_file(self):
         self.file_path = f'{self.file_directory}/schedule/stats_{self.league_string}_{self.season_string.replace("-", "_")}_{self.season_type_string.replace(" ", "_")}.json'
         self._load_data_from_file()
