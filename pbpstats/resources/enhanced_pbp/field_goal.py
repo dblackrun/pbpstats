@@ -138,6 +138,22 @@ class FieldGoal(object):
         )
 
     @property
+    def is_and1(self):
+        """
+        returns True if shot was an and 1, False otherwise
+        """
+        if self.is_make_that_does_not_end_possession:
+            free_throws = [
+                event
+                for event in self.get_all_events_at_current_time()
+                if isinstance(event, FreeThrow)
+            ]
+            for ft in free_throws:
+                if "And 1" in ft.free_throw_type and ft.player1_id == self.player1_id:
+                    return True
+        return False
+
+    @property
     def shot_data(self):
         """
         returns a dict with detailed shot data
@@ -159,6 +175,7 @@ class FieldGoal(object):
             "ShotType": self.shot_type,
             "ScoreMargin": self.score_margin,
             "EventNum": self.event_num,
+            "IsAnd1": self.is_and1,
         }
         if self.is_made:
             shot_data["Assisted"] = self.is_assisted
