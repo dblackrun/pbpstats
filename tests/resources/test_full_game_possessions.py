@@ -34,6 +34,7 @@ class TestFullGamePossessions:
             "ShotType": "ShortMidRange",
             "ScoreMargin": 0,
             "EventNum": 2,
+            "IsAnd1": False,
         }
         assert self.game.possessions.items[0].events[-1].shot_data == expected_shot_data
 
@@ -93,6 +94,7 @@ class TestFullGamePossessions:
             "ShotType": "ShortMidRange",
             "ScoreMargin": 0,
             "EventNum": 10,
+            "IsAnd1": False,
         }
         assert self.game.possessions.items[3].events[-2].shot_data == expected_shot_data
 
