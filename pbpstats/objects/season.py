@@ -30,7 +30,7 @@ class Season(object):
 
     :param str league: Options are 'nba', 'wnba' or 'gleague'
     :param str season: Can be formatted as either 2019-20 or 2019.
-    :param str season_type: Options are 'Regular Season' or 'Playoffs'
+    :param str season_type: Options are 'Regular Season' or 'Playoffs' or 'Play In'
     """
 
     def __init__(self, league, season, season_type):

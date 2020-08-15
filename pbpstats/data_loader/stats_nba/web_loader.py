@@ -6,6 +6,7 @@ from pbpstats import (
     WNBA_STRING,
     PLAYOFFS_STRING,
     REGULAR_SEASON_STRING,
+    PLAY_IN_STRING,
     NBA_GAME_ID_PREFIX,
     G_LEAGUE_GAME_ID_PREFIX,
     WNBA_GAME_ID_PREFIX,
@@ -93,9 +94,11 @@ class StatsNbaWebLoader(AbsDataLoader, StatsNbaLoaderBase):
         """
         Returns season type for game id
 
-        3rd character in game id represent season type - 2 for reg season, 4 for playoffs
+        3rd character in game id represent season type - 2 for reg season, 4 for playoffs, 5 for play in
         """
         if self.game_id[2] == "4":
             return PLAYOFFS_STRING
         elif self.game_id[2] == "2":
             return REGULAR_SEASON_STRING
+        elif self.game_id[2] == "5":
+            return PLAY_IN_STRING
