@@ -21,6 +21,7 @@ from pbpstats import (
     WNBA_STRING,
     PLAYOFFS_STRING,
     REGULAR_SEASON_STRING,
+    PLAY_IN_STRING,
     NBA_GAME_ID_PREFIX,
     G_LEAGUE_GAME_ID_PREFIX,
     WNBA_GAME_ID_PREFIX,
@@ -39,7 +40,7 @@ class DataNbaScheduleLoader(DataNbaFileLoader, DataNbaWebLoader):
 
     :param str league: Options are 'nba', 'wnba' or 'gleague'
     :param str season: Can be formatted as either 2019-20 or 2019.
-    :param str season_type: Options are 'Regular Season' or 'Playoffs'
+    :param str season_type: Options are 'Regular Season' or 'Playoffs' or 'Play In'
     :param str source: Where should data be loaded from. Options are 'web' or 'file'
     :param str file_directory: (optional if source is 'web')
         Directory in which data should be either stored (if source is web) or loaded from (if source is file).
@@ -99,6 +100,8 @@ class DataNbaScheduleLoader(DataNbaFileLoader, DataNbaWebLoader):
         if game["gid"][2] == "4" and self.season_type == PLAYOFFS_STRING:
             return True
         elif game["gid"][2] == "2" and self.season_type == REGULAR_SEASON_STRING:
+            return True
+        elif game["gid"][2] == "5" and self.season_type == PLAY_IN_STRING:
             return True
         return False
 
