@@ -37,7 +37,7 @@ class StatsNbaGameFinderLoader(StatsNbaFileLoader, StatsNbaWebLoader):
 
     :param str league: Options are 'nba', 'wnba' or 'gleague'
     :param str season: Formatted as 2019-20 for NBA and G-League, 2019 of WNBA.
-    :param str season_type: Options are 'Regular Season' or 'Playoffs'
+    :param str season_type: Options are 'Regular Season' or 'Playoffs' or 'Play In'
     :param str source: Where should data be loaded from. Options are 'web' or 'file'
     :param str file_directory: (optional if source is 'web')
         Directory in which data should be either stored (if source is web) or loaded from (if source is file).
