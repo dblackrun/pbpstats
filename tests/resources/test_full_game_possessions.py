@@ -621,7 +621,7 @@ class TestFullGamePossessions:
 
     def test_team_stats(self):
         results = self.game.possessions.team_stats
-        assert len(results) == 424
+        assert len(results) == 434
         assert {
             "team_id": 1610612760,
             "stat_key": "1627734:AssistsTo:201566:AtRim",
@@ -2075,7 +2075,33 @@ class TestFullGamePossessions:
 
     def test_opponent_stats(self):
         results = self.game.possessions.opponent_stats
-        assert len(results) == 424
+        assert len(results) == 434
+        assert {
+            "opponent_team_id": 1610612760,
+            "stat_key": "PenaltyPersonal Fouls",
+            "stat_value": 1,
+        } in results
+        assert {
+            "opponent_team_id": 1610612760,
+            "stat_key": "PenaltyPersonal Fouls Drawn",
+            "stat_value": 1,
+        } in results
+        assert {
+            "opponent_team_id": 1610612760,
+            "stat_key": "PenaltyPersonal Take Fouls",
+            "stat_value": 2,
+        } in results
+        assert {
+            "opponent_team_id": 1610612760,
+            "stat_key": "PenaltyShooting Fouls",
+            "stat_value": 4,
+        } in results
+        assert {
+            "opponent_team_id": 1610612760,
+            "stat_key": "PenaltyShooting Fouls Drawn",
+            "stat_value": 3,
+        } in results
+
         assert {
             "opponent_team_id": 1610612760,
             "stat_key": "101162:AssistsTo:203078:Arc3",
@@ -3367,8 +3393,40 @@ class TestFullGamePossessions:
             "stat_value": 11,
         } in results
 
+        assert {
+            "opponent_team_id": 1610612764,
+            "stat_key": "PenaltyPersonal Fouls",
+            "stat_value": 1,
+        } in results
+        assert {
+            "opponent_team_id": 1610612764,
+            "stat_key": "PenaltyPersonal Fouls Drawn",
+            "stat_value": 1,
+        } in results
+        assert {
+            "opponent_team_id": 1610612764,
+            "stat_key": "PenaltyPersonal Take Fouls Drawn",
+            "stat_value": 2,
+        } in results
+        assert {
+            "opponent_team_id": 1610612764,
+            "stat_key": "PenaltyShooting Fouls",
+            "stat_value": 3,
+        } in results
+        assert {
+            "opponent_team_id": 1610612764,
+            "stat_key": "PenaltyShooting Fouls Drawn",
+            "stat_value": 4,
+        } in results
+
     def test_player_stats(self):
         results = self.game.possessions.player_stats
+        assert {
+            "player_id": 201566,
+            "team_id": 1610612760,
+            "stat_key": "PenaltyPersonal Take Fouls Drawn",
+            "stat_value": 2,
+        } in results
         assert {
             "player_id": 201566,
             "team_id": 1610612760,
