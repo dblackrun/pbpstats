@@ -148,6 +148,7 @@ class Foul(object):
         """
         stats = []
         foul_type = self.foul_type_string
+        is_penalty_event = self.is_penalty_event()
         if foul_type is not None:
             stats.append(
                 {
@@ -157,6 +158,15 @@ class Foul(object):
                     "stat_value": 1,
                 }
             )
+            if is_penalty_event:
+                stats.append(
+                    {
+                        "player_id": self.player1_id,
+                        "team_id": self.team_id,
+                        "stat_key": f"{pbpstats.PENALTY_STRING}{foul_type}",
+                        "stat_value": 1,
+                    }
+                )
             team_ids = list(self.current_players.keys())
             if hasattr(self, "player3_id"):
                 p3_stat_key = (
@@ -176,6 +186,15 @@ class Foul(object):
                             "stat_value": 1,
                         }
                     )
+                    if is_penalty_event:
+                        stats.append(
+                            {
+                                "player_id": self.player3_id,
+                                "team_id": self.team_id,
+                                "stat_key": f"{pbpstats.PENALTY_STRING}{p3_stat_key}",
+                                "stat_value": 1,
+                            }
+                        )
                 elif self.player3_id in self.current_players[opponent_team_id]:
                     stats.append(
                         {
@@ -185,6 +204,15 @@ class Foul(object):
                             "stat_value": 1,
                         }
                     )
+                    if is_penalty_event:
+                        stats.append(
+                            {
+                                "player_id": self.player3_id,
+                                "team_id": opponent_team_id,
+                                "stat_key": f"{pbpstats.PENALTY_STRING}{p3_stat_key}",
+                                "stat_value": 1,
+                            }
+                        )
 
             lineups_ids = self.lineup_ids
             for stat in stats:
