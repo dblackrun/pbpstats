@@ -221,11 +221,14 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
                         f"GameId: {game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}"
                     )
 
-    def _get_period_starters_from_period_events(self, file_directory):
+    def _get_period_starters_from_period_events(
+        self, file_directory, ignore_missing_starters=False
+    ):
         starters, player_team_map = self._get_players_who_started_period_with_team_map()
 
         starters_by_team = self._split_up_starters_by_team(starters, player_team_map)
-        self._check_both_teams_have_5_starters(starters_by_team, file_directory)
+        if not ignore_missing_starters:
+            self._check_both_teams_have_5_starters(starters_by_team, file_directory)
 
         return starters_by_team
 
