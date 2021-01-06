@@ -46,4 +46,11 @@ class LiveRebound(Rebound, LiveEnhancedPbpItem):
 
         These are team rebounds on for example missed FT 1 of 2
         """
-        return hasattr(self, "qualifiers") and "deadball" in self.qualifiers
+        if hasattr(self, "qualifiers") and "deadball" in self.qualifiers:
+            return True
+        if (
+            hasattr(self.missed_shot, "is_flagrant_ft")
+            and self.missed_shot.is_flagrant_ft
+        ):
+            return True
+        return False

@@ -82,3 +82,10 @@ class LiveFreeThrow(FreeThrow, LiveEnhancedPbpItem):
         return (
             hasattr(self, "descriptor") and self.stripped_descriptor == "awayfromplay"
         )
+
+    @property
+    def is_flagrant_ft(self):
+        """
+        returns True if free throw is from a flagrant foul, False otherwise.
+        """
+        return hasattr(self, "descriptor") and self.stripped_descriptor == "flagrant"
