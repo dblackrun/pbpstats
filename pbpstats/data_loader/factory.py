@@ -47,7 +47,7 @@ class DataLoaderFactory(object):
         """
         Gets data loader classes for given data provider and resource.
 
-        :param str data_provider: Which data provider should data be loaded from. Options are 'stats_nba' or 'data_nba'
+        :param str data_provider: Which data provider should data be loaded from. Options are 'stats_nba' or 'data_nba' or 'live'
         :param str resource: Name of class from resources directory
 
         :return: list of data loader classes
