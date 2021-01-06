@@ -28,3 +28,10 @@ class LiveBoxscoreItem(object):
         returns boxscore data dict
         """
         return self.__dict__
+
+    @property
+    def total_seconds(self):
+        split = (
+            self.minutes.replace("PT", "").replace("M", ":").replace("S", "").split(":")
+        )
+        return float(split[0]) * 60 + float(split[1])
