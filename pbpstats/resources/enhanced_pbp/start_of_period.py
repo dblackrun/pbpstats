@@ -116,14 +116,16 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
                 if not isinstance(event, JumpBall):
                     # on jump balls team id is winning team, not guaranteed to be player1 team
                     player_team_map[player_id] = event.team_id
-                if isinstance(event, Substitution):
-                    player_team_map[event.player2_id] = event.team_id
-                    # player_id is player going out, player2_id is playing coming in
+                if (
+                    isinstance(event, Substitution)
+                    and event.incoming_player_id is not None
+                ):
+                    player_team_map[event.incoming_player_id] = event.team_id
                     if (
-                        event.player2_id not in starters
-                        and event.player2_id not in subbed_in_players
+                        event.incoming_player_id not in starters
+                        and event.incoming_player_id not in subbed_in_players
                     ):
-                        subbed_in_players.append(event.player2_id)
+                        subbed_in_players.append(event.incoming_player_id)
                     if player_id not in starters and player_id not in subbed_in_players:
                         starters.append(player_id)
 
@@ -219,11 +221,14 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
                         f"GameId: {game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}"
                     )
 
-    def _get_period_starters_from_period_events(self, file_directory):
+    def _get_period_starters_from_period_events(
+        self, file_directory, ignore_missing_starters=False
+    ):
         starters, player_team_map = self._get_players_who_started_period_with_team_map()
 
         starters_by_team = self._split_up_starters_by_team(starters, player_team_map)
-        self._check_both_teams_have_5_starters(starters_by_team, file_directory)
+        if not ignore_missing_starters:
+            self._check_both_teams_have_5_starters(starters_by_team, file_directory)
 
         return starters_by_team
 

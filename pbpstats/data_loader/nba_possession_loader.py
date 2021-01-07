@@ -32,10 +32,13 @@ class NbaPossessionLoader(object):
         """
         number = 1
         for i, possession in enumerate(self.items):
+            period_start = any(
+                isinstance(event, StartOfPeriod) for event in possession.events
+            )
             if i == 0 and i == len(self.items) - 1:
                 possession.previous_possession = None
                 possession.next_possession = None
-            elif isinstance(possession.events[0], StartOfPeriod) or i == 0:
+            elif period_start or i == 0:
                 possession.previous_possession = None
                 possession.next_possession = self.items[i + 1]
                 number = 1
