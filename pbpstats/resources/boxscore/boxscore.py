@@ -10,6 +10,7 @@ class Boxscore(Base):
 
     :param list items: list of either
         :obj:`~pbpstats.resources.boxscore.stats_nba_boxscore_item.StatsNbaBoxscoreItem` or
+        :obj:`~pbpstats.resources.boxscore.live_boxscore_item.LiveBoxscoreItem` or
         :obj:`~pbpstats.resources.boxscore.data_nba_boxscore_item.DataNbaBoxscoreItem` items,
         typically from a boxscore data loader
     """

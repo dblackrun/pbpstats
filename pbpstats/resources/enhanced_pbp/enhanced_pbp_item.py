@@ -121,6 +121,12 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         """
         if self.previous_event is None:
             return 0
+        if self.seconds_remaining == 720:
+            # so that subs between periods for live don't have negative seconds
+            return 0
+        if self.seconds_remaining == 300 and self.period > 4:
+            # so that subs between periods for live don't have negative seconds
+            return 0
         return self.previous_event.seconds_remaining - self.seconds_remaining
 
     def is_second_chance_event(self):

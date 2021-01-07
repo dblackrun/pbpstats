@@ -36,7 +36,7 @@ class Client(object):
         ``dir`` key is optional, but recommended and should point to the directory you have set up
         that either already contains response data or where you want to store the response data.
         Other keys in the settings dict should be resources from the :py:mod:`~pbpstats.resources` module
-        and their values should be a dict with ``source`` ('file' or 'web') and ``data_provider`` ('stats_nba' or 'data_nba')
+        and their values should be a dict with ``source`` ('file' or 'web') and ``data_provider`` ('stats_nba' or 'data_nba' or 'live')
     """
 
     def __init__(self, settings):
