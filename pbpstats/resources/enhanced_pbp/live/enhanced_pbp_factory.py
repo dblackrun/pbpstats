@@ -2,15 +2,15 @@
 ``LiveEnhancedPbpFactory`` can be used to create enhanced pbp event objects from
 the :mod:`pbpstats.resources.enhanced_pbp.live` module based on the event type.
 
-The following code will get the event class for event type 1 (which is the event type for a field goal make)
+The following code will get the event class for a turnover event
 
 .. code-block:: python
 
     from pbpstats.resources.enhanced_pbp.live.enhanced_pbp_factory import LiveEnhancedPbpFactory
 
     factory = LiveEnhancedPbpFactory()
-    event_class = factory.get_event_class(1)
-    print(event_class)  # prints "<class 'pbpstats.resources.enhanced_pbp.live.field_goal.LiveFieldGoal'>"
+    event_class = factory.get_event_class('turnover', 'out-of-bounds')
+    print(event_class)  # prints "<class 'pbpstats.resources.enhanced_pbp.live.turnover.LiveTurnover'>"
 """
 import pbpstats.resources.enhanced_pbp.live as event_types
 from pbpstats.resources.enhanced_pbp.live.enhanced_pbp_item import LiveEnhancedPbpItem
