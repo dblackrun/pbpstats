@@ -9,5 +9,7 @@ class StatsEjection(Ejection, StatsEnhancedPbpItem):
     Class for Ejection events
     """
 
+    event_type = 11
+
     def __init__(self, *args):
         super().__init__(*args)

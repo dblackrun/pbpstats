@@ -11,3 +11,15 @@ class LiveReplay(Replay, LiveEnhancedPbpItem):
 
     def __init__(self, *args):
         super().__init__(*args)
+
+    @property
+    def support_ruling(self):
+        return False
+
+    @property
+    def overturn_ruling(self):
+        return False
+
+    @property
+    def ruling_stands(self):
+        return False

@@ -1,3 +1,5 @@
+import abc
+
 import pbpstats
 
 
@@ -6,104 +8,149 @@ class Foul(object):
     Class for foul events
     """
 
-    event_type = 6
+    @abc.abstractproperty
+    def number_of_fta_for_foul(self):
+        """
+        returns the number of free throws resulting from the foul
+        """
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_personal_foul(self):
-        return self.event_action_type == 1
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_shooting_foul(self):
-        return self.event_action_type == 2
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_loose_ball_foul(self):
-        return self.event_action_type == 3
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_offensive_foul(self):
-        return self.event_action_type == 4
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_inbound_foul(self):
-        return self.event_action_type == 5
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_away_from_play_foul(self):
-        return self.event_action_type == 6
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_clear_path_foul(self):
-        return self.event_action_type == 9
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_double_foul(self):
-        return self.event_action_type == 10
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_technical(self):
-        return self.event_action_type in [11, 12, 13, 18, 19, 25, 30]
+        pass
 
     @property
     def is_flagrant(self):
-        return self.event_action_type in [14, 15]
+        return self.is_flagrant1 or self.is_flagrant2
 
-    @property
+    @abc.abstractproperty
+    def is_flagrant1(self):
+        pass
+
+    @abc.abstractproperty
+    def is_flagrant2(self):
+        pass
+
+    @abc.abstractproperty
     def is_double_technical(self):
-        return self.event_action_type == 16
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_defensive_3_seconds(self):
-        return self.event_action_type == 17
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_delay_of_game(self):
-        return self.event_action_type == 18
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_charge(self):
-        return self.event_action_type == 26
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_personal_block_foul(self):
-        return self.event_action_type == 27
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_personal_take_foul(self):
-        return self.event_action_type == 28
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_shooting_block_foul(self):
-        return self.event_action_type == 29
+        pass
 
     @property
     def counts_towards_penalty(self):
         """
         returns True if foul is a foul type that counts towards the penalty, False otherwise
         """
-        return self.event_action_type in [1, 2, 3, 5, 6, 9, 14, 15, 27, 28, 29]
+        if self.is_personal_foul:
+            return True
+        if self.is_shooting_foul:
+            return True
+        if self.is_loose_ball_foul:
+            return True
+        if self.is_inbound_foul:
+            return True
+        if self.is_away_from_play_foul:
+            return True
+        if self.is_clear_path_foul:
+            return True
+        if self.is_flagrant:
+            return True
+        if self.is_personal_block_foul:
+            return True
+        if self.is_personal_take_foul:
+            return True
+        if self.is_shooting_block_foul:
+            return True
+        return False
 
     @property
     def counts_as_personal_foul(self):
         """
         returns True if fouls is a foul type that counts as a personal foul, False otherwise
         """
-        return self.event_action_type in [
-            1,
-            2,
-            3,
-            4,
-            5,
-            6,
-            9,
-            10,
-            14,
-            15,
-            26,
-            27,
-            28,
-            29,
-        ]
+        if self.is_personal_foul:
+            return True
+        if self.is_shooting_foul:
+            return True
+        if self.is_loose_ball_foul:
+            return True
+        if self.is_offensive_foul:
+            return True
+        if self.is_inbound_foul:
+            return True
+        if self.is_away_from_play_foul:
+            return True
+        if self.is_clear_path_foul:
+            return True
+        if self.is_double_foul:
+            return True
+        if self.is_flagrant:
+            return True
+        if self.is_charge:
+            return True
+        if self.is_personal_block_foul:
+            return True
+        if self.is_personal_take_foul:
+            return True
+        if self.is_shooting_block_foul:
+            return True
+
+        return False
 
     @property
     def foul_type_string(self):
@@ -126,9 +173,9 @@ class Foul(object):
             return pbpstats.CLEAR_PATH_FOUL_TYPE_STRING
         if self.is_double_foul:
             return pbpstats.DOUBLE_FOUL_TYPE_STRING
-        if self.event_action_type == 14:
+        if self.is_flagrant1:
             return pbpstats.FLAGRANT_1_FOUL_TYPE_STRING
-        if self.event_action_type == 15:
+        if self.is_flagrant2:
             return pbpstats.FLAGRANT_2_FOUL_TYPE_STRING
         if self.is_defensive_3_seconds:
             return pbpstats.DEFENSIVE_3_SECONDS_FOUL_TYPE_STRING

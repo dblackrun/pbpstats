@@ -106,6 +106,14 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         return self.__dict__
 
     @property
+    def seconds_remaining(self):
+        """
+        returns seconds remaining in period as a ``float``
+        """
+        split = self.clock.split(":")
+        return float(split[0]) * 60 + float(split[1])
+
+    @property
     def video_url(self):
         """
         returns url for mp4 video of play, if available

@@ -40,8 +40,6 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
     Class for start of period events
     """
 
-    event_type = 12
-
     @abc.abstractclassmethod
     def get_period_starters(self, file_directory):
         """

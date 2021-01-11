@@ -1,5 +1,3 @@
-import pbpstats
-
 from pbpstats.resources.enhanced_pbp.live.enhanced_pbp_item import LiveEnhancedPbpItem
 from pbpstats.resources.enhanced_pbp import Foul
 
@@ -71,11 +69,16 @@ class LiveFoul(Foul, LiveEnhancedPbpItem):
         return self.sub_type == "technical" and not self.is_defensive_3_seconds
 
     @property
-    def is_flagrant(self):
-        return hasattr(self, "descriptor") and self.stripped_descriptor in [
-            "flagranttype1",
-            "flagranttype2",
-        ]
+    def is_flagrant1(self):
+        return (
+            hasattr(self, "descriptor") and self.stripped_descriptor == "flagranttype1"
+        )
+
+    @property
+    def is_flagrant2(self):
+        return (
+            hasattr(self, "descriptor") and self.stripped_descriptor == "flagranttype2"
+        )
 
     @property
     def is_double_technical(self):
@@ -115,100 +118,3 @@ class LiveFoul(Foul, LiveEnhancedPbpItem):
     @property
     def is_shooting_block_foul(self):
         return hasattr(self, "descriptor") and self.descriptor == "block"
-
-    @property
-    def counts_towards_penalty(self):
-        """
-        returns True if foul is a foul type that counts towards the penalty, False otherwise
-        """
-        if self.is_personal_foul:
-            return True
-        if self.is_shooting_foul:
-            return True
-        if self.is_loose_ball_foul:
-            return True
-        if self.is_inbound_foul:
-            return True
-        if self.is_away_from_play_foul:
-            return True
-        if self.is_clear_path_foul:
-            return True
-        if self.is_flagrant:
-            return True
-        if self.is_personal_block_foul:
-            return True
-        if self.is_personal_take_foul:
-            return True
-        if self.is_shooting_block_foul:
-            return True
-        return False
-
-    @property
-    def counts_as_personal_foul(self):
-        """
-        returns True if fouls is a foul type that counts as a personal foul, False otherwise
-        """
-        if self.is_personal_foul:
-            return True
-        if self.is_shooting_foul:
-            return True
-        if self.is_loose_ball_foul:
-            return True
-        if self.is_offensive_foul:
-            return True
-        if self.is_inbound_foul:
-            return True
-        if self.is_away_from_play_foul:
-            return True
-        if self.is_clear_path_foul:
-            return True
-        if self.is_double_foul:
-            return True
-        if self.is_flagrant:
-            return True
-        if self.is_charge:
-            return True
-        if self.is_personal_block_foul:
-            return True
-        if self.is_personal_take_foul:
-            return True
-        if self.is_shooting_block_foul:
-            return True
-
-        return False
-
-    @property
-    def foul_type_string(self):
-        """
-        returns string description of foul type
-        """
-        if self.is_personal_foul:
-            return pbpstats.PERSONAL_FOUL_TYPE_STRING
-        if self.is_shooting_foul:
-            return pbpstats.SHOOTING_FOUL_TYPE_STRING
-        if self.is_loose_ball_foul:
-            return pbpstats.LOOSE_BALL_FOUL_TYPE_STRING
-        if self.is_offensive_foul:
-            return pbpstats.OFFENSIVE_FOUL_TYPE_STRING
-        if self.is_inbound_foul:
-            return pbpstats.INBOUND_FOUL_TYPE_STRING
-        if self.is_away_from_play_foul:
-            return pbpstats.AWAY_FROM_PLAY_FOUL_TYPE_STRING
-        if self.is_clear_path_foul:
-            return pbpstats.CLEAR_PATH_FOUL_TYPE_STRING
-        if self.is_double_foul:
-            return pbpstats.DOUBLE_FOUL_TYPE_STRING
-        if hasattr(self, "descriptor") and self.descriptor == "flagrant-type-1":
-            return pbpstats.FLAGRANT_1_FOUL_TYPE_STRING
-        if hasattr(self, "descriptor") and self.descriptor == "flagrant-type-2":
-            return pbpstats.FLAGRANT_2_FOUL_TYPE_STRING
-        if self.is_defensive_3_seconds:
-            return pbpstats.DEFENSIVE_3_SECONDS_FOUL_TYPE_STRING
-        if self.is_charge:
-            return pbpstats.CHARGE_FOUL_TYPE_STRING
-        if self.is_personal_block_foul:
-            return pbpstats.PERSONAL_BLOCK_TYPE_STRING
-        if self.is_personal_take_foul:
-            return pbpstats.PERSONAL_TAKE_TYPE_STRING
-        if self.is_shooting_block_foul:
-            return pbpstats.SHOOTING_BLOCK_TYPE_STRING

@@ -1,23 +1,18 @@
+import abc
+
+
 class Substitution(object):
     """
     Class for Substitution events
     """
 
-    event_type = 8
-
-    @property
+    @abc.abstractproperty
     def outgoing_player_id(self):
-        """
-        returns player id of player going out of the game
-        """
-        return self.player1_id
+        pass
 
-    @property
+    @abc.abstractproperty
     def incoming_player_id(self):
-        """
-        returns player id of player coming in to the game
-        """
-        return self.player2_id
+        pass
 
     @property
     def current_players(self):

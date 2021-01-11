@@ -9,8 +9,17 @@ class StatsFieldGoal(FieldGoal, StatsEnhancedPbpItem):
     Class for field goal events
     """
 
+    event_type = [1, 2]
+
     def __init__(self, *args):
         super().__init__(*args)
+
+    @property
+    def is_made(self):
+        """
+        returns True if shot was made, False otherwise
+        """
+        return self.event_type == 1
 
     @property
     def shot_value(self):

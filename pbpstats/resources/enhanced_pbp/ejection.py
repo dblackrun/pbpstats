@@ -3,8 +3,6 @@ class Ejection(object):
     Class for Ejection events
     """
 
-    event_type = 11
-
     @property
     def event_stats(self):
         """

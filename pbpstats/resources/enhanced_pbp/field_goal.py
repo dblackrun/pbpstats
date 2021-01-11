@@ -1,3 +1,4 @@
+import abc
 import math
 
 import pbpstats
@@ -9,14 +10,19 @@ class FieldGoal(object):
     Class for field goal events
     """
 
-    event_type = [1, 2]
-
-    @property
+    @abc.abstractproperty
     def is_made(self):
         """
         returns True if shot was made, False otherwise
         """
-        return self.event_type == 1
+        pass
+
+    @abc.abstractproperty
+    def shot_value(self):
+        """
+        returns 3 if shot is a 3 point attempt, 2 otherwise
+        """
+        pass
 
     @property
     def is_blocked(self):

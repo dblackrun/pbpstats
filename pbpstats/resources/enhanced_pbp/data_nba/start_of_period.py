@@ -9,6 +9,8 @@ class DataStartOfPeriod(StartOfPeriod, DataEnhancedPbpItem):
     Class for start of period events
     """
 
+    event_type = 12
+
     def __init__(self, *args):
         super().__init__(*args)
 
