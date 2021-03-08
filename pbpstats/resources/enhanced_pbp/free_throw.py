@@ -227,6 +227,8 @@ class FreeThrow(metaclass=abc.ABCMeta):
         if self.is_technical_ft:
             return "Technical"
         num_fts = self.num_ft_for_trip
+        if num_fts is None:
+            num_fts = self.shot_value
 
         if num_fts == 1:
             # check for shot before FT at same time as FT
