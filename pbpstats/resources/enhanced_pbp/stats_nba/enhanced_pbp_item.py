@@ -63,8 +63,13 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         else:
             self.description = ""
 
-        if event.get("PLAYER1_TEAM_ID") is None and event.get("PLAYER1_ID") is not None:
+        if (
+            event.get("PLAYER1_TEAM_ID") is None
+            and event.get("PLAYER1_ID") is not None
+            and event.get("EVENTMSGTYPE") != 18
+        ):
             # need to set team id in these cases where player id is team id
+            # EVENTMSGTYPE 18 is replay event - it is ignored because it has no team id and unknown player id
             self.team_id = event.get("PLAYER1_ID", 0)
             self.player1_id = 0
 
