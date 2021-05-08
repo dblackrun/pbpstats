@@ -54,7 +54,8 @@ class LiveBoxscoreLoader(LiveFileLoader, LiveWebLoader):
         self._load_data_from_file()
 
     def _from_web(self):
-        self.url = f"https://cdn.nba.com/static/json/liveData/boxscore/boxscore_{self.game_id}.json"
+        league = self.league.upper()
+        self.url = f"https://nba-prod-us-east-1-mediaops-stats.s3.amazonaws.com/{league}/liveData/boxscore/boxscore_{self.game_id}.json"
         self._load_request_data()
 
     def _save_data_to_file(self):
