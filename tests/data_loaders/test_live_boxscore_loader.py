@@ -23,7 +23,7 @@ class TestLiveBoxscoreLoader:
     def test_web_loader_loads_data(self):
         with open(f"{self.data_directory}/game_details/live_{self.game_id}.json") as f:
             boxscore_response = json.loads(f.read())
-        boxscore_url = f"https://cdn.nba.com/static/json/liveData/boxscore/boxscore_{self.game_id}.json"
+        boxscore_url = f"https://nba-prod-us-east-1-mediaops-stats.s3.amazonaws.com/NBA/liveData/boxscore/boxscore_{self.game_id}.json"
         responses.add(responses.GET, boxscore_url, json=boxscore_response, status=200)
 
         boxscore_loader = LiveBoxscoreLoader(self.game_id, "web", self.data_directory)
