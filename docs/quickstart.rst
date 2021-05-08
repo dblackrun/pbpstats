@@ -47,7 +47,7 @@ Options for ``source`` are 'file' and 'web'. When source is 'file', it will pull
 When source is 'web' it will make an API request to get the data. If you want to save the response data to disk set ``dir`` within
 the settings and it will be saved in the appropriate subdirectory.
 
-Options for ``data_provider`` are 'stats_nba' and 'data_nba'.
+Options for ``data_provider`` are 'stats_nba' and 'data_nba' and 'live'.
 
 See the code examples below for some examples settings.
 

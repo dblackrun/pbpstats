@@ -442,10 +442,10 @@ def test_flagrant_free_throw_type():
     }
     order = 1
     foul_event = StatsFoul(foul, order)
-    ft_1_of_1 = {
+    ft_1_of_2 = {
         "EVENTNUM": 611,
         "PCTIMESTRING": "0:25",
-        "HOMEDESCRIPTION": "Beal Free Throw Flagrant (32 PTS)",
+        "HOMEDESCRIPTION": "Beal Free Throw Flagrant 1 of 2 (32 PTS)",
         "EVENTMSGACTIONTYPE": 11,
         "EVENTMSGTYPE": 3,
         "PLAYER1_ID": 203078,
@@ -456,11 +456,11 @@ def test_flagrant_free_throw_type():
         "PLAYER3_TEAM_ID": None,
     }
     order = 1
-    ft_1_of_1_event = StatsFreeThrow(ft_1_of_1, order)
+    ft_1_of_2_event = StatsFreeThrow(ft_1_of_2, order)
     ft_2_of_2 = {
         "EVENTNUM": 611,
         "PCTIMESTRING": "0:25",
-        "HOMEDESCRIPTION": "Beal Free Throw Flagrant (32 PTS)",
+        "HOMEDESCRIPTION": "Beal Free Throw Flagrant 2 of 2 (32 PTS)",
         "EVENTMSGACTIONTYPE": 12,
         "EVENTMSGTYPE": 3,
         "PLAYER1_ID": 203078,
@@ -474,13 +474,13 @@ def test_flagrant_free_throw_type():
     ft_2_of_2_event = StatsFreeThrow(ft_2_of_2, order)
 
     foul_event.previous_event = None
-    foul_event.next_event = ft_1_of_1_event
-    ft_1_of_1_event.previous_event = foul_event
-    ft_1_of_1_event.next_event = ft_2_of_2_event
-    ft_2_of_2_event.previous_event = ft_1_of_1_event
+    foul_event.next_event = ft_1_of_2_event
+    ft_1_of_2_event.previous_event = foul_event
+    ft_1_of_2_event.next_event = ft_2_of_2_event
+    ft_2_of_2_event.previous_event = ft_1_of_2_event
     ft_2_of_2_event.next_event = None
 
-    assert ft_1_of_1_event.free_throw_type == "2 Shot Flagrant"
+    assert ft_1_of_2_event.free_throw_type == "2 Shot Flagrant"
 
 
 def test_event_for_efficiency_stats_when_events_out_of_order():

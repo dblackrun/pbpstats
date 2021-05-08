@@ -82,7 +82,13 @@ class Possession(object):
         returns a list with the team ids of both teams playing
         """
         team_ids = list(
-            set([event.team_id for event in self.events if event.team_id != 0])
+            set(
+                [
+                    event.team_id
+                    for event in self.events
+                    if hasattr(event, "team_id") and event.team_id != 0
+                ]
+            )
         )
         prev_poss = self.previous_possession
         while len(team_ids) != 2 and prev_poss is not None:

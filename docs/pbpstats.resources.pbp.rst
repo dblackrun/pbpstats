@@ -9,6 +9,14 @@ data.nba.com PBP Item
    :undoc-members:
    :show-inheritance:
 
+live PBP Item
+----------------------
+
+.. automodule:: pbpstats.resources.pbp.live_pbp_item
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 PBP
 ----
 

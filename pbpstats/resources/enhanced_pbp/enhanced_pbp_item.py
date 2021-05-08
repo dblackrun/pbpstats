@@ -32,6 +32,13 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
         """
         pass
 
+    @abc.abstractproperty
+    def seconds_remaining(self):
+        """
+        returns seconds remaining in period as a ``float``
+        """
+        pass
+
     @property
     def base_stats(self):
         """
@@ -60,14 +67,6 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                 events.append(event)
             event = event.next_event
         return sorted(events, key=lambda k: k.order)
-
-    @property
-    def seconds_remaining(self):
-        """
-        returns seconds remaining in period as a ``float``
-        """
-        split = self.clock.split(":")
-        return float(split[0]) * 60 + float(split[1])
 
     @property
     def current_players(self):

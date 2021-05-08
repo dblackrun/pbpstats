@@ -3,8 +3,6 @@ class JumpBall(object):
     Class for jump ball events
     """
 
-    event_type = 10
-
     @property
     def winning_team(self):
         """

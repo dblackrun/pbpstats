@@ -73,6 +73,14 @@ class DataEnhancedPbpItem(EnhancedPbpItem):
         return self.offense_team_id
 
     @property
+    def seconds_remaining(self):
+        """
+        returns seconds remaining in period as a ``float``
+        """
+        split = self.clock.split(":")
+        return float(split[0]) * 60 + float(split[1])
+
+    @property
     def is_possession_ending_event(self):
         """
         returns True if event ends a possession, False otherwise

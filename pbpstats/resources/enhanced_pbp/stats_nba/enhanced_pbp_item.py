@@ -63,8 +63,13 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         else:
             self.description = ""
 
-        if event.get("PLAYER1_TEAM_ID") is None and event.get("PLAYER1_ID") is not None:
+        if (
+            event.get("PLAYER1_TEAM_ID") is None
+            and event.get("PLAYER1_ID") is not None
+            and event.get("EVENTMSGTYPE") != 18
+        ):
             # need to set team id in these cases where player id is team id
+            # EVENTMSGTYPE 18 is replay event - it is ignored because it has no team id and unknown player id
             self.team_id = event.get("PLAYER1_ID", 0)
             self.player1_id = 0
 
@@ -104,6 +109,14 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         returns event as a dict
         """
         return self.__dict__
+
+    @property
+    def seconds_remaining(self):
+        """
+        returns seconds remaining in period as a ``float``
+        """
+        split = self.clock.split(":")
+        return float(split[0]) * 60 + float(split[1])
 
     @property
     def video_url(self):

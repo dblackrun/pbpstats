@@ -1,21 +1,22 @@
+import abc
+
+
 class Replay(object):
     """
     Class for replay events
     """
 
-    event_type = 18
-
-    @property
+    @abc.abstractproperty
     def support_ruling(self):
-        return self.event_action_type == 4
+        pass
 
-    @property
+    @abc.abstractproperty
     def overturn_ruling(self):
-        return self.event_action_type == 5
+        pass
 
-    @property
+    @abc.abstractproperty
     def ruling_stands(self):
-        return self.event_action_type == 6
+        pass
 
     @property
     def event_stats(self):

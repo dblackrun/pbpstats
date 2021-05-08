@@ -65,7 +65,7 @@ class TestDataPossessionsLoader:
     def test_web_loader_loads_data(self):
         with open(f"{self.data_directory}/pbp/live_{self.game_id}.json") as f:
             pbp_response = json.loads(f.read())
-        pbp_url = f"https://cdn.nba.com/static/json/liveData/playbyplay/playbyplay_{self.game_id}.json"
+        pbp_url = f"https://nba-prod-us-east-1-mediaops-stats.s3.amazonaws.com/NBA/liveData/playbyplay/playbyplay_{self.game_id}.json"
         responses.add(responses.GET, pbp_url, json=pbp_response, status=200)
 
         possessions_loader = LivePossessionLoader(

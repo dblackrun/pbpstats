@@ -17,6 +17,14 @@ data.nba.com Boxscore Item
    :undoc-members:
    :show-inheritance:
 
+live Boxscore Item
+---------------------------
+
+.. automodule:: pbpstats.resources.boxscore.live_boxscore_item
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 stats.nba.com Boxscore Item
 ----------------------------
 

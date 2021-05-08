@@ -9,7 +9,6 @@ class FreeThrow(metaclass=abc.ABCMeta):
     Class for free throw events
     """
 
-    event_type = 3
     shot_type = pbpstats.FREE_THROW_STRING
 
     @abc.abstractproperty
@@ -19,29 +18,29 @@ class FreeThrow(metaclass=abc.ABCMeta):
         """
         pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_1_of_1(self):
-        return self.event_action_type == 10
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_1_of_2(self):
-        return self.event_action_type == 11
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_2_of_2(self):
-        return self.event_action_type == 12
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_1_of_3(self):
-        return self.event_action_type == 13
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_2_of_3(self):
-        return self.event_action_type == 14
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_3_of_3(self):
-        return self.event_action_type == 15
+        pass
 
     @property
     def is_first_ft(self):
@@ -49,7 +48,9 @@ class FreeThrow(metaclass=abc.ABCMeta):
         returns True if free throw is first of trip to the free throw line, False otherwise
         """
         return (
-            "1 of" in self.description
+            self.is_ft_1_of_1
+            or self.is_ft_1_of_2
+            or self.is_ft_1_of_3
             or self.is_ft_1pt
             or self.is_ft_2pt
             or self.is_ft_3pt
@@ -69,33 +70,21 @@ class FreeThrow(metaclass=abc.ABCMeta):
             or self.is_ft_3pt
         )
 
-    @property
+    @abc.abstractproperty
     def is_technical_ft(self):
-        return " Technical" in self.description
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_1pt(self):
-        """
-        returns True if free throw is a 1 point free throw, False otherwise
-        Only used in g-league, starting in 2019-20 season
-        """
-        return self.event_action_type == 30 or self.event_action_type == 35
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_2pt(self):
-        """
-        returns True if free throw is a 2 point free throw, False otherwise
-        Only used in g-league, starting in 2019-20 season
-        """
-        return self.event_action_type == 31 or self.event_action_type == 36
+        pass
 
-    @property
+    @abc.abstractproperty
     def is_ft_3pt(self):
-        """
-        returns True if free throw is a 3 point free throw, False otherwise
-        Only used in g-league, starting in 2019-20 season
-        """
-        return self.event_action_type == 32 or self.event_action_type == 37
+        pass
 
     @property
     def shot_value(self):
@@ -238,6 +227,8 @@ class FreeThrow(metaclass=abc.ABCMeta):
         if self.is_technical_ft:
             return "Technical"
         num_fts = self.num_ft_for_trip
+        if num_fts is None:
+            num_fts = self.shot_value
 
         if num_fts == 1:
             # check for shot before FT at same time as FT

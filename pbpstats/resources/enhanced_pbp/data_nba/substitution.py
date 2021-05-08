@@ -9,5 +9,21 @@ class DataSubstitution(Substitution, DataEnhancedPbpItem):
     Class for Substitution events
     """
 
+    event_type = 8
+
     def __init__(self, *args):
         super().__init__(*args)
+
+    @property
+    def outgoing_player_id(self):
+        """
+        returns player id of player going out of the game
+        """
+        return self.player1_id
+
+    @property
+    def incoming_player_id(self):
+        """
+        returns player id of player coming in to the game
+        """
+        return self.player2_id

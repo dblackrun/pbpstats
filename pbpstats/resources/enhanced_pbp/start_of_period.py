@@ -40,8 +40,6 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
     Class for start of period events
     """
 
-    event_type = 12
-
     @abc.abstractclassmethod
     def get_period_starters(self, file_directory):
         """
@@ -111,7 +109,11 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
         player_team_map = {}  # only player1 has team id in event, this is to track team
         event = self
         while event is not None and not isinstance(event, EndOfPeriod):
-            if not isinstance(event, Timeout) and event.player1_id != 0:
+            if (
+                not isinstance(event, Timeout)
+                and event.player1_id != 0
+                and hasattr(event, "team_id")
+            ):
                 player_id = event.player1_id
                 if not isinstance(event, JumpBall):
                     # on jump balls team id is winning team, not guaranteed to be player1 team

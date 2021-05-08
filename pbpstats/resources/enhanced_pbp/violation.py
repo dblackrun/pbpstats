@@ -1,3 +1,5 @@
+import abc
+
 from pbpstats import DEFENSIVE_GOALTENDING_STRING
 
 
@@ -6,31 +8,29 @@ class Violation(object):
     Class for violation events
     """
 
-    event_type = 7
-
-    @property
+    @abc.abstractclassmethod
     def is_delay_of_game(self):
-        return self.event_action_type == 1
+        pass
 
-    @property
+    @abc.abstractclassmethod
     def is_goaltend_violation(self):
-        return self.event_action_type == 2
+        pass
 
-    @property
+    @abc.abstractclassmethod
     def is_lane_violation(self):
-        return self.event_action_type == 3
+        pass
 
-    @property
+    @abc.abstractclassmethod
     def is_jumpball_violation(self):
-        return self.event_action_type == 4
+        pass
 
-    @property
+    @abc.abstractclassmethod
     def is_kicked_ball_violation(self):
-        return self.event_action_type == 5
+        pass
 
-    @property
+    @abc.abstractclassmethod
     def is_double_lane_violation(self):
-        return self.event_action_type == 6
+        pass
 
     @property
     def event_stats(self):
