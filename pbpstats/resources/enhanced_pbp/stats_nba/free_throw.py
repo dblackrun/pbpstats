@@ -29,7 +29,8 @@ class StatsFreeThrow(FreeThrow, StatsEnhancedPbpItem):
 
     @property
     def is_ft_1_of_1(self):
-        return self.event_action_type == 10
+        # action_type 20 is flagrant 1 of 1
+        return self.event_action_type == 10 or self.event_action_type == 20
 
     @property
     def is_ft_1_of_2(self):
@@ -41,7 +42,8 @@ class StatsFreeThrow(FreeThrow, StatsEnhancedPbpItem):
 
     @property
     def is_ft_1_of_3(self):
-        return self.event_action_type == 13
+        # action_type 20 is flagrant 1 of 3
+        return self.event_action_type == 13 or self.event_action_type == 27
 
     @property
     def is_ft_2_of_3(self):
