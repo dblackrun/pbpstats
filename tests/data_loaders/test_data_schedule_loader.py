@@ -2,7 +2,9 @@ import json
 
 import responses
 
-from pbpstats.data_loader.data_nba.schedule_loader import DataNbaScheduleLoader
+from pbpstats.data_loader.data_nba.schedule.file import DataNbaScheduleFileLoader
+from pbpstats.data_loader.data_nba.schedule.loader import DataNbaScheduleLoader
+from pbpstats.data_loader.data_nba.schedule.web import DataNbaScheduleWebLoader
 from pbpstats.resources.games.data_nba_game_item import DataNbaGameItem
 
 
@@ -12,10 +14,10 @@ class TestDataScheduleLoader:
     data_directory = "tests/data"
 
     def test_file_loader_loads_data(self):
-        source = "file"
         season_type = "Regular Season"
+        source_loader = DataNbaScheduleFileLoader(self.data_directory)
         schedule_loader = DataNbaScheduleLoader(
-            self.league, self.season, season_type, source, self.data_directory
+            self.league, self.season, season_type, source_loader
         )
         assert len(schedule_loader.items) == 204
         assert isinstance(schedule_loader.items[0], DataNbaGameItem)
@@ -40,10 +42,10 @@ class TestDataScheduleLoader:
         boxscore_url = f"https://data.{self.league}.com/data/10s/v2015/json/mobile_teams/{self.league}/{self.season}/league/10_full_schedule.json"
         responses.add(responses.GET, boxscore_url, json=boxscore_response, status=200)
 
-        source = "web"
         season_type = "Playoffs"
+        source_loader = DataNbaScheduleWebLoader(self.data_directory)
         schedule_loader = DataNbaScheduleLoader(
-            self.league, self.season, season_type, source, self.data_directory
+            self.league, self.season, season_type, source_loader
         )
         assert len(schedule_loader.items) == 16
         assert isinstance(schedule_loader.items[0], DataNbaGameItem)

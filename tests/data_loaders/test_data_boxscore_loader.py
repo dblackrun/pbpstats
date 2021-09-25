@@ -2,7 +2,9 @@ import json
 
 import responses
 
-from pbpstats.data_loader.data_nba.boxscore_loader import DataNbaBoxscoreLoader
+from pbpstats.data_loader.data_nba.boxscore.file import DataNbaBoxscoreFileLoader
+from pbpstats.data_loader.data_nba.boxscore.loader import DataNbaBoxscoreLoader
+from pbpstats.data_loader.data_nba.boxscore.web import DataNbaBoxscoreWebLoader
 from pbpstats.resources.boxscore.data_nba_boxscore_item import DataNbaBoxscoreItem
 
 
@@ -51,9 +53,8 @@ class TestDataBoxscoreLoader:
     }
 
     def test_file_loader_loads_data(self):
-        boxscore_loader = DataNbaBoxscoreLoader(
-            self.game_id, "file", self.data_directory
-        )
+        source_loader = DataNbaBoxscoreFileLoader(self.data_directory)
+        boxscore_loader = DataNbaBoxscoreLoader(self.game_id, source_loader)
         assert len(boxscore_loader.items) == 32
         assert isinstance(boxscore_loader.items[0], DataNbaBoxscoreItem)
         assert boxscore_loader.items[0].data == self.expected_first_item_data
@@ -65,9 +66,8 @@ class TestDataBoxscoreLoader:
         boxscore_url = f"http://data.nba.com/data/v2015/json/mobile_teams/nba/2016/scores/gamedetail/{self.game_id}_gamedetail.json"
         responses.add(responses.GET, boxscore_url, json=boxscore_response, status=200)
 
-        boxscore_loader = DataNbaBoxscoreLoader(
-            self.game_id, "web", self.data_directory
-        )
+        source_loader = DataNbaBoxscoreWebLoader(self.data_directory)
+        boxscore_loader = DataNbaBoxscoreLoader(self.game_id, source_loader)
         assert len(boxscore_loader.items) == 32
         assert isinstance(boxscore_loader.items[0], DataNbaBoxscoreItem)
         assert boxscore_loader.items[0].data == self.expected_first_item_data

@@ -1,11 +1,10 @@
 import json
 from pathlib import Path
 
-from pbpstats.data_loader.abs_data_loader import AbsDataLoader
 from pbpstats.data_loader.stats_nba.base import StatsNbaLoaderBase
 
 
-class StatsNbaFileLoader(AbsDataLoader, StatsNbaLoaderBase):
+class StatsNbaFileLoader(StatsNbaLoaderBase):
     """
     Base class for loading stats.nba.com files saved on disk.
 
@@ -20,10 +19,5 @@ class StatsNbaFileLoader(AbsDataLoader, StatsNbaLoaderBase):
             raise Exception(f"{self.file_path} does not exist")
         with open(self.file_path) as json_data:
             self.source_data = json.load(json_data)
+            return self.source_data
 
-    @property
-    def data(self):
-        """
-        returns data from response JSON as a list of dicts
-        """
-        return self.make_list_of_dicts()

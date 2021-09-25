@@ -3,7 +3,9 @@ import json
 import responses
 from furl import furl
 
-from pbpstats.data_loader.stats_nba.enhanced_pbp_loader import StatsNbaEnhancedPbpLoader
+from pbpstats.data_loader.stats_nba.enhanced_pbp.file import StatsNbaEnhancedPbpFileLoader
+from pbpstats.data_loader.stats_nba.enhanced_pbp.loader import StatsNbaEnhancedPbpLoader
+from pbpstats.data_loader.stats_nba.enhanced_pbp.web import StatsNbaEnhancedPbpWebLoader
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import (
     StatsEnhancedPbpItem,
 )
@@ -34,9 +36,8 @@ class TestStatsEnhancedPbpLoader:
     }
 
     def test_file_loader_loads_data(self):
-        pbp_loader = StatsNbaEnhancedPbpLoader(
-            self.game_id, "file", self.data_directory
-        )
+        source_loader = StatsNbaEnhancedPbpFileLoader(self.data_directory)
+        pbp_loader = StatsNbaEnhancedPbpLoader(self.game_id, source_loader)
         assert len(pbp_loader.items) == 540
         assert isinstance(pbp_loader.items[0], StatsEnhancedPbpItem)
         assert (
@@ -200,7 +201,8 @@ class TestStatsEnhancedPbpLoader:
         responses.add(responses.GET, starters_url, json=starters_response, status=200)
 
         file_directory = None
-        pbp_loader = StatsNbaEnhancedPbpLoader(self.game_id, "web", file_directory)
+        source_loader = StatsNbaEnhancedPbpWebLoader(file_directory)
+        pbp_loader = StatsNbaEnhancedPbpLoader(self.game_id, source_loader)
         assert len(pbp_loader.items) == 540
         assert isinstance(pbp_loader.items[0], StatsEnhancedPbpItem)
         assert (
@@ -364,5 +366,6 @@ class TestStatsEnhancedPbpLoader:
         responses.add(responses.GET, starters_url, json=starters_response, status=200)
 
         file_directory = None
-        pbp_loader = StatsNbaEnhancedPbpLoader(game_id, "web", file_directory)
+        source_loader = StatsNbaEnhancedPbpWebLoader(file_directory)
+        pbp_loader = StatsNbaEnhancedPbpLoader(game_id, source_loader)
         assert len(pbp_loader.items) == 573

@@ -1,7 +1,8 @@
 import pytest
 
 from pbpstats.client import Client
-from pbpstats.data_loader.stats_nba.boxscore_loader import StatsNbaBoxscoreLoader
+from pbpstats.data_loader.stats_nba.boxscore.file import StatsNbaBoxscoreFileLoader
+from pbpstats.data_loader.stats_nba.boxscore.loader import StatsNbaBoxscoreLoader
 from pbpstats.resources.boxscore.boxscore import Boxscore
 
 
@@ -28,7 +29,7 @@ def test_client_sets_resource():
     }
     client = Client(settings)
     assert client.Game.BoxscoreDataLoaderClass == StatsNbaBoxscoreLoader
-    assert client.Game.BoxscoreDataSource == settings["Boxscore"]["source"]
+    assert client.Game.BoxscoreDataSource == StatsNbaBoxscoreFileLoader
     assert client.Game.Boxscore == Boxscore
 
 

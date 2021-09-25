@@ -1,4 +1,3 @@
-import abc
 from functools import wraps
 
 
@@ -17,13 +16,3 @@ def check_file_directory(method):
         return method(self, *method_args, **method_kwargs)
 
     return decorated_method
-
-
-class AbsDataLoader(metaclass=abc.ABCMeta):
-    @abc.abstractmethod
-    def _load_data(self):
-        pass
-
-    @abc.abstractproperty
-    def data(self):
-        pass

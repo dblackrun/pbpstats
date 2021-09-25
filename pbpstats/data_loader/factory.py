@@ -38,10 +38,18 @@ class DataLoaderFactory(object):
                 if isinstance(cls, type)
             ]
         )
-        for _, loader_cls in loaders.items():
-            self.loaders[loader_cls.resource][loader_cls.data_provider].append(
-                loader_cls
-            )
+        for name, loader_cls in loaders.items():
+            if hasattr(loader_cls, 'resource'):
+                file_source = loaders[name.replace('Loader', 'FileLoader')]
+                web_source = loaders[name.replace('Loader', 'WebLoader')]
+                loader = {
+                    'loader': loader_cls,
+                    'file_source': file_source,
+                    'web_source': web_source
+                }
+                self.loaders[loader_cls.resource][loader_cls.data_provider].append(
+                    loader
+                )
 
     def get_data_loader(self, data_provider, resource):
         """

@@ -2,7 +2,9 @@ import json
 
 import responses
 
-from pbpstats.data_loader.data_nba.pbp_loader import DataNbaPbpLoader
+from pbpstats.data_loader.data_nba.pbp.file import DataNbaPbpFileLoader
+from pbpstats.data_loader.data_nba.pbp.loader import DataNbaPbpLoader
+from pbpstats.data_loader.data_nba.pbp.web import DataNbaPbpWebLoader
 from pbpstats.resources.pbp.data_nba_pbp_item import DataNbaPbpItem
 
 
@@ -30,7 +32,8 @@ class TestDataPbpLoader:
     }
 
     def test_file_loader_loads_data(self):
-        pbp_loader = DataNbaPbpLoader(self.game_id, "file", self.data_directory)
+        source_loader = DataNbaPbpFileLoader(self.data_directory)
+        pbp_loader = DataNbaPbpLoader(self.game_id, source_loader)
         assert len(pbp_loader.items) == 538
         assert isinstance(pbp_loader.items[0], DataNbaPbpItem)
         assert pbp_loader.items[0].data == self.expected_first_item_data
@@ -42,7 +45,8 @@ class TestDataPbpLoader:
         pbp_url = f"https://data.nba.com/data/v2015/json/mobile_teams/nba/2016/scores/pbp/{self.game_id}_full_pbp.json"
         responses.add(responses.GET, pbp_url, json=pbp_response, status=200)
 
-        pbp_loader = DataNbaPbpLoader(self.game_id, "web", self.data_directory)
+        source_loader = DataNbaPbpWebLoader(self.data_directory)
+        pbp_loader = DataNbaPbpLoader(self.game_id, source_loader)
         assert len(pbp_loader.items) == 538
         assert isinstance(pbp_loader.items[0], DataNbaPbpItem)
         assert pbp_loader.items[0].data == self.expected_first_item_data

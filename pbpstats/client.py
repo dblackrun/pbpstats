@@ -51,16 +51,16 @@ class Client(object):
                     value["data_provider"], resource
                 )
                 for resource_data_loader in resource_data_loaders:
-                    parent_cls_name = resource_data_loader.parent_object
+                    parent_cls_name = resource_data_loader['loader'].parent_object
                     setattr(
                         getattr(self, parent_cls_name),
                         f"{resource}{DATA_LOADER_SUFFIX}",
-                        resource_data_loader,
+                        resource_data_loader['loader'],
                     )
                     setattr(
                         getattr(self, parent_cls_name),
                         f"{resource}{DATA_SOURCE_SUFFIX}",
-                        value["source"],
+                        resource_data_loader[f'{value["source"]}_source'],
                     )
                     setattr(
                         getattr(self, parent_cls_name),

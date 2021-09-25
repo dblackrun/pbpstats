@@ -2,7 +2,9 @@ import json
 
 import responses
 
-from pbpstats.data_loader.live.possessions_loader import LivePossessionLoader
+from pbpstats.data_loader.live.possessions.file import LivePossessionFileLoader
+from pbpstats.data_loader.live.possessions.loader import LivePossessionLoader
+from pbpstats.data_loader.live.possessions.web import LivePossessionWebLoader
 from pbpstats.resources.possessions.possession import Possession
 
 
@@ -23,9 +25,8 @@ class TestDataPossessionsLoader:
     }
 
     def test_file_loader_loads_data(self):
-        possessions_loader = LivePossessionLoader(
-            self.game_id, "file", self.data_directory
-        )
+        source_loader = LivePossessionFileLoader(self.data_directory)
+        possessions_loader = LivePossessionLoader(self.game_id, source_loader)
         assert len(possessions_loader.items) == 224
         assert isinstance(possessions_loader.items[0], Possession)
         assert (
@@ -68,9 +69,8 @@ class TestDataPossessionsLoader:
         pbp_url = f"https://nba-prod-us-east-1-mediaops-stats.s3.amazonaws.com/NBA/liveData/playbyplay/playbyplay_{self.game_id}.json"
         responses.add(responses.GET, pbp_url, json=pbp_response, status=200)
 
-        possessions_loader = LivePossessionLoader(
-            self.game_id, "web", self.data_directory
-        )
+        source_loader = LivePossessionWebLoader(self.data_directory)
+        possessions_loader = LivePossessionLoader(self.game_id, source_loader)
         assert len(possessions_loader.items) == 224
         assert isinstance(possessions_loader.items[0], Possession)
         assert (

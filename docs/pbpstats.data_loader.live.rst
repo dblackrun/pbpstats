@@ -6,39 +6,31 @@ live data loaders are used to load data for a specific resource either from file
 Boxscore
 ---------
 
-.. automodule:: pbpstats.data_loader.live.boxscore_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   pbpstats.data_loader.live.boxscore
 
 Enhanced PBP
 --------------
 
-.. automodule:: pbpstats.data_loader.live.enhanced_pbp_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   pbpstats.data_loader.live.enhanced_pbp
+
+PBP
+-----
+
+.. toctree::
+   pbpstats.data_loader.live.pbp
+
+Possessions
+------------
+
+.. toctree::
+   pbpstats.data_loader.live.possessions
 
 File Loader
 -------------
 
 .. automodule:: pbpstats.data_loader.live.file_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-PBP
------
-
-.. automodule:: pbpstats.data_loader.live.pbp_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Possessions
-------------
-
-.. automodule:: pbpstats.data_loader.live.possessions_loader
    :members:
    :undoc-members:
    :show-inheritance:
