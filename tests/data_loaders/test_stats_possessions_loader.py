@@ -3,7 +3,9 @@ import json
 import responses
 from furl import furl
 
-from pbpstats.data_loader.stats_nba.possessions_loader import StatsNbaPossessionLoader
+from pbpstats.data_loader.stats_nba.possessions.file import StatsNbaPossessionFileLoader
+from pbpstats.data_loader.stats_nba.possessions.loader import StatsNbaPossessionLoader
+from pbpstats.data_loader.stats_nba.possessions.web import StatsNbaPossessionWebLoader
 from pbpstats.resources.possessions.possession import Possession
 
 
@@ -24,9 +26,8 @@ class TestStatsPossessionsLoader:
     }
 
     def test_file_loader_loads_data(self):
-        possessions_loader = StatsNbaPossessionLoader(
-            self.game_id, "file", self.data_directory
-        )
+        source_loader = StatsNbaPossessionFileLoader(self.data_directory)
+        possessions_loader = StatsNbaPossessionLoader(self.game_id, source_loader)
         assert len(possessions_loader.items) == 220
         assert isinstance(possessions_loader.items[0], Possession)
         assert (
@@ -164,9 +165,8 @@ class TestStatsPossessionsLoader:
         responses.add(responses.GET, starters_url, json=starters_response, status=200)
 
         file_directory = None
-        possessions_loader = StatsNbaPossessionLoader(
-            self.game_id, "web", file_directory
-        )
+        source_loader = StatsNbaPossessionWebLoader(file_directory)
+        possessions_loader = StatsNbaPossessionLoader(self.game_id, source_loader)
         assert len(possessions_loader.items) == 220
         assert isinstance(possessions_loader.items[0], Possession)
         assert (

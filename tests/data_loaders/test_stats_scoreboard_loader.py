@@ -3,7 +3,9 @@ import json
 import responses
 from furl import furl
 
-from pbpstats.data_loader.stats_nba.scoreboard_loader import StatsNbaScoreboardLoader
+from pbpstats.data_loader.stats_nba.scoreboard.file import StatsNbaScoreboardFileLoader
+from pbpstats.data_loader.stats_nba.scoreboard.loader import StatsNbaScoreboardLoader
+from pbpstats.data_loader.stats_nba.scoreboard.web import StatsNbaScoreboardWebLoader
 from pbpstats.resources.games.stats_nba_game_item import StatsNbaGameItem
 
 
@@ -20,9 +22,8 @@ class TestStatsScoreboardLoader:
     }
 
     def test_file_loader_loads_data(self):
-        scoreboard_loader = StatsNbaScoreboardLoader(
-            self.date, self.league, self.data_directory, "file"
-        )
+        source_loader = StatsNbaScoreboardFileLoader(self.data_directory)
+        scoreboard_loader = StatsNbaScoreboardLoader(self.date, self.league, source_loader)
         assert len(scoreboard_loader.items) == 7
         assert isinstance(scoreboard_loader.items[0], StatsNbaGameItem)
         assert scoreboard_loader.items[0].data == self.expected_first_item_data
@@ -40,9 +41,8 @@ class TestStatsScoreboardLoader:
             responses.GET, scoreboard_url, json=scoreboard_response, status=200
         )
 
-        scoreboard_loader = StatsNbaScoreboardLoader(
-            self.date, self.league, self.data_directory, "web"
-        )
+        source_loader = StatsNbaScoreboardWebLoader(self.data_directory)
+        scoreboard_loader = StatsNbaScoreboardLoader(self.date, self.league, source_loader)
         assert len(scoreboard_loader.items) == 7
         assert isinstance(scoreboard_loader.items[0], StatsNbaGameItem)
         assert scoreboard_loader.items[0].data == self.expected_first_item_data

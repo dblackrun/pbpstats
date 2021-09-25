@@ -2,7 +2,9 @@ import json
 
 import responses
 
-from pbpstats.data_loader.data_nba.possessions_loader import DataNbaPossessionLoader
+from pbpstats.data_loader.data_nba.possessions.file import DataNbaPossessionFileLoader
+from pbpstats.data_loader.data_nba.possessions.loader import DataNbaPossessionLoader
+from pbpstats.data_loader.data_nba.possessions.web import DataNbaPossessionWebLoader
 from pbpstats.resources.possessions.possession import Possession
 
 
@@ -23,9 +25,8 @@ class TestDataPossessionsLoader:
     }
 
     def test_file_loader_loads_data(self):
-        possessions_loader = DataNbaPossessionLoader(
-            self.game_id, "file", self.data_directory
-        )
+        source_loader = DataNbaPossessionFileLoader(self.data_directory)
+        possessions_loader = DataNbaPossessionLoader(self.game_id, source_loader)
         assert len(possessions_loader.items) == 220
         assert isinstance(possessions_loader.items[0], Possession)
         assert (
@@ -68,9 +69,8 @@ class TestDataPossessionsLoader:
         pbp_url = f"https://data.nba.com/data/v2015/json/mobile_teams/nba/2016/scores/pbp/{self.game_id}_full_pbp.json"
         responses.add(responses.GET, pbp_url, json=pbp_response, status=200)
 
-        possessions_loader = DataNbaPossessionLoader(
-            self.game_id, "web", self.data_directory
-        )
+        source_loader = DataNbaPossessionWebLoader(self.data_directory)
+        possessions_loader = DataNbaPossessionLoader(self.game_id, source_loader)
         assert len(possessions_loader.items) == 220
         assert isinstance(possessions_loader.items[0], Possession)
         assert (

@@ -3,7 +3,9 @@ import json
 import responses
 import pytest
 
-from pbpstats.data_loader.data_nba.enhanced_pbp_loader import DataNbaEnhancedPbpLoader
+from pbpstats.data_loader.data_nba.enhanced_pbp.file import DataNbaEnhancedPbpFileLoader
+from pbpstats.data_loader.data_nba.enhanced_pbp.loader import DataNbaEnhancedPbpLoader
+from pbpstats.data_loader.data_nba.enhanced_pbp.web import DataNbaEnhancedPbpWebLoader
 from pbpstats.resources.enhanced_pbp.data_nba.enhanced_pbp_item import (
     DataEnhancedPbpItem,
 )
@@ -33,7 +35,8 @@ class TestDataEnhancedPbpLoader:
     }
 
     def test_file_loader_loads_data(self):
-        pbp_loader = DataNbaEnhancedPbpLoader(self.game_id, "file", self.data_directory)
+        source_loader = DataNbaEnhancedPbpFileLoader(self.data_directory)
+        pbp_loader = DataNbaEnhancedPbpLoader(self.game_id, source_loader)
         assert len(pbp_loader.items) == 538
         assert isinstance(pbp_loader.items[0], DataEnhancedPbpItem)
         assert (
@@ -95,7 +98,8 @@ class TestDataEnhancedPbpLoader:
         pbp_url = f"https://data.nba.com/data/v2015/json/mobile_teams/nba/2016/scores/pbp/{self.game_id}_full_pbp.json"
         responses.add(responses.GET, pbp_url, json=pbp_response, status=200)
 
-        pbp_loader = DataNbaEnhancedPbpLoader(self.game_id, "web", self.data_directory)
+        source_loader = DataNbaEnhancedPbpWebLoader(self.data_directory)
+        pbp_loader = DataNbaEnhancedPbpLoader(self.game_id, source_loader)
         assert len(pbp_loader.items) == 538
         assert isinstance(pbp_loader.items[0], DataEnhancedPbpItem)
         assert (
@@ -159,4 +163,5 @@ class TestDataEnhancedPbpLoader:
 
         data_directory = None
         with pytest.raises(InvalidNumberOfStartersException):
-            assert DataNbaEnhancedPbpLoader(self.game_id, "web", data_directory)
+            source_loader = DataNbaEnhancedPbpWebLoader(data_directory)
+            assert DataNbaEnhancedPbpLoader(self.game_id, source_loader)

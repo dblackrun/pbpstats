@@ -14,71 +14,59 @@ Base
 Boxscore
 ---------
 
-.. automodule:: pbpstats.data_loader.stats_nba.boxscore_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   pbpstats.data_loader.stats_nba.boxscore
 
 Enhanced PBP
+--------------
+
+.. toctree::
+   pbpstats.data_loader.stats_nba.enhanced_pbp
+
+PBP
+-----
+
+.. toctree::
+   pbpstats.data_loader.stats_nba.pbp
+
+Possessions
+------------
+
+.. toctree::
+   pbpstats.data_loader.stats_nba.possessions
+
+Game Finder
 -------------
 
-.. automodule:: pbpstats.data_loader.stats_nba.enhanced_pbp_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   pbpstats.data_loader.stats_nba.game_finder
+
+
+Scoreboard
+------------
+
+.. toctree::
+   pbpstats.data_loader.stats_nba.scoreboard
+
+
+Shots
+------
+
+.. toctree::
+   pbpstats.data_loader.stats_nba.shots
+
+
+Game Summary
+-------------
+
+.. toctree::
+   pbpstats.data_loader.stats_nba.summary
+
 
 File Loader
 -------------
 
 .. automodule:: pbpstats.data_loader.stats_nba.file_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Game Finder
--------------
-
-.. automodule:: pbpstats.data_loader.stats_nba.game_finder_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-PBP
-----
-
-.. automodule:: pbpstats.data_loader.stats_nba.pbp_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Possessions
-------------
-
-.. automodule:: pbpstats.data_loader.stats_nba.possessions_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Scoreboard
-------------
-
-.. automodule:: pbpstats.data_loader.stats_nba.scoreboard_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Shots
-------
-
-.. automodule:: pbpstats.data_loader.stats_nba.shots_loader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Game Summary
--------------
-
-.. automodule:: pbpstats.data_loader.stats_nba.summary_loader
    :members:
    :undoc-members:
    :show-inheritance:

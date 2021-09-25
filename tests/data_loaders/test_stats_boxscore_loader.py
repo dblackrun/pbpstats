@@ -3,7 +3,9 @@ import json
 import responses
 from furl import furl
 
-from pbpstats.data_loader.stats_nba.boxscore_loader import StatsNbaBoxscoreLoader
+from pbpstats.data_loader.stats_nba.boxscore.file import StatsNbaBoxscoreFileLoader
+from pbpstats.data_loader.stats_nba.boxscore.loader import StatsNbaBoxscoreLoader
+from pbpstats.data_loader.stats_nba.boxscore.web import StatsNbaBoxscoreWebLoader
 from pbpstats.resources.boxscore.stats_nba_boxscore_item import StatsNbaBoxscoreItem
 
 
@@ -42,9 +44,8 @@ class TestStatsBoxscoreLoader:
     }
 
     def test_file_loader_loads_data(self):
-        boxscore_loader = StatsNbaBoxscoreLoader(
-            self.game_id, "file", self.data_directory
-        )
+        source_loader = StatsNbaBoxscoreFileLoader(self.data_directory)
+        boxscore_loader = StatsNbaBoxscoreLoader(self.game_id, source_loader)
         assert len(boxscore_loader.items) == 21
         assert isinstance(boxscore_loader.items[0], StatsNbaBoxscoreItem)
         assert boxscore_loader.items[0].data == self.expected_first_item_data
@@ -67,9 +68,8 @@ class TestStatsBoxscoreLoader:
         boxscore_url = furl(boxscore_base_url).add(boxscore_query_params).url
         responses.add(responses.GET, boxscore_url, json=boxscore_response, status=200)
 
-        boxscore_loader = StatsNbaBoxscoreLoader(
-            self.game_id, "web", self.data_directory
-        )
+        source_loader = StatsNbaBoxscoreWebLoader(self.data_directory)
+        boxscore_loader = StatsNbaBoxscoreLoader(self.game_id, source_loader)
         assert len(boxscore_loader.items) == 21
         assert isinstance(boxscore_loader.items[0], StatsNbaBoxscoreItem)
         assert boxscore_loader.items[0].data == self.expected_first_item_data

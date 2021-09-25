@@ -3,7 +3,9 @@ import json
 import responses
 from furl import furl
 
-from pbpstats.data_loader.stats_nba.pbp_loader import StatsNbaPbpLoader
+from pbpstats.data_loader.stats_nba.pbp.file import StatsNbaPbpFileLoader
+from pbpstats.data_loader.stats_nba.pbp.loader import StatsNbaPbpLoader
+from pbpstats.data_loader.stats_nba.pbp.web import StatsNbaPbpWebLoader
 from pbpstats.resources.pbp.stats_nba_pbp_item import StatsNbaPbpItem
 
 
@@ -49,7 +51,8 @@ class TestStatsPbpLoader:
     }
 
     def test_file_loader_loads_data(self):
-        pbp_loader = StatsNbaPbpLoader(self.game_id, "file", self.data_directory)
+        source_loader = StatsNbaPbpFileLoader(self.data_directory)
+        pbp_loader = StatsNbaPbpLoader(self.game_id, source_loader)
         assert len(pbp_loader.items) == 540
         assert isinstance(pbp_loader.items[0], StatsNbaPbpItem)
         assert pbp_loader.items[0].data == self.expected_first_item_data
@@ -70,7 +73,8 @@ class TestStatsPbpLoader:
         pbp_url = furl(base_url).add(query_params).url
         responses.add(responses.GET, pbp_url, json=pbp_response, status=200)
 
-        pbp_loader = StatsNbaPbpLoader(self.game_id, "web", self.data_directory)
+        source_loader = StatsNbaPbpWebLoader(self.data_directory)
+        pbp_loader = StatsNbaPbpLoader(self.game_id, source_loader)
         assert len(pbp_loader.items) == 540
         assert isinstance(pbp_loader.items[0], StatsNbaPbpItem)
         assert pbp_loader.items[0].data == self.expected_first_item_data

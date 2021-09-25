@@ -23,7 +23,7 @@ class DataFreeThrow(FreeThrow, DataEnhancedPbpItem):
 
     @property
     def is_ft_1_of_1(self):
-        return self.event_action_type == 10
+        return self.event_action_type == 10 or self.event_action_type == 20
 
     @property
     def is_ft_1_of_2(self):
@@ -35,7 +35,7 @@ class DataFreeThrow(FreeThrow, DataEnhancedPbpItem):
 
     @property
     def is_ft_1_of_3(self):
-        return self.event_action_type == 13
+        return self.event_action_type == 13 or self.event_action_type == 27
 
     @property
     def is_ft_2_of_3(self):
