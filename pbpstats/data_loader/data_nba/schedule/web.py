@@ -23,6 +23,7 @@ class DataNbaScheduleWebLoader(DataNbaWebLoader):
         The specific file location will be `data_<league>_<season_year>.json` in the `/schedule` subdirectory.
         If not provided response data will not be saved on disk.
     """
+
     def __init__(self, file_directory=None):
         self.file_directory = file_directory
 

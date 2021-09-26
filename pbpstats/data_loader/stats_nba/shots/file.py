@@ -14,6 +14,7 @@ class StatsNbaShotsFileLoader(StatsNbaFileLoader):
         The specific file location will be `stats_home_shots_<game_id>.json`
         and `stats_away_shots_<game_id>.json` in the `/game_details` subdirectory.
     """
+
     def __init__(self, file_directory):
         self.file_directory = file_directory
 

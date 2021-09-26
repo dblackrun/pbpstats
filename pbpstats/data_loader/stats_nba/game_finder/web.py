@@ -1,10 +1,7 @@
 import json
 import os
 
-from pbpstats import (
-    NBA_STRING,
-    G_LEAGUE_STRING
-)
+from pbpstats import NBA_STRING, G_LEAGUE_STRING
 
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 
@@ -18,6 +15,7 @@ class StatsNbaGameFinderWebLoader(StatsNbaWebLoader):
         The specific file location will be `stats_<league>_<season>_<season_type>.json` in the `/schedule` subdirectory.
         If not provided response data will not be saved on disk.
     """
+
     def __init__(self, file_directory=None):
         self.file_directory = file_directory
 

@@ -28,6 +28,7 @@ class StatsNbaScoreboardLoader(StatsNbaFileLoader, StatsNbaWebLoader):
     :param str league_string: Options are 'nba', 'wnba' or 'gleague'
     :param source_loader: :obj:`~pbpstats.data_loader.stats_nba.scoreboard.file.StatsNbaScoreboardFileLoader` or :obj:`~pbpstats.data_loader.stats_nba.scoreboard.web.StatsNbaScoreboardWebLoader` object
     """
+
     data_provider = "stats_nba"
     resource = "Games"
     parent_object = "Day"

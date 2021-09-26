@@ -60,7 +60,9 @@ class StatsNbaPossessionLoader(NbaPossessionLoader):
     def __init__(self, game_id, source_loader):
         self.file_directory = source_loader.file_directory
         self.game_id = game_id
-        pbp_events = StatsNbaEnhancedPbpLoader(game_id, source_loader.enhanced_pbp_source_loader)
+        pbp_events = StatsNbaEnhancedPbpLoader(
+            game_id, source_loader.enhanced_pbp_source_loader
+        )
         self.events = pbp_events.items
         events_by_possession = self._split_events_by_possession()
         self.items = [

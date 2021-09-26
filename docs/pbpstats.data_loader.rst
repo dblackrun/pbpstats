@@ -33,4 +33,3 @@ Possession Loader
    :members:
    :undoc-members:
    :show-inheritance:
-

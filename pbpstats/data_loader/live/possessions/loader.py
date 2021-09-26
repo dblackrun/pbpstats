@@ -24,6 +24,7 @@ class LivePossessionLoader(NbaPossessionLoader):
     :param str game_id: NBA Stats Game Id
     :param source_loader: :obj:`~pbpstats.data_loader.live.possessions.file.LivePossessionFileLoader` or :obj:`~pbpstats.data_loader.live.possessions.web.LivePossessionWebLoader` object
     """
+
     data_provider = "live"
     resource = "Possessions"
     parent_object = "Game"
@@ -31,7 +32,9 @@ class LivePossessionLoader(NbaPossessionLoader):
     def __init__(self, game_id, source_loader):
         self.game_id = game_id
         self.file_directory = source_loader.file_directory
-        pbp_events = LiveEnhancedPbpLoader(game_id, source_loader.enhanced_pbp_source_loader)
+        pbp_events = LiveEnhancedPbpLoader(
+            game_id, source_loader.enhanced_pbp_source_loader
+        )
         self.events = pbp_events.items
         events_by_possession = self._split_events_by_possession()
         self.items = [

@@ -20,4 +20,3 @@ class StatsNbaFileLoader(StatsNbaLoaderBase):
         with open(self.file_path) as json_data:
             self.source_data = json.load(json_data)
             return self.source_data
-

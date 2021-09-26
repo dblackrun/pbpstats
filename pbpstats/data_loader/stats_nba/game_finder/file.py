@@ -2,7 +2,6 @@ from pbpstats.data_loader.abs_data_loader import check_file_directory
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 
 
-
 class StatsNbaGameFinderFileLoader(StatsNbaFileLoader):
     """
     A ``StatsNbaGameFinderFileLoader`` object should be instantiated and passed into ``StatsNbaGameFinderLoader`` when loading data from file
@@ -11,6 +10,7 @@ class StatsNbaGameFinderFileLoader(StatsNbaFileLoader):
         Directory in which data should be loaded from.
         The specific file location will be `stats_<league>_<season>_<season_type>.json` in the `/schedule` subdirectory.
     """
+
     def __init__(self, file_directory):
         self.file_directory = file_directory
 

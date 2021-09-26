@@ -32,7 +32,9 @@ class DataNbaPossessionLoader(NbaPossessionLoader):
     def __init__(self, game_id, source_loader):
         self.game_id = game_id
         self.file_directory = source_loader.file_directory
-        pbp_events = DataNbaEnhancedPbpLoader(game_id, source_loader.enhanced_pbp_source_loader)
+        pbp_events = DataNbaEnhancedPbpLoader(
+            game_id, source_loader.enhanced_pbp_source_loader
+        )
         self.events = pbp_events.items
         events_by_possession = self._split_events_by_possession()
         self.items = [

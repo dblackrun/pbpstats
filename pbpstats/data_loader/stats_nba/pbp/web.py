@@ -5,7 +5,6 @@ from pbpstats import NBA_STRING, G_LEAGUE_STRING
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 
 
-
 class StatsNbaPbpWebLoader(StatsNbaWebLoader):
     """
     A ``StatsNbaPbpWebLoader`` object should be instantiated and passed into ``StatsNbaPbpLoader`` when loading data directly from the NBA Stats API
@@ -15,6 +14,7 @@ class StatsNbaPbpWebLoader(StatsNbaWebLoader):
         The specific file location will be `stats_<game_id>.json` in the `/pbp` subdirectory.
         If not provided response data will not be saved on disk.
     """
+
     def __init__(self, file_directory=None):
         self.file_directory = file_directory
 

@@ -25,7 +25,9 @@ class TestStatsGameFinderLoader:
 
     def test_file_loader_loads_data(self):
         source_loader = StatsNbaGameFinderFileLoader(self.data_directory)
-        scoreboard_loader = StatsNbaGameFinderLoader(self.league, self.season, self.season_type, source_loader)
+        scoreboard_loader = StatsNbaGameFinderLoader(
+            self.league, self.season, self.season_type, source_loader
+        )
         assert len(scoreboard_loader.items) == 1230
         assert isinstance(scoreboard_loader.items[0], StatsNbaGameItem)
         assert scoreboard_loader.items[0].data == self.expected_first_item_data
@@ -50,7 +52,9 @@ class TestStatsGameFinderLoader:
         )
 
         source_loader = StatsNbaGameFinderWebLoader(self.data_directory)
-        scoreboard_loader = StatsNbaGameFinderLoader(self.league, self.season, self.season_type, source_loader)
+        scoreboard_loader = StatsNbaGameFinderLoader(
+            self.league, self.season, self.season_type, source_loader
+        )
         assert len(scoreboard_loader.items) == 1230
         assert isinstance(scoreboard_loader.items[0], StatsNbaGameItem)
         assert scoreboard_loader.items[0].data == self.expected_first_item_data

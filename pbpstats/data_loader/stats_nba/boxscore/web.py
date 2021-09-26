@@ -14,6 +14,7 @@ class StatsNbaBoxscoreWebLoader(StatsNbaWebLoader):
         The specific file location will be `stats_boxscore_<game_id>.json` in the `/game_details` subdirectory.
         If not provided response data will not be saved on disk.
     """
+
     def __init__(self, file_directory=None):
         self.file_directory = file_directory
 

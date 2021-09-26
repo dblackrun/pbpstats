@@ -3,7 +3,9 @@ import json
 import responses
 from furl import furl
 
-from pbpstats.data_loader.stats_nba.enhanced_pbp.file import StatsNbaEnhancedPbpFileLoader
+from pbpstats.data_loader.stats_nba.enhanced_pbp.file import (
+    StatsNbaEnhancedPbpFileLoader,
+)
 from pbpstats.data_loader.stats_nba.enhanced_pbp.loader import StatsNbaEnhancedPbpLoader
 from pbpstats.data_loader.stats_nba.enhanced_pbp.web import StatsNbaEnhancedPbpWebLoader
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import (
