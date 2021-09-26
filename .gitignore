@@ -1,0 +1,12 @@
+__pycache__/
+.pytest_cache/
+.vscode/
+.coverage
+env/
+pbpstats.egg-info/
+dist/
+build/
+notes.txt
+debug.py
+*.ipynb
+docs/_build
