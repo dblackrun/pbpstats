@@ -48,6 +48,10 @@ class LiveFreeThrow(FreeThrow, LiveEnhancedPbpItem):
         return hasattr(self, "descriptor") and self.descriptor == "technical"
 
     @property
+    def is_flagrant_ft(self):
+        return hasattr(self, "descriptor") and self.descriptor == "flagrant"
+
+    @property
     def is_ft_1pt(self):
         """
         returns True if free throw is a 1 point free throw, False otherwise

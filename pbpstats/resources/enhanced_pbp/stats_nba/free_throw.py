@@ -58,6 +58,10 @@ class StatsFreeThrow(FreeThrow, StatsEnhancedPbpItem):
         return " Technical" in self.description
 
     @property
+    def is_flagrant_ft(self):
+        return " Flagrant" in self.description
+
+    @property
     def is_ft_1pt(self):
         """
         returns True if free throw is a 1 point free throw, False otherwise
