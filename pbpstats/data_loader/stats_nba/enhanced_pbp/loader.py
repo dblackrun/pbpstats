@@ -63,9 +63,7 @@ class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
         self._add_shot_x_y_coords()
 
     def _add_shot_x_y_coords(self):
-        shots_loader = StatsNbaShotsLoader(
-            self.game_id, self.shots_source_loader
-        )
+        shots_loader = StatsNbaShotsLoader(self.game_id, self.shots_source_loader)
         shots_event_num_map = {
             item.game_event_id: {"loc_x": item.loc_x, "loc_y": item.loc_y}
             for item in shots_loader.items

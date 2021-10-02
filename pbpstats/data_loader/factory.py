@@ -39,13 +39,13 @@ class DataLoaderFactory(object):
             ]
         )
         for name, loader_cls in loaders.items():
-            if hasattr(loader_cls, 'resource'):
-                file_source = loaders[name.replace('Loader', 'FileLoader')]
-                web_source = loaders[name.replace('Loader', 'WebLoader')]
+            if hasattr(loader_cls, "resource"):
+                file_source = loaders[name.replace("Loader", "FileLoader")]
+                web_source = loaders[name.replace("Loader", "WebLoader")]
                 loader = {
-                    'loader': loader_cls,
-                    'file_source': file_source,
-                    'web_source': web_source
+                    "loader": loader_cls,
+                    "file_source": file_source,
+                    "web_source": web_source,
                 }
                 self.loaders[loader_cls.resource][loader_cls.data_provider].append(
                     loader

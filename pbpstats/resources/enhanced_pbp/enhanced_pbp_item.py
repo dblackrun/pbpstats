@@ -169,9 +169,9 @@ class EnhancedPbpItem(metaclass=abc.ABCMeta):
                             return True
                     if foul_event is None:
                         return True
-                    fouls_to_give_prior_to_foul = foul_event.previous_event.fouls_to_give[
-                        defense_team_id
-                    ]
+                    fouls_to_give_prior_to_foul = (
+                        foul_event.previous_event.fouls_to_give[defense_team_id]
+                    )
                     if fouls_to_give_prior_to_foul > 0:
                         return False
                 return True

@@ -28,7 +28,9 @@ from pbpstats.data_loader.live.possessions.web import LivePossessionWebLoader
 from pbpstats.data_loader.stats_nba.boxscore.file import StatsNbaBoxscoreFileLoader
 from pbpstats.data_loader.stats_nba.boxscore.loader import StatsNbaBoxscoreLoader
 from pbpstats.data_loader.stats_nba.boxscore.web import StatsNbaBoxscoreWebLoader
-from pbpstats.data_loader.stats_nba.enhanced_pbp.file import StatsNbaEnhancedPbpFileLoader
+from pbpstats.data_loader.stats_nba.enhanced_pbp.file import (
+    StatsNbaEnhancedPbpFileLoader,
+)
 from pbpstats.data_loader.stats_nba.enhanced_pbp.loader import StatsNbaEnhancedPbpLoader
 from pbpstats.data_loader.stats_nba.enhanced_pbp.web import StatsNbaEnhancedPbpWebLoader
 from pbpstats.data_loader.stats_nba.game_finder.file import StatsNbaGameFinderFileLoader

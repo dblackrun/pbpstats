@@ -14,6 +14,7 @@ class DataNbaLoaderBase(object):
 
     This class should not be instantiated directly
     """
+
     @property
     def league(self):
         """

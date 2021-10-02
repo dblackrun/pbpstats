@@ -28,8 +28,8 @@ class NbaEnhancedPbpLoader(object):
         change_override_event_nums = self.possession_changing_event_overrides.get(
             game_id, []
         )
-        non_change_override_event_nums = self.non_possession_changing_event_overrides.get(
-            game_id, []
+        non_change_override_event_nums = (
+            self.non_possession_changing_event_overrides.get(game_id, [])
         )
         player_game_fouls = defaultdict(int)
         fouls_to_give = defaultdict(lambda: 4)

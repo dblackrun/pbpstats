@@ -34,7 +34,9 @@ class StatsNbaShotsLoader(StatsNbaLoaderBase):
 
     def __init__(self, game_id, source_loader):
         self.game_id = game_id
-        self.home_source_data, self.away_source_data = source_loader.load_data(self.game_id)
+        self.home_source_data, self.away_source_data = source_loader.load_data(
+            self.game_id
+        )
         self._make_shot_items()
 
     def _make_shot_items(self):

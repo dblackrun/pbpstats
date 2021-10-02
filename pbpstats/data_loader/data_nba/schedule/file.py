@@ -10,6 +10,7 @@ class DataNbaScheduleFileLoader(DataNbaFileLoader):
         Directory in which data should be loaded from.
         The specific file location will be `data_<league>_<season_year>.json` in the `/schedule` subdirectory.
     """
+
     def __init__(self, file_directory=None):
         self.file_directory = file_directory
 

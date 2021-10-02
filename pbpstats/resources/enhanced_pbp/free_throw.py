@@ -68,7 +68,7 @@ class FreeThrow(metaclass=abc.ABCMeta):
             or self.is_ft_1pt
             or self.is_ft_2pt
             or self.is_ft_3pt
-        )
+        ) and not self.is_flagrant_ft
 
     @abc.abstractproperty
     def is_technical_ft(self):

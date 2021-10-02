@@ -1,5 +1,5 @@
 [tool.black]
-target-version = ['py37']
+target-version = ['py38']
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -18,3 +18,4 @@ exclude = '''
     | blib2to3
     | tests/data
 )/
+'''

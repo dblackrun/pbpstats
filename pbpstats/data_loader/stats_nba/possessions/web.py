@@ -10,6 +10,7 @@ class StatsNbaPossessionWebLoader(object):
         The specific file location will be `stats_<game_id>.json` in the `/pbp` subdirectory.
         If not provided response data will not be saved on disk.
     """
+
     def __init__(self, file_directory=None):
         self.file_directory = file_directory
         self.enhanced_pbp_source_loader = StatsNbaEnhancedPbpWebLoader(file_directory)

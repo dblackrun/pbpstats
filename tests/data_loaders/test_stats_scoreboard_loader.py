@@ -23,7 +23,9 @@ class TestStatsScoreboardLoader:
 
     def test_file_loader_loads_data(self):
         source_loader = StatsNbaScoreboardFileLoader(self.data_directory)
-        scoreboard_loader = StatsNbaScoreboardLoader(self.date, self.league, source_loader)
+        scoreboard_loader = StatsNbaScoreboardLoader(
+            self.date, self.league, source_loader
+        )
         assert len(scoreboard_loader.items) == 7
         assert isinstance(scoreboard_loader.items[0], StatsNbaGameItem)
         assert scoreboard_loader.items[0].data == self.expected_first_item_data
@@ -42,7 +44,9 @@ class TestStatsScoreboardLoader:
         )
 
         source_loader = StatsNbaScoreboardWebLoader(self.data_directory)
-        scoreboard_loader = StatsNbaScoreboardLoader(self.date, self.league, source_loader)
+        scoreboard_loader = StatsNbaScoreboardLoader(
+            self.date, self.league, source_loader
+        )
         assert len(scoreboard_loader.items) == 7
         assert isinstance(scoreboard_loader.items[0], StatsNbaGameItem)
         assert scoreboard_loader.items[0].data == self.expected_first_item_data

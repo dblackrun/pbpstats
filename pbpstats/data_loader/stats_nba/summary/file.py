@@ -10,6 +10,7 @@ class StatsNbaSummaryFileLoader(StatsNbaFileLoader):
         Directory in which data should be loaded from.
         The specific file location will be `stats_summary_<game_id>.json` in the `/game_details` subdirectory.
     """
+
     def __init__(self, file_directory):
         self.file_directory = file_directory
 

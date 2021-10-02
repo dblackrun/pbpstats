@@ -10,6 +10,7 @@ class StatsNbaScoreboardFileLoader(StatsNbaFileLoader):
         Directory in which data should be loaded from.
         The specific file location will be `stats_<league>_<date>.json` in the `/schedule` subdirectory.
     """
+
     def __init__(self, file_directory):
         self.file_directory = file_directory
 
