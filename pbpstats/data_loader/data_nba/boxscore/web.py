@@ -1,7 +1,7 @@
 import json
 import os
 
-from pbpstats import NBA_STRING, G_LEAGUE_STRING
+from pbpstats import NBA_STRING, D_LEAGUE_STRING
 from pbpstats.data_loader.data_nba.web_loader import DataNbaWebLoader
 
 
@@ -20,7 +20,7 @@ class DataNbaBoxscoreWebLoader(DataNbaWebLoader):
 
     def load_data(self, game_id):
         self.game_id = game_id
-        league_url_part = NBA_STRING if self.league == G_LEAGUE_STRING else self.league
+        league_url_part = NBA_STRING if self.league == D_LEAGUE_STRING else self.league
         self.url = f"http://data.{league_url_part}.com/data/v2015/json/mobile_teams/{self.league}/{self.season}/scores/gamedetail/{self.game_id}_gamedetail.json"
         return self._load_request_data()
 
