@@ -45,7 +45,9 @@ class StatsStartOfPeriod(StartOfPeriod, StatsEnhancedPbpItem):
         try:
             return self._get_period_starters_from_period_events(file_directory)
         except InvalidNumberOfStartersException:
-            return self._get_starters_from_boxscore_request()
+            starters = self._get_starters_from_boxscore_request()
+            self._save_missing_starters_to_file(file_directory, starters)
+            return starters
 
     def _get_starters_from_boxscore_request(self):
         """
@@ -75,12 +77,20 @@ class StatsStartOfPeriod(StartOfPeriod, StatsEnhancedPbpItem):
             "EndRange": end_range,
         }
         starters_by_team = {}
-        response = requests.get(
-            base_url, params, headers=HEADERS, timeout=REQUEST_TIMEOUT
-        )
+        try:
+            response = requests.get(
+                base_url, params, headers=HEADERS, timeout=REQUEST_TIMEOUT
+            )
+        except requests.ReadTimeout:
+            print("failed to get starters for game:",
+                  self.game_id, "period:", self.period)
+            raise requests.ReadTimeout
+
         if response.status_code == 200:
             response_json = response.json()
         else:
+            print("failed to get starters for game:",
+                  self.game_id, "period:", self.period)
             response.raise_for_status()
 
         headers = response_json["resultSets"][0]["headers"]
@@ -103,6 +113,8 @@ class StatsStartOfPeriod(StartOfPeriod, StatsEnhancedPbpItem):
                     f"GameId: {self.game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}"
                 )
 
+        print("For Game:", self.game_id, "Period:", self.period,
+              "Starters by team:", starters_by_team)
         return starters_by_team
 
     @property

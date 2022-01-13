@@ -223,6 +223,32 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
                         f"GameId: {game_id}, Period: {self.period}, TeamId: {team_id}, Players: {starters}"
                     )
 
+    def _save_missing_starters_to_file(self, file_directory, starters_by_team):
+        if file_directory is None:
+            return
+
+        missing_period_starters_file_path = (
+            f"{file_directory}/overrides/missing_period_starters.json"
+        )
+        if not os.path.isfile(missing_period_starters_file_path):
+            return
+
+        game_id = str(
+            self.game_id if self.league == NBA_STRING else int(self.game_id)
+        )
+        starters_json = {}
+        for team_id, starters in starters_by_team.items():
+            starters_json[str(team_id)] = starters
+        with open(missing_period_starters_file_path) as f:
+            # hard code corrections for games with incorrect number of starters exceptions
+            missing_period_starters = json.loads(f.read(), cls=IntDecoder)
+            if game_id in missing_period_starters:
+                missing_period_starters[game_id][str(self.period)] = starters_json
+            else:
+                missing_period_starters[game_id] = {str(self.period): starters_json}
+        with open(missing_period_starters_file_path, 'w') as f:
+            json.dump(missing_period_starters, f)
+
     def _get_period_starters_from_period_events(
         self, file_directory, ignore_missing_starters=False
     ):
