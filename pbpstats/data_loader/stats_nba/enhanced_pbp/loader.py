@@ -19,6 +19,8 @@ The following code will load pbp data for game id "0021900001" from a file locat
 import os
 import json
 
+from pbpstats.data_loader.data_nba.pbp.loader import DataNbaPbpLoader
+from pbpstats.data_loader.data_nba.pbp.web import DataNbaPbpWebLoader
 from pbpstats.data_loader.stats_nba.pbp.loader import StatsNbaPbpLoader
 from pbpstats.data_loader.stats_nba.shots.loader import StatsNbaShotsLoader
 from pbpstats.data_loader.nba_enhanced_pbp_loader import NbaEnhancedPbpLoader
@@ -95,6 +97,18 @@ class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
                 ]
                 self._add_extra_attrs_to_all_events()
                 attempts += 1
+        # Common check didn't fix things. Use data nba event order
+        try:
+            for event in self.items:
+                if hasattr(event, "missed_shot"):
+                    event.missed_shot
+        except EventOrderError as e:
+            self._use_data_nba_event_order()
+            self.items = [
+                self.factory.get_event_class(item["EVENTMSGTYPE"])(item, i)
+                for i, item in enumerate(self.data)
+            ]
+            self._add_extra_attrs_to_all_events()
 
     def _fix_common_event_order_error(self, exception):
         """
@@ -195,6 +209,27 @@ class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
                 issue_event_index - 1
             ] = first_rebound
 
+        self._save_data_to_file()
+
+    def _use_data_nba_event_order(self):
+        """
+        reorders all events to be the same order as data.nba.com pbp
+        """
+        # Order event numbers of events in data.nba.com pbp
+        data_nba_pbp = DataNbaPbpLoader(self.game_id, DataNbaPbpWebLoader())
+        data_nba_event_num_order = [item.evt for item in data_nba_pbp.items]
+
+        headers = self.source_data["resultSets"][0]["headers"]
+        rows = self.source_data["resultSets"][0]["rowSet"]
+        event_num_index = headers.index("EVENTNUM")
+
+        # reorder stats.nba.com events to be in same order as data.nba.com events
+        new_event_order = []
+        for event_num in data_nba_event_num_order:
+            for row in rows:
+                if row[event_num_index] == event_num:
+                    new_event_order.append(row)
+        self.source_data["resultSets"][0]["rowSet"] = new_event_order
         self._save_data_to_file()
 
     def _save_data_to_file(self):
