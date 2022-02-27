@@ -1,5 +1,6 @@
 import requests
 
+from pbpstats import REQUEST_TIMEOUT
 from pbpstats.data_loader.live.base import LiveLoaderBase
 
 
@@ -13,7 +14,7 @@ class LiveWebLoader(LiveLoaderBase):
     """
 
     def _load_request_data(self):
-        response = requests.get(self.url)
+        response = requests.get(self.url, timeout=REQUEST_TIMEOUT)
         if response.status_code == 200:
             self.source_data = response.json()
             self._save_data_to_file()

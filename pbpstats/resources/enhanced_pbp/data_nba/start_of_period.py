@@ -20,7 +20,7 @@ class DataStartOfPeriod(StartOfPeriod, DataEnhancedPbpItem):
     def get_period_starters(self, file_directory=None):
         """
         Gets player ids of players who started the period for each team
-         If players can't be determined from parsing pbp, will try to
+        If players can't be determined from parsing pbp, will try to
         find them by making API request to stats.nba.com boxscore filtered by time.
 
         :param str file_directory: directory in which overrides subdirectory exists

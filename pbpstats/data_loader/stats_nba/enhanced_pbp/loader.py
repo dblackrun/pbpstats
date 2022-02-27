@@ -55,6 +55,7 @@ class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
         super().__init__(game_id, source_loader)
 
     def _make_pbp_items(self):
+        self._fix_order_when_technical_foul_before_period_start()
         self.factory = StatsNbaEnhancedPbpFactory()
         self.items = [
             self.factory.get_event_class(item["EVENTMSGTYPE"])(item, i)
@@ -109,6 +110,63 @@ class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
                 for i, item in enumerate(self.data)
             ]
             self._add_extra_attrs_to_all_events()
+
+    def _fix_order_when_technical_foul_before_period_start(self):
+        """
+        When someone gets a technical foul between periods the technical foul and free throw are
+        between the end of period event and the start of period event.
+        The causes an error when parsing possessions. Move events to after start of period event
+        """
+        headers = self.source_data["resultSets"][0]["headers"]
+        rows = self.source_data["resultSets"][0]["rowSet"]
+        event_msg_type_index = headers.index("EVENTMSGTYPE")
+        event_msg_type_action_index = headers.index("EVENTMSGACTIONTYPE")
+        period_index = headers.index("PERIOD")
+        period_events_without_period_start_event = {}
+        period_start_events = {}
+        start_period_event_msg_type = 12
+        technical_foul_event_msg_type = 6
+        technical_foul_event_msg_action_types = [11, 12, 13, 16, 18, 19, 25, 30]
+        new_order_of_events = []
+        reorder_events = False
+        period_start_events_found = []
+
+        # Check if there is a technical foul event before a period start event
+        for row in rows:
+            period = row[period_index]
+            if row[event_msg_type_index] == start_period_event_msg_type:
+                period_start_events_found.append(period)
+            if (
+                row[event_msg_type_index] == technical_foul_event_msg_type
+                and row[event_msg_type_action_index]
+                in technical_foul_event_msg_action_types
+            ):
+                if period not in period_start_events_found:
+                    reorder_events = True
+
+        # If there isn't, do nothing
+        if not reorder_events:
+            return
+
+        # If there is rearrange event order so that period start is always the first event appearing for the period
+        for row in rows:
+            period = row[period_index]
+            if row[event_msg_type_index] == start_period_event_msg_type:
+                period_start_events[period] = row
+            elif period not in period_events_without_period_start_event.keys():
+                period_events_without_period_start_event[period] = [row]
+            else:
+                period_events_without_period_start_event[period].append(row)
+
+        for period in range(1, 11):
+            if period in period_start_events.keys():
+                new_order_of_events.append(period_start_events[period])
+            if period in period_events_without_period_start_event.keys():
+                for event in period_events_without_period_start_event[period]:
+                    new_order_of_events.append(event)
+
+        self.source_data["resultSets"][0]["rowSet"] = new_order_of_events
+        self._save_data_to_file()
 
     def _fix_common_event_order_error(self, exception):
         """
