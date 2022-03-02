@@ -168,11 +168,12 @@ class FreeThrow(metaclass=abc.ABCMeta):
         event = self
         while (
             event is not None
-            and event.clock == clock
+            and (event.clock == clock or (event.previous_event and event.previous_event.clock == clock))
             and not (
                 isinstance(event, Foul)
                 and not event.is_technical
                 and not event.is_double_technical
+                # and (not self.is_flagrant_ft or (event.is_flagrant and self.is_flagrant_ft))
             )
         ):
             event = event.previous_event
@@ -182,6 +183,7 @@ class FreeThrow(metaclass=abc.ABCMeta):
             and not event.is_technical
             and not event.is_double_technical
             and event.clock == clock
+            # and (not self.is_flagrant_ft or (event.is_flagrant and self.is_flagrant_ft))
         ):
             return event
 
@@ -194,6 +196,7 @@ class FreeThrow(metaclass=abc.ABCMeta):
                 isinstance(event, Foul)
                 and not event.is_technical
                 and not event.is_double_technical
+                # and (not self.is_flagrant_ft or (event.is_flagrant and self.is_flagrant_ft))
             )
         ):
             event = event.next_event
@@ -203,6 +206,7 @@ class FreeThrow(metaclass=abc.ABCMeta):
             and not event.is_technical
             and not event.is_double_technical
             and event.clock == clock
+            # and event.is_flagrant == self.is_flagrant_ft
         ):
             return event
         return None

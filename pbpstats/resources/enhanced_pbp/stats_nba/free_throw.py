@@ -34,11 +34,11 @@ class StatsFreeThrow(FreeThrow, StatsEnhancedPbpItem):
 
     @property
     def is_ft_1_of_2(self):
-        return self.event_action_type == 11
+        return self.event_action_type == 11 or self.event_action_type == 18
 
     @property
     def is_ft_2_of_2(self):
-        return self.event_action_type == 12
+        return self.event_action_type == 12 or self.event_action_type == 19
 
     @property
     def is_ft_1_of_3(self):
@@ -59,7 +59,17 @@ class StatsFreeThrow(FreeThrow, StatsEnhancedPbpItem):
 
     @property
     def is_flagrant_ft(self):
-        return " Flagrant" in self.description
+        if " Flagrant" in self.description:
+            return True
+        elif self.is_technical_ft:
+            return False
+        foul = self.foul_that_led_to_ft
+        if foul is None:
+            print("no foul for ft", self)
+            # raise Exception(self)
+        return foul.is_flagrant
+
+        # return " Flagrant" in self.description or (not self.is_technical_ft and self.foul_that_led_to_ft.is_flagrant)
 
     @property
     def is_ft_1pt(self):

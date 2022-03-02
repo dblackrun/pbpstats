@@ -142,13 +142,17 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
         """
         returns team id for team on offense for event
         """
+        team_ids = list(self.current_players.keys())
         if isinstance(self, Foul) and (self.is_charge or self.is_offensive_foul):
-            # offensive foul returns team id
+            # offensive foul returns team id, defensive foul returns other team id
             # this isn't separate method in Foul class because some fouls can be committed
             # on offense or defense (loose ball, flagrant, technical)
             return self.team_id
+        elif isinstance(self, Foul) and (self.is_defensive_3_seconds or self.is_shooting_foul or self.is_shooting_block_foul):
+            return team_ids[0] if team_ids[1] == self.team_id else team_ids[1]
+
         event_to_check = self.previous_event
-        team_ids = list(self.current_players.keys())
+
         while event_to_check is not None and not (
             isinstance(event_to_check, (FieldGoal, JumpBall))
             or (
