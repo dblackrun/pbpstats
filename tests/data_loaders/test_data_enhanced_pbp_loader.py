@@ -1,15 +1,15 @@
 import json
 
-import responses
 import pytest
+import responses
 
 from pbpstats.data_loader.data_nba.enhanced_pbp.file import DataNbaEnhancedPbpFileLoader
 from pbpstats.data_loader.data_nba.enhanced_pbp.loader import DataNbaEnhancedPbpLoader
 from pbpstats.data_loader.data_nba.enhanced_pbp.web import DataNbaEnhancedPbpWebLoader
+from pbpstats.resources.enhanced_pbp import InvalidNumberOfStartersException
 from pbpstats.resources.enhanced_pbp.data_nba.enhanced_pbp_item import (
     DataEnhancedPbpItem,
 )
-from pbpstats.resources.enhanced_pbp import InvalidNumberOfStartersException
 
 
 class TestDataEnhancedPbpLoader:

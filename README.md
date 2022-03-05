@@ -21,3 +21,25 @@ pip install pbpstats
 
 # Resources
 [Documentation](https://pbpstats.readthedocs.io/en/latest/)
+
+# Local Development
+Using [poetry](https://python-poetry.org/) for package managment. Install it first if it is not install on your system.
+
+`git clone https://github.com/dblackrun/pbpstats.git`
+
+`cd pbpstats`
+
+Develop using `develop` branch:
+`git checkout develop`
+
+Install dependencies:
+
+`poetry install`
+
+Activate virtualenv:
+
+`poetry shell`
+
+Install pre-commit:
+
+`pre-commit install`

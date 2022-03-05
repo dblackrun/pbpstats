@@ -16,19 +16,19 @@ The following code will load pbp data for game id "0021900001" from a file locat
     pbp_loader = StatsNbaEnhancedPbpLoader("0021900001", source_loader)
     print(pbp_loader.items[0].data)  # prints dict with the first event of the game
 """
-import os
 import json
+import os
 
 from pbpstats.data_loader.data_nba.pbp.loader import DataNbaPbpLoader
 from pbpstats.data_loader.data_nba.pbp.web import DataNbaPbpWebLoader
+from pbpstats.data_loader.nba_enhanced_pbp_loader import NbaEnhancedPbpLoader
 from pbpstats.data_loader.stats_nba.pbp.loader import StatsNbaPbpLoader
 from pbpstats.data_loader.stats_nba.shots.loader import StatsNbaShotsLoader
-from pbpstats.data_loader.nba_enhanced_pbp_loader import NbaEnhancedPbpLoader
+from pbpstats.resources.enhanced_pbp import FieldGoal
+from pbpstats.resources.enhanced_pbp.rebound import EventOrderError
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_factory import (
     StatsNbaEnhancedPbpFactory,
 )
-from pbpstats.resources.enhanced_pbp import FieldGoal
-from pbpstats.resources.enhanced_pbp.rebound import EventOrderError
 
 
 class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):

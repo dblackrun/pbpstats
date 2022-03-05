@@ -1,5 +1,5 @@
-from pbpstats.resources.enhanced_pbp.live.enhanced_pbp_item import LiveEnhancedPbpItem
 from pbpstats.resources.enhanced_pbp import Rebound
+from pbpstats.resources.enhanced_pbp.live.enhanced_pbp_item import LiveEnhancedPbpItem
 
 
 class LiveRebound(Rebound, LiveEnhancedPbpItem):

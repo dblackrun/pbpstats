@@ -1,8 +1,8 @@
-from pbpstats.resources.enhanced_pbp.stats_nba.jump_ball import StatsJumpBall
 from pbpstats.resources.enhanced_pbp.stats_nba.field_goal import StatsFieldGoal
+from pbpstats.resources.enhanced_pbp.stats_nba.foul import StatsFoul
+from pbpstats.resources.enhanced_pbp.stats_nba.jump_ball import StatsJumpBall
 from pbpstats.resources.enhanced_pbp.stats_nba.rebound import StatsRebound
 from pbpstats.resources.enhanced_pbp.stats_nba.turnover import StatsTurnover
-from pbpstats.resources.enhanced_pbp.stats_nba.foul import StatsFoul
 
 
 def test_dangling_jump_ball_changes_possession():

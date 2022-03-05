@@ -24,7 +24,6 @@ import pbpstats.objects as objects
 import pbpstats.resources as resources
 from pbpstats.data_loader.factory import DataLoaderFactory
 
-
 DATA_LOADER_SUFFIX = "DataLoaderClass"
 DATA_SOURCE_SUFFIX = "DataSource"
 PATTERN = re.compile(r"(?<!^)(?=[A-Z])")  # for converting camel case to snake case

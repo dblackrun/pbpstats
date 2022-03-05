@@ -1,7 +1,7 @@
+from pbpstats.resources.enhanced_pbp import Foul
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import (
     StatsEnhancedPbpItem,
 )
-from pbpstats.resources.enhanced_pbp import Foul
 
 
 class StatsFoul(Foul, StatsEnhancedPbpItem):

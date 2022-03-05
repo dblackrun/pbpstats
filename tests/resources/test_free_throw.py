@@ -1,7 +1,7 @@
 from pbpstats.resources.enhanced_pbp.data_nba.free_throw import DataFreeThrow
-from pbpstats.resources.enhanced_pbp.stats_nba.free_throw import StatsFreeThrow
 from pbpstats.resources.enhanced_pbp.stats_nba.field_goal import StatsFieldGoal
 from pbpstats.resources.enhanced_pbp.stats_nba.foul import StatsFoul
+from pbpstats.resources.enhanced_pbp.stats_nba.free_throw import StatsFreeThrow
 
 
 def test_data_made_free_throw():
