@@ -3,8 +3,8 @@
 """
 from collections import defaultdict
 
-from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
 from pbpstats.resources.enhanced_pbp import StartOfPeriod
+from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
 
 KEY_ATTR_MAPPER = {
     "period": "period",

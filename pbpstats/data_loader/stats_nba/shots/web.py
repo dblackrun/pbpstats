@@ -1,13 +1,14 @@
 import json
 import os
-import requests
 from pathlib import Path
 
-from pbpstats import HEADERS, REQUEST_TIMEOUT, NBA_STRING, G_LEAGUE_STRING
+import requests
+
+from pbpstats import G_LEAGUE_STRING, HEADERS, NBA_STRING, REQUEST_TIMEOUT
 from pbpstats.data_loader.abs_data_loader import check_file_directory
-from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 from pbpstats.data_loader.stats_nba.summary.loader import StatsNbaSummaryLoader
 from pbpstats.data_loader.stats_nba.summary.web import StatsNbaSummaryWebLoader
+from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
 
 
 class StatsNbaShotsWebLoader(StatsNbaWebLoader):

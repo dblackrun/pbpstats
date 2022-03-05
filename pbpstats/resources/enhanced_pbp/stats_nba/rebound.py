@@ -1,16 +1,16 @@
-from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import (
-    StatsEnhancedPbpItem,
-)
 from pbpstats.resources.enhanced_pbp import (
     FieldGoal,
     FreeThrow,
     JumpBall,
     Rebound,
-    Turnover,
     Substitution,
     Timeout,
+    Turnover,
 )
 from pbpstats.resources.enhanced_pbp.rebound import EventOrderError
+from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import (
+    StatsEnhancedPbpItem,
+)
 
 
 class StatsRebound(Rebound, StatsEnhancedPbpItem):

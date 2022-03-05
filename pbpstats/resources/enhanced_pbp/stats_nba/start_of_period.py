@@ -1,9 +1,9 @@
+from pbpstats.resources.enhanced_pbp import (
+    InvalidNumberOfStartersException,
+    StartOfPeriod,
+)
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_item import (
     StatsEnhancedPbpItem,
-)
-from pbpstats.resources.enhanced_pbp import (
-    StartOfPeriod,
-    InvalidNumberOfStartersException,
 )
 
 

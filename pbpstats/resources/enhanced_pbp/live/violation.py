@@ -1,5 +1,5 @@
-from pbpstats.resources.enhanced_pbp.live.enhanced_pbp_item import LiveEnhancedPbpItem
 from pbpstats.resources.enhanced_pbp import Violation
+from pbpstats.resources.enhanced_pbp.live.enhanced_pbp_item import LiveEnhancedPbpItem
 
 
 class LiveViolation(Violation, LiveEnhancedPbpItem):

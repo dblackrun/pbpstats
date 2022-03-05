@@ -1,7 +1,7 @@
 import json
 import os
 
-from pbpstats import NBA_STRING, D_LEAGUE_STRING
+from pbpstats import D_LEAGUE_STRING, NBA_STRING
 from pbpstats.data_loader.data_nba.web_loader import DataNbaWebLoader
 
 
