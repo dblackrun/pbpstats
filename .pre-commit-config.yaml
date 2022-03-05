@@ -5,8 +5,14 @@ repos:
     rev: 21.9b0
     hooks:
       - id: black
-        language_version: python3.8
+        language_version: python3.9
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
     hooks:
       - id: trailing-whitespace
+  - repo: https://github.com/pycqa/isort
+    rev: 5.10.1
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: ["--profile", "black", "--filter-files"]
