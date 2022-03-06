@@ -295,7 +295,7 @@ class TestStatsEnhancedPbpLoader:
         home_query_params = {
             "GameID": game_id,
             "TeamID": 1610612761,
-            "Season": "2016-17",
+            "Season": "2019-20",
             "SeasonType": "Regular Season",
             "PlayerID": 0,
             "Outcome": "",
@@ -319,7 +319,7 @@ class TestStatsEnhancedPbpLoader:
         away_query_params = {
             "GameID": game_id,
             "TeamID": 1610612740,
-            "Season": "2016-17",
+            "Season": "2019-20",
             "SeasonType": "Regular Season",
             "PlayerID": 0,
             "Outcome": "",
@@ -350,7 +350,7 @@ class TestStatsEnhancedPbpLoader:
         ) as f:
             summary_response = json.loads(f.read())
         summary_base_url = "https://stats.nba.com/stats/boxscoresummaryv2"
-        query_params = {"GameId": self.game_id}
+        query_params = {"GameId": game_id}
         summary_url = furl(summary_base_url).add(query_params).url
         responses.add(responses.GET, summary_url, json=summary_response, status=200)
 
@@ -358,7 +358,7 @@ class TestStatsEnhancedPbpLoader:
             starters_response = json.loads(f.read())
         boxscore_base_url = "https://stats.nba.com/stats/boxscoretraditionalv2"
         starters_query_params = {
-            "GameId": self.game_id,
+            "GameId": game_id,
             "StartPeriod": 0,
             "EndPeriod": 0,
             "RangeType": 2,
