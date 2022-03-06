@@ -266,6 +266,7 @@ class TestStatsEnhancedPbpLoader:
             == self.expected_first_item_data["period_starters"]
         )
 
+    @responses.activate
     def test_web_loader_with_events_out_of_order_loads_data(self):
         game_id = "0021900001"
         with open(f"{self.data_directory}/pbp/raw_stats_{game_id}.json") as f:
