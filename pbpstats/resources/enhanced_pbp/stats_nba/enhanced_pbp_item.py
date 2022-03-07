@@ -148,7 +148,8 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
             # this isn't separate method in Foul class because some fouls can be committed
             # on offense or defense (loose ball, flagrant, technical)
             return self.team_id
-        elif isinstance(self, Foul) and (self.is_defensive_3_seconds or self.is_shooting_foul or self.is_shooting_block_foul):
+        elif isinstance(self, Foul) and (self.is_defensive_3_seconds):
+            # don't check shooting fouls because and1 fouls are put with the next possession currently...
             return team_ids[0] if team_ids[1] == self.team_id else team_ids[1]
 
         event_to_check = self.previous_event
