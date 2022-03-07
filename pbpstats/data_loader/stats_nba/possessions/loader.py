@@ -13,22 +13,22 @@ pbp file located in the ``/pbp`` subdirectory of the ``/data`` directory
     pbp_loader = StatsNbaPossessionLoader("0021900001", source_loader)
     print(pbp_loader.items[0].data)  # prints dict with the first event of the game
 """
-import os
 import json
+import os
 
 from pbpstats import (
-    NBA_GAME_ID_PREFIX,
     G_LEAGUE_GAME_ID_PREFIX,
-    WNBA_GAME_ID_PREFIX,
-    NBA_STRING,
     G_LEAGUE_STRING,
+    NBA_GAME_ID_PREFIX,
+    NBA_STRING,
+    WNBA_GAME_ID_PREFIX,
     WNBA_STRING,
 )
-from pbpstats.overrides import IntDecoder
-from pbpstats.data_loader.stats_nba.enhanced_pbp.loader import StatsNbaEnhancedPbpLoader
 from pbpstats.data_loader.nba_possession_loader import NbaPossessionLoader
-from pbpstats.resources.possessions.possession import Possession
+from pbpstats.data_loader.stats_nba.enhanced_pbp.loader import StatsNbaEnhancedPbpLoader
+from pbpstats.overrides import IntDecoder
 from pbpstats.resources.enhanced_pbp import Foul
+from pbpstats.resources.possessions.possession import Possession
 
 
 class TeamHasBackToBackPossessionsException(Exception):

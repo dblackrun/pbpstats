@@ -1,5 +1,5 @@
-import os
 import json
+import os
 from collections import defaultdict
 
 from pbpstats import NBA_STRING

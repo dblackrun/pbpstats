@@ -12,11 +12,7 @@ The following code will load schedule data for 2019-20 NBA Regular Season
     schedule_loader = DataNbaScheduleLoader("nba", "2019-20", "Regular Season", source_loader)
     print(schedule_loader.items[0].data)  # prints dict with the first game of the season
 """
-from pbpstats import (
-    PLAYOFFS_STRING,
-    REGULAR_SEASON_STRING,
-    PLAY_IN_STRING,
-)
+from pbpstats import PLAY_IN_STRING, PLAYOFFS_STRING, REGULAR_SEASON_STRING
 from pbpstats.data_loader.data_nba.base import DataNbaLoaderBase
 from pbpstats.resources.games.data_nba_game_item import DataNbaGameItem
 

@@ -201,3 +201,97 @@ class TestStatsPossessionsLoader:
             str(possessions_loader.items[0].data["events"][2])
             == self.expected_first_item_data["events"][2]
         )
+
+    @responses.activate
+    def test_technical_foul_event_before_period_start_gets_fixed(self):
+        game_id = "0022100732"
+        with open(f"{self.data_directory}/pbp/technical_before_period_start.json") as f:
+            pbp_response = json.loads(f.read())
+        base_url = "https://stats.nba.com/stats/playbyplayv2"
+        query_params = {
+            "GameId": game_id,
+            "StartPeriod": 0,
+            "EndPeriod": 10,
+            "RangeType": 2,
+            "StartRange": 0,
+            "EndRange": 55800,
+        }
+        pbp_url = furl(base_url).add(query_params).url
+        responses.add(responses.GET, pbp_url, json=pbp_response, status=200)
+
+        with open(
+            f"{self.data_directory}/game_details/stats_home_shots_{game_id}.json"
+        ) as f:
+            home_response = json.loads(f.read())
+        with open(
+            f"{self.data_directory}/game_details/stats_away_shots_{game_id}.json"
+        ) as f:
+            away_response = json.loads(f.read())
+        base_url = "https://stats.nba.com/stats/shotchartdetail"
+        home_query_params = {
+            "GameID": game_id,
+            "TeamID": 1610612757,
+            "Season": "2021-22",
+            "SeasonType": "Regular Season",
+            "PlayerID": 0,
+            "Outcome": "",
+            "Location": "",
+            "Month": 0,
+            "SeasonSegment": "",
+            "DateFrom": "",
+            "DateTo": "",
+            "OpponentTeamID": 0,
+            "VsConference": "",
+            "VsDivision": "",
+            "Position": "",
+            "RookieYear": "",
+            "GameSegment": "",
+            "Period": 0,
+            "LastNGames": 0,
+            "ContextMeasure": "FG_PCT",
+            "PlayerPosition": "",
+            "LeagueID": "00",
+        }
+        away_query_params = {
+            "GameID": game_id,
+            "TeamID": 1610612742,
+            "Season": "2021-22",
+            "SeasonType": "Regular Season",
+            "PlayerID": 0,
+            "Outcome": "",
+            "Location": "",
+            "Month": 0,
+            "SeasonSegment": "",
+            "DateFrom": "",
+            "DateTo": "",
+            "OpponentTeamID": 0,
+            "VsConference": "",
+            "VsDivision": "",
+            "Position": "",
+            "RookieYear": "",
+            "GameSegment": "",
+            "Period": 0,
+            "LastNGames": 0,
+            "ContextMeasure": "FG_PCT",
+            "PlayerPosition": "",
+            "LeagueID": "00",
+        }
+        home_url = furl(base_url).add(home_query_params).url
+        away_url = furl(base_url).add(away_query_params).url
+        responses.add(responses.GET, home_url, json=home_response, status=200)
+        responses.add(responses.GET, away_url, json=away_response, status=200)
+
+        with open(
+            f"{self.data_directory}/game_details/stats_summary_{game_id}.json"
+        ) as f:
+            summary_response = json.loads(f.read())
+        summary_base_url = "https://stats.nba.com/stats/boxscoresummaryv2"
+        query_params = {"GameId": game_id}
+        summary_url = furl(summary_base_url).add(query_params).url
+        responses.add(responses.GET, summary_url, json=summary_response, status=200)
+
+        file_directory = None
+        source_loader = StatsNbaPossessionWebLoader(file_directory)
+        possessions_loader = StatsNbaPossessionLoader(game_id, source_loader)
+        # This would fail without rearranging the events so simply checking the number of items is enough
+        assert len(possessions_loader.items) == 194

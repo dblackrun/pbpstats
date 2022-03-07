@@ -6,7 +6,6 @@ from collections import defaultdict
 import requests
 
 from pbpstats import HEADERS, REQUEST_TIMEOUT
-from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
 from pbpstats.resources.enhanced_pbp import (
     FieldGoal,
     Foul,
@@ -17,7 +16,7 @@ from pbpstats.resources.enhanced_pbp import (
     Turnover,
     Violation,
 )
-
+from pbpstats.resources.enhanced_pbp.enhanced_pbp_item import EnhancedPbpItem
 
 KEY_ATTR_MAPPER = {
     "GAME_ID": "game_id",

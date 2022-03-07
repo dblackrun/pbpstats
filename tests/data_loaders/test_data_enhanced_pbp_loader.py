@@ -1,15 +1,15 @@
 import json
 
-import responses
 import pytest
+import responses
 
 from pbpstats.data_loader.data_nba.enhanced_pbp.file import DataNbaEnhancedPbpFileLoader
 from pbpstats.data_loader.data_nba.enhanced_pbp.loader import DataNbaEnhancedPbpLoader
 from pbpstats.data_loader.data_nba.enhanced_pbp.web import DataNbaEnhancedPbpWebLoader
+from pbpstats.resources.enhanced_pbp import InvalidNumberOfStartersException
 from pbpstats.resources.enhanced_pbp.data_nba.enhanced_pbp_item import (
     DataEnhancedPbpItem,
 )
-from pbpstats.resources.enhanced_pbp import InvalidNumberOfStartersException
 
 
 class TestDataEnhancedPbpLoader:
@@ -155,13 +155,24 @@ class TestDataEnhancedPbpLoader:
         )
 
     @responses.activate
-    def test_web_loader_raises_missing_starter_exception(self):
+    def test_web_loader_not_raises_missing_starter_exception(self):
         with open(f"{self.data_directory}/pbp/data_{self.game_id}.json") as f:
             pbp_response = json.loads(f.read())
         pbp_url = f"https://data.nba.com/data/v2015/json/mobile_teams/nba/2016/scores/pbp/{self.game_id}_full_pbp.json"
         responses.add(responses.GET, pbp_url, json=pbp_response, status=200)
 
+        with open(
+            f"{self.data_directory}/game_details/stats_boxscore_range_{self.game_id}.json"
+        ) as f:
+            boxscore_range_response = json.loads(f.read())
+        boxscore_range_url = f"https://stats.nba.com/stats/boxscoretraditionalv2?GameId={self.game_id}&StartPeriod=0&EndPeriod=0&RangeType=2&StartRange=28800&EndRange=28940"
+        responses.add(
+            responses.GET, boxscore_range_url, json=boxscore_range_response, status=200
+        )
+
         data_directory = None
-        with pytest.raises(InvalidNumberOfStartersException):
+        try:
             source_loader = DataNbaEnhancedPbpWebLoader(data_directory)
             assert DataNbaEnhancedPbpLoader(self.game_id, source_loader)
+        except InvalidNumberOfStartersException:
+            raise pytest.fail("DID RAISE {0}".format(InvalidNumberOfStartersException))

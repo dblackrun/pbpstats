@@ -16,17 +16,19 @@ The following code will load pbp data for game id "0021900001" from a file locat
     pbp_loader = StatsNbaEnhancedPbpLoader("0021900001", source_loader)
     print(pbp_loader.items[0].data)  # prints dict with the first event of the game
 """
-import os
 import json
+import os
 
+from pbpstats.data_loader.data_nba.pbp.loader import DataNbaPbpLoader
+from pbpstats.data_loader.data_nba.pbp.web import DataNbaPbpWebLoader
+from pbpstats.data_loader.nba_enhanced_pbp_loader import NbaEnhancedPbpLoader
 from pbpstats.data_loader.stats_nba.pbp.loader import StatsNbaPbpLoader
 from pbpstats.data_loader.stats_nba.shots.loader import StatsNbaShotsLoader
-from pbpstats.data_loader.nba_enhanced_pbp_loader import NbaEnhancedPbpLoader
+from pbpstats.resources.enhanced_pbp import FieldGoal
+from pbpstats.resources.enhanced_pbp.rebound import EventOrderError
 from pbpstats.resources.enhanced_pbp.stats_nba.enhanced_pbp_factory import (
     StatsNbaEnhancedPbpFactory,
 )
-from pbpstats.resources.enhanced_pbp import FieldGoal
-from pbpstats.resources.enhanced_pbp.rebound import EventOrderError
 
 
 class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
@@ -53,6 +55,7 @@ class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
         super().__init__(game_id, source_loader)
 
     def _make_pbp_items(self):
+        self._fix_order_when_technical_foul_before_period_start()
         self.factory = StatsNbaEnhancedPbpFactory()
         self.items = [
             self.factory.get_event_class(item["EVENTMSGTYPE"])(item, i)
@@ -95,6 +98,75 @@ class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
                 ]
                 self._add_extra_attrs_to_all_events()
                 attempts += 1
+        # Common check didn't fix things. Use data nba event order
+        try:
+            for event in self.items:
+                if hasattr(event, "missed_shot"):
+                    event.missed_shot
+        except EventOrderError as e:
+            self._use_data_nba_event_order()
+            self.items = [
+                self.factory.get_event_class(item["EVENTMSGTYPE"])(item, i)
+                for i, item in enumerate(self.data)
+            ]
+            self._add_extra_attrs_to_all_events()
+
+    def _fix_order_when_technical_foul_before_period_start(self):
+        """
+        When someone gets a technical foul between periods the technical foul and free throw are
+        between the end of period event and the start of period event.
+        The causes an error when parsing possessions. Move events to after start of period event
+        """
+        headers = self.source_data["resultSets"][0]["headers"]
+        rows = self.source_data["resultSets"][0]["rowSet"]
+        event_msg_type_index = headers.index("EVENTMSGTYPE")
+        event_msg_type_action_index = headers.index("EVENTMSGACTIONTYPE")
+        period_index = headers.index("PERIOD")
+        period_events_without_period_start_event = {}
+        period_start_events = {}
+        start_period_event_msg_type = 12
+        technical_foul_event_msg_type = 6
+        technical_foul_event_msg_action_types = [11, 12, 13, 16, 18, 19, 25, 30]
+        new_order_of_events = []
+        reorder_events = False
+        period_start_events_found = []
+
+        # Check if there is a technical foul event before a period start event
+        for row in rows:
+            period = row[period_index]
+            if row[event_msg_type_index] == start_period_event_msg_type:
+                period_start_events_found.append(period)
+            if (
+                row[event_msg_type_index] == technical_foul_event_msg_type
+                and row[event_msg_type_action_index]
+                in technical_foul_event_msg_action_types
+            ):
+                if period not in period_start_events_found:
+                    reorder_events = True
+
+        # If there isn't, do nothing
+        if not reorder_events:
+            return
+
+        # If there is rearrange event order so that period start is always the first event appearing for the period
+        for row in rows:
+            period = row[period_index]
+            if row[event_msg_type_index] == start_period_event_msg_type:
+                period_start_events[period] = row
+            elif period not in period_events_without_period_start_event.keys():
+                period_events_without_period_start_event[period] = [row]
+            else:
+                period_events_without_period_start_event[period].append(row)
+
+        for period in range(1, 11):
+            if period in period_start_events.keys():
+                new_order_of_events.append(period_start_events[period])
+            if period in period_events_without_period_start_event.keys():
+                for event in period_events_without_period_start_event[period]:
+                    new_order_of_events.append(event)
+
+        self.source_data["resultSets"][0]["rowSet"] = new_order_of_events
+        self._save_data_to_file()
 
     def _fix_common_event_order_error(self, exception):
         """
@@ -195,6 +267,27 @@ class StatsNbaEnhancedPbpLoader(StatsNbaPbpLoader, NbaEnhancedPbpLoader):
                 issue_event_index - 1
             ] = first_rebound
 
+        self._save_data_to_file()
+
+    def _use_data_nba_event_order(self):
+        """
+        reorders all events to be the same order as data.nba.com pbp
+        """
+        # Order event numbers of events in data.nba.com pbp
+        data_nba_pbp = DataNbaPbpLoader(self.game_id, DataNbaPbpWebLoader())
+        data_nba_event_num_order = [item.evt for item in data_nba_pbp.items]
+
+        headers = self.source_data["resultSets"][0]["headers"]
+        rows = self.source_data["resultSets"][0]["rowSet"]
+        event_num_index = headers.index("EVENTNUM")
+
+        # reorder stats.nba.com events to be in same order as data.nba.com events
+        new_event_order = []
+        for event_num in data_nba_event_num_order:
+            for row in rows:
+                if row[event_num_index] == event_num:
+                    new_event_order.append(row)
+        self.source_data["resultSets"][0]["rowSet"] = new_event_order
         self._save_data_to_file()
 
     def _save_data_to_file(self):

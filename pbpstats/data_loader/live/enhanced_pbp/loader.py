@@ -16,10 +16,10 @@ The following code will load pbp data for game id "0021900001" from a file locat
 """
 from pbpstats.data_loader.live.pbp.loader import LivePbpLoader
 from pbpstats.data_loader.nba_enhanced_pbp_loader import NbaEnhancedPbpLoader
+from pbpstats.resources.enhanced_pbp import Rebound
 from pbpstats.resources.enhanced_pbp.live.enhanced_pbp_factory import (
     LiveEnhancedPbpFactory,
 )
-from pbpstats.resources.enhanced_pbp import Rebound
 
 
 class LiveEnhancedPbpLoader(LivePbpLoader, NbaEnhancedPbpLoader):
