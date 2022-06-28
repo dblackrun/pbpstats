@@ -101,12 +101,17 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
             event = event.next_event
         seconds_to_first_event = self.seconds_remaining - event.seconds_remaining
 
+        if self.league == WNBA_STRING:
+            seconds_in_period = 6000
+        else:
+            seconds_in_period = 7200
+
         if self.period == 1:
             start_range = 0
         elif self.period <= 4:
-            start_range = int(7200 * (self.period - 1))
+            start_range = int(seconds_in_period * (self.period - 1))
         else:
-            start_range = int(28800 + 3000 * (self.period - 5))
+            start_range = int(4 * seconds_in_period + 3000 * (self.period - 5))
         end_range = int(start_range + seconds_to_first_event * 10)
         params = {
             "GameId": self.game_id,
@@ -131,6 +136,11 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
         starters = sorted(
             players, key=lambda k: int(k["MIN"].split(":")[1]), reverse=True
         )
+
+        if len(starters) < 10:
+            raise InvalidNumberOfStartersException(
+                f"GameId: {self.game_id}, Period: {self.period}, Starters: {starters}"
+            )
 
         for starter in starters[0:10]:
             team_id = starter["TEAM_ID"]
@@ -282,11 +292,11 @@ class StartOfPeriod(metaclass=abc.ABCMeta):
                     self.game_id if self.league == NBA_STRING else int(self.game_id)
                 )
                 if (
-                    self.game_id in missing_period_starters.keys()
+                    game_id in missing_period_starters.keys()
                     and self.period in missing_period_starters[game_id].keys()
                     and team_id in missing_period_starters[game_id][self.period].keys()
                 ):
-                    starters_by_team[team_id] = missing_period_starters[self.game_id][
+                    starters_by_team[team_id] = missing_period_starters[game_id][
                         self.period
                     ][team_id]
                 else:
