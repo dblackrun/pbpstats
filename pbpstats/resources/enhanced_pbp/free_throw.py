@@ -158,6 +158,19 @@ class FreeThrow(metaclass=abc.ABCMeta):
         return False
 
     @property
+    def is_transition_take_foul_ft(self):
+        """
+        returns True if free throw is from an transition take foul, False otherwise.
+        """
+        if self.is_ft_1_of_1 or self.is_ft_1pt:
+            events_at_event_time = self.get_all_events_at_current_time()
+            for event in events_at_event_time:
+                if isinstance(event, Foul) and event.is_transition_take_foul:
+                    return True
+
+        return False
+
+    @property
     def foul_that_led_to_ft(self):
         """
         returns :obj:`~pbpstats.resources.enhanced_pbp.foul.Foul` object for the foul

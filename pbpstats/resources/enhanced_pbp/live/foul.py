@@ -118,3 +118,7 @@ class LiveFoul(Foul, LiveEnhancedPbpItem):
     @property
     def is_shooting_block_foul(self):
         return hasattr(self, "descriptor") and self.descriptor == "block"
+
+    @property
+    def is_transition_take_foul(self):
+        return hasattr(self, "descriptor") and self.descriptor == "transition"
