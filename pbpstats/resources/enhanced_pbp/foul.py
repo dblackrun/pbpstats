@@ -91,6 +91,10 @@ class Foul(object):
     def is_shooting_block_foul(self):
         pass
 
+    @abc.abstractproperty
+    def is_transition_take_foul(self):
+        pass
+
     @property
     def counts_towards_penalty(self):
         """
@@ -115,6 +119,8 @@ class Foul(object):
         if self.is_personal_take_foul:
             return True
         if self.is_shooting_block_foul:
+            return True
+        if self.is_transition_take_foul:
             return True
         return False
 
@@ -148,6 +154,8 @@ class Foul(object):
         if self.is_personal_take_foul:
             return True
         if self.is_shooting_block_foul:
+            return True
+        if self.is_transition_take_foul:
             return True
 
         return False
@@ -187,6 +195,8 @@ class Foul(object):
             return pbpstats.PERSONAL_TAKE_TYPE_STRING
         if self.is_shooting_block_foul:
             return pbpstats.SHOOTING_BLOCK_TYPE_STRING
+        if self.is_transition_take_foul:
+            return pbpstats.TRANSITION_TAKE_TYPE_STRING
 
     @property
     def event_stats(self):

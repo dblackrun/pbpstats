@@ -147,3 +147,7 @@ class StatsFoul(Foul, StatsEnhancedPbpItem):
     @property
     def is_shooting_block_foul(self):
         return self.event_action_type == 29
+
+    @property
+    def is_transition_take_foul(self):
+        return self.event_action_type == 31

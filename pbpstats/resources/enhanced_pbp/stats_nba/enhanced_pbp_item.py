@@ -246,6 +246,7 @@ class StatsEnhancedPbpItem(EnhancedPbpItem):
             if (
                 not self.is_away_from_play_ft
                 and not self.is_inbound_foul_ft
+                and not self.is_transition_take_foul_ft
                 and not next_event_is_foul_drawn_at_ft_time
             ):
                 return True
