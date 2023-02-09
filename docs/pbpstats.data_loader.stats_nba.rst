@@ -39,7 +39,7 @@ Game Finder
 -------------
 
 .. toctree::
-   pbpstats.data_loader.stats_nba.game_finder
+   pbpstats.data_loader.stats_nba.league_game_log
 
 
 Scoreboard
