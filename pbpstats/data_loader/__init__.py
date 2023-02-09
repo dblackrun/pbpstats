@@ -33,9 +33,15 @@ from pbpstats.data_loader.stats_nba.enhanced_pbp.file import (
 )
 from pbpstats.data_loader.stats_nba.enhanced_pbp.loader import StatsNbaEnhancedPbpLoader
 from pbpstats.data_loader.stats_nba.enhanced_pbp.web import StatsNbaEnhancedPbpWebLoader
-from pbpstats.data_loader.stats_nba.game_finder.file import StatsNbaGameFinderFileLoader
-from pbpstats.data_loader.stats_nba.game_finder.loader import StatsNbaGameFinderLoader
-from pbpstats.data_loader.stats_nba.game_finder.web import StatsNbaGameFinderWebLoader
+from pbpstats.data_loader.stats_nba.league_game_log.file import (
+    StatsNbaLeagueGameLogFileLoader,
+)
+from pbpstats.data_loader.stats_nba.league_game_log.loader import (
+    StatsNbaLeagueGameLogLoader,
+)
+from pbpstats.data_loader.stats_nba.league_game_log.web import (
+    StatsNbaLeagueGameLogWebLoader,
+)
 from pbpstats.data_loader.stats_nba.pbp.file import StatsNbaPbpFileLoader
 from pbpstats.data_loader.stats_nba.pbp.loader import StatsNbaPbpLoader
 from pbpstats.data_loader.stats_nba.pbp.web import StatsNbaPbpWebLoader
@@ -83,9 +89,9 @@ __all__ = [
     "StatsNbaEnhancedPbpFileLoader",
     "StatsNbaEnhancedPbpLoader",
     "StatsNbaEnhancedPbpWebLoader",
-    "StatsNbaGameFinderFileLoader",
-    "StatsNbaGameFinderLoader",
-    "StatsNbaGameFinderWebLoader",
+    "StatsNbaLeagueGameLogFileLoader",
+    "StatsNbaLeagueGameLogLoader",
+    "StatsNbaLeagueGameLogWebLoader",
     "StatsNbaPbpFileLoader",
     "StatsNbaPbpLoader",
     "StatsNbaPbpWebLoader",
