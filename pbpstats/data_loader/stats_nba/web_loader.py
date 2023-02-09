@@ -14,8 +14,15 @@ class StatsNbaWebLoader(StatsNbaLoaderBase):
     """
 
     def _load_request_data(self):
+        # If endpoint requires different headers they can be set in the web loader for the endpoint
+        # Otherwise use the default headers
+        if not hasattr(self, "headers"):
+            self.headers = HEADERS
         response = requests.get(
-            self.base_url, self.parameters, headers=HEADERS, timeout=REQUEST_TIMEOUT
+            self.base_url,
+            self.parameters,
+            headers=self.headers,
+            timeout=REQUEST_TIMEOUT,
         )
         if response.status_code == 200:
             self.source_data = response.json()

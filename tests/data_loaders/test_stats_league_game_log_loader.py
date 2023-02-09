@@ -3,13 +3,19 @@ import json
 import responses
 from furl import furl
 
-from pbpstats.data_loader.stats_nba.game_finder.file import StatsNbaGameFinderFileLoader
-from pbpstats.data_loader.stats_nba.game_finder.loader import StatsNbaGameFinderLoader
-from pbpstats.data_loader.stats_nba.game_finder.web import StatsNbaGameFinderWebLoader
+from pbpstats.data_loader.stats_nba.league_game_log.file import (
+    StatsNbaLeagueGameLogFileLoader,
+)
+from pbpstats.data_loader.stats_nba.league_game_log.loader import (
+    StatsNbaLeagueGameLogLoader,
+)
+from pbpstats.data_loader.stats_nba.league_game_log.web import (
+    StatsNbaLeagueGameLogWebLoader,
+)
 from pbpstats.resources.games.stats_nba_game_item import StatsNbaGameItem
 
 
-class TestStatsGameFinderLoader:
+class TestStatsLeagueGameLogLoader:
     league = "nba"
     season = "2018-19"
     season_type = "Regular Season"
@@ -24,8 +30,8 @@ class TestStatsGameFinderLoader:
     }
 
     def test_file_loader_loads_data(self):
-        source_loader = StatsNbaGameFinderFileLoader(self.data_directory)
-        scoreboard_loader = StatsNbaGameFinderLoader(
+        source_loader = StatsNbaLeagueGameLogFileLoader(self.data_directory)
+        scoreboard_loader = StatsNbaLeagueGameLogLoader(
             self.league, self.season, self.season_type, source_loader
         )
         assert len(scoreboard_loader.items) == 1230
@@ -35,24 +41,26 @@ class TestStatsGameFinderLoader:
     @responses.activate
     def test_web_loader_loads_data(self):
         with open(
-            f'{self.data_directory}/schedule/stats_{self.league}_{self.season.replace("-", "_")}_{self.season_type.replace(" ", "_")}.json'
+            f'{self.data_directory}/schedule/stats_leaguegamelog_{self.league}_{self.season.replace("-", "_")}_{self.season_type.replace(" ", "_")}.json'
         ) as f:
             scoreboard_response = json.loads(f.read())
-        base_url = f"https://stats.nba.com/stats/leaguegamefinder"
+        base_url = f"https://stats.nba.com/stats/leaguegamelog"
         query_params = {
-            "PlayerOrTeam": "T",
-            "gtPTS": 1,
+            "LeagueID": "00",
             "Season": self.season,
             "SeasonType": self.season_type,
-            "LeagueID": "00",
+            "PlayerOrTeam": "T",
+            "Counter": 1000,
+            "Sorter": "DATE",
+            "Direction": "DESC",
         }
         scoreboard_url = furl(base_url).add(query_params).url
         responses.add(
             responses.GET, scoreboard_url, json=scoreboard_response, status=200
         )
 
-        source_loader = StatsNbaGameFinderWebLoader(self.data_directory)
-        scoreboard_loader = StatsNbaGameFinderLoader(
+        source_loader = StatsNbaLeagueGameLogWebLoader(self.data_directory)
+        scoreboard_loader = StatsNbaLeagueGameLogLoader(
             self.league, self.season, self.season_type, source_loader
         )
         assert len(scoreboard_loader.items) == 1230
