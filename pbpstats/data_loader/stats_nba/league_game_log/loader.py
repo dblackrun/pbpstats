@@ -10,8 +10,8 @@ The following code will load data for the 2019-20 NBA Regular Season
     from pbpstats.data_loader import StatsNbaLeagueGameLogWebLoader, StatsNbaLeagueGameLogLoader
 
     source_loader = StatsNbaLeagueGameLogWebLoader("/data")
-    game_finder_loader = StatsNbaLeagueGameLogLoader("nba", "2019-20", "Regular Season", source_loader)
-    print(game_finder_loader.items[0].data) # prints dict for first game
+    league_game_log_loader = StatsNbaLeagueGameLogLoader("nba", "2019-20", "Regular Season", source_loader)
+    print(league_game_log_loader.items[0].data) # prints dict for first game
 """
 from pbpstats.data_loader.stats_nba.base import StatsNbaLoaderBase
 from pbpstats.resources.games.stats_nba_game_item import StatsNbaGameItem
@@ -26,7 +26,7 @@ class StatsNbaLeagueGameLogLoader(StatsNbaLoaderBase):
     :param str league: Options are 'nba', 'wnba' or 'gleague'
     :param str season: Formatted as 2019-20 for NBA and G-League, 2019 of WNBA.
     :param str season_type: Options are 'Regular Season' or 'Playoffs' or 'Play In'
-    :param source_loader: :obj:`~pbpstats.data_loader.stats_nba.game_finder.file.StatsNbaLeagueGameLogFileLoader` or :obj:`~pbpstats.data_loader.stats_nba.game_finder.web.StatsNbaLeagueGameLogWebLoader` object
+    :param source_loader: :obj:`~pbpstats.data_loader.stats_nba.league_game_log.file.StatsNbaLeagueGameLogFileLoader` or :obj:`~pbpstats.data_loader.stats_nba.league_game_log.web.StatsNbaLeagueGameLogWebLoader` object
     """
 
     data_provider = "stats_nba"

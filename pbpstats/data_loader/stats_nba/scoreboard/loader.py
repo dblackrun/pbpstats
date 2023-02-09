@@ -10,8 +10,8 @@ The following code will load data for 02/03/2020
     from pbpstats.data_loader import StatsNbaScoreboardFileLoader, StatsNbaScoreboardLoader
 
     source_loader = StatsNbaScoreboardFileLoader("/data")
-    game_finder_loader = StatsNbaScoreboardLoader("02/03/2020", "nba", source_loader)
-    print(game_finder_loader.items[0].data) # prints dict for first game
+    scoreboard_loader = StatsNbaScoreboardLoader("02/03/2020", "nba", source_loader)
+    print(scoreboard_loader.items[0].data) # prints dict for first game
 """
 from pbpstats.data_loader.stats_nba.file_loader import StatsNbaFileLoader
 from pbpstats.data_loader.stats_nba.web_loader import StatsNbaWebLoader
