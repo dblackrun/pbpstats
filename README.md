@@ -12,7 +12,7 @@ A package to scrape and parse NBA, WNBA and G-League play-by-play data.
 * Fixes order of events for some common cases in which events are out of order
 
 # Installation
-requires Python >=3.7
+Tested on Python >=3.8
 ```
 pip install pbpstats
 ```
