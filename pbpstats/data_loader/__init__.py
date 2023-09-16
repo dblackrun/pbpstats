@@ -25,6 +25,9 @@ from pbpstats.data_loader.live.pbp.web import LivePbpWebLoader
 from pbpstats.data_loader.live.possessions.file import LivePossessionFileLoader
 from pbpstats.data_loader.live.possessions.loader import LivePossessionLoader
 from pbpstats.data_loader.live.possessions.web import LivePossessionWebLoader
+from pbpstats.data_loader.live.schedule.file import LiveScheduleFileLoader
+from pbpstats.data_loader.live.schedule.loader import LiveScheduleLoader
+from pbpstats.data_loader.live.schedule.web import LiveScheduleWebLoader
 from pbpstats.data_loader.stats_nba.boxscore.file import StatsNbaBoxscoreFileLoader
 from pbpstats.data_loader.stats_nba.boxscore.loader import StatsNbaBoxscoreLoader
 from pbpstats.data_loader.stats_nba.boxscore.web import StatsNbaBoxscoreWebLoader
@@ -83,6 +86,9 @@ __all__ = [
     "LivePossessionFileLoader",
     "LivePossessionLoader",
     "LivePossessionWebLoader",
+    "LiveScheduleFileLoader",
+    "LiveScheduleLoader",
+    "LiveScheduleWebLoader",
     "StatsNbaBoxscoreFileLoader",
     "StatsNbaBoxscoreLoader",
     "StatsNbaBoxscoreWebLoader",
